@@ -1,0 +1,27 @@
+[openssl]
+pkgname="$pkgprefix""ossl""$abbrev_ver"
+name="OpenSSL - Secure Socket Layer"
+pkgcat="application"
+pkgvendor="http://www.openssl.org"
+pkgdesc="Toolkit implementing SSL v2/v3 and TLS v1"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+$_libdir/pkgconfig
+$_mandir
+ssl
+dir ${_libdir}
+
+[openssl-lib]
+pkgname="$pkgprefix""ossl""$abbrev_ver""lib"
+name="OpenSSL - Secure Socket Layer"
+pkgcat="library"
+pkgvendor="http://www.openssl.org"
+pkgdesc="Toolkit implementing SSL v2/v3 and TLS v1"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/*.so.*
+dir $_libdir
