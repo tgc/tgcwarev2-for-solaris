@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=bzip2
 version=1.0.2
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=bzip2-braindead-solaris-linker.patch
@@ -40,6 +40,7 @@ reg build
 build()
 {
     setdir source
+    export LD_RUN_PATH=$prefix/lib
     $MAKE_PROG -f Makefile-libbz2_so CFLAGS="-O2 -pipe -mcpu=ultrasparc -mtune=ultrasparc -D_FILE_OFFSET_BITS=64 -fpic -fPIC" all
     $MAKE_PROG -f Makefile CFLAGS="-O2 -pipe -mcpu=ultrasparc -mtune=ultrasparc -D_FILE_OFFSET_BITS=64" all
 }
