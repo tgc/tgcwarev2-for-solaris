@@ -29,7 +29,7 @@ META_CLEAN="$META_CLEAN depend"
 # define helpervars to do that
 
 # Define abbreviated version number (for pkgdef)
-abbrev_ver=$(echo $version|sed -e 's/\.//g') #331
+abbrev_ver=$(echo $version|sed -e 's/\.//g')
 
 # gcc base dir (for pkgdef)
 gccdir=gcc-$version
@@ -91,7 +91,6 @@ pack()
 reg distclean
 distclean()
 {
-    clean meta
     clean distclean
     $RM -rf $objdir
 }
