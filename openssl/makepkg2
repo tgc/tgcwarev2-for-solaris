@@ -43,6 +43,6 @@ $PKGMK -r $DESTBASE/usr/local -d $PKGBASE -o -f $PROTOTYPE
 
 echo "Translating package into data-stream format"
 # Transfer the package to data-stream format
-$PKGTRANS -o -s $PKGBASE $PKGBASE/$PKGOUT $PKGNAME
+$PKGTRANS -o -s $PKGBASE $PKGBASE/dist/$PKGOUT $PKGNAME
 
 echo "Done. Package is in $PKGBASE/$PKGOUT"
