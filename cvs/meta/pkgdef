@@ -1,0 +1,9 @@
+[cvs]
+pkgname="$pkgprefix""$topdir"
+name="CVS - Version control system"
+pkgcat="application"
+pkgvendor="http://www.cvshome.org"
+pkgdesc="Lets you record the history of source files and documents"
+pkgver="$pkgver"
+files(-,root,bin)
+*
