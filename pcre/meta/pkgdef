@@ -1,0 +1,10 @@
+[pcre]
+pkgname="$pkgprefix""$topdir"
+name="PCRE - Perl Compatible Regular Expressions"
+pkgcat="library"
+pkgvendor="http://www.pcre.org"
+pkgdesc="A set of functions that implement regular expression pattern matching using the same syntax and semantics as Perl 5"
+pkgver="$pkgver"
+files(-,root,bin)
+*
+
