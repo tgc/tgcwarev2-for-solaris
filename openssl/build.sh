@@ -9,12 +9,14 @@
 # Check the following 4 variables before running the script
 topdir=openssl
 version=0.9.7c
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=openssl-0.9.7c-shlib.patch
 patch[1]=openssl-0.9.7c-Configure.patch
 patch[2]=openssl-0.9.7c-doc.patch
+patch[3]=openssl-0.9.7c-can-2004-0079.patch
+patch[4]=openssl-0.9.7c-can-2004-0112.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
