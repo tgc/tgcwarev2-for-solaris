@@ -73,10 +73,10 @@ ${REMOVEF} -f ${PKGINST}
 mv /usr/local/etc/sshd.init /etc/init.d/sshd.local
 
 # Install new *symlinks*
-ln -s /etc/init.d/sshd.local /etc/rc0.d/K30sshd.local
-ln -s /etc/init.d/sshd.local /etc/rc1.d/K30sshd.local
-ln -s /etc/init.d/sshd.local /etc/rc2.d/S78sshd.local
-ln -s /etc/init.d/sshd.local /etc/rcS.d/K30sshd.local
+ln -sf /etc/init.d/sshd.local /etc/rc0.d/K30sshd.local
+ln -sf /etc/init.d/sshd.local /etc/rc1.d/K30sshd.local
+ln -sf /etc/init.d/sshd.local /etc/rc2.d/S78sshd.local
+ln -sf /etc/init.d/sshd.local /etc/rcS.d/K30sshd.local
 
 # Then installf the new pathnames
 ${INSTALLF} ${PKGINST} /etc/init.d/sshd.local f 744 root sys
