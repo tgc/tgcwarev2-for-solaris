@@ -1,0 +1,15 @@
+--- tar-1.13.19/src/incremen.c.sux	Thu May 17 14:16:47 2001
++++ tar-1.13.19/src/incremen.c	Thu May 17 14:17:00 2001
+@@ -182,8 +182,11 @@
+     struct directory *directory; /* for checking if already already seen */
+     enum children children;
+ 
++    if (! dirp) {
+-    if (! dirp)
+       savedir_error (path);
++      errno = 1;
++      return NULL;
++    }
+     errno = 0;
+ 
+     name_buffer_size = strlen (path) + NAME_FIELD_SIZE;

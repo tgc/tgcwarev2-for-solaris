@@ -1,0 +1,36 @@
+--- tar-1.13.25/src/create.c.sock	Tue Oct 23 15:00:52 2001
++++ tar-1.13.25/src/create.c	Tue Oct 23 15:02:33 2001
+@@ -1128,6 +1128,16 @@
+     }
+   else if (is_avoided_name (p))
+     return;
++  else if (S_ISSOCK (current_stat.st_mode))
++    {
++      WARN ((0, 0, _("%s: socket ignored"), quotearg_colon (p)));
++      return;
++    }
++  else if (S_ISDOOR (current_stat.st_mode))
++    {
++      WARN ((0, 0, _("%s: door ignored"), quotearg_colon (p)));
++      return;
++    }
+   else
+     {
+       /* Check for multiple links.
+@@ -1507,16 +1517,6 @@
+ 	type = BLKTYPE;
+       else if (S_ISFIFO (current_stat.st_mode))
+ 	type = FIFOTYPE;
+-      else if (S_ISSOCK (current_stat.st_mode))
+-	{
+-	  WARN ((0, 0, _("%s: socket ignored"), quotearg_colon (p)));
+-	  return;
+-	}
+-      else if (S_ISDOOR (current_stat.st_mode))
+-	{
+-	  WARN ((0, 0, _("%s: door ignored"), quotearg_colon (p)));
+-	  return;
+-	}
+       else
+ 	goto unknown;
+     }

@@ -1,0 +1,23 @@
+--- tar-1.13.19/src/extract.c~	Sat Jan 13 00:59:29 2001
++++ tar-1.13.19/src/extract.c	Mon Aug 20 08:50:49 2001
+@@ -932,10 +932,19 @@
+       {
+ 	struct stat st1, st2;
+ 	int e;
++	size_t skiplinkcrud;
++
++	if (absolute_names_option)
++	  skiplinkcrud = 0;
++	else {
++	  skiplinkcrud = FILESYSTEM_PREFIX_LEN (current_link_name);
++	  while (ISSLASH (current_link_name[skiplinkcrud]))
++	    skiplinkcrud++;
++	}
+ 
+ 	/* MSDOS does not implement links.  However, djgpp's link() actually
+ 	   copies the file.  */
+-	status = link (current_link_name, CURRENT_FILE_NAME);
++	status = link (current_link_name + skiplinkcrud, CURRENT_FILE_NAME);
+ 
+ 	if (status == 0)
+ 	  break;
