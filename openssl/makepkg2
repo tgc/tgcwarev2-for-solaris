@@ -2,12 +2,12 @@
 # Create a SSH package from a pre-built sourcedir
 # - Filelist was updated for 3.1p1 release
 #
-PKGVER=0.9.6g
+PKGVER=0.9.7
 PKGMK=/usr/bin/pkgmk
 PKGTRANS=/usr/bin/pkgtrans
 STRIP=/usr/ccs/bin/strip
-DESTBASE=/export/home/tgc/buildpkg/openssl/pkg-staging
-BUILDBASE=/export/home/tgc/buildpkg/openssl/openssl-$PKGVER
+DESTBASE=/export/home/tgc/buildpkg/openssl/build
+BUILDBASE=/export/home/tgc/buildpkg/openssl/src/openssl-$PKGVER
 PKGBASE=/export/home/tgc/buildpkg/openssl
 PROTOTYPE=/export/home/tgc/buildpkg/openssl/meta/prototype
 PKGOUT=openssl-$PKGVER-sol8-sparcv9-localssl
