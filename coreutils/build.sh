@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=coreutils    
 version=5.0
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,7 +19,7 @@ source[0]=$topdir-$version.tar.bz2
 
 # Fill in pkginfo values if necessary
 # using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="Gnu Coreutils"
+name="GNU Coreutils"
 pkgvendor="http://www.gnu.org"
 pkgdesc="Collection of basic file, shell and text manipulation utilities"
 
@@ -45,6 +45,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    $RM -f $stagedir$prefix/info/dir
 }
 
 reg pack
