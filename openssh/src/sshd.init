@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# Script to control ssh server start/stop
+# History:
+#   Please see CVS for history information
+
+pidfile=/var/run/sshd.pid
+desc="sshd"
+
+mode=$1
+
+set `/usr/xpg4/bin/id -u`
+if [ $1 = "0" ]; then
+
+case $mode in
+
+'start' ) if [ -r $pidfile ]; then
+	    echo "A pidfile was found, trying to stop $desc first"
+	    $0 stop
+	  fi
+	  echo "Starting $desc" 
+	  /usr/local/sbin/sshd
+  	  ;;
+'stop' ) if [ -r $pidfile ]; then
+	    echo "Stopping $desc"
+	    kill `cat $pidfile`
+	 else
+	    echo "$desc already stopped (no pid file found)"
+	 fi
+	 ;;
+'restart') $0 stop
+	   $0 start
+	   ;;
+*) echo "Usage: $0 {start|stop|restart}"
+esac 
+
+else
+  echo "$0: this script must be run as root... fatal error"
+
+fi

@@ -1,0 +1,169 @@
+INSTALLF=/usr/sbin/installf
+REMOVEF=/usr/sbin/removef
+GROUPADD=/usr/sbin/groupadd
+USERADD=/usr/sbin/useradd
+GREP=/usr/bin/grep
+CUT=/usr/bin/cut
+CAT=/usr/bin/cat
+
+CONFDIR=${BASEDIR}/etc
+DESTBIN=${BASEDIR}/bin
+CHECKCONF=0
+SSHID=199
+
+# We provide default config-files, check and see if they should be installed.
+if [ ! -f "${CONFDIR}/ssh_config" ] ; then
+	cp -p ${CONFDIR}/ssh_config.default ${CONFDIR}/ssh_config
+	echo "Installing new ssh_config"
+else
+	echo "Keeping existing ssh_config"
+	CHECKCONF=1
+fi
+if [ ! -f "${CONFDIR}/sshd_config" ] ; then
+	cp -p ${CONFDIR}/sshd_config.default ${CONFDIR}/sshd_config
+	echo "Installing new sshd_config"
+else
+	echo "Keeping existing sshd_config"
+	CHECKCONF=1
+fi
+if [ -f "${CONFDIR}/ssh_prng_cmds" ] ; then
+	rm -f ${CONFDIR}/ssh_prng_cmds.default ${CONFDIR}/ssh_prng_cmds
+	echo "Removing unneeded ssh_prng_cmds file"
+
+fi
+if [ ! -f "${CONFDIR}/moduli" ] ; then
+	if [ -f "${CONFDIR}/primes" ]; then
+		echo "Keeping existing primes but renaming it to moduli"
+		mv ${CONFDIR}/primes ${CONFDIR}/moduli
+	else
+		echo "Installing new moduli (formerly known as primes)"
+		cp -p ${CONFDIR}/moduli.default ${CONFDIR}/moduli
+	fi
+else
+	echo "Keeping existing moduli"
+fi
+
+# We will try to preserve any existing keys
+if [ -f "${CONFDIR}/ssh_host_key" ] ; then
+	echo "Keeping existing ssh_host_key"
+else
+	${DESTBIN}/ssh-keygen -t rsa1 -f ${CONFDIR}/ssh_host_key -N ""
+fi
+if [ -f "${CONFDIR}/ssh_host_dsa_key" ] ; then
+	echo "Keeping existing ssh_host_dsa_key"
+else
+	${DESTBIN}/ssh-keygen -t dsa -f ${CONFDIR}/ssh_host_dsa_key -N ""
+fi
+if [ -f "${CONFDIR}/ssh_host_rsa_key" ] ; then
+	echo "Keeping existing ssh_host_rsa_key"
+else
+	${DESTBIN}/ssh-keygen -t rsa -f ${CONFDIR}/ssh_host_rsa_key -N ""
+fi
+
+# Right, now move the init script into place and make some symlinks 
+# for automatic startup.
+
+# start by removing knowledge of sshd.init from the pkgdb
+${REMOVEF} ${PKGINST} /usr/local/etc/sshd.init 2>&1 > /dev/null # suppress output
+
+# confirm the changes to the pkgdb (removef -f)
+${REMOVEF} -f ${PKGINST}
+
+# Now that the holds from the pkgdb are gone, move the script to it's final destination.
+mv /usr/local/etc/sshd.init /etc/init.d/sshd.local
+
+# Install new *symlinks*
+ln -s /etc/init.d/sshd.local /etc/rc0.d/K30sshd.local
+ln -s /etc/init.d/sshd.local /etc/rc1.d/K30sshd.local
+ln -s /etc/init.d/sshd.local /etc/rc2.d/S78sshd.local
+ln -s /etc/init.d/sshd.local /etc/rcS.d/K30sshd.local
+
+# Then installf the new pathnames
+${INSTALLF} ${PKGINST} /etc/init.d/sshd.local f 744 root sys
+${INSTALLF} ${PKGINST} /etc/rc2.d/S78sshd.local=/etc/init.d/sshd.local s
+${INSTALLF} ${PKGINST} /etc/rc1.d/K30sshd.local=/etc/init.d/sshd.local s
+${INSTALLF} ${PKGINST} /etc/rc0.d/K30sshd.local=/etc/init.d/sshd.local s
+${INSTALLF} ${PKGINST} /etc/rcS.d/K30sshd.local=/etc/init.d/sshd.local s
+
+# confirm the changes to the pkgdb (installf -f)
+${INSTALLF} -f ${PKGINST}
+
+#uh yeah, better make sure that /var/run exists aswell (for pid files)
+echo "Checking to see if /var/run exists... \c"
+if [ ! -d /var/run ]; then
+   echo "no, creating..."
+   mkdir -p /var/run;
+   chown root:sys /var/run;
+   chmod 755 /var/run
+else
+    echo "yes"
+fi
+
+# New in OpenSSH 3.3+ is Privilege seperation, it requires an empty dir to chroot into
+# and an unprivileged user to run as.
+echo "Checking to see if /var/empty/sshd exists... \c"
+if [ ! -d /var/empty ]; then
+    echo "no, creating..."
+    mkdir -p /var/empty/sshd
+    chown root:sys /var/empty/sshd
+    chmod 755 /var/empty/sshd
+else
+    echo "yes"
+fi
+
+# Attempt to create a group & user for sshd
+echo "Checking for sshd group... \c"
+temp=`$GREP sshd /etc/group`
+if [ -n "$temp" ]; then
+    echo "yes"
+    gid=`echo $temp|$CUT -d : -f 3`
+    if [ "$gid" != "$SSHID" ]; then
+	echo "  Group sshd found but gid does not match with the preferred ($SSHID)"
+	echo "  I will continue anyway, but please check up on this afterwards!"
+    fi
+else
+    echo "no"
+    echo "  Attempting to create sshd group (gid=$SSHID)"
+    $GROUPADD -g $SSHID sshd
+    gid=$SSHID
+fi
+
+echo "Checking for sshd user... \c"
+temp=`$GREP sshd /etc/passwd`
+if [ -n "$temp" ]; then
+    echo "yes"
+    uid=`echo $temp|$CUT -d : -f 3`
+    ugid=`echo $temp|$CUT -d : -f 4`
+    if [ "$uid" != "$SSHID" ]; then
+	echo "  User sshd found but uid doesn't match with the preferred ($SSHID)"
+	echo "  I will continue anyway, but please check up on this afterwards!"
+    fi
+    if [ "$ugid" != "$gid" ]; then
+	echo "  User sshd doesn't have group sshd!"
+	echo "  I will continue anyway, but this is a critical error that must be resolved"
+	echo "  before privilege seperation can be enabled!"
+    fi
+else
+    echo "no"
+    echo "  Attempting to create sshd user (uid=$SSHID, gid=$SSHID)"
+    $USERADD -u $SSHID -g $SSHID -c "sshd privsep" -d /var/empty/sshd -s /bin/false sshd
+fi
+
+# FIXME Other stuff about the user/group situation should probably be checked
+# FIXME like the homedir and shell of the sshd user
+
+# Notice how the ssh host keys are not associated with the SBossh package.
+# I find that convenient as I'm sure that they don't disappear if someone
+# uninstalls the package.
+# This is nice because we can then avoid the "hostid changed" warnings.  
+# The config files will not be associated with the package either, this way when 
+# installing a newer version the config files will be in place and will be preserved
+
+# If original config-files where preserved, urge the operator
+# to check the new default files for hints on recommended configuration
+if [ "$CHECKCONF" = "1" ] ; then
+	echo "#######"
+	echo ""
+	echo "Please check the *.default config files for configuration hints"
+	echo "and update your existing config files accordingly."
+fi

@@ -1,0 +1,9 @@
+# Inform the operator that ssh configfiles and keys are intact
+echo ""
+echo "!!ATTENTION!!"
+echo "SSH configfiles and keys are still available in ${BASEDIR}/etc/"
+echo "Please make sure that you remove these if you won't be using them again."
+echo ""
+echo "No attempt has been made to remove user and group sshd"
+echo "These should be manually removed if they are no longer used."
+echo ""
