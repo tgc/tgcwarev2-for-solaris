@@ -1,0 +1,9 @@
+[wget]
+pkgname="$pkgprefix""$topdir"
+name="Wget - Retrieves files from the Web"
+pkgcat="application"
+pkgvendor="http://www.gnu.org"
+pkgdesc="Wget is a network utility to retrieve files from the Web using http and ftp"
+pkgver="$pkgver"
+files(-,root,bin)
+*
