@@ -1,0 +1,9 @@
+[openssh]
+pkgname="$pkgprefix""ossh"
+name="OpenSSH portable for Solaris"
+pkgcat="application"
+pkgvendor="http://www.openssh.org"
+pkgdesc="Secure Shell remote access utility"
+pkgver="$pkgver"
+files(-,root,bin)
+*
