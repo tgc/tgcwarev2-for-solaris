@@ -100,8 +100,8 @@ pack()
     $MKDIR -p $libstdc_stage$prefix/lib/sparcv9
     $CP $stagedir$gcc_dir/lib/libstdc++.so* $libstdc_stage$prefix/lib
     $CP $stagedir$gcc_dir/lib/sparcv9/libstdc++.so* $libstdc_stage$prefix/lib/sparcv9
-    rm -f $libstdc_stage$prefix/lib/libstdc++.so.5
-    rm -f $libstdc_stage$prefix/lib/sparcv9/libstdc++.so.5
+    #rm -f $libstdc_stage$prefix/lib/libstdc++.so.5
+    #rm -f $libstdc_stage$prefix/lib/sparcv9/libstdc++.so.5
     rm -f $libstdc_stage$prefix/lib/libstdc++.so
     rm -f $libstdc_stage$prefix/lib/sparcv9/libstdc++.so
     
