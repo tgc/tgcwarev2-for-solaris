@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=gcc
 version=3.3.2
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 ## If there are no patches, simply comment this
 #patch[0]=
@@ -35,20 +35,20 @@ META_CLEAN="$META_CLEAN depend"
 # define helpervars to do that
 libgcc_stage=$BUILDPKG_BASE/$topdir/stage.libgcc
 gcc_dir=$prefix/gcc-$version
-libgcc_pkgname="$pkgprefix""libgcc""$abbrev_ver"
+libgcc_pkgname="$pkgprefix""libgccso1"
 libgcc_name="libgcc - GCC runtime support"
 libgcc_pkgcat="library"
 libgcc_pkgvendor="http://gcc.gnu.org"
 libgcc_pkgdesc="Runtime support for programs built with gcc 3.x"
-libgcc_pkgver="1"
+libgcc_pkgver="2"
 
 libstdc_stage=$BUILDPKG_BASE/$topdir/stage.libstdc
-libstdc_pkgname="$pkgprefix""libstdc""$abbrev_ver"
+libstdc_pkgname="$pkgprefix""libstdcso5"
 libstdc_name="libstdc++ - GCC runtime support"
 libstdc_pkgcat="library"
 libstdc_pkgvendor="http://gcc.gnu.org"
 libstdc_pkgdesc="Runtime support for c++ programs built with gcc $version"
-libstdc_pkgver="1"
+libstdc_pkgver="2"
 
 MV=/usr/bin/mv
 CP=/usr/bin/cp
@@ -72,7 +72,7 @@ build()
 {
     $MKDIR "$objdir"
     setdir "$objdir"
-    $srcdir/$topsrcdir/configure --prefix=/usr/local/gcc-$version --disable-nls --with-as=/usr/ccs/bin/as --with-ld=/usr/ccs/bin/ld --with-system-zlib --enable-languages=c,c++
+    $srcdir/$topsrcdir/configure --prefix=/usr/local/gcc-$version --disable-nls --with-as=/usr/ccs/bin/as --with-ld=/usr/ccs/bin/ld --with-system-zlib --enable-languages=c,c++ --with-cpu=ultrasparc
     $MAKE_PROG
 }
 
