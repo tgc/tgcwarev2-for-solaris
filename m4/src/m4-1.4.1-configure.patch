@@ -1,0 +1,11 @@
+--- m4-1.4.1/configure.in.fix	Sun Jan 20 04:20:24 2002
++++ m4-1.4.1/configure.in	Sun Jan 20 04:20:33 2002
+@@ -2,8 +2,6 @@
+ # Copyright (C) 1991, 1993, 1994 Free Software Foundation, Inc.
+ # Process this file with autoconf to produce a configure script.
+ 
+-undefine([changeword])
+-
+ AC_INIT(src/m4.c)
+ AC_CONFIG_HEADER(config.h)
+ AC_ARG_PROGRAM
