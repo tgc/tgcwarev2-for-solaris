@@ -8,11 +8,11 @@
 #
 # Check the following 4 variables before running the script
 topdir=openssl
-version=0.9.7c
+version=0.9.6k
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=openssl-0.9.7c-soversion.patch
+patch[0]=openssl-0.9.6k-soversion.patch
 patch[1]=openssl-0.9.6k-Configure.patch
 
 # Source function library
@@ -43,8 +43,8 @@ pkgdesc_lib="Toolkit implementing SSL v2/v3 and TLS v1"
 # 0.9.7b is sover 5 (never built at SB)
 # 0.9.7c is sover 6
 
-baseversion=0.9.7
-sover=6
+baseversion=0.9.6
+sover=2
 liblist="libssl libcrypto"
 
 lib_stage=$BUILDPKG_BASE/$topdir/stage.lib
@@ -109,11 +109,11 @@ install()
 	cd ..
     done
     # A few stupid manpages left that pkgproto can't deal with
-    setdir $stagedir$prefix/man/man3
-    mv "EVP_MD_CTX_copy_ex EVP_MD_CTX_copy.3ssl" "EVP_MD_CTX_copy_ex_EVP_MD_CTX_copy.3ssl"
-    mv "UI_construct_prompt UI_add_user_data.3ssl" "UI_construct_prompt_UI_add_user_data.3ssl"
-    setdir $stagedir$prefix/man/man7
-    mv "Modes of DES.7ssl" "Modes_of_DES.7ssl"
+    #setdir $stagedir$prefix/man/man3
+    #mv "EVP_MD_CTX_copy_ex EVP_MD_CTX_copy.3ssl" "EVP_MD_CTX_copy_ex_EVP_MD_CTX_copy.3ssl"
+    #mv "UI_construct_prompt UI_add_user_data.3ssl" "UI_construct_prompt_UI_add_user_data.3ssl"
+    #setdir $stagedir$prefix/man/man7
+    #mv "Modes of DES.7ssl" "Modes_of_DES.7ssl"
 }
 
 reg pack
