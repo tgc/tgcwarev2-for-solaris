@@ -1,0 +1,34 @@
+[gcc]
+pkgname="$pkgprefix""gcc""$abbrev_ver"
+name="GCC - GNU Compiler Collection"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="GNU Compiler Collection (C, C++)"
+pkgver="$pkgver"
+files(-,root,bin)
+$gccdir
+
+[libgcc]
+pkgname="$pkgprefix""libgccso1"
+name="libgcc - GCC runtime support"
+pkgcat="library"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Runtime support for programs built with gcc 3.x"
+pkgver="$pkgver"
+files(-,root,bin)
+dir $_libdir
+dir $_libdir/sparcv9
+$_libdir/libgcc_s*
+$_libdir/sparcv9/libgcc_s*
+
+[libstdc++]
+pkgname="$pkgprefix""libstdcso5"
+name="libstdc++ - GCC runtime support"
+pkgcat="library"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Runtime support for c++ programs"
+pkgver="$pkgver"
+files(-,root,bin)
+dir $_libdir
+dir $_libdir/sparcv9
+$_libdir/libstdc++*
+$_libdir/sparcv9/libstdc++*
