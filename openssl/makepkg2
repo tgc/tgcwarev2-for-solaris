@@ -1,0 +1,48 @@
+#!/bin/bash
+# Create a SSH package from a pre-built sourcedir
+# - Filelist was updated for 3.1p1 release
+#
+PKGVER=0.9.6g
+PKGMK=/usr/bin/pkgmk
+PKGTRANS=/usr/bin/pkgtrans
+STRIP=/usr/ccs/bin/strip
+DESTBASE=/export/home/tgc/buildpkg/openssl/pkg-staging
+BUILDBASE=/export/home/tgc/buildpkg/openssl/openssl-$PKGVER
+PKGBASE=/export/home/tgc/buildpkg/openssl
+PROTOTYPE=/export/home/tgc/buildpkg/openssl/meta/prototype
+PKGOUT=openssl-$PKGVER-sol8-sparcv9-localssl
+PKGNAME=SBossl
+
+sed -e "s#%%pkg%%#$PKGNAME#g" \
+    -e "s#%%version%%#$PKGVER#g" $PKGBASE/meta/pkginfo.in > $PKGBASE/meta/pkginfo
+
+echo "Assembling files for $PKGNAME package"
+# Clean out any old files
+rm -rf $DESTBASE
+
+# Goto $BUILDBASE and do a make INSTALL_PREFIX=$DESTBASE install
+cd $BUILDBASE
+make INSTALL_PREFIX=$DESTBASE install
+cd ..
+
+# strip binaries
+cd $DESTBASE
+find . -type f -perm +x |xargs $STRIP
+
+echo "Building package"
+# Create a package-instance ready for installation or transfer to a data-stream
+
+# Create prototype file...
+cd $DESTBASE/usr/local
+find . -print|pkgproto > $PKGBASE/meta/prototype.in
+cat $PKGBASE/meta/prototype.in | awk 'BEGIN { print "i pkginfo=../meta/pkginfo"; } \
+	{ $5="root"; $6="bin"; print; }' > $PKGBASE/meta/prototype
+
+cd $DESTBASE/usr/local
+$PKGMK -r $DESTBASE/usr/local -d $PKGBASE -o -f $PROTOTYPE
+
+echo "Translating package into data-stream format"
+# Transfer the package to data-stream format
+$PKGTRANS -o -s $PKGBASE $PKGBASE/$PKGOUT $PKGNAME
+
+echo "Done. Package is in $PKGBASE/$PKGOUT"

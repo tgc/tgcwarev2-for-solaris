@@ -1,0 +1,10 @@
+PKG="SBossl"
+NAME="OpenSSL - Secure Socket Layer"
+ARCH="sparc"
+VERSION="0.9.6g"
+CATEGORY="library"
+VENDOR="www.openssl.org"
+EMAIL="tgc@statsbiblioteket.dk"
+PSTAMP="Tom G. Christensen"
+BASEDIR=/usr/local
+CLASSES="none"
