@@ -8,7 +8,7 @@
 #
 # Check the following 4 variables before running the script
 topdir=cvs
-version=1.11.6
+version=1.11.11
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -52,6 +52,7 @@ install()
     do
 	    cp $file $stagedir/doc/$topdir-$version
     done
+    $RM -f $stagedir/info/dir
 }
 
 reg pack
