@@ -1,0 +1,10 @@
+PKG="SBcvs"
+NAME="CVS - Concurrent Versioning System"
+ARCH="sparc"
+VERSION="1.11.5"
+CATEGORY="library"
+VENDOR="www.cvshome.org"
+EMAIL="tgc@statsbiblioteket.dk"
+PSTAMP="Tom G. Christensen"
+BASEDIR=/usr/local
+CLASSES="none"
