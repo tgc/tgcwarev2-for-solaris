@@ -1,0 +1,21 @@
+--- openssl-0.9.6k/Makefile.org.orig	2003-10-15 14:32:32.535403000 +0200
++++ openssl-0.9.6k/Makefile.org	2003-10-15 15:06:34.108563000 +0200
+@@ -10,6 +10,7 @@
+ SHLIB_MAJOR=
+ SHLIB_MINOR=
+ SHLIB_EXT=
++SHLIB_SOVER=2
+ PLATFORM=dist
+ OPTIONS=
+ CONFIGURE_ARGS=
+@@ -351,8 +352,9 @@
+ 		libs='-L. ${SHLIBDEPS}'; for i in ${SHLIBDIRS}; do \
+ 		( PATH=/usr/ccs/bin:$$PATH ; export PATH; \
+ 		  set -x; ${CC} ${SHARED_LDFLAGS} \
++		  	-R${INSTALLTOP}/lib \
+ 			-G -o lib$$i.so.${SHLIB_MAJOR}.${SHLIB_MINOR} \
+-			-h lib$$i.so.${SHLIB_MAJOR}.${SHLIB_MINOR} \
++			-h lib$$i.so.${SHLIB_SOVER} \
+ 			-z allextract lib$$i.a $$libs ${EX_LIBS} -lc ) || exit 1; \
+ 		libs="$$libs -l$$i"; \
+ 		done; \
