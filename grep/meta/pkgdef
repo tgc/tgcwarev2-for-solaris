@@ -1,0 +1,11 @@
+[grep]
+pkgname="$pkgprefix""$topdir"
+name="GNU grep"
+pkgcat="application"
+pkgvendor="http://www.gnu.org"
+pkgdesc="Find lines that match entered patterns"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir
+$_infodir
+$_mandir

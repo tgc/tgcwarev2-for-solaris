@@ -9,20 +9,13 @@
 # Check the following 4 variables before running the script
 topdir=grep
 version=2.5
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=grep-2.5-symlink-destdir.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="GNU grep"
-pkgcat="application"
-pkgvendor="http://www.gnu.org"
-pkgdesc="Find lines that match entered patterns"
 
 # Define script functions and register them
 METHODS=""
@@ -46,6 +39,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    $RM -f $stagedir$prefix/$_infodir/dir
 }
 
 reg pack
