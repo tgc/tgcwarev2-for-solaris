@@ -8,7 +8,7 @@
 #
 # Check the following 4 variables before running the script
 topdir=cvs
-version=1.11.11
+version=1.11.16
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -16,12 +16,6 @@ source[0]=$topdir-$version.tar.bz2
 
 # Source function library
 . ${HOME}/buildpkg/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="CVS - Version control system" 
-pkgvendor="http://www.cvshome.org"
-pkgdesc="Lets you record the history of source files and documents."
 
 # Define script functions and register them
 METHODS=""
@@ -45,20 +39,17 @@ build()
 reg install
 install()
 {
+    shortroot=1
     generic_install prefix
-    setdir source
-    mkdir -p $stagedir/doc/$topdir-$version
-    for file in "FAQ README NEWS doc/*.ps"
-    do
-	    cp $file $stagedir/doc/$topdir-$version
-    done
+    doc FAQ README NEWS doc/*.ps
     $RM -f $stagedir/info/dir
 }
 
 reg pack
 pack()
 {
-    generic_pack shortroot
+    shortroot=1
+    generic_pack
 }
 
 reg distclean
