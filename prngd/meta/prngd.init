@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# Script to control prngd start/stop
+# History:
+# 01/05-2001 - Tom G. Christensen / tgc
+
+PID=`ps -ef|grep egd-pool|grep -v grep|awk '{ print $2 }'`
+DESC="PRNGD"
+
+mode=$1
+
+set `/usr/xpg4/bin/id -u`
+if [ $1 = "0" ]; then
+
+case $mode in
+
+'start' ) if [ -z "$PID" ]; then
+            echo "Starting $DESC"
+	    /usr/local/sbin/prngd /var/run/egd-pool
+	  else
+	    echo "A running $DESC was found, please stop this first"
+          fi
+          ;;
+'stop' ) if [ -n "$PID" ]; then
+            echo "Stopping $DESC"
+            kill -TERM $PID
+         else
+            echo "$DESC already stopped"
+         fi
+         ;;
+'restart') $0 stop
+           $0 start
+           ;;
+*) echo "Usage: $0 {start|stop|restart}"
+esac 
+
+else
+  echo "$0: this script must be run as root... fatal error"
+
+fi
+

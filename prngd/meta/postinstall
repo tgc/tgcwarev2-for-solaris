@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# We need to get our init script moved into place, and registered with the pkgdb
+#
+INSTALLF=/usr/sbin/installf
+REMOVEF=/usr/sbin/removef
+
+# First remove any trace of the script in the wrong place
+$REMOVEF $PKGINST /usr/local/etc/prngd.init 2>&1 > /dev/null # Suppress output
+# Confirm removal
+$REMOVEF -f $PKGINST
+
+# Move freed script into place and make appropriate symlinks
+mv /usr/local/etc/prngd.init /etc/init.d/prngd
+ln -s /etc/init.d/prngd /etc/rc0.d/K41prngd
+ln -s /etc/init.d/prngd /etc/rc1.d/K41prngd
+ln -s /etc/init.d/prngd /etc/rc2.d/S41prngd # we only run prngd in runlevel 2 (same as sshd)
+ln -s /etc/init.d/prngd /etc/rcS.d/K41prngd
+
+# register names with package db
+$INSTALLF $PKGINST /etc/init.d/prngd f 744 root sys
+$INSTALLF $PKGINST /etc/rc0.d/K41prngd=/etc/init.d/prngd s
+$INSTALLF $PKGINST /etc/rc1.d/K41prngd=/etc/init.d/prngd s
+$INSTALLF $PKGINST /etc/rc2.d/S41prngd=/etc/init.d/prngd s
+$INSTALLF $PKGINST /etc/rcS.d/K41prngd=/etc/init.d/prngd s
+
+#finalize changes
+$INSTALLF -f $PKGINST
+
+#uh yeah, better make sure that /var/run exists aswell (for egd-pool socket)
+if [ ! -d /var/run ]; then
+   mkdir -p /var/run;
+   chown root:sys /var/run;
+   chmod 755 /var/run
+fi
