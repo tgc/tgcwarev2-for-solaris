@@ -8,7 +8,7 @@
 #
 # Check the following 4 variables before running the script
 topdir=openssh
-version=3.7.1p2
+version=3.8.1p1
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -39,8 +39,12 @@ prep()
 reg build
 build()
 {
+    # Use prngd socket (For Solaris 2.6,7 & 8 without patch 112438)
+    #ENTROPY="--with-prngd-socket=/var/run/egd-pool"
+    # Use /dev/random (For Solaris 9 & 8 with patch 112438)
+    ENTROPY="--without-prngd --without-rand-helper"
     setdir source
-    ./configure --prefix=$prefix --with-prngd-socket=/var/run/egd-pool --with-default-path=/usr/bin:/usr/local/bin:/opt/sfw/bin --with-mantype=cat --with-pam --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-superuser-path=/usr/bin:/usr/sbin:/usr/local/bin
+    ./configure --prefix=$prefix $ENTROPY --with-default-path=/usr/bin:/usr/local/bin --with-mantype=cat --with-pam --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-superuser-path=/usr/bin:/usr/sbin:/usr/local/bin --with-lastlog=/var/adm/lastlog --without-zlib-version-check
     $MAKE_PROG
 }
 
@@ -51,19 +55,15 @@ install()
     setdir source
     $MAKE_PROG DESTDIR=$stagedir install-nokeys
     strip
-}
+    setdir $stagedir$prefix/etc
+    for i in *; do mv $i $i.default; done
+    cp -p $srcdir/sshd.init $stagedir/usr/local/etc
+ }
 
 reg pack
 pack()
 {
-    clean meta
-    pack_info
-    setdir $stagedir$prefix/etc
-    for i in *; do mv $i $i.default; done
-    cp -p $srcdir/sshd.init $stagedir/usr/local/etc
-    setdir $stagedir$prefix
-    prototype root bin script
-    make_pkg
+    generic_pack
 }
 
 reg distclean
