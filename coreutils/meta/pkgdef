@@ -1,0 +1,9 @@
+[coreutils]
+pkgname="$pkgprefix""$topdir"
+name="GNU Coreutils"
+pkgcat="application"
+pkgvendor="http://www.gnu.org"
+pkgdesc="Collection of basic file, shell and text manipulation utilities"
+pkgver="$pkgver"
+files(-,root,bin)
+*
