@@ -1,0 +1,58 @@
+#!/bin/bash
+# Create a SSH package from a pre-built sourcedir
+#
+PKGVER=7.10.5
+PKGMK=/usr/bin/pkgmk
+PKGTRANS=/usr/bin/pkgtrans
+STRIP=/usr/ccs/bin/strip
+DESTBASE=/export/home/tgc/buildpkg/curl/build
+BUILDBASE=/export/home/tgc/buildpkg/curl/src/curl-$PKGVER
+PKGBASE=/export/home/tgc/buildpkg/curl
+PROTOTYPE=/export/home/tgc/buildpkg/curl/meta/prototype
+PKGOUT=curl-$PKGVER-sol8-sparcv9-local
+PKGNAME=SBcurl
+
+sed -e "s#%%pkg%%#$PKGNAME#g" \
+    -e "s#%%version%%#$PKGVER#g" $PKGBASE/meta/pkginfo.in > $PKGBASE/meta/pkginfo
+
+echo "Assembling files for curl package"
+# Clean out any old files
+rm -rf $DESTBASE
+
+# Build src
+cd $PKGBASE/src
+bzip2 -dc curl-$PKGVER.tar.bz2| gtar -xf -
+cd curl-$PKGVER
+./configure --prefix=/usr/local --with-ssl --enable-shared=no
+make
+
+# Goto $BUILDBASE and do a make DESTDIR=$DESTBASE install
+cd $BUILDBASE
+make DESTDIR=$DESTBASE install
+
+# strip binaries
+cd $DESTBASE
+find . -type f -perm +x |xargs $STRIP
+
+# Remove libtool lint
+cd $DESTBASE
+find . -type f -name '*.la'|xargs rm -f
+
+echo "Building package"
+# Create a package-instance ready for installation or transfer to a data-stream
+
+# Create prototype file...
+cd $DESTBASE/usr/local
+find . -print|pkgproto > $PKGBASE/meta/prototype.in
+cat $PKGBASE/meta/prototype.in | awk 'BEGIN { print "i pkginfo=../meta/pkginfo"; \
+	} \
+	{ $5="root"; $6="bin"; print; }' > $PKGBASE/meta/prototype
+
+cd $DESTBASE/usr/local
+$PKGMK -r $DESTBASE/usr/local -d $PKGBASE -o -f $PROTOTYPE
+
+echo "Translating package into data-stream format"
+# Transfer the package to data-stream format
+$PKGTRANS -o -s $PKGBASE $PKGBASE/dist/$PKGOUT $PKGNAME
+
+echo "Done. Package is in $PKGBASE/dist/$PKGOUT"

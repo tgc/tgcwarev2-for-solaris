@@ -1,0 +1,11 @@
+PKG="%%pkg%%"
+NAME="curl"
+ARCH="sparc"
+VERSION="%%version%%"
+CATEGORY="application"
+VENDOR="http://curl.sourceforge.net"
+EMAIL="Tom G. Christenen - tgc@statsbiblioteket.dk"
+PSTAMP="Tom G. Christensen"
+BASEDIR=/usr/local
+CLASSES="none"
+DESC="A client that groks the URLs"
