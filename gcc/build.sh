@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=gcc
 version=3.3.1
-pkgver=2bu
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 ## If there are no patches, simply comment this
 #patch[0]=
@@ -40,7 +40,7 @@ libgcc_name="libgcc - GCC runtime support"
 libgcc_pkgcat="library"
 libgcc_pkgvendor="http://gcc.gnu.org"
 libgcc_pkgdesc="Runtime support for programs built with gcc 3.x"
-libgcc_pkgver="2bu"
+libgcc_pkgver="3"
 
 libstdc_stage=$BUILDPKG_BASE/$topdir/stage.libstdc
 libstdc_pkgname="$pkgprefix""libstdc""$abbrev_ver"
@@ -48,7 +48,7 @@ libstdc_name="libstdc++ - GCC runtime support"
 libstdc_pkgcat="library"
 libstdc_pkgvendor="http://gcc.gnu.org"
 libstdc_pkgdesc="Runtime support for c++ programs built with gcc $version"
-libstdc_pkgver="2bu"
+libstdc_pkgver="3"
 
 MV=/usr/bin/mv
 CP=/usr/bin/cp
@@ -72,7 +72,7 @@ build()
 {
     $MKDIR "$objdir"
     setdir "$objdir"
-    $srcdir/$topsrcdir/configure --prefix=/usr/local/gcc-$version --disable-nls --with-as=/usr/local/bin/as --with-ld=/usr/local/bin/ld --with-system-zlib --enable-languages=c,c++
+    $srcdir/$topsrcdir/configure --prefix=/usr/local/gcc-$version --disable-nls --with-as=/usr/ccs/bin/as --with-ld=/usr/ccs/bin/ld --with-system-zlib --enable-languages=c,c++
     $MAKE_PROG
 }
 
