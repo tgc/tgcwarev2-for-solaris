@@ -4,34 +4,41 @@
 # History:
 #   Please see CVS for history information
 
+SSHD=/usr/local/sbin/sshd
+
 pidfile=/var/run/sshd.pid
-desc="sshd"
+
+kill_sshd()
+{
+        if [ -r $pidfile ]; then
+            sshd_pid=`cat $pidfile`
+            ps -p $sshd_pid | grep sshd > /dev/null
+            if [ $? -eq 0 ]; then
+                /usr/bin/kill -15 -$sshd_pid
+            fi
+        fi
+}
 
 mode=$1
-
 set `/usr/xpg4/bin/id -u`
 if [ $1 = "0" ]; then
 
 case $mode in
-
-'start' ) if [ -r $pidfile ]; then
-	    echo "A pidfile was found, trying to stop $desc first"
-	    $0 stop
-	  fi
-	  echo "Starting $desc" 
-	  /usr/local/sbin/sshd
-  	  ;;
-'stop' ) if [ -r $pidfile ]; then
-	    echo "Stopping $desc"
-	    kill `cat $pidfile`
-	 else
-	    echo "$desc already stopped (no pid file found)"
-	 fi
-	 ;;
-'restart') $0 stop
-	   $0 start
-	   ;;
-*) echo "Usage: $0 {start|stop|restart}"
+    start)
+	kill_sshd
+	echo "Starting sshd" 
+	$SSHD
+	;;
+    stop) 
+	kill_sshd
+	exit 0
+	;;
+    restart)
+	$0 start
+	;;
+    *)
+	echo "Usage: $0 {start|stop|restart}"
+	;;
 esac 
 
 else
