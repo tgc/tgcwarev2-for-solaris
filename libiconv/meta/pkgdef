@@ -1,0 +1,9 @@
+[libiconv]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgcat="application"
+pkgvendor="http://directory.fsf.org/libiconv.html"
+pkgdesc="Converts between character encodings"
+pkgver="$pkgver"
+files(-,root,bin)
+*
