@@ -9,13 +9,18 @@
 # Check the following 4 variables before running the script
 topdir=wget
 version=1.9.1
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${HOME}/buildpkg/scripts/buildpkg.functions
+
+# Global options
+export LDFLAGS="-L/usr/local/lib -R/usr/local/lib"
+export CPPFLAGS="-I/usr/local/include"
+configure_args="--prefix=$prefix --disable-nls --enable-static=no --with-ssl"
 
 # Define script functions and register them
 METHODS=""
@@ -32,10 +37,7 @@ prep()
 reg build
 build()
 {
-    export LDFLAGS="-L/usr/local/lib -R/usr/local/lib"
-    setdir source
-    ./configure --prefix=$prefix --disable-nls --enable-static=no --with-ssl
-    $MAKE_PROG
+    generic_build
 }
 
 reg install
