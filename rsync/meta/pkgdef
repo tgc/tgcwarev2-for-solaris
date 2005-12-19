@@ -1,0 +1,10 @@
+[rsync]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgcat="application"
+pkgvendor="http://samba.anu.edu.au/rsync/"
+pkgdesc="Utility that provides fast incremental file transfer"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir
+$_mandir
