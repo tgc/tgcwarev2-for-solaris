@@ -8,11 +8,11 @@
 #
 # Check the following 4 variables before running the script
 topdir=openssl
-version=0.9.7d
-pkgver=4
+version=0.9.7k
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=openssl-0.9.7c-shlib.patch
+patch[0]=openssl-0.9.7k-shlib.patch
 patch[1]=openssl-0.9.7c-Configure.patch
 
 # Source function library
@@ -20,7 +20,7 @@ patch[1]=openssl-0.9.7c-Configure.patch
 
 # shared library binary compatibility is not guaranteed
 # Play it safe and up the soversion with each release
-sover=4 # d = 4
+sover=11 # k = 11
 abbrev_ver=$(echo $version|$SED -e 's/\.//g')
 baseversion=$(echo $version|$SED -e 's/[a-zA-Z]//g')
 
@@ -34,6 +34,8 @@ reg prep
 prep()
 {
     generic_prep
+    sed -e '/^SHELL/s/sh/ksh/' Makefile.org > Makefile.org.ksh
+    mv Makefile.org.ksh Makefile.org
 }
 
 reg build
@@ -65,7 +67,7 @@ install()
     $MAKE_PROG CC="gcc -static-libgcc" INSTALL_PREFIX=$stagedir LIBSSL="-Wl,-R,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-R,$prefix/lib -L.. -lcrypto" install
     setdir $stagedir$prefix/lib
     chmod a+x pkgconfig
-    rmdir $stagedir$prefix/ssl/lib
+    #rmdir $stagedir$prefix/ssl/lib
     $MV $stagedir$prefix/ssl/man $stagedir$prefix
     setdir $stagedir$prefix/man
     for j in $(ls -1d man?)
@@ -85,9 +87,10 @@ install()
     done
     # A few stupid manpages left that pkgproto can't deal with
     setdir $stagedir$prefix/man/man7
-    mv "Modes of DES.7ssl" "Modes_of_DES.7ssl"
+    #mv "Modes of DES.7ssl" "Modes_of_DES.7ssl"
     # Make .sos writable
     chmod 755 ${stagedir}${prefix}/${_libdir}/*.so.*
+    rm -f ${stagedir}${prefix}/${_libdir}/fips_premain.c*
     custom_install=1
     generic_install
 }

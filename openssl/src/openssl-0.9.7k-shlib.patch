@@ -1,0 +1,10 @@
+--- openssl-0.9.7k/Makefile.org.shlib	2006-09-08 10:57:26.078030000 +0200
++++ openssl-0.9.7k/Makefile.org	2006-09-08 10:58:33.888821000 +0200
+@@ -432,6 +432,7 @@
+ 		  MINUSZ='-z '; \
+ 		  (${CC} -v 2>&1 | grep gcc) > /dev/null && MINUSZ='-Wl,-z,'; \
+ 		  set -x; $${FIPSLD:-${CC}} ${SHARED_LDFLAGS} \
++		  	-Wl,-R,@LIBDIR@ \
+ 			-o lib$$i.so.${SHLIB_MAJOR}.${SHLIB_MINOR} \
+ 			-h lib$$i.so.${SHLIB_MAJOR}.${SHLIB_MINOR} \
+ 			-Wl,-Bsymbolic \
