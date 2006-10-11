@@ -3,12 +3,13 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=0.9.7k
+version=0.9.7l
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -20,15 +21,9 @@ patch[1]=openssl-0.9.7c-Configure.patch
 
 # shared library binary compatibility is not guaranteed
 # Play it safe and up the soversion with each release
-sover=11 # k = 11
+sover=12 # l = 12
 abbrev_ver=$(echo $version|$SED -e 's/\.//g')
 baseversion=$(echo $version|$SED -e 's/[a-zA-Z]//g')
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
 
 reg prep
 prep()
@@ -86,10 +81,12 @@ install()
 	cd ..
     done
     # A few stupid manpages left that pkgproto can't deal with
-    setdir $stagedir$prefix/man/man7
+    #setdir $stagedir$prefix/man/man7
     #mv "Modes of DES.7ssl" "Modes_of_DES.7ssl"
     # Make .sos writable
     chmod 755 ${stagedir}${prefix}/${_libdir}/*.so.*
+    # Nuke static libraries - they just take up space
+    rm -f ${stagedir}${prefix}/${_libdir}/*.a
     rm -f ${stagedir}${prefix}/${_libdir}/fips_premain.c*
     custom_install=1
     generic_install
@@ -116,42 +113,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*
