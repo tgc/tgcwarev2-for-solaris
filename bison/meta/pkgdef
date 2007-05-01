@@ -1,0 +1,13 @@
+[bison]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgcat="application"
+pkgvendor="http://www.gnu.org"
+pkgdesc="General purpose parser generator"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir
+$_libdir
+$_infodir
+$_sharedir
+$_mandir
