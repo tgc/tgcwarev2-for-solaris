@@ -1,0 +1,9 @@
+[git]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgcat="application"
+pkgvendor="http://git.or.cz"
+pkgdesc="A distributed scm"
+pkgver="$pkgver"
+files(-,root,bin)
+*
