@@ -14,7 +14,7 @@ kill_sshd()
             sshd_pid=`cat $pidfile`
             ps -p $sshd_pid | grep sshd > /dev/null
             if [ $? -eq 0 ]; then
-                /usr/bin/kill -15 -$sshd_pid
+                /usr/bin/kill -15 $sshd_pid
             fi
         fi
 }
