@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=4.3p2
+version=4.7p1
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -20,7 +20,7 @@ source[0]=$topdir-$version.tar.gz
 
 # Global settings
 export LDFLAGS="-R/usr/local/lib -L/usr/local/lib"
-export CPPFLAGS="-I/usr/local/include/openssl"
+export CPPFLAGS="-I/usr/local/include"
 # Use prngd socket (For Solaris 2.6,7 & 8 without patch 112438)
 #export ENTROPY="--with-prngd-socket=/var/run/egd-pool"
 # Use /dev/random (For Solaris 9 & 8 with patch 112438)
