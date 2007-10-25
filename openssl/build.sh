@@ -9,19 +9,15 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=0.9.7l
+version=0.9.8g
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=openssl-0.9.7k-shlib.patch
-patch[1]=openssl-0.9.7c-Configure.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# shared library binary compatibility is not guaranteed
-# Play it safe and up the soversion with each release
-sover=12 # l = 12
 abbrev_ver=$(echo $version|$SED -e 's/\.//g')
 baseversion=$(echo $version|$SED -e 's/[a-zA-Z]//g')
 
@@ -29,6 +25,7 @@ reg prep
 prep()
 {
     generic_prep
+    setdir source
     sed -e '/^SHELL/s/sh/ksh/' Makefile.org > Makefile.org.ksh
     mv Makefile.org.ksh Makefile.org
 }
@@ -42,14 +39,6 @@ build()
 
     ./config --prefix=$prefix --openssldir=$prefix/ssl shared
 
-    major=$(grep ^SHLIB_MAJOR Makefile)
-    minor=$(grep ^SHLIB_MINOR Makefile)
-    $SED -e "s;${major};SHLIB_MAJOR=${baseversion};g" \
-	-e "s;${minor};SHLIB_MINOR=${sover};g" Makefile > Makefile.new
-    $MV Makefile.new Makefile
-    $SED -e "s;${major};SHLIB_MAJOR=${baseversion};g" \
-	-e "s;${minor};SHLIB_MINOR=${sover};g" Makefile.ssl > Makefile.new
-    $MV Makefile.new Makefile.ssl
     $MAKE_PROG CC="gcc -static-libgcc" LIBSSL="-Wl,-R,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-R,$prefix/lib -L.. -lcrypto" all build-shared
     $MAKE_PROG CC="gcc -static-libgcc" LIBSSL="-Wl,-R,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-R,$prefix/lib -L.. -lcrypto" all link-shared do_solaris-shared
 }
@@ -85,9 +74,9 @@ install()
     #mv "Modes of DES.7ssl" "Modes_of_DES.7ssl"
     # Make .sos writable
     chmod 755 ${stagedir}${prefix}/${_libdir}/*.so.*
+    chmod 755 ${stagedir}${prefix}/${_libdir}/engines/*.so.*
     # Nuke static libraries - they just take up space
     rm -f ${stagedir}${prefix}/${_libdir}/*.a
-    rm -f ${stagedir}${prefix}/${_libdir}/fips_premain.c*
     custom_install=1
     generic_install
 }
