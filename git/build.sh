@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=git
 version=1.5.3.4
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 source[1]=$topdir-manpages-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -40,7 +40,7 @@ prep()
 #    mv Makefile.1 Makefile
     sed -e '/Define NO_TCLTK/ s/.*/NO_TCLTK=Yes/' Makefile > Makefile.1
     mv Makefile.1 Makefile
-    sed -e '/^LDFLAGS/ s;.*;LDFLAGS = -L/usr/sbware/lib -R/usr/sbware/lib;' Makefile > Makefile.1
+    sed -e '/^LDFLAGS/ s;.*;LDFLAGS = -L/usr/sbware/lib -R/usr/sbware/lib -L/usr/local/lib -R/usr/local/lib;' Makefile > Makefile.1
     mv Makefile.1 Makefile
     sed -e "/^prefix =/ s;.*;prefix = $prefix;" Makefile > Makefile.1
     mv Makefile.1 Makefile
