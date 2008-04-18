@@ -1,0 +1,9 @@
+[make]
+pkgname="${pkgprefix}${topdir}"
+name="make - GNU make"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/make/make.html"
+shortdesc="Generates executables and other non-source programs"
+pkgver="$pkgver"
+files(-,root,bin)
+*
