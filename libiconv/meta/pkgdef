@@ -1,7 +1,7 @@
 [libiconv]
-pkgname="$pkgprefix""$topdir"
-name="$topdir"
-pkgcat="application"
+pkgname="${pkgprefix}liconv"
+name="libiconv - GNU iconv"
+pkgcat="system"
 pkgvendor="http://directory.fsf.org/libiconv.html"
 pkgdesc="Converts between character encodings"
 pkgver="$pkgver"

@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libiconv
-version=1.9.2
+version=1.12
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -19,10 +19,8 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export LDFLAGS="-L/usr/sbware/lib -R/usr/sbware/lib"
-prefix=/usr/sbware
-topinstalldir=$prefix
-configure_args="--prefix=$prefix --mandir=$prefix/${_mandir} --enable-extra-encodings"
+export LDFLAGS="-L$prefix/lib -R$prefix/lib"
+configure_args="$configure_args --enable-extra-encodings"
 
 reg prep
 prep()
@@ -40,8 +38,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc NOTES ChangeLog DESIGN NEWS
-    ${RM} -f ${stagedir}${prefix}/${_libdir}/charset.alias
+    doc NOTES ChangeLog DESIGN NEWS COPYING COPYING.LIB AUTHORS README
+    ${__rm} -f ${stagedir}${prefix}/${_libdir}/charset.alias
 
 }
 
