@@ -38,7 +38,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc NOTES ChangeLog DESIGN NEWS COPYING COPYING.LIB AUTHORS README
+    doc NOTES ChangeLog DESIGN NEWS COPYING AUTHORS README
+    docs_for libiconv2 COPYING.LIB ChangeLog AUTHORS NEWS
     ${__rm} -f ${stagedir}${prefix}/${_libdir}/charset.alias
 
 }

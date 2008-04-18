@@ -1,9 +1,40 @@
 [libiconv]
-pkgname="${pkgprefix}liconv"
-name="libiconv - GNU iconv"
+pkgname="${pkgprefix}licnv"
+name="libiconv - GNU libiconv"
 pkgcat="system"
 pkgvendor="http://directory.fsf.org/libiconv.html"
 pkgdesc="Converts between character encodings"
 pkgver="$pkgver"
 files(-,root,bin)
-*
+default_docs
+$_bindir
+$_libdir/libcharset.so.*
+$_libdir/preloadable_libiconv.so
+$_mandir/man1
+$_sharedir/doc/libiconv/*.1.html
+
+[libiconv-devel]
+pkgname="${pkgprefix}licnvd"
+name="libiconv-devel - GNU libiconv development support"
+pkgcat="system"
+pkgvendor="http://directory.fsf.org/libiconv.html"
+pkgdesc="Files needed for developing with GNU libiconv"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir
+$_libdir/libiconv.so
+$_libdir/libcharset.so
+$_libdir/*.a
+$_mandir/man3
+$_sharedir/doc/libiconv/*.3.html
+
+[libiconv2]
+pkgname="${pkgprefix}licnv2"
+name="libiconv.so.2 - GNU libiconv shared support library"
+pkgcat="system"
+pkgvendor="http://directory.fsf.org/libiconv.html"
+pkgdesc="Runtime support library for applications using GNU libiconv"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/libiconv.so.2*
