@@ -8,6 +8,7 @@ pkgver="$pkgver"
 files(-,root,bin)
 default_docs
 $_bindir
+$_libdir/libiconv.so.2*
 $_libdir/libcharset.so.*
 $_libdir/preloadable_libiconv.so
 $_mandir/man1
@@ -27,14 +28,3 @@ $_libdir/libcharset.so
 $_libdir/*.a
 $_mandir/man3
 $_sharedir/doc/libiconv/*.3.html
-
-[libiconv2]
-pkgname="${pkgprefix}licnv2"
-name="libiconv.so.2 - GNU libiconv shared support library"
-pkgcat="system"
-pkgvendor="http://directory.fsf.org/libiconv.html"
-pkgdesc="Runtime support library for applications using GNU libiconv"
-pkgver="$pkgver"
-files(-,root,bin)
-default_docs
-$_libdir/libiconv.so.2*
