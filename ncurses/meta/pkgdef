@@ -1,0 +1,41 @@
+[ncurses]
+pkgname="${pkgprefix}ncurs"
+name="ncurses - New Curses terminal handling library"
+pkgcat="application"
+pkgvendor="http://dickey.his.com/ncurses/ncurses.html"
+shortdesc="Displays and updates text on text-only terminals"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir/captoinfo
+$_bindir/clear
+$_bindir/infocmp
+$_bindir/infotocap
+$_bindir/reset
+$_bindir/tack
+$_bindir/tic
+$_bindir/toe
+$_bindir/tput
+$_bindir/tset
+$_sharedir/tabset
+$_sharedir/terminfo
+$_libdir/*.so.*
+$_libdir/terminfo
+$_mandir/man1
+$_mandir/man5
+$_mandir/man7
+
+[ncurses-devel]
+pkgname="${pkgprefix}ncursd"
+name="ncurses - Ncurses development support"
+pkgcat="system"
+pkgvendor="http://dickey.his.com/ncurses/ncurses.html"
+shortdesc="Files needed for developing with ncurses"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/ncurses5-config
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+$_mandir/man3
+
