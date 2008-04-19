@@ -1,16 +1,0 @@
---- tar-1.13.25/src/misc.c.orig	Mon Aug 27 00:14:26 2001
-+++ tar-1.13.25/src/misc.c	Mon May 27 11:29:31 2002
-@@ -214,6 +214,13 @@
- 	    return 0;
- 	}
-       while (! ISSLASH (*p));
-+
-+      do
-+	{
-+	  if (! *p++)
-+	    return 0;
-+	}
-+      while ( ISSLASH (*p));
-     }
- }
- 

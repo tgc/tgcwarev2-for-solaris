@@ -1,0 +1,9 @@
+[tar]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - GNU tar"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/tar/"
+shortdesc="Creates tar archives"
+pkgver="$pkgver"
+files(-,root,bin)
+*
