@@ -1,7 +1,7 @@
 [ncurses]
 pkgname="${pkgprefix}ncurs"
 name="ncurses - New Curses terminal handling library"
-pkgcat="application"
+pkgcat="system"
 pkgvendor="http://dickey.his.com/ncurses/ncurses.html"
 shortdesc="Displays and updates text on text-only terminals"
 pkgver="$pkgver"
@@ -27,7 +27,7 @@ $_mandir/man7
 
 [ncurses-devel]
 pkgname="${pkgprefix}ncursd"
-name="ncurses - Ncurses development support"
+name="ncurses-devel - New Curses development support"
 pkgcat="system"
 pkgvendor="http://dickey.his.com/ncurses/ncurses.html"
 shortdesc="Files needed for developing with ncurses"
