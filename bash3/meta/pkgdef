@@ -1,0 +1,9 @@
+[bash]
+pkgname="${pkgprefix}bash"
+name="$topdir - GNU Bourne Again SHell"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/bash/bash.html"
+pkgdesc="An sh-compatible shell"
+pkgver="$pkgver"
+files(-,root,bin)
+*
