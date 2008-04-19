@@ -1,0 +1,9 @@
+[patch]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - GNU patch"
+pkgcat="application"
+pkgvendor="http://www.fsf.org/software/patch/patch.html"
+shortdesc="Applies a patch to a file"
+pkgver="$pkgver"
+files(-,root,bin)
+*

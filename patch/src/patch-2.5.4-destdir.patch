@@ -1,0 +1,38 @@
+*** patch-2.5.4/Makefile.in.destdir	Sat Apr 19 20:52:21 2008
+--- patch-2.5.4/Makefile.in	Sat Apr 19 20:54:44 2008
+***************
+*** 41,46 ****
+--- 41,48 ----
+  U = @U@
+  VERSION = @VERSION@
+  
++ DESTDIR =
++ 
+  prefix = @prefix@
+  exec_prefix = @exec_prefix@
+  
+***************
+*** 97,107 ****
+  	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBS)
+  
+  install:: all installdirs
+! 	$(INSTALL_PROGRAM) patch$(EXEEXT) $(bindir)/$(patch_name)$(EXEEXT)
+! 	-$(INSTALL_DATA) $(srcdir)/patch.man $(man1dir)/$(patch_name)$(man1ext)
+  
+  installdirs::
+! 	$(SHELL) $(srcdir)/mkinstalldirs $(bindir) $(man1dir)
+  
+  install-strip::
+  	$(MAKE) INSTALL_PROGRAM='$(INSTALL_PROGRAM) -s' install
+--- 99,109 ----
+  	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBS)
+  
+  install:: all installdirs
+! 	$(INSTALL_PROGRAM) patch$(EXEEXT) $(DESTDIR)$(bindir)/$(patch_name)$(EXEEXT)
+! 	-$(INSTALL_DATA) $(srcdir)/patch.man $(DESTDIR)$(man1dir)/$(patch_name)$(man1ext)
+  
+  installdirs::
+! 	$(SHELL) $(srcdir)/mkinstalldirs $(DESTDIR)$(bindir) $(DESTDIR)$(man1dir)
+  
+  install-strip::
+  	$(MAKE) INSTALL_PROGRAM='$(INSTALL_PROGRAM) -s' install
