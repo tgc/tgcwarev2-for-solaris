@@ -8,7 +8,3 @@ TIC=/usr/5bin/tic
 
 # install terminfo
 ${TIC} ${SHAREDIR}/screeninfo.src
-
-# Make screen suid root
-chown root:bin ${BASEDIR}/bin/screen-4.0.2
-chmod 4755 ${BASEDIR}/bin/screen-4.0.2

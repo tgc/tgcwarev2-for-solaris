@@ -1,0 +1,13 @@
+[screen]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - Terminal multiplexer"
+pkgver="$pkgver"
+pkgvendor="http://ftp.uni-erlangen.de/pub/utilities/screen/"
+pkgdesc="Runs separate screens on a single terminal"
+files(4755,root,bin)
+$_bindir/screen-*
+files(-,root,bin)
+$_bindir/screen
+$_sharedir
+$_sysconfdir
+
