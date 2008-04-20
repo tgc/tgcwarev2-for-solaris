@@ -21,7 +21,6 @@ patch[0]=patch-2.5.4-destdir.patch
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-shortroot=1
 ac_overrides="ac_cv_path_ed_PROGRAM=/usr/bin/ed"
 
 reg prep
