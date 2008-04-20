@@ -1,0 +1,24 @@
+[zlib]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - The zlib compression and decompression library"
+pkgcat="system"
+pkgvendor="http//www.zlib.org"
+pkgdesc="Data compression library"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/*.so.*
+
+[zlib-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="${topdir}-devel - Development support for zlib"
+pkgcat="system"
+pkgvendor="http//www.zlib.org"
+pkgdesc="Data compression library"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/*.so
+$_mandir/man3
+$_includedir
+
