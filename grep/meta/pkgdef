@@ -1,11 +1,13 @@
 [grep]
 pkgname="$pkgprefix""$topdir"
-name="GNU grep"
+name="grep - GNU grep"
 pkgcat="application"
-pkgvendor="http://www.gnu.org"
+pkgvendor="http://www.gnu.org/software/grep/grep.html"
 pkgdesc="Find lines that match entered patterns"
 pkgver="$pkgver"
 files(-,root,bin)
+default_docs
 $_bindir
 $_infodir
 $_mandir
+$_sharedir/locale
