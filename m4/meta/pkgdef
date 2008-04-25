@@ -1,0 +1,9 @@
+[m4]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - GNU m4"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/m4/m4.html"
+shortdesc="Macro processor"
+pkgver="$pkgver"
+files(-,root,bin)
+*
