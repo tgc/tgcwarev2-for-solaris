@@ -1,6 +1,6 @@
 [bison]
-pkgname="$pkgprefix""$topdir"
-name="$topdir"
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - GNU bison"
 pkgcat="application"
 pkgvendor="http://www.gnu.org"
 pkgdesc="General purpose parser generator"
@@ -9,5 +9,7 @@ files(-,root,bin)
 $_bindir
 $_libdir
 $_infodir
-$_sharedir
 $_mandir
+$_sharedir/locale
+$_sharedir/aclocal
+$_sharedir/bison
