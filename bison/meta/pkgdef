@@ -6,6 +6,7 @@ pkgvendor="http://www.gnu.org"
 pkgdesc="General purpose parser generator"
 pkgver="$pkgver"
 files(-,root,bin)
+default_docs
 $_bindir
 $_libdir
 $_infodir

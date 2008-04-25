@@ -44,6 +44,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    doc ChangeLog TODO COPYING AUTHORS THANKS NEWS
 }
 
 reg pack
