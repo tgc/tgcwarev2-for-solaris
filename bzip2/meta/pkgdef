@@ -1,0 +1,26 @@
+[bzip2]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - The bzip2 compression library and utilities"
+pkgcat="system"
+pkgvendor="http://www.bzip.org"
+shortdesc="A library implementing bzip2 compression and utilities using it"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_libdir/*.so.*
+$_mandir/man1
+
+[bzip2-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="${topdir}-devel - Development support for bzip2"
+pkgcat="system"
+pkgvendor="http://www.bzip.org"
+shortdesc="Files needed for developing with bzip2"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+

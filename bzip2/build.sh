@@ -3,32 +3,20 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=bzip2
-version=1.0.2
-pkgver=2
+version=1.0.5
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=bzip2-braindead-solaris-linker.patch
+patch[0]=bzip2-1.0.5-saneso.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="bzip2"
-pkgcat="application"
-pkgvendor="http://sources.redhat.com/bzip2/"
-pkgdesc="A freely available, high-quality data compressor"
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
 
 reg prep
 prep()
@@ -40,33 +28,49 @@ reg build
 build()
 {
     setdir source
-    export LD_RUN_PATH=$prefix/lib
-    $MAKE_PROG -f Makefile-libbz2_so CFLAGS="-O2 -pipe -mcpu=ultrasparc -mtune=ultrasparc -D_FILE_OFFSET_BITS=64 -fpic -fPIC" all
-    $MAKE_PROG -f Makefile CFLAGS="-O2 -pipe -mcpu=ultrasparc -mtune=ultrasparc -D_FILE_OFFSET_BITS=64" all
+    ${__make} -f Makefile-libbz2_so CC="gcc -R$prefix/lib" CFLAGS="-D_FILE_OFFSET_BITS=64 -fpic -fPIC"
+    rm -f *.o
+    ${__make} -f Makefile LDFLAGS="-R$prefix/lib"
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg install
 install()
 {
-    generic_install PREFIX
+    clean stage
     setdir source
-    $MKDIR -p $stagedir/share/doc/$topdir-$version
-    DOCS="LICENSE CHANGES README README.COMPILATION.PROBLEMS Y2K_INFO"
-    for i in $DOCS
-    do
-	$CP $i $stagedir/share/doc/$topdir-$version
-    done
-    $CP libbz2.so* $stagedir/lib
-    $RM $stagedir/lib/libbz2.a
-    setdir $stagedir/lib
-    ln -sf libbz2.so.1.0.2 libbz2.so.1.0
-    ln -sf libbz2.so.1.0 libbz2.so
+    ${__mkdir} -p ${stagedir}${prefix}/{${_bindir},${_mandir}/man1,${_libdir},${_includedir}}
+    ${__install} -m 755 bzlib.h ${stagedir}${prefix}/${_includedir}
+    ${__install} -m 755 libbz2.so.1.0.4 ${stagedir}${prefix}/${_libdir}
+    ${__install} -m 755 libbz2.a ${stagedir}${prefix}/${_libdir}
+    ${__install} -m 755 bzip2-shared  ${stagedir}${prefix}/${_bindir}/bzip2
+    ${__install} -m 755 bzip2recover bzgrep bzdiff bzmore ${stagedir}${prefix}/${_bindir}/
+    ${__install} -m 644 bzip2.1 bzdiff.1 bzgrep.1 bzmore.1 ${stagedir}${prefix}/${_mandir}/man1/
+    ${__ln} -s bzip2 ${stagedir}${prefix}/${_bindir}/bunzip2
+    ${__ln} -s bzip2 ${stagedir}${prefix}/${_bindir}/bzcat
+    ${__ln} -s bzdiff ${stagedir}${prefix}/${_bindir}/bzcmp
+    ${__ln} -s bzmore ${stagedir}${prefix}/${_bindir}/bzless
+    ${__ln} -s libbz2.so.1.0.4 ${stagedir}${prefix}/${_libdir}/libbz2.so.1
+    ${__ln} -s libbz2.so.1 ${stagedir}${prefix}/${_libdir}/libbz2.so
+    ${__ln} -s bzip2.1 ${stagedir}${prefix}/${_mandir}/man1/bzip2recover.1
+    ${__ln} -s bzip2.1 ${stagedir}${prefix}/${_mandir}/man1/bunzip2.1
+    ${__ln} -s bzip2.1 ${stagedir}${prefix}/${_mandir}/man1/bzcat.1
+    ${__ln} -s bzdiff.1 ${stagedir}${prefix}/${_mandir}/man1/bzcmp.1
+    ${__ln} -s bzmore.1 ${stagedir}${prefix}/${_mandir}/man1/bzless.1
+
+    doc LICENSE CHANGES README README.COMPILATION.PROBLEMS
+    docs_for bzip2-devel manual.html
 }
 
 reg pack
 pack()
 {
-    generic_pack shortroot
+    generic_pack
 }
 
 reg distclean
@@ -78,42 +82,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*

@@ -1,0 +1,28 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+A patch was applied to change the soname from libbz2.so.1.0 to libbz2.so.1.
