@@ -1,0 +1,12 @@
+[diffutils]
+pkgname="${pkgprefix}diffu"
+name="$topdir - GNU diffutils"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/diffutils/diffutils.html"
+shortdesc="Utilities that displays difference between and among text files"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_infodir
+$_mandir
