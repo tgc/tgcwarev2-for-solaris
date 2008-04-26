@@ -1,7 +1,7 @@
 [coreutils]
-pkgname="$pkgprefix""$topdir"
-name="GNU Coreutils"
-pkgcat="application"
+pkgname="${pkgprefix}coreut"
+name="coreutils - GNU coreutils"
+pkgcat="system"
 pkgvendor="http://www.gnu.org"
 pkgdesc="Collection of basic file, shell and text manipulation utilities"
 pkgver="$pkgver"
