@@ -1,0 +1,12 @@
+[gzip]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - GNU gzip"
+pkgcat="application"
+pkgvendor="http://www.gzip.org"
+shortdesc="The GNU data compression program"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_infodir
+$_mandir
