@@ -1,0 +1,11 @@
+[less]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - The less pager"
+pkgcat="application"
+pkgvendor="http://www.greenwoodsoftware.com/less/"
+shortdesc="Less is more"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_mandir
