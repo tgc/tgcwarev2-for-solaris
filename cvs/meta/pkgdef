@@ -1,9 +1,13 @@
 [cvs]
-pkgname="$pkgprefix""$topdir"
-name="CVS - Version control system"
+pkgname="${pkgprefix}${topdir}"
+name="${topdir} - Concurrent Versions System"
 pkgcat="application"
 pkgvendor="http://www.cvshome.org"
 pkgdesc="Lets you record the history of source files and documents"
 pkgver="$pkgver"
 files(-,root,bin)
-*
+default_docs
+$_bindir
+$_mandir
+$_infodir
+$_sharedir/cvs

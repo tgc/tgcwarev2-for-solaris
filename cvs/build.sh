@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=cvs
-version=1.11.20
-pkgver=2
+version=1.11.22
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,8 +19,9 @@ source[0]=$topdir-$version.tar.bz2
 . ${HOME}/buildpkg/scripts/buildpkg.functions
 
 # Global settings
-export LDFLAGS="-R/usr/local/lib"
-shortroot=1
+export CPPFLAGS="-I$prefix/include"
+export LDFLAGS="-L$prefix/lib -R$prefix/lib"
+ignore_deps="LWperl"
 
 reg prep
 prep()
@@ -37,8 +38,8 @@ build()
 reg install
 install()
 {
-    generic_install prefix
-    doc FAQ README NEWS doc/*.ps
+    generic_install DESTDIR
+    doc FAQ README NEWS COPYING* doc/*.pdf
 }
 
 reg pack
