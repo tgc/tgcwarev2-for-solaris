@@ -1,0 +1,13 @@
+[sed]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - GNU sed"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/sed/sed.html"
+shortdesc="A stream-oriented non-interactive text editor"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_sharedir/locale
+$_mandir
+$_infodir
