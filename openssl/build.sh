@@ -81,8 +81,11 @@ install()
     chmod 755 ${stagedir}${prefix}/${_libdir}/engines/*.so
     # Nuke static libraries - they just take up space
     ${__rm} -f ${stagedir}${prefix}/${_libdir}/*.a
+
+    doc README CHANGES FAQ INSTALL LICENSE NEWS
+
     custom_install=1
-    generic_install
+    generic_install INSTALL_PREFIX
 }
 
 reg pack

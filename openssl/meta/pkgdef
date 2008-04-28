@@ -6,6 +6,7 @@ pkgvendor="http://www.openssl.org"
 pkgdesc="Toolkit implementing SSL v2/v3 and TLS v1"
 pkgver="$pkgver"
 files(-,root,bin)
+default_docs
 $_bindir
 $_libdir/*.so.*
 $_libdir/engines/*.so
