@@ -1,0 +1,24 @@
+[gmp]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - GNU MP Bignum library"
+pkgcat="system"
+pkgvendor="http://gmplib.org"
+pkgdesc="A free library for arbitrary precision arithmetic"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/*.so.*
+$_infodir
+
+[gmp-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="${topdir}-devel - Development support for gmp"
+pkgcat="system"
+pkgvendor="http://gmplib.org"
+pkgdesc="Files needed for developing with gmp"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/*.so
+$_libdir/*.a
+$_includedir
+
