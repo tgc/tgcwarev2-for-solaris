@@ -1,0 +1,24 @@
+[mpfr]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - MPFR library"
+pkgcat="system"
+pkgvendor="http://www.mpfr.org"
+pkgdesc="C library for multiple-precision floating-point computations with exact rounding"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/*.so.*
+$_infodir
+
+[mpfr-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="${topdir}-devel - Development support for mpfr"
+pkgcat="system"
+pkgvendor="http://www.mpfr.org"
+pkgdesc="Files need for developing with mpfr"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/*.so
+$_libdir/*.a
+$_includedir
+
