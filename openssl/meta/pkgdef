@@ -1,41 +1,27 @@
 [openssl]
-pkgname="${pkgprefix}ossl${abbrev_ver}"
-name="OpenSSL - Secure Socket Layer"
-pkgcat="application"
+pkgname="${pkgprefix}ossl"
+name="openssl - Secure Sockets Layer"
+pkgcat="system"
 pkgvendor="http://www.openssl.org"
 pkgdesc="Toolkit implementing SSL v2/v3 and TLS v1"
 pkgver="$pkgver"
 files(-,root,bin)
 $_bindir
+$_libdir/*.so.*
+$_libdir/engines/*.so
 $_mandir/man{1,5,7}
+$_sharedir/ssl
+
+[openssl-devel]
+pkgname="${pkgprefix}ossld"
+name="openssl-devel - Development support for openssl"
+pkgcat="application"
+pkgvendor="http://www.openssl.org"
+pkgdesc="Files needed for developing with openssl"
+pkgver="$pkgver"
+files(-,root,bin)
 $_includedir
 $_libdir/*.so
 $_libdir/pkgconfig
-ssl
-dir ${_libdir}
-dir ${_mandir}
-
-[openssl-lib]
-pkgname="${pkgprefix}ossl${abbrev_ver}lib"
-name="OpenSSL - Secure Socket Layer"
-pkgcat="library"
-pkgvendor="http://www.openssl.org"
-pkgdesc="Toolkit implementing SSL v2/v3 and TLS v1"
-pkgver="$pkgver"
-files(-,root,bin)
-$_libdir/*.so.*
-$_libdir/engines/*.so
-dir $_libdir
-dir $_libdir/engines
-
-[openssl-dman]
-pkgname="${pkgprefix}ossl${abbrev_ver}"
-name="OpenSSL - Secure Socket Layer"
-pkgcat="application"
-pkgvendor="http://www.openssl.org"
-pkgdesc="Toolkit implementing SSL v2/v3 and TLS v1"
-pkgver="$pkgver"
-files(-,root,bin)
 $_mandir/man3
-dir ${_mandir}
 

@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=openssl
 version=0.9.8g
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -18,65 +18,69 @@ source[0]=$topdir-$version.tar.gz
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-abbrev_ver=$(echo $version|$SED -e 's/\.//g')
-baseversion=$(echo $version|$SED -e 's/[a-zA-Z]//g')
+# Global settings
+abbrev_ver=$(echo $version|${__sed} -e 's/\.//g')
+baseversion=$(echo $version|${__sed} -e 's/[a-zA-Z]//g')
+__configure="./Configure"
+shared_args="--prefix=$prefix --openssldir=${prefix}/${_sharedir}/ssl zlib shared"
+if [ "$arch" = "sparc" ]; then
+    # For Solaris > 7 we default so sparcv8 ISA
+    configure_args="solaris-sparcv8-gcc $shared_args"
+    # Solaris < 8 supports sparcv7 hardware
+    [ "$_os" = "sunos56" -o "$_os" = "sunos57" ] && configure_args="$shared_args solaris-sparcv7-gcc"
+else
+    : openssl defaults to --march=pentium which should be changed to --march=i386 --mcpu=i686
+fi
+ignore_deps="LWperl"
 
 reg prep
 prep()
 {
     generic_prep
-    setdir source
-    sed -e '/^SHELL/s/sh/ksh/' Makefile.org > Makefile.org.ksh
-    mv Makefile.org.ksh Makefile.org
 }
 
 reg build
 build()
 {
     setdir source
-    $SED -e "s;@LIBDIR@;${prefix}/lib;g" Makefile.org > Makefile.new
-    $MV -f Makefile.new Makefile.org
+    ${__gsed} -i '/^SHELL/s/sh/ksh/' Makefile.org
+    ${__gsed} -i "s;@LIBDIR@;${prefix}/lib;g" Makefile.org
 
-    ./config --prefix=$prefix --openssldir=$prefix/ssl shared
+    $__configure $configure_args
 
-    $MAKE_PROG CC="gcc -static-libgcc" LIBSSL="-Wl,-R,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-R,$prefix/lib -L.. -lcrypto" all build-shared
-    $MAKE_PROG CC="gcc -static-libgcc" LIBSSL="-Wl,-R,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-R,$prefix/lib -L.. -lcrypto" all link-shared do_solaris-shared
+    ${__gsed} -i "/^CFLAG=/s;.*=;CFLAG=-I${prefix}/include;" Makefile
+    ${__gsed} -i "/EX_LIBS/s;-lz;-L${prefix}/lib -R${prefix}/lib -lz;" Makefile
+    ${__make} SHARED_LDFLAGS="-shared -R${prefix}/${_libdir}" depend
+    ${__make} SHARED_LDFLAGS="-shared -R${prefix}/${_libdir}"
 }
 
 reg install
 install()
 {
-    setdir source
     clean stage
-    $MAKE_PROG CC="gcc -static-libgcc" INSTALL_PREFIX=$stagedir LIBSSL="-Wl,-R,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-R,$prefix/lib -L.. -lcrypto" install
-    setdir $stagedir$prefix/lib
-    chmod a+x pkgconfig
-    #rmdir $stagedir$prefix/ssl/lib
-    $MV $stagedir$prefix/ssl/man $stagedir$prefix
-    setdir $stagedir$prefix/man
-    for j in $(ls -1d man?)
+    setdir source
+    ${__make} INSTALL_PREFIX=$stagedir MANDIR=${prefix}/${_mandir} install
+    setdir ${stagedir}${prefix}/${_mandir}
+    for j in $(${__ls} -1d man?)
     do
  	cd $j
 	for manpage in *
 	do
 	    if [ -L "${manpage}" ]; then
-                TARGET=`ls -l "${manpage}" | awk '{ print $NF }'`
-                ln -snf "${TARGET}"ssl "${manpage}"ssl
-                rm -f "${manpage}"
+                TARGET=$(${__ls} -l "${manpage}" | ${__awk} '{ print $NF }')
+                ${__ln} -snf "${TARGET}"ssl "${manpage}"ssl
+                ${__rm} -f "${manpage}"
 	    else
-		$MV "$manpage" "$manpage""ssl"
+		${__mv} "$manpage" "$manpage""ssl"
 	    fi
 	done
 	cd ..
     done
-    # A few stupid manpages left that pkgproto can't deal with
-    #setdir $stagedir$prefix/man/man7
-    #mv "Modes of DES.7ssl" "Modes_of_DES.7ssl"
     # Make .sos writable
     chmod 755 ${stagedir}${prefix}/${_libdir}/*.so.*
-    chmod 755 ${stagedir}${prefix}/${_libdir}/engines/*.so.*
+    chmod 755 ${stagedir}${prefix}/${_libdir}/engines/*.so
     # Nuke static libraries - they just take up space
-    rm -f ${stagedir}${prefix}/${_libdir}/*.a
+    ${__rm} -f ${stagedir}${prefix}/${_libdir}/*.a
     custom_install=1
     generic_install
 }
@@ -84,18 +88,12 @@ install()
 reg pack
 pack()
 {
-    # Create depend file for openssl
-    echo "P ${pkgprefix}ossl${abbrev_ver}lib	OpenSSL $version shared libraries" > $metadir/depend.openssl
     generic_pack
 }
 
 reg distclean
 distclean()
 {
-    # depend is created by build.sh so make sure
-    # it's removed by distclean
-    META_CLEAN="$META_CLEAN depend.openssl"
-
     clean distclean
 }
 
