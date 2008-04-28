@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=4.7p1
-pkgver=2
+version=5.0p1
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,14 +19,10 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export LDFLAGS="-R/usr/local/lib -L/usr/local/lib"
-export CPPFLAGS="-I/usr/local/include"
-# Use prngd socket (For Solaris 2.6,7 & 8 without patch 112438)
-#export ENTROPY="--with-prngd-socket=/var/run/egd-pool"
-# Use /dev/random (For Solaris 9 & 8 with patch 112438)
-export ENTROPY="--without-prngd --without-rand-helper"
-configure_args='--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir} --datadir=$prefix/${_sharedir}/openssh --with-default-path=/usr/bin:/usr/local/bin --with-mantype=cat --with-pam --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/bin:/usr/sbin:/usr/local/bin --with-lastlog=/var/adm/lastlog --without-zlib-version-check $ENTROPY'
+export LDFLAGS="-R$prefix/lib -L$prefix/lib"
+export CPPFLAGS="-I$prefix/include"
 
+configure_args="--prefix=$prefix --mandir=$prefix/$_mandir --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-default-path=/usr/bin:$prefix/${_bindir} --with-mantype=cat --with-pam --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/bin:/usr/sbin:$prefix/$_bindir:$prefix/$_sbindir --with-lastlog=/var/adm/lastlog --without-zlib-version-check"
 
 reg prep
 prep()
@@ -45,18 +41,36 @@ install()
 {
     clean stage
     setdir source
-    $MAKE_PROG DESTDIR=$stagedir install-nokeys
-    setdir ${stagedir}${prefix}/${_sysconfdir}
-    for i in *; do ${MV} $i $i.default; done
-    ${CP} -p $srcdir/sshd.init $stagedir/usr/local/etc
+    ${__make} DESTDIR=$stagedir install-nokeys
+
+    ${__mkdir} -p ${stagedir}/${_sysconfdir}/init.d
+    ${__mkdir} -p ${stagedir}/${_sysconfdir}/rc0.d
+    ${__mkdir} -p ${stagedir}/${_sysconfdir}/rc1.d
+    ${__mkdir} -p ${stagedir}/${_sysconfdir}/rc2.d
+    ${__mkdir} -p ${stagedir}/${_sysconfdir}/rcS.d
+    ${__mkdir} -p ${stagedir}/var/empty/sshd
+
+    # Install initscript
+    ${__cp} $srcdir/sshd.init ${stagedir}/${_sysconfdir}/init.d/tgc_sshd
+    chmod 755 ${stagedir}/${_sysconfdir}/init.d/tgc_sshd
+    (setdir ${stagedir}/${_sysconfdir}/rc0.d; ${__ln} -sf ../init.d/tgc_sshd K02tgc_sshd)
+    (setdir ${stagedir}/${_sysconfdir}/rc1.d; ${__ln} -sf ../init.d/tgc_sshd K02tgc_sshd)
+    (setdir ${stagedir}/${_sysconfdir}/rcS.d; ${__ln} -sf ../init.d/tgc_sshd K02tgc_sshd)
+    (setdir ${stagedir}/${_sysconfdir}/rc2.d; ${__ln} -sf ../init.d/tgc_sshd S98tgc_sshd)
+
     custom_install=1
     generic_install
     doc CREDITS ChangeLog INSTALL LICENCE OVERVIEW README README.privsep README.smartcard RFC.nroff TODO WARNING.RNG
- }
+
+    setdir ${stagedir}${prefix}/${_sysconfdir}/ssh
+    for i in *; do ${__mv} $i $i.default; done
+}
 
 reg pack
 pack()
 {
+    lprefix=${prefix#/*}
+    topinstalldir=/
     generic_pack
 }
 

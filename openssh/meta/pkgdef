@@ -1,9 +1,36 @@
 [openssh]
-pkgname="$pkgprefix""ossh"
-name="OpenSSH portable for Solaris"
+pkgname="${pkgprefix}ossh"
+name="openssh - OpenSSH portable"
 pkgcat="application"
 pkgvendor="http://www.openssh.org"
-pkgdesc="Secure Shell remote access utility"
+pkgdesc="Secure remote access utilities"
 pkgver="$pkgver"
+#
 files(-,root,bin)
-*
+dir $_sysconfdir
+#
+files(775,root,sys)
+dir $_sysconfdir/init.d
+dir $_sysconfdir/rc0.d
+dir $_sysconfdir/rc1.d
+dir $_sysconfdir/rc2.d
+dir $_sysconfdir/rcS.d
+dir usr
+dir usr/tgcware
+dir var
+dir var/empty
+#
+files(711,root,sys)
+dir var/empty/sshd
+#
+files(-,root,sys)
+${_sysconfdir}/*/*tgc_sshd
+$lprefix/$_bindir
+$lprefix/$_sbindir
+$lprefix/$_mandir
+$lprefix/$_sysconfdir
+$lprefix/libexec/ssh-keysign
+$lprefix/libexec/sftp-server
+${lprefix}/${_sharedir}/openssh/Ssh.bin
+default_docs
+

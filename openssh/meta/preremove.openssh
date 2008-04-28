@@ -1,1 +1,1 @@
-/etc/init.d/sshd.local stop
+/etc/init.d/tgc_sshd stop
