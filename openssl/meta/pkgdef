@@ -16,7 +16,7 @@ $_sharedir/ssl
 [openssl-devel]
 pkgname="${pkgprefix}ossld"
 name="openssl-devel - Development support for openssl"
-pkgcat="application"
+pkgcat="system"
 pkgvendor="http://www.openssl.org"
 pkgdesc="Files needed for developing with openssl"
 pkgver="$pkgver"
