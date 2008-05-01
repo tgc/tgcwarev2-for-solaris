@@ -1,0 +1,11 @@
+[perl]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - The Perl programming language"
+pkgcat="application"
+pkgvendor="http://www.perl.org"
+pkgdesc="Perl is a high-level programming language"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir
+$_libdir
+$_mandir
