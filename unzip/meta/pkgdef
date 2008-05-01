@@ -1,0 +1,11 @@
+[unzip]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - Unzip from Info-Zip"
+pkgcat="application"
+pkgvendor="http://www.info-zip.org/UnZip.html"
+shortdesc="A utility for unpacking zip files"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_mandir
