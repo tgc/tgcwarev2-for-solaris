@@ -6,10 +6,8 @@ pkgvendor="http://www.openssh.org"
 pkgdesc="Secure remote access utilities"
 pkgver="$pkgver"
 #
-files(-,root,bin)
+files(755,root,sys)
 dir $_sysconfdir
-#
-files(775,root,sys)
 dir $_sysconfdir/init.d
 dir $_sysconfdir/rc0.d
 dir $_sysconfdir/rc1.d
@@ -19,12 +17,12 @@ dir usr
 dir usr/tgcware
 dir var
 dir var/empty
+${_sysconfdir}/*/*tgc_sshd
 #
 files(711,root,sys)
 dir var/empty/sshd
 #
-files(-,root,sys)
-${_sysconfdir}/*/*tgc_sshd
+files(-,root,bin)
 $lprefix/$_bindir
 $lprefix/$_sbindir
 $lprefix/$_mandir
