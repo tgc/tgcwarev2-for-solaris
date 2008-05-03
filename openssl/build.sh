@@ -29,7 +29,7 @@ if [ "$arch" = "sparc" ]; then
     # Solaris < 8 supports sparcv7 hardware
     [ "$_os" = "sunos56" -o "$_os" = "sunos57" ] && configure_args="$shared_args solaris-sparcv7-gcc"
 else
-    : openssl defaults to --march=pentium which should be changed to --march=i386 --mcpu=i686
+    configure_args="$shared_args 386 solaris-x86-gcc" 
 fi
 ignore_deps="LWperl"
 
@@ -46,9 +46,17 @@ build()
     ${__gsed} -i '/^SHELL/s/sh/ksh/' Makefile.org
     ${__gsed} -i "s;@LIBDIR@;${prefix}/lib;g" Makefile.org
 
+    if [ "$arch" = "i386" ]; then
+	# openssl defaults to --march=pentium which should be changed to --march=i386 --mtune=i686
+	${__sed} -e 's/-march=pentium/-march=i386 -mtune=i686/' Configure > Configure.myflags
+	${__mv} Configure.myflags Configure
+	chmod 755 Configure
+    fi
+
+    echo $__configure $configure_args
     $__configure $configure_args
 
-    ${__gsed} -i "/^CFLAG=/s;.*=;CFLAG=-I${prefix}/include;" Makefile
+    ${__gsed} -i "/^CFLAG=/s;CFLAG=;CFLAG=-I${prefix}/include;" Makefile
     ${__gsed} -i "/EX_LIBS/s;-lz;-L${prefix}/lib -R${prefix}/lib -lz;" Makefile
     ${__make} SHARED_LDFLAGS="-shared -R${prefix}/${_libdir}" depend
     ${__make} SHARED_LDFLAGS="-shared -R${prefix}/${_libdir}"
