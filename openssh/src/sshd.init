@@ -24,16 +24,19 @@ check_pid_dir()
 do_hostkeygen()
 {
         if [ ! -s $RSA1_KEY ]; then
-                $ECHO "Generating $RSA1_KEY: "
+                $ECHO "Generating $RSA1_KEY:\c"
                 $KEYGEN -q -t rsa1 -f $RSA1_KEY -N '' > /dev/null 2>&1
+		$ECHO "."
         fi
         if [ ! -s $RSA_KEY ]; then
-                $ECHO "Generating $RSA_KEY: "
+                $ECHO "Generating $RSA_KEY:\c"
                 $KEYGEN -q -t rsa -f $RSA_KEY -N '' > /dev/null 2>&1
+		$ECHO "."
         fi
         if [ ! -s $DSA_KEY ]; then
-                $ECHO "Generating $DSA_KEY: "
+                $ECHO "Generating $DSA_KEY:\c"
                 $KEYGEN -q -t dsa -f $DSA_KEY -N '' > /dev/null 2>&1
+		$ECHO "."
         fi
 }
 
@@ -56,8 +59,8 @@ case $mode in
     start)
 	kill_sshd
         if test -x $SSHD; then
-            $ECHO "Starting sshd:\c"
             do_hostkeygen
+            $ECHO "Starting sshd:\c"
             check_pid_dir
 	    $SSHD
             $ECHO "."
