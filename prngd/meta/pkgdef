@@ -5,9 +5,8 @@ pkgcat="application"
 pkgvendor="http://prngd.sourceforge.net"
 shortdesc="Provides a source of entropy for things like openssh"
 pkgver="$pkgver"
-files(-,root,sys)
+files(755,root,sys)
 dir $_sysconfdir
-files(775,root,sys)
 dir $_sysconfdir/init.d
 dir $_sysconfdir/rc0.d
 dir $_sysconfdir/rc1.d
@@ -15,10 +14,10 @@ dir $_sysconfdir/rc2.d
 dir $_sysconfdir/rcS.d
 dir usr
 dir usr/tgcware
-files(-,root,sys)
 ${_sysconfdir}/*/*prngd
 files(-,root,bin)
-default_docs ${lprefix}/
+default_docs
 $lprefix/$_sbindir
 $lprefix/$_sysconfdir
 $lprefix/$_mandir
+
