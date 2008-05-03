@@ -45,7 +45,7 @@ if [ ! -f "${CONFDIR}/moduli" ] ; then
 	    echo "Keeping existing primes but renaming it to moduli"
 	    mv ${CONFDIR}/primes ${CONFDIR}/moduli
 	else
-	    echo "Installing new moduli (formerly known as primes)"
+	    echo "Installing new moduli"
 	    cp -p ${CONFDIR}/moduli.default ${CONFDIR}/moduli
 	fi
     fi
