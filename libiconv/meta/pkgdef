@@ -13,6 +13,7 @@ $_libdir/libcharset.so.*
 $_libdir/preloadable_libiconv.so
 $_mandir/man1
 $_sharedir/doc/libiconv/*.1.html
+$_sharedir/locale/*/LC_MESSAGES/libiconv.mo
 
 [libiconv-devel]
 pkgname="${pkgprefix}licnvd"
