@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=bash
 real_version=3.2
-version=3.2.33
+version=3.2.39
 pkgver=1
 source[0]=$topdir-$real_version.tar.gz
 
@@ -50,6 +50,12 @@ patch[29]=${srcfiles}/${topdir}-${real_version}-patches/bash32-030
 patch[30]=${srcfiles}/${topdir}-${real_version}-patches/bash32-031
 patch[31]=${srcfiles}/${topdir}-${real_version}-patches/bash32-032
 patch[32]=${srcfiles}/${topdir}-${real_version}-patches/bash32-033
+patch[33]=${srcfiles}/${topdir}-${real_version}-patches/bash32-034
+patch[34]=${srcfiles}/${topdir}-${real_version}-patches/bash32-035
+patch[35]=${srcfiles}/${topdir}-${real_version}-patches/bash32-036
+patch[36]=${srcfiles}/${topdir}-${real_version}-patches/bash32-037
+patch[37]=${srcfiles}/${topdir}-${real_version}-patches/bash32-038
+patch[38]=${srcfiles}/${topdir}-${real_version}-patches/bash32-039
 
 # Global settings
 export CPPFLAGS="-I$prefix/include"
