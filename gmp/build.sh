@@ -21,6 +21,7 @@ source[0]=$topdir-$version.tar.bz2
 # Global settings
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 [ "$_os" = "sunos56" -a "$arch" = "sparc" ] && triplet="sparc-sun-solaris2.6"
+[ "$_os" = "sunos56" -a "$arch" = "i386" ] && triplet="i386-pc-solaris2.6"
 configure_args="--host=$triplet --build=$triplet $configure_args"
 
 reg prep
