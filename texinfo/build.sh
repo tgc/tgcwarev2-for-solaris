@@ -3,31 +3,24 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=texinfo
-version=4.6
+version=4.12
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
-. ${HOME}/buildpkg/scripts/buildpkg.functions
+. ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="Texinfo"
-pkgvendor="http://www.gnu.org"
-pkgdesc="Texinfo"
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
+# Global settings
+export CPPFLAGS="-I$prefix/include"
+export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 
 reg prep
 prep()
@@ -38,15 +31,20 @@ prep()
 reg build
 build()
 {
-    setdir source
-    ./configure --prefix=$prefix --disable-nls
-    $MAKE_PROG
+    generic_build
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
+    doc NEWS ChangeLog INTRODUCTION TODO COPYING
 }
 
 reg pack
@@ -64,42 +62,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*
