@@ -1,0 +1,14 @@
+[dejagnu]
+pkgname="${pkgprefix}djgnu"
+name="$topdir - GNU dejagnu"
+pkgcat="application"
+pkgvendor="http://www.gnu.org"
+shortdesc="A framework for testing other programs"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_includedir
+$_mandir
+$_sharedir/dejagnu
+
