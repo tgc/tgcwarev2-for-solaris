@@ -1,0 +1,28 @@
+[tk]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - Tk graphical toolkit"
+pkgcat="application"
+pkgvendor="http://www.tcl.tk/software/tcltk/"
+shortdesc="Graphical toolkit for the Tcl scripting language"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_libdir/libtk${majorver}.so
+$_libdir/tk${majorver}
+$_libdir/tkConfig.sh
+$_mandir/?a?[12456789]
+
+[tk-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="$topdir - Development support for tk"
+pkgcat="application"
+pkgvendor="http://www.tcl.tk/software/tcltk/"
+shortdesc="Files needed for developing with tk"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir
+$_libdir/libtk.so
+$_libdir/*.a
+$_mandir/?a?[3n]
+
