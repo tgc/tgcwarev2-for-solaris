@@ -1,0 +1,28 @@
+[tcl]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - Tcl scripting language"
+pkgcat="application"
+pkgvendor="http://www.tcl.tk/software/tcltk/"
+shortdesc="An embeddable scripting language"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_mandir/?a?[12456789]
+$_libdir/libtcl${majorver}.so
+$_libdir/tcl${majorver}
+$_libdir/tclConfig.sh
+
+[tcl-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="$topdir - Development support for tcl"
+pkgcat="application"
+pkgvendor="http://www.tcl.tk/software/tcltk/"
+shortdesc="Files needed for developing with tcl"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir
+$_libdir/libtcl.so
+$_libdir/*.a
+$_mandir/?a?[3n]
+
