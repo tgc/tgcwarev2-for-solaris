@@ -1,0 +1,28 @@
+[expect]
+pkgname="${pkgprefix}xpect"
+name="$topdir - A program-script interaction and testing utility"
+pkgcat="application"
+pkgvendor="http://expect.nist.gov/"
+pkgdesc="Expect makes it easy for a script to control another program and interact with it"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_libdir/libexpect${majorver}.so
+$_libdir/expect${majorver}/pkgIndex.tcl
+$_mandir/?a?[12456789]
+
+[expect-devel]
+pkgname="${pkgprefix}xpectd"
+name="$topdir - Development support for expect"
+pkgcat="application"
+pkgvendor="http://expect.nist.gov/"
+pkgdesc="Files needed for developing with expect"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir
+$_libdir/libexpect.so
+$_libdir/*.a
+$_libdir/expect${majorver}/*.a
+$_mandir/?a?3
+
