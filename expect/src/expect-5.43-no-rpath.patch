@@ -1,0 +1,13 @@
+--- expect-5.43/Makefile.in.norpath	2008-01-19 15:44:59.460000000 +0100
++++ expect-5.43/Makefile.in	2008-01-19 15:45:15.510000000 +0100
+@@ -311,8 +311,8 @@
+ # -lsocket	For SCO UNIX 3.2.2 (this should now be done automatically)
+ # -lX11		For Pyramid OSx, poll is broken, so use select from X lib
+ #  /usr/ucblib/libucb.a is needed for solaris 2.0 after -lm
+-EXP_AND_TCL_LIBS = $(LDFLAGS) @EXP_AND_TCL_LIBS@
+-EXP_AND_TK_LIBS = $(LDFLAGS) @EXP_AND_TK_LIBS@
++EXP_AND_TCL_LIBS = $(LDFLAGS) -lm
++EXP_AND_TK_LIBS = $(LDFLAGS) -lm -lX11
+ 
+ CFLAGS_INT = $(MH_CFLAGS) $(CPPFLAGS) $(XCFLAGS)
+ 
