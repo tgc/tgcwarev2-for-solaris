@@ -14,10 +14,10 @@ $_mandir/?a?[12456789]
 
 [expect-devel]
 pkgname="${pkgprefix}xpectd"
-name="$topdir - Development support for expect"
+name="${topdir}-devel - Development support for libexpect"
 pkgcat="application"
 pkgvendor="http://expect.nist.gov/"
-pkgdesc="Files needed for developing with expect"
+pkgdesc="Files needed for developing with libexpect"
 pkgver="$pkgver"
 files(-,root,bin)
 $_includedir
