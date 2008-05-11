@@ -15,10 +15,10 @@ $_mandir/?a?[12456789]
 
 [tk-devel]
 pkgname="${pkgprefix}${topdir}d"
-name="$topdir - Development support for tk"
+name="${topdir}-devel - Development support for libtk"
 pkgcat="application"
 pkgvendor="http://www.tcl.tk/software/tcltk/"
-shortdesc="Files needed for developing with tk"
+shortdesc="Files needed for developing with libtk"
 pkgver="$pkgver"
 files(-,root,bin)
 $_includedir
