@@ -15,10 +15,10 @@ $_libdir/tclConfig.sh
 
 [tcl-devel]
 pkgname="${pkgprefix}${topdir}d"
-name="$topdir - Development support for tcl"
+name="${topdir}-devel - Development support for libtcl"
 pkgcat="application"
 pkgvendor="http://www.tcl.tk/software/tcltk/"
-shortdesc="Files needed for developing with tcl"
+shortdesc="Files needed for developing with libtcl"
 pkgver="$pkgver"
 files(-,root,bin)
 $_includedir
