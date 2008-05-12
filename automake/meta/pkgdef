@@ -1,0 +1,15 @@
+[automake]
+pkgname="${pkgprefix}am"
+name="$topdir - GNU automake"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/automake/"
+shortdesc="Generates Makefile.in files"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_infodir
+$_sharedir/automake-1.10
+$_sharedir/aclocal-1.10
+$_sharedir/doc/automake
+
