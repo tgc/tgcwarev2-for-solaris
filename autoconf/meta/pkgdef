@@ -1,0 +1,14 @@
+[autoconf]
+pkgname="${pkgprefix}ac"
+name="$topdir - GNU autoconf"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/autoconf/"
+shortdesc="Produces shell scripts which automatically configure source code"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_mandir
+$_infodir
+$_sharedir/autoconf
+
