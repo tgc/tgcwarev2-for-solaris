@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=rsync
-version=2.6.6
+version=3.0.2
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -19,7 +19,9 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-configure_args="--prefix=$prefix --with-included-popt"
+export CPPFLAGS="-I$prefix/include"
+export LDFLAGS="-L$prefix/lib -R$prefix/lib"
+configure_args="$configure_args --with-included-popt"
 
 reg prep
 prep()
@@ -37,6 +39,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    doc NEWS README COPYING
 }
 
 reg pack
