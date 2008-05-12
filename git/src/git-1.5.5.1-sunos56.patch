@@ -1,6 +1,6 @@
---- git-1.5.5.1.hack/Makefile.sunos56	2008-04-21 00:17:13.000000000 +0200
-+++ git-1.5.5.1.hack/Makefile	2008-05-11 20:21:37.326327000 +0200
-@@ -573,6 +573,22 @@
+--- git-1.5.5.1/Makefile.sunos56	2008-05-12 17:05:44.916828000 +0200
++++ git-1.5.5.1/Makefile	2008-05-12 17:06:54.787133000 +0200
+@@ -573,6 +573,21 @@
  	NO_MEMMEM = YesPlease
  	NO_HSTRERROR = YesPlease
  	NO_MKDTEMP = YesPlease
@@ -16,9 +16,8 @@
 +		NO_STRLCPY = YesPlease
 +		NO_STRTOUMAX = YesPlease
 +		NO_IPV6 = YesPlease
-+		NO_INET_NTOP = YesPlease
-+		NO_INET_PTON = YesPlease
 +		NO_SOCKLEN_T = YesPlease
++		EXTLIBS += -lresolv
 +	endif
  	ifeq ($(uname_R),5.8)
  		NEEDS_LIBICONV = YesPlease
