@@ -1,0 +1,25 @@
+--- git-1.5.5.1.hack/Makefile.sunos56	2008-04-21 00:17:13.000000000 +0200
++++ git-1.5.5.1.hack/Makefile	2008-05-11 20:21:37.326327000 +0200
+@@ -573,6 +573,22 @@
+ 	NO_MEMMEM = YesPlease
+ 	NO_HSTRERROR = YesPlease
+ 	NO_MKDTEMP = YesPlease
++	ifeq ($(uname_R),5.6)
++		NEEDS_LIBICONV = YesPlease
++		NO_UNSETENV = YesPlease
++		NO_SETENV = YesPlease
++		NO_C99_FORMAT = YesPlease
++		NO_STRTOUMAX = YesPlease
++		NO_D_TYPE_IN_DIRENT = YesPlease
++		NO_SOCKADDR_STORAGE = YesPlease
++		NO_STRCASESTR = YesPlease
++		NO_STRLCPY = YesPlease
++		NO_STRTOUMAX = YesPlease
++		NO_IPV6 = YesPlease
++		NO_INET_NTOP = YesPlease
++		NO_INET_PTON = YesPlease
++		NO_SOCKLEN_T = YesPlease
++	endif
+ 	ifeq ($(uname_R),5.8)
+ 		NEEDS_LIBICONV = YesPlease
+ 		NO_UNSETENV = YesPlease

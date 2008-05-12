@@ -1,4 +1,0 @@
-P   SBlibiconv	    GNU libiconv
-P   SBlibgccso1	    libgcc_s.so.1 from gcc 3.3.2+
-P   SBossl098glib   Openssl 0.9.8g libraries
-P   CSWperl	    perl from blastwave
