@@ -21,7 +21,8 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 make_check_target="test"
 __configure="sh Configure"
-arch_name="sun4-solaris"
+[ "$_arch" = "sparc" ] && arch_name="sun4-solaris"
+[ "$_arch" = "i386" ] && arch_name="i86pc-solaris"
 configure_args="-Dcc='gcc' -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='swpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des"
 
 reg prep
