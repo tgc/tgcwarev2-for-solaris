@@ -1,0 +1,165 @@
+[gcc]
+pkgname="${pkgprefix}g${abbrev_ver}c"
+name="GCC - GNU Compiler Collection"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="GNU Compiler Collection (C, C++)"
+pkgver="$pkgver"
+files(-,root,bin)
+dir $iprefix/share
+$iprefix/$_bindir/*gcc*
+$iprefix/$_bindir/*gcov*
+$iprefix/$_bindir/cpp
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/gcrt*
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/crt*
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/libgcc*
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/libgcov*
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/gmon.o
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/README
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/X11
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/Xm
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/kcms
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/xil
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/curses.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/float.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/iso646.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/limits.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/math.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/memory.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/pthread.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/root
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/stdarg.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/stdbool.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/stddef.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/stdio.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/stdlib.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/sys
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/syslimits.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/unistd.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/unwind.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/varargs.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/alloca.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/ctype.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/gelf.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/kerberos/osconf.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/libelf.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/link.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/locale.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/netinet/if_ether.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/proc_service.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/prof.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/setjmp.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/signal.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/string.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/thread.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/thread_db.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/time.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/tzfile.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/widec.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/install-tools
+$iprefix/libexec/gcc/${arch}-${vendor}-solaris*/$version/install-tools
+$iprefix/libexec/gcc/${arch}-${vendor}-solaris*/$version/collect2
+$iprefix/libexec/gcc/${arch}-${vendor}-solaris*/$version/cc1
+$iprefix/info/dir
+$iprefix/info/gcc*
+$iprefix/info/cpp*
+$iprefix/lib/libiberty.a
+$iprefix/lib/libgcc*
+$iprefix/man/?a?1/gcc.1
+$iprefix/man/?a?1/cpp.1
+$iprefix/man/?a?1/gcov.1
+$iprefix/man/?a?7/*.7
+$_sharedir
+# Only on i386
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/*intrin.h
+
+[gcc-gnat]
+pkgname="${pkgprefix}g${abbrev_ver}gn"
+name="gcc-gnat - GNU Compiler Collection (Ada)"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Ada support for GCC"
+pkgver="$pkgver"
+files(-,root,bin)
+$iprefix/bin/gnat*
+$iprefix/bin/gpr*
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/adainclude
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/adalib
+$iprefix/libexec/gcc/${arch}-${vendor}-solaris*/$version/gnat1
+
+[gcc-c++]
+pkgname="${pkgprefix}g${abbrev_ver}cx"
+name="gcc-c++ - GNU Compiler Collection (C++)"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="C++ support for GCC"
+pkgver="$pkgver"
+files(-,root,bin)
+$iprefix/bin/*++*
+$iprefix/include/c++
+$iprefix/lib/libstdc++.*
+$iprefix/lib/libsupc++.a
+$iprefix/libexec/gcc/${arch}-${vendor}-solaris*/$version/cc1plus
+$iprefix/man/man1/g++.1
+
+[gcc-objc]
+pkgname="${pkgprefix}g${abbrev_ver}ob"
+name="gcc-objc - GNU Compiler Collection (Objective-C)"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Objective-C support for GCC"
+pkgver="$pkgver"
+files(-,root,bin)
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/objc
+$iprefix/lib/libobjc.*
+$iprefix/libexec/gcc/${arch}-${vendor}-solaris*/$version/cc1obj
+
+[gcc-gfortran]
+pkgname="${pkgprefix}g${abbrev_ver}ft"
+name="gcc-gfortran - GNU Compiler Collection (Fortran)"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Fortran support for GCC"
+pkgver="$pkgver"
+files(-,root,bin)
+$iprefix/bin/*fortran
+$iprefix/lib/libgfortran.*
+$iprefix/lib/libgfortranbegin.a
+$iprefix/libexec/gcc/${arch}-${vendor}-solaris*/$version/f951
+$iprefix/man/?a?1/gfortran.1
+
+[libgcc_s1]
+pkgname="${pkgprefix}lgcc1"
+name="libgcc_s1 - GCC shared support library"
+pkgcat="system"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Runtime support library for C"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/libgcc_s.so.1*
+
+[libstdc++6]
+pkgname="${pkgprefix}lstdc6"
+name="libstdc++6 - GNU Standard C++ library"
+pkgcat="system"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Runtime support library for C++"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/libstdc++.so.6*
+
+[libobjc1]
+pkgname="${pkgprefix}lobjc1"
+name="libojc1 - GNU Objective-C shared support library"
+pkgcat="system"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Runtime support library for Objective-C"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/libobjc.so.1*
+
+[libgfortran0]
+pkgname="${pkgprefix}lgft0"
+name="libgfortran0 - GNU Fortran shared support library"
+pkgcat="system"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Runtime support library for Fortran"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/libgfortran.so.0*
+
