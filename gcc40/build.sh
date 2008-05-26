@@ -15,7 +15,7 @@ pkgver=1
 source[0]=$topdir-$version.tar.bz2
 [ -n "$snapshot" ] && source[0]=$topdir-$version-$snapshot.tar.bz2
 ## If there are no patches, simply comment this
-#patch[0]=
+patch[0]=gcc-4.0.4-newer-gas.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -36,6 +36,7 @@ langs="--enable-languages=c,ada,c++,f95,objc"
 objdir=all_native
 # platform/arch specific options
 [ "$_os" = "sunos56" -a "$arch" = "i386" ] && platform_configure_args="--with-gnu-as --with-as=$lprefix/bin/gas"
+[ "$_os" = "sunos56" -a "$arch" = "i386" ] && platform_configure_args="$platform_configure_args --with-gnu-ld --with-ld=$lprefix/bin/gld"
 [ "$arch" = "sparc" ] && vendor="sun" || vendor="pc"
 
 configure_args="$global_config_args $langs $platform_configure_args"
