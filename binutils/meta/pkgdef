@@ -1,0 +1,16 @@
+[binutils]
+pkgname="${pkgprefix}binut"
+name="$topdir - GNU binutils"
+pkgcat="application"
+pkgvendor="http://www.gnu.org"
+pkgdesc="Includes tools capable of linking and managing archives"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_libdir
+$_mandir
+$_infodir
+$_includedir
+*-solaris*
+
