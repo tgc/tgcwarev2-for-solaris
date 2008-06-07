@@ -1,0 +1,12 @@
+[top]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - Unix Top"
+pkgcat="application"
+pkgvendor="http://unixtop.org"
+pkgdesc="Utility that provides a rolling display of top cpu using processes"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir/top
+$_mandir/man1/top.1
+
