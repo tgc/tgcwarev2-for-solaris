@@ -3,30 +3,24 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=wget
-version=1.9.1
-pkgver=2
-source[0]=$topdir-$version.tar.gz
+version=1.11.3
+pkgver=1
+source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
-. ${HOME}/buildpkg/scripts/buildpkg.functions
+. ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Global options
-export LDFLAGS="-L/usr/local/lib -R/usr/local/lib"
-export CPPFLAGS="-I/usr/local/include"
-configure_args="--prefix=$prefix --disable-nls --enable-static=no --with-ssl"
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
+# Global settings
+export CPPFLAGS="-I$prefix/include"
+export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 
 reg prep
 prep()
@@ -40,11 +34,17 @@ build()
     generic_build
 }
 
+reg check
+check()
+{
+    generic_check
+}
+
 reg install
 install()
 {
     generic_install DESTDIR
-    doc README NEWS TODO
+    doc AUTHORS COPYING NEWS README MAILING-LIST
 }
 
 reg pack
@@ -62,42 +62,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*

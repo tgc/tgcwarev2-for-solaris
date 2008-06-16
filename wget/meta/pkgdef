@@ -1,9 +1,15 @@
 [wget]
-pkgname="$pkgprefix""$topdir"
-name="Wget - Retrieves files from the Web"
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - GNU wget"
 pkgcat="application"
-pkgvendor="http://www.gnu.org"
-pkgdesc="Wget is a network utility to retrieve files from the Web using http and ftp"
+pkgvendor="http://wget.sunsite.dk/"
+pkgdesc="A utility for retrieving files using the HTTP or FTP protocols"
 pkgver="$pkgver"
 files(-,root,bin)
-*
+default_docs
+$_bindir
+$_sysconfdir/wgetrc
+$_mandir/man1/wget.1*
+$_infodir/wget.info*
+$_sharedir/locale/*/LC_MESSAGES/wget.mo
+
