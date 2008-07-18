@@ -18,9 +18,6 @@ $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/README
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/X11
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/Xm
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/kcms
-$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/kerberos
-$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/netinet
-$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/ssp
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/xil
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/curses.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/float.h
