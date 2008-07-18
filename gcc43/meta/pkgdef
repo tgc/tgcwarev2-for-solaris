@@ -1,8 +1,8 @@
 [gcc]
 pkgname="${pkgprefix}g${abbrev_ver}c"
-name="GCC - GNU Compiler Collection"
+name="GCC - GNU Compiler Collection (C)"
 pkgvendor="http://gcc.gnu.org"
-pkgdesc="GNU Compiler Collection (C, C++)"
+pkgdesc="GNU Compiler Collection (C)"
 pkgver="$pkgver"
 files(-,root,bin)
 dir $iprefix/share
