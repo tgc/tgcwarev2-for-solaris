@@ -85,6 +85,10 @@ $iprefix/man/?a?7/*.7
 $_sharedir
 # Only on i386
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/*intrin.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/cpuid.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/mmintrin-common.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/mm3dnow.h
+$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/mm_malloc.h
 
 [gcc-gnat]
 pkgname="${pkgprefix}g${abbrev_ver}gn"
