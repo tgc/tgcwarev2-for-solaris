@@ -25,3 +25,4 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+One simple patch applied to fix configure with binutils 2.18.
