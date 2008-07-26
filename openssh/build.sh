@@ -60,7 +60,7 @@ install()
 
     custom_install=1
     generic_install
-    doc CREDITS ChangeLog INSTALL LICENCE OVERVIEW README README.privsep README.smartcard RFC.nroff TODO WARNING.RNG
+    doc CREDITS ChangeLog INSTALL LICENCE OVERVIEW README* PROTOCOL* TODO WARNING.RNG
 
     setdir ${stagedir}${prefix}/${_sysconfdir}/ssh
     for i in *; do ${__mv} $i $i.default; done
