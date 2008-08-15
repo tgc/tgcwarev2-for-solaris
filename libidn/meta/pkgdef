@@ -1,0 +1,29 @@
+[libidn]
+pkgname="${pkgprefix}lidn"
+name="$topdir - GNU libidn"
+pkgcat="application"
+pkgvendor="http://josefsson.org/libidn/"
+pkgdesc="Internationalized string preparation library"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir/idn
+$_libdir/libidn.so.*
+$_sharedir/emacs
+$_sharedir/locale/*/LC_MESSAGES/libidn.mo
+$_infodir
+$_mandir/man1
+
+[libidn-devel]
+pkgname="${pkgprefix}lidnd"
+name="${topdir}-devel - Development support for libidn"
+pkgcat="application"
+pkgvendor="http://josefsson.org/libidn/"
+pkgdesc="Files needed for developing with libidn"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir
+$_libdir/libidn.so
+$_libdir/pkgconfig
+$_mandir/man3
+
