@@ -1,0 +1,40 @@
+[curl]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - Utility to transfer files with URL syntax"
+pkgcat="application"
+pkgvendor="http://curl.haxx.se"
+pkgdesc="A command line tool for transferring files with URL syntax, supporting FTP, FTPS, HTTP, HTTPS, SCP, SFTP, TFTP, TELNET, DICT, LDAP, LDAPS and FILE."
+pkgver="$pkgver"
+files(-,root,bin)
+$_vdocdir/CHANGES
+$_vdocdir/README
+$_vdocdir/RELEASE-NOTES
+$_vdocdir/COPYING
+$_vdocdir/docs/BUGS
+$_vdocdir/docs/CONTRIBUTE
+$_vdocdir/docs/FAQ
+$_vdocdir/docs/FEATURES
+$_vdocdir/docs/INTERNALS
+$_vdocdir/docs/MANUAL
+$_vdocdir/docs/RESOURCES
+$_vdocdir/docs/TODO
+$_vdocdir/docs/TheArtOfHttpScripting
+$_bindir/curl
+$_mandir/?a?1
+$_libdir/libcurl.so.*
+
+[curl-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="${topdir}-devel - Development support for libcurl"
+pkgcat="application"
+pkgvendor="http://curl.haxx.se"
+pkgdesc="Files needed for developing with libcurl"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/curl-config
+$_includedir
+$_libdir/*.so
+$_libdir/pkgconfig
+$_mandir/?a?3
+$_vdocdir/docs/examples
+
