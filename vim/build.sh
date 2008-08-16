@@ -1,63 +1,62 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=vim
-version=6.3.4
+version=7.2
 pkgver=1
-source[0]=$topdir-6.3.tar.bz2
+source[0]=ftp://ftp.vim.org/pub/vim/unix/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=6.3.001
-patch[1]=6.3.002
-patch[2]=6.3.003
-patch[3]=6.3.004
-
-# Helper var
-patchcount=${#patch[@]}
+# Generate rough patchlist like this:
+# grep -v Win32 README | grep -v VMS | grep -v Mac | grep -v \.gz |grep -v \(extra|awk '{ print $2 }'|grep 7.1
+# Unfortunately the markers are misleading and several Mac, Win32 and extra patches need also to be applied
+# num=0; for i in `grep -v Win32 README | grep -v VMS | grep -v Mac | grep -v \.gz |grep -v \(extra|awk '{ print $2 }'|grep 7.1`; do echo "patch[$num]=$i"; let num=num+1; done
 
 # Source function library
-. ${HOME}/buildpkg/scripts/buildpkg.functions
+. ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
+# Global settings
 # We need to override this
-topsrcdir=vim63
-patchdir=$srcfiles/vim-6.3-patches
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
+topsrcdir=vim72
+patchdir=$srcfiles/vim-${version}-patches
+patch_prefix="-p0"
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L$prefix/lib -R$prefix/lib"
+# What gui should we build?
+gui=motif
+configure_args='--prefix=$prefix --without-local-dir --enable-gui=$gui --with-features=huge --enable-multibyte --disable-perlinterp --disable-pythoninterp --disable-tclinterp --with-compiledby="<swpkg@jupiterrise.com>" --disable-netbeans'
 
 reg prep
 prep()
 {
-    clean source
-    unpack 0
-    for ((i=0; i<patchcount; i++))
-    do
-	patch $i -p0
-    done
+    generic_prep
 }
 
 reg build
 build()
 {
-    export EXTRA_LIBS="-R/usr/local/lib"
-    # Build gvim
-    configure_args='--prefix=$prefix --enable-gui=motif --disable-gpm --disable-nls --with-features=huge --with-compiledby="<tgc@statsbiblioteket.dk>" --enable-multibyte'
+    # First build a gui version
+    gui=motif
     generic_build
+    # Save the gui binary for later
     setdir source
-    cd src
-    $CP vim gvim
-    $MAKE_PROG clean
-    # Build text-based vim
-    configure_args='--prefix=$prefix --with-x=no --enable-gui=no --disable-gpm --disable-nls --with-features=huge --with-compiledby="<tgc@statsbiblioteket.dk>" --enable-multibyte'
+    ${__cp} src/vim src/gvim
+    setdir source
+    ${__make} clean
+    gui="no --with-x=no"
     generic_build
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg install
@@ -65,15 +64,21 @@ install()
 {
     generic_install DESTDIR
     setdir source
-    $CP src/gvim ${stagedir}${prefix}/${_bindir}
+    ${__cp} src/gvim ${stagedir}${prefix}/${_bindir}
     setdir ${stagedir}${prefix}/${_bindir}
-    ln -s gvim gvimdiff
-    ln -s gvim gview
+    ${__ln} -s gvim gvimdiff
+    ${__ln} -s gvim gview
     setdir ${stagedir}${prefix}/${_mandir}/man1
-    ln -s vim.1 gvim.1
-    ln -s vim.1 gview.1
-    ln -s vimdiff.1 gvimdiff.1
-    strip
+    ${__ln} -s vim.1 gvim.1
+    ${__ln} -s vim.1 gview.1
+    ${__ln} -s vimdiff.1 gvimdiff.1
+    custom_install=1
+    generic_install DESTDIR
+    doc README.txt
+    #setdir ${stagedir}${prefix}/${_sharedir}/vim/vim71/lang/
+    #${__mv} "menu_chinese(gb)_gb.936.vim" "menu_chinese_gb__gb.936.vim"
+    #${__mv} "menu_chinese(taiwan)_taiwan.950.vim" "menu_chinese_taiwan__taiwan.950.vim"
+    ${__rm} -rf ${stagedir}${prefix}/${_mandir}/{fr,it,pl,ru}*
 }
 
 reg pack
@@ -91,42 +96,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*

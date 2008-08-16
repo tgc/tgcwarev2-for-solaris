@@ -6,9 +6,7 @@ pkgvendor="http://www.vim.org"
 pkgdesc="An improved almost compatible version of Vi"
 pkgver="$pkgver"
 files(-,root,bin)
-dir $_bindir
-dir $_mandir
-dir $_mandir/man1
+default_docs
 $_bindir/ex
 $_bindir/rview
 $_bindir/rvim
@@ -17,7 +15,7 @@ $_bindir/vim
 $_bindir/vimdiff
 $_bindir/vimtutor
 $_bindir/xxd
-$_sharedir
+$_sharedir/vim
 $_mandir/man1/evim*
 $_mandir/man1/ex*
 $_mandir/man1/rview*
@@ -34,9 +32,6 @@ pkgvendor="http://www.vim.org"
 pkgdesc="An improved almost compatible version of Vi"
 pkgver="$pkgver"
 files(-,root,bin)
-dir $_bindir
-dir $_mandir
-dir $_mandir/man1
 $_bindir/gvim
 $_bindir/gvimdiff
 $_bindir/gview
