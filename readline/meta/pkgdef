@@ -1,0 +1,26 @@
+[readline]
+pkgname="${pkgprefix}rl"
+name="$topdir - GNU readline"
+pkgcat="system"
+pkgvendor="http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html"
+pkgdesc="Lets users edit command lines as they are typed in"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/*.so.*
+$_infodir/rluserman.info*
+
+[readline-devel]
+pkgname="${pkgprefix}rld"
+name="${topdir}-devel - Development support for readline"
+pkgcat="system"
+pkgvendor="http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html"
+pkgdesc="Files needed for developing with readline"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir/readline
+$_libdir/*.so
+$_infodir/history.info*
+$_infodir/readline.info*
+$_mandir/man3
+
