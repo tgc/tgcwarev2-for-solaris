@@ -1,0 +1,26 @@
+[libgpg-error]
+pkgname="${pkgprefix}lgpge"
+name="$topdir - GnuPG component support library"
+pkgcat="system"
+pkgvendor="http://www.gnupg.org/"
+pkgdesc="Library that defines common error values for all GnuPG components"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir/gpg-error
+$_sharedir/locale/*/LC_MESSAGES/libgpg-error.mo
+$_libdir/*.so.*
+
+[libgpg-error-devel]
+pkgname="${pkgprefix}lgpged"
+name="${topdir}-devel - Development support for libgpg-error"
+pkgcat="system"
+pkgvendor="http://www.gnupg.org/"
+pkgdesc="Files needed for developing with libgpg-error"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/gpg-error-config
+$_libdir/*.so
+$_includedir
+$_sharedir/aclocal
+
