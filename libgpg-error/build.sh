@@ -59,7 +59,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc COPYING.LIB README THANKS AUTHORS NEWS
+    doc COPYING.LIB COPYING README THANKS AUTHORS NEWS
 }
 
 reg pack
