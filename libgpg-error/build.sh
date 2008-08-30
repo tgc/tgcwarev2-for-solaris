@@ -25,7 +25,7 @@
 topdir=libgpg-error
 version=1.6
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=ftp://ftp.gnupg.org/gcrypt/libgpg-error/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
