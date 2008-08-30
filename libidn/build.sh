@@ -23,7 +23,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn
-version=1.9
+version=1.10
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/libidn/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
