@@ -202,3 +202,14 @@ pkgver="$pkgver"
 files(-,root,bin)
 $_libdir/libgomp.so.1*
 
+[libgnat43]
+pkgname="${pkgprefix}lga43"
+name="libgnat43 - GNU Ada shared support library"
+pkgcat="system"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Runtime support library for Ada"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/libgnat-4.3.so
+$_libdir/libgnarl-4.3.so
+

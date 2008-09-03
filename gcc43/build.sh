@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 snapshot=
 topdir=gcc
-version=4.3.1
+version=4.3.2
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 #source[0]=gcc-4.3-$snapshot.tar.bz2
@@ -29,6 +29,8 @@ make_build_target=bootstrap
 
 # Define abbreviated version number (for pkgdef)
 abbrev_ver=$(echo $version | ${__tr} -d '.')
+# Just major.minor, no subminors
+majorminor=$(echo $version | cut -d. -f1-2)
 
 global_config_args="--prefix=$prefix --with-local-prefix=$prefix --with-libiconv-prefix=$lprefix --with-gmp=$lprefix --with-mpfr=$lprefix --disable-nls --enable-shared"
 langs="--enable-languages=c,ada,c++,fortran,objc,obj-c++"
@@ -73,6 +75,10 @@ install()
     ${__tar} -cf - libgcc_s.so.1 libstdc++.so.6* libgfortran.so.3* libobjc.so.2* libgomp.so.1* |
 	(cd ${stagedir}${lprefix}/${_libdir}; ${__tar} -xvBpf -)
 
+    # Grab gnat libraries from adalib
+    ${__cp} -p ${stagedir}${prefix}/${_libdir}/gcc/${arch}-${vendor}-solaris*/${version}/adalib/libgnarl-$majorminor.so ${stagedir}${lprefix}/${_libdir}
+    ${__cp} -p ${stagedir}${prefix}/${_libdir}/gcc/${arch}-${vendor}-solaris*/${version}/adalib/libgnat-$majorminor.so ${stagedir}${lprefix}/${_libdir}
+
     # Place share/docs in the regular location
     prefix=$topinstalldir
     doc COPYING* MAINTAINERS NEWS
@@ -89,9 +95,11 @@ install()
     done
     compat libobjc2 4.2.3 1 2
     compat libobjc2 4.2.4 1 2
+    compat libobjc2 4.3.1 1 2
     compat libgomp1 4.2.3 1 2
     compat libgomp1 4.2.4 1 2
-
+    compat libgomp1 4.3.1 1 2
+    compat libgfortran3 4.3.1 1 2
 }
 
 reg check
