@@ -12,7 +12,7 @@ snapshot=
 topdir=gcc
 version=4.3.2
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/gcc-4.3.2/$topdir-$version.tar.bz2
 #source[0]=gcc-4.3-$snapshot.tar.bz2
 ## If there are no patches, simply comment this
 #patch[0]=
