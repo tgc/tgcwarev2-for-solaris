@@ -9,26 +9,38 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=3.3.6
-pkgver=1
+version=3.4.6
+pkgver=4
 source[0]=$topdir-$version.tar.bz2
 ## If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
-. ${HOME}/buildpkg/scripts/buildpkg.functions
+. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+# GCC package naming guide
+# gcc - c
+# gcc-c++ - cx
+# gcc-gnat - gn
+# gcc-objc - ob
+# gcc-objc++ - ox
+# gcc-java - jv
 
 # Global settings
-prefix=/usr/local
-configure_args="--prefix=${prefix}/gcc-$version --disable-nls --with-as=/usr/ccs/bin/as --with-ld=/usr/ccs/bin/ld --with-system-zlib --enable-languages=c,c++,f77 --with-cpu=ultrasparc"
-
-objdir=$srcdir/objdir
+prefix=/usr/tgcware/$topdir-$version
+__configure="../$topsrcdir/configure"
+make_build_target=bootstrap
 
 # Define abbreviated version number (for pkgdef)
-abbrev_ver=$(echo $version|sed -e 's/\.//g')
+abbrev_ver=$(echo $version | ${__tr} -d '.')
 
-# gcc base dir (for pkgdef)
-gccdir=gcc-$version
+global_config_args="--prefix=$prefix --with-local-prefix=$prefix --disable-nls --enable-shared"
+langs="--enable-languages=c,c++,f77,objc,ada"
+configure_args="$global_config_args $langs $platform_configure_args"
+objdir=cccgoa_native
+export CC=/export/home/tgc/gnat/bin/gcc
+export GNATROOT=/export/home/tgc/gnat
+export PATH=/export/home/tgc/gnat/bin:$PATH
 
 reg prep
 prep()
@@ -39,46 +51,66 @@ prep()
 reg build
 build()
 {
-    $MKDIR "$objdir"
-    setdir "$objdir"
-    $srcdir/$topsrcdir/configure $configure_args
-    $MAKE_PROG
+    setdir source
+    ${__mkdir} -p ../$objdir
+    echo "$__configure $configure_args"
+    setdir $srcdir/$objdir
+    ${__configure} $configure_args
+    ${__make} $make_build_target
+    setdir ${srcdir}/${objdir}
+    ${__make} -C gcc gnatlib
+    ${__make} -C gcc gnattools
 }
 
 reg install
 install()
 {
-    setdir $objdir
-    $MAKE_PROG DESTDIR=$stagedir install
+    clean stage
+    setdir ${srcdir}/${objdir}
+    ${__make} DESTDIR=$stagedir install
+    custom_install=1
+    generic_install
+    ${__find} ${stagedir} -name '*.la' -print | ${__xargs} ${__rm} -f
+
+    # Prepare for split lib packages
+    lprefix=$topinstalldir
+    ${__mkdir} -p ${stagedir}${lprefix}/${_libdir}
+    setdir ${stagedir}${prefix}/${_libdir}
+    ${__tar} -cf - libgcc_s.so.1 libstdc++.so.6* libg2c.so.0* libobjc.so.1* |
+	(cd ${stagedir}${lprefix}/${_libdir}; ${__tar} -xvBpf -)
+
+    # Place share/docs in the regular location
+    prefix=$topinstalldir
+    doc COPYING* BUGS FAQ MAINTAINERS NEWS
+
+    for pkg in libg2c0 libgcc_s1 libobjc1 libstdc++6
+    do
+	${__rm} -f $metadir/compver.$pkg
+	compat $pkg 3.4.6 1 $pkgver
+    done
+}
+
+reg check
+check()
+{
+    setdir source
+    setdir ../$objdir
+    ${__make} -k check
 }
 
 reg pack
 pack()
 {
-    # We want to create gcc, libstdc++ and libgcc packages
-    # Copy files for libgcc package
-    $MKDIR -p ${stagedir}${prefix}/lib
-    $MKDIR -p ${stagedir}${prefix}/lib/sparcv9
-    $CP ${stagedir}${prefix}/$gccdir/lib/libgcc_s.so.1 ${stagedir}${prefix}/lib
-    $CP ${stagedir}${prefix}/$gccdir/lib/sparcv9/libgcc_s.so.1 ${stagedir}${prefix}/lib/sparcv9
-
-    # Copy files for libstdc++ package
-    $MKDIR -p ${stagedir}${prefix}/lib
-    $MKDIR -p ${stagedir}${prefix}/lib/sparcv9
-    $CP ${stagedir}${prefix}/$gccdir/lib/libstdc++.so.* ${stagedir}${prefix}/lib
-    $CP ${stagedir}${prefix}/$gccdir/lib/sparcv9/libstdc++.so.* ${stagedir}${prefix}/lib/sparcv9
-#    rm -f ${stagedir}${prefix}/lib/libstdc++.so
-#    rm -f ${stagedir}${prefix}/lib/sparcv9/libstdc++.so
-    
-    # now create packages according to pkgdef
+    iprefix=$topdir-$version
     generic_pack
 }
 
 reg distclean
 distclean()
 {
+    META_CLEAN="$META_CLEAN compver.*"
     clean distclean
-    $RM -rf $objdir
+    ${__rm} -rf $srcdir/$objdir
 }
 
 ###################################################
