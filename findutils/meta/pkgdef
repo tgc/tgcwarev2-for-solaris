@@ -1,0 +1,15 @@
+[findutils]
+pkgname="${pkgprefix}findu"
+name="findutils - GNU findutils"
+pkgcat="application"
+pkgvendor="http://directory.fsf.org/findutils.html"
+pkgdesc="Tools to find files and to operate on groups of files"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir/*
+libexec/*
+$_infodir/*
+$_sharedir/locale/*/LC_MESSAGES/findutils.mo
+$_mandir/*
+
