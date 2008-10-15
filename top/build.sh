@@ -18,6 +18,9 @@ source[0]=$topdir-$version.tar.bz2
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
+# Global settings
+[ -n "$(isainfo | grep sparcv9)" ] && v9bin=1
+
 reg prep
 prep()
 {

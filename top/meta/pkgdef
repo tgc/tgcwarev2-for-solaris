@@ -7,6 +7,8 @@ pkgdesc="Utility that provides a rolling display of top cpu using processes"
 pkgver="$pkgver"
 files(-,root,bin)
 default_docs
+if(v9bin)$_bindir/sparcv7/top
+if(v9bin)$_bindir/sparcv9/top
 $_bindir/top
 $_mandir/man1/top.1
 

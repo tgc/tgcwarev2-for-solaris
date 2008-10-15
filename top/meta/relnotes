@@ -25,3 +25,6 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+For Solaris versions with 64bit kernels available this package contains
+binaries for both 32 and 64 bit kernels.
+top will automatically select the appropriate binary at runtime.
