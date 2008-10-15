@@ -9,12 +9,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=1.5.5.1
+version=1.6.0.2
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 source[1]=$topdir-manpages-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=git-1.5.3.4-symlinks.patch
+patch[0]=git-1.6.0.2-symlinks.patch
 patch[1]=git-1.5.5.1-socklen_t.patch
 patch[2]=git-1.5.5.1-sunos56.patch
 
