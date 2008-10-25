@@ -21,8 +21,8 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 make_check_target="test"
 __configure="sh Configure"
-[ "$_arch" = "sparc" ] && arch_name="sun4-solaris"
-[ "$_arch" = "i386" ] && arch_name="i86pc-solaris"
+[ "$arch" = "sparc" ] && arch_name="sun4-solaris"
+[ "$arch" = "i386" ] && arch_name="i86pc-solaris"
 configure_args="-Dcc='gcc' -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='swpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des"
 
 reg prep
@@ -35,7 +35,7 @@ reg build
 build()
 {
     setdir source
-    $__configure -Dcc='gcc' -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='swpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des
+    $__configure -Dcc='/usr/tgcware/gcc-3.4.6/bin/gcc' -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='swpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des
     ${__make} LDDLFLAGS="-shared -L$prefix/lib -R$prefix/lib" CLDFLAGS="-L$prefix/lib -R$prefix/lib"
 }
 
