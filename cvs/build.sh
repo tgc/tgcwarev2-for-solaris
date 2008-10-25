@@ -11,7 +11,7 @@
 topdir=cvs
 version=1.11.23
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=ftp://ftp.sunet.se/pub/gnu/non-gnu/cvs/source/stable/$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
