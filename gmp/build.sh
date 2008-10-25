@@ -20,8 +20,8 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.bz2
 
 # Global settings
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-[ "$_os" = "sunos56" -a "$arch" = "sparc" ] && triplet="sparc-sun-solaris2.6"
-[ "$_os" = "sunos56" -a "$arch" = "i386" ] && triplet="i386-pc-solaris2.6"
+[ "$_os" = "sunos56" ] && triplet="${arch}-sun-solaris2.6"
+[ "$_os" = "sunos57" ] && triplet="${arch}-sun-solaris2.7"
 configure_args="--host=$triplet --build=$triplet $configure_args"
 
 reg prep
