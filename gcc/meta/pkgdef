@@ -30,6 +30,11 @@ $iprefix/lib/gcc/sparc-sun-solaris*/$version/libgcc*
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/libgcov*
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/specs
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/gmon.o
+if(v9libs)$iprefix/lib/gcc/sparc-sun-solaris*/$version/sparcv9/gcrt*
+if(v9libs)$iprefix/lib/gcc/sparc-sun-solaris*/$version/sparcv9/crt*
+if(v9libs)$iprefix/lib/gcc/sparc-sun-solaris*/$version/sparcv9/gmon.o
+if(v9libs)$iprefix/lib/gcc/sparc-sun-solaris*/$version/sparcv9/libgcc*
+if(v9libs)$iprefix/lib/gcc/sparc-sun-solaris*/$version/sparcv9/libgcov*
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/README
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/X11
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/curses.h
@@ -39,7 +44,7 @@ $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/g2c.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/iso646.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/limits.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/math.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/memory.h
+if(sol26)$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/memory.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/pthread.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/root
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/rpc
@@ -47,20 +52,25 @@ $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stdarg.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stdbool.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stddef.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stdio.h
+if(sol27)$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stdio_tag.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stdlib.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/sys
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/syslimits.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/unistd.h
+if(sol26)$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/unistd.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/unwind.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/varargs.h
+if(sol27)$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/wchar.h
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/install-tools
 $iprefix/libexec/gcc/sparc-sun-solaris*/$version/install-tools
 $iprefix/libexec/gcc/sparc-sun-solaris*/$version/collect2
 $iprefix/libexec/gcc/sparc-sun-solaris*/$version/cc1
 $iprefix/info/gcc*
+$iprefix/info/dir
 $iprefix/info/cpp*
 $iprefix/lib/libiberty.a
 $iprefix/lib/libgcc*
+if(v9libs)$iprefix/lib/sparcv9/libiberty.a
+if(v9libs)$iprefix/lib/sparcv9/libgcc*
 $iprefix/man/?a?1/gcc.1
 $iprefix/man/?a?1/cpp.1
 $iprefix/man/?a?1/gcov.1
@@ -117,6 +127,8 @@ $iprefix/bin/*++*
 $iprefix/include/c++
 $iprefix/lib/libstdc++.*
 $iprefix/lib/libsupc++.a
+if(v9libs)$iprefix/lib/sparcv9/libstdc++.*
+if(v9libs)$iprefix/lib/sparcv9/libsupc++.*
 $iprefix/libexec/gcc/sparc-sun-solaris*/$version/cc1plus
 $iprefix/man/man1/g++.1
 
@@ -141,6 +153,7 @@ dir $iprefix/libexec/gcc
 dir $iprefix/libexec
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/objc
 $iprefix/lib/libobjc.*
+if(v9libs)$iprefix/lib/sparcv9/libobjc.*
 $iprefix/libexec/gcc/sparc-sun-solaris*/$version/cc1obj
 
 [gcc-g77]
@@ -170,6 +183,8 @@ $iprefix/bin/?77
 $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/g2c.h
 $iprefix/lib/libfrtbegin.a
 $iprefix/lib/libg2c.*
+if(v9libs)$iprefix/lib/sparcv9/libfrtbegin.a
+if(v9libs)$iprefix/lib/sparcv9/libg2c.*
 $iprefix/libexec/gcc/sparc-sun-solaris*/$version/f771
 $iprefix/man/?a?1/g77.1
 $iprefix/info/g77.info*
@@ -184,6 +199,7 @@ pkgver="$pkgver"
 files(-,root,bin)
 dir $_libdir
 $_libdir/libgcc_s.so.1*
+if(v9libs)$_libdir/sparcv9/libgcc_s.so.1*
 
 [libstdc++6]
 pkgname="${pkgprefix}lstdc6"
@@ -195,6 +211,7 @@ pkgver="$pkgver"
 files(-,root,bin)
 dir $_libdir
 $_libdir/libstdc++.so.6*
+if(v9libs)$_libdir/sparcv9/libstdc++.so.6*
 
 [libobjc1]
 pkgname="${pkgprefix}lobjc1"
@@ -206,6 +223,7 @@ pkgver="$pkgver"
 files(-,root,bin)
 dir $_libdir
 $_libdir/libobjc.so.1*
+if(v9libs)$_libdir/sparcv9/libobjc.so.1*
 
 [libg2c0]
 pkgname="${pkgprefix}lg2c0"
@@ -217,4 +235,5 @@ pkgver="$pkgver"
 files(-,root,bin)
 dir $_libdir
 $_libdir/libg2c.so.0*
+if(v9libs)$_libdir/sparcv9/libg2c.so.0*
 

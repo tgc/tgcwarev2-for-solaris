@@ -42,6 +42,11 @@ export CC=/export/home/tgc/gnat/bin/gcc
 export GNATROOT=/export/home/tgc/gnat
 export PATH=/export/home/tgc/gnat/bin:$PATH
 
+# Conditionals for pkgdef
+[ -n "$(isainfo | grep sparcv9)" ] && v9libs=1
+[ "$_os" = "sunos56" ] && sol26=1
+[ "$_os" = "sunos57" ] && sol27=1
+
 reg prep
 prep()
 {
@@ -78,6 +83,13 @@ install()
     setdir ${stagedir}${prefix}/${_libdir}
     ${__tar} -cf - libgcc_s.so.1 libstdc++.so.6* libg2c.so.0* libobjc.so.1* |
 	(cd ${stagedir}${lprefix}/${_libdir}; ${__tar} -xvBpf -)
+
+    if [ "x$v9libs" != "x" ]; then
+	${__mkdir} -p ${stagedir}${lprefix}/${_libdir}/sparcv9
+	setdir ${stagedir}${prefix}/${_libdir}/sparcv9
+	${__tar} -cf - libgcc_s.so.1 libstdc++.so.6* libg2c.so.0* libobjc.so.1* |
+	    (cd ${stagedir}${lprefix}/${_libdir}/sparcv9; ${__tar} -xvBpf -)
+    fi
 
     # Place share/docs in the regular location
     prefix=$topinstalldir
