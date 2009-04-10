@@ -50,7 +50,7 @@ $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/kerberos/osco
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/libelf.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/link.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/locale.h
-$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/netinet/if_ether.h
+if(sparc)$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/netinet/if_ether.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/omp.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/proc_service.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/prof.h
@@ -62,7 +62,7 @@ $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/ssp/string.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/ssp/unistd.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/string.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/thread.h
-$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/thread_db.h
+if(sparc)$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/thread_db.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/time.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/tzfile.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/widec.h

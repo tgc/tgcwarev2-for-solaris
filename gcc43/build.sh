@@ -38,7 +38,7 @@ objdir=all_native
 # platform/arch specific options
 [ "$_os" = "sunos56" ] && platform_configure_args="--enable-threads=posix95 --enable-obsolete"
 [ "$_os" = "sunos56" -a "$arch" = "i386" ] && platform_configure_args="$platform_configure_args --with-gnu-as --with-as=$lprefix/bin/gas"
-[ "$arch" = "sparc" ] && vendor="sun" || vendor="pc"
+[ "$arch" = "sparc" ] && { vendor="sun"; sparc=1; } || vendor="pc"
 
 configure_args="$global_config_args $langs $platform_configure_args"
 
