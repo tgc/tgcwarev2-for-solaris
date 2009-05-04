@@ -25,7 +25,7 @@
 topdir=Error
 version=0.17015
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=http://search.cpan.org/CPAN/authors/id/S/SH/SHLOMIF/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
