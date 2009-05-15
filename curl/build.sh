@@ -11,7 +11,7 @@
 topdir=curl
 version=7.19.4
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
