@@ -1,0 +1,24 @@
+--- git-1.7.0.5/Makefile.symlinks	2010-04-21 18:51:30.653110000 +0200
++++ git-1.7.0.5/Makefile	2010-04-21 18:53:13.173717000 +0200
+@@ -1633,7 +1633,6 @@
+ 
+ $(REMOTE_CURL_ALIASES): $(REMOTE_CURL_PRIMARY)
+ 	$(QUIET_LNCP)$(RM) $@ && \
+-	ln $< $@ 2>/dev/null || \
+ 	ln -s $< $@ 2>/dev/null || \
+ 	cp $< $@
+ 
+@@ -1837,13 +1836,11 @@
+ 		cp "$$bindir/git$X" "$$execdir/git$X"; } ; } && \
+ 	{ for p in $(BUILT_INS); do \
+ 		$(RM) "$$execdir/$$p" && \
+-		ln "$$execdir/git$X" "$$execdir/$$p" 2>/dev/null || \
+ 		ln -s "git$X" "$$execdir/$$p" 2>/dev/null || \
+ 		cp "$$execdir/git$X" "$$execdir/$$p" || exit; \
+ 	  done; } && \
+ 	{ for p in $(REMOTE_CURL_ALIASES); do \
+ 		$(RM) "$$execdir/$$p" && \
+-		ln "$$execdir/git-remote-http$X" "$$execdir/$$p" 2>/dev/null || \
+ 		ln -s "git-remote-http$X" "$$execdir/$$p" 2>/dev/null || \
+ 		cp "$$execdir/git-remote-http$X" "$$execdir/$$p" || exit; \
+ 	  done; } && \
