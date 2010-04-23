@@ -1,26 +1,24 @@
 #!/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=0.9.8g
-pkgver=2
-source[0]=$topdir-$version.tar.gz
+version=1.0.0
+pkgver=1
+source[0]=http://openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 abbrev_ver=$(echo $version|${__sed} -e 's/\.//g')
 baseversion=$(echo $version|${__sed} -e 's/[a-zA-Z]//g')
+make_check_target="test"
 __configure="./Configure"
 shared_args="--prefix=$prefix --openssldir=${prefix}/${_sharedir}/ssl zlib shared"
 if [ "$arch" = "sparc" ]; then
@@ -62,6 +60,12 @@ build()
     ${__make} SHARED_LDFLAGS="-shared -R${prefix}/${_libdir}"
 }
 
+reg check
+check()
+{
+    generic_check
+}
+
 reg install
 install()
 {
@@ -94,6 +98,11 @@ install()
 
     custom_install=1
     generic_install INSTALL_PREFIX
+
+    # grab 0.9.8g libraries for compat
+    setdir $prefix/${_libdir}
+    ${__tar} -cf - libcrypto.so.0.9.8 libssl.so.0.9.8 | (cd ${stagedir}${prefix}/${_libdir}; ${__tar} -xf -)
+    compat ossl 0.9.8g 1 2
 }
 
 reg pack
