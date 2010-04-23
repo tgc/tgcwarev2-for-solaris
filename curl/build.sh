@@ -1,22 +1,19 @@
 #!/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.19.4
+version=7.20.1
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 export CPPFLAGS="-I$prefix/include"
@@ -50,6 +47,9 @@ install()
       docs/MANUAL docs/RESOURCES docs/TODO docs/TheArtOfHttpScripting \
       docs/examples/*.c docs/examples/Makefile.example docs/INTERNALS \
       docs/CONTRIBUTE
+
+    # ABI compatible releases
+    compat curl 7.19.4 1 5
 }
 
 reg pack
