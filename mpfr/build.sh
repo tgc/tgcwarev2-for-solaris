@@ -1,22 +1,20 @@
 #!/bin/bash
-#
-# This is a generic build.sh script
+# This is a buildpkg build.sh script
 # It can be used nearly unmodified with many packages
-# 
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=mpfr
-version=2.3.1
+version=2.4.2
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=mpfr-2.4.2p3.diff
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 export CPPFLAGS="-I$prefix/include"
@@ -26,6 +24,8 @@ reg prep
 prep()
 {
     generic_prep
+    setdir source
+    touch configure
 }
 
 reg build
@@ -44,7 +44,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc AUTHORS BUGS COPYING* FAQ.html NEWS TODO
+    ${__mv} ${stagedir}${prefix}/share/doc/mpfr ${stagedir}${prefix}/${_docdir}/mpfr-$version
+    compat mpfr 2.3.1 1 1
 }
 
 reg pack
