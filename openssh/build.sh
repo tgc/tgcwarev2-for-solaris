@@ -1,26 +1,25 @@
 #!/bin/bash
-#
-# This is a generic build.sh script
+# This is a buildpkg build.sh script
 # It can be used nearly unmodified with many packages
-# 
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=5.1p1
+version=5.5p1
 pkgver=1
-source[0]=ftp://ftp.dkuug.dk/pub/OpenSSH/portable/$topdir-$version.tar.gz
+source[0]=ftp://ftp.sunet.se/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 export LDFLAGS="-R$prefix/lib -L$prefix/lib"
 export CPPFLAGS="-I$prefix/include"
+make_check_target="tests"
 
 configure_args="--prefix=$prefix --mandir=$prefix/$_mandir --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-default-path=/usr/bin:$prefix/${_bindir} --with-mantype=cat --with-pam --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/bin:/usr/sbin:$prefix/$_bindir:$prefix/$_sbindir --with-lastlog=/var/adm/lastlog --without-zlib-version-check"
 
@@ -34,6 +33,12 @@ reg build
 build()
 {
     generic_build
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg install

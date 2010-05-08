@@ -29,6 +29,6 @@ $lprefix/$_mandir
 $lprefix/$_sysconfdir
 $lprefix/libexec/ssh-keysign
 $lprefix/libexec/sftp-server
-${lprefix}/${_sharedir}/openssh/Ssh.bin
+$lprefix/libexec/ssh-pkcs11-helper
 default_docs
 
