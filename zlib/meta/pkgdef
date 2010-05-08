@@ -19,6 +19,7 @@ pkgver="$pkgver"
 files(-,root,bin)
 default_docs
 $_libdir/*.so
+$_libdir/pkgconfig/zlib.pc
 $_mandir/man3
 $_includedir
 
