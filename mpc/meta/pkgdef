@@ -1,0 +1,24 @@
+[mpc]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - MPC library"
+pkgcat="system"
+pkgvendor="http://multiprecision.org/"
+pkgdesc="C library for the arithmetic of complex numbers"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/*.so.*
+$_infodir
+
+[mpc-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="${topdir}-devel - Development support for mpc"
+pkgcat="system"
+pkgvendor="http://multiprecision.org/"
+pkgdesc="Files needed for developing with mpc"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/*.so
+$_libdir/*.a
+$_includedir/mpc.h
+
