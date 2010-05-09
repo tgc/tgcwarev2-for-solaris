@@ -1,0 +1,5 @@
+CHANGELOG
+---------
+* Sat May 08 2010 Tom G. Christensen <tgc@jupiterrise.com> - 4.3.4-2
+- Build for Solaris 7/sparc
+- Convert some hardlinks to symlinks to save space

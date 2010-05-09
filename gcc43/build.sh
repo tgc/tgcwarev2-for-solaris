@@ -1,38 +1,21 @@
 #!/bin/bash
 # This is a buildpkg build.sh script
-# Copyright (C) 2003-2009 Tom G. Christensen <tgc@jupiterrise.com>
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-# Written by Tom G. Christensen <tgc@jupiterrise.com>.
-
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 snapshot=
 topdir=gcc
 version=4.3.4
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 #source[0]=gcc-4.3-$snapshot.tar.bz2
 ## If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 lprefix=$prefix
@@ -48,34 +31,48 @@ majorminor=$(echo $version | cut -d. -f1-2)
 
 global_config_args="--prefix=$prefix --with-local-prefix=$prefix --with-libiconv-prefix=$lprefix --with-gmp=$lprefix --with-mpfr=$lprefix --disable-nls --enable-shared"
 langs="--enable-languages=c,ada,c++,fortran,objc,obj-c++"
+linker="--without-gnu-ld --with-ld=/usr/ccs/bin/ld"
+assembler="--without-gnu-as --with-as=/usr/ccs/bin/as"
 objdir=all_native
 # platform/arch specific options
-[ "$_os" = "sunos56" ] && platform_configure_args="--enable-threads=posix95 --enable-obsolete"
-[ "$_os" = "sunos56" -a "$arch" = "i386" ] && platform_configure_args="$platform_configure_args --with-gnu-as --with-as=$lprefix/bin/gas"
+[ "$_os" = "sunos56" -a "$arch" = "i386" ] && assembler="--with-gnu-as --with-as=$lprefix/bin/gas"
+[ "$_os" = "sunos56" ] && { platform_configure_args="--enable-threads=posix95 --enable-obsolete"; sol26=1; }
+[ "$_os" = "sunos57" ] && { langs="$langs,java --with-java-awt=xlib"; sol27=1; }
 [ "$arch" = "sparc" ] && { vendor="sun"; sparc=1; } || { vendor="pc"; intel=1; }
+[ "$arch" = "sparc" -a -n "$(isalist | grep sparcv9)" ] && { sparcv9=1; m64run=1; } || m64run=0
 
-configure_args="$global_config_args $langs $platform_configure_args"
+configure_args="$global_config_args $linker $assembler $langs $platform_configure_args"
 
 export CONFIG_SHELL=/bin/ksh
+
+datestamp()
+{
+    date +%Y%m%d%H%M
+}
 
 reg prep
 prep()
 {
+    datestamp
     generic_prep
+    datestamp
 }
 
 reg build
 build()
 {
+    datestamp
     setdir source
     ${__mkdir} -p ../$objdir
     echo "$__configure $configure_args"
     generic_build ../$objdir
+    datestamp
 }
 
 reg install
 install()
 {
+    datestamp
     clean stage
     setdir ${srcdir}/${objdir}
     ${__make} DESTDIR=$stagedir install
@@ -88,10 +85,39 @@ install()
     setdir ${stagedir}${prefix}/${_libdir}
     ${__tar} -cf - libgcc_s.so.1 libstdc++.so.6* libgfortran.so.3* libobjc.so.2* libgomp.so.1* |
 	(cd ${stagedir}${lprefix}/${_libdir}; ${__tar} -xvBpf -)
+    if [ $m64run -eq 1 ]; then # Also install v9 libraries
+	    ${__mkdir} -p ${stagedir}${lprefix}/${_libdir}/sparcv9
+	    setdir ${stagedir}${prefix}/${_libdir}/sparcv9
+	    ${__tar} -cf - libgcc_s.so.1 libstdc++.so.6* libgfortran.so.3* libobjc.so.2* libgomp.so.1* |
+		(cd ${stagedir}${lprefix}/${_libdir}/sparcv9; ${__tar} -xvBpf -)
+    fi
 
     # Grab gnat libraries from adalib
     ${__cp} -p ${stagedir}${prefix}/${_libdir}/gcc/${arch}-${vendor}-solaris*/${version}/adalib/libgnarl-$majorminor.so ${stagedir}${lprefix}/${_libdir}
     ${__cp} -p ${stagedir}${prefix}/${_libdir}/gcc/${arch}-${vendor}-solaris*/${version}/adalib/libgnat-$majorminor.so ${stagedir}${lprefix}/${_libdir}
+
+    # Turn all the hardlinks in bin into symlinks
+    setdir ${stagedir}${prefix}/${_bindir}
+    for i in c++ ${arch}-${vendor}-solaris*-c++ ${arch}-${vendor}-solaris*-g++
+    do
+	${__rm} -f $i
+        ${__ln} -sf g++ $i
+    done
+    for i in ${arch}-${vendor}-solaris*-gcc ${arch}-${vendor}-solaris*-gcc-$version
+    do
+	${__rm} -f $i
+        ${__ln} -sf gcc $i
+    done
+    for i in ${arch}-${vendor}-solaris*-gfortran
+    do
+	${__rm} -f $i
+        ${__ln} -sf gfortran $i
+    done
+    for i in ${arch}-${vendor}-solaris*-gcj
+    do
+	${__rm} -f $i
+        ${__ln} -sf gcj $i
+    done
 
     # Place share/docs in the regular location
     prefix=$topinstalldir
@@ -125,21 +151,32 @@ install()
     compat libgfortran3 4.3.3 1 2
     compat libgnat43 4.3.2 1 2
     compat libgnat43 4.3.3 1 2
+    datestamp
 }
 
 reg check
 check()
 {
+    datestamp
     setdir source
     setdir ../$objdir
-    ${__make} -k check
+    # If we can run v9 binaries then we also run the testsuite with -m64
+    if [ $m64run -eq 0 ]; then
+	${__make} -k check
+    else
+	echo "Running the testsuite also with -m64"
+	${__make} -k RUNTESTFLAGS="--target_board='unix{,-m64}'" check
+    fi
+    datestamp
 }
 
 reg pack
 pack()
 {
+    datestamp
     iprefix=$topdir-$version
     generic_pack
+    datestamp
 }
 
 reg distclean
