@@ -28,7 +28,7 @@ $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/curses.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/iso646.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/limits.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/math.h
-if(sunos56)$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/memory.h
+if(sol26)$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/memory.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/pthread.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/root
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/stdarg.h
@@ -195,7 +195,6 @@ $iprefix/include/c++/${version}/map
 $iprefix/include/c++/${version}/memory
 $iprefix/include/c++/${version}/new
 $iprefix/include/c++/${version}/numeric
-$iprefix/include/c++/${version}/org/*
 $iprefix/include/c++/${version}/ostream
 $iprefix/include/c++/${version}/parallel/*
 $iprefix/include/c++/${version}/queue
@@ -207,7 +206,6 @@ $iprefix/include/c++/${version}/stack
 $iprefix/include/c++/${version}/stdexcept
 $iprefix/include/c++/${version}/streambuf
 $iprefix/include/c++/${version}/string
-$iprefix/include/c++/${version}/sun/*
 $iprefix/include/c++/${version}/tgmath.h
 $iprefix/include/c++/${version}/tr1/*
 $iprefix/include/c++/${version}/tr1_impl/*

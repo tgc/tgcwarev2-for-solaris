@@ -7,8 +7,8 @@
 # Check the following 4 variables before running the script
 snapshot=
 topdir=gcc
-version=4.3.4
-pkgver=2
+version=4.3.5
+pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 #source[0]=gcc-4.3-$snapshot.tar.bz2
 ## If there are no patches, simply comment this
@@ -135,22 +135,27 @@ install()
 	compat $pkg 4.3.1 1 2
 	compat $pkg 4.3.2 1 2
 	compat $pkg 4.3.3 1 2
+	compat $pkg 4.3.4 1 2
     done
     compat libobjc2 4.2.3 1 2
     compat libobjc2 4.2.4 1 2
     compat libobjc2 4.3.1 1 2
     compat libobjc2 4.3.2 1 2
     compat libobjc2 4.3.3 1 2
+    compat libobjc2 4.3.4 1 2
     compat libgomp1 4.2.3 1 2
     compat libgomp1 4.2.4 1 2
     compat libgomp1 4.3.1 1 2
     compat libgomp1 4.3.2 1 2
     compat libgomp1 4.3.3 1 2
+    compat libgomp1 4.3.4 1 2
     compat libgfortran3 4.3.1 1 2
     compat libgfortran3 4.3.2 1 2
     compat libgfortran3 4.3.3 1 2
+    compat libgfortran3 4.3.4 1 2
     compat libgnat43 4.3.2 1 2
     compat libgnat43 4.3.3 1 2
+    compat libgnat43 4.3.4 1 2
     datestamp
 }
 
