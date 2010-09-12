@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=1.0.0
-pkgver=1
+version=1.0.0a
+pkgver=2
 source[0]=http://openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -22,7 +22,7 @@ make_check_target="test"
 __configure="./Configure"
 shared_args="--prefix=$prefix --openssldir=${prefix}/${_sharedir}/ssl zlib shared"
 if [ "$arch" = "sparc" ]; then
-    # For Solaris > 7 we default so sparcv8 ISA
+    # For Solaris > 7 we default to sparcv8 ISA
     configure_args="solaris-sparcv8-gcc $shared_args"
     # Solaris < 8 supports sparcv7 hardware
     [ "$_os" = "sunos56" -o "$_os" = "sunos57" ] && configure_args="$shared_args solaris-sparcv7-gcc"
