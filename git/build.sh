@@ -9,13 +9,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=1.7.0.5
+version=1.7.2.3
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 source[1]=$topdir-manpages-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=git-1.5.5.1-socklen_t.patch
-patch[1]=git-1.7.0.5-symlinks.patch
+patch[0]=git-1.7.2.3-symlinks.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -38,31 +37,17 @@ prep()
 {
     generic_prep
     setdir source
-#    mv Makefile.1 Makefile
-##    sed -e '/Define NO_PERL_MAKEMAKER/ s/.*/NO_PERL_MAKEMAKER=Yes/' Makefile.1 > Makefile
-##    mv Makefile.1 Makefile
     # Solaris 2.6
     cat <<EOF> config.mak
-NO_CURL=YesPlease
 NO_EXPAT=YesPlease
 NO_TCLTK=YesPlease
 BASIC_CFLAGS += -I/usr/tgcware/include
 BASIC_LDFLAGS += -L/usr/tgcware/lib -Wl,-R,/usr/tgcware/lib
-NEEDS_LIBICONV = YesPlease
-NO_UNSETENV = YesPlease
-NO_SETENV = YesPlease
-NO_C99_FORMAT = YesPlease
-NO_STRTOUMAX = YesPlease
-NO_D_TYPE_IN_DIRENT = YesPlease
-NO_SOCKADDR_STORAGE = YesPlease
-NO_STRCASESTR = YesPlease
-NO_STRLCPY = YesPlease
-NO_STRTOUMAX = YesPlease
-NO_IPV6 = YesPlease
-NO_SOCKLEN_T = YesPlease
-NO_HSTRERROR = YesPlease
-NO_PYTHON = YesPlease
 EXTLIBS += -lresolv
+NEEDS_LIBICONV = YesPlease
+NO_PYTHON = YesPlease
+# missing PTHREAD_MUTEX_RECURSIVE with posix95 pthreads
+NO_PTHREADS = YesPlease
 TAR = /usr/tgcware/bin/tar
 INSTALL = /usr/tgcware/bin/install
 prefix=$prefix
