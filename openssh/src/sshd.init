@@ -8,6 +8,7 @@ KEYGEN=/usr/tgcware/bin/ssh-keygen
 RSA1_KEY=/usr/tgcware/etc/ssh/ssh_host_key
 RSA_KEY=/usr/tgcware/etc/ssh/ssh_host_rsa_key
 DSA_KEY=/usr/tgcware/etc/ssh/ssh_host_dsa_key
+ECDSA_KEY=/usr/tgcware/etc/ssh/ssh_host_ecdsa_key
 ECHO=/usr/bin/echo
 
 pidfile=/var/run/sshd.pid
@@ -36,7 +37,12 @@ do_hostkeygen()
         if [ ! -s $DSA_KEY ]; then
                 $ECHO "Generating $DSA_KEY:\c"
                 $KEYGEN -q -t dsa -f $DSA_KEY -N '' > /dev/null 2>&1
-		$ECHO "."
+                $ECHO "."
+        fi
+        if [ ! -s $ECDSA_KEY ]; then
+                $ECHO "Generating $ECDSA_KEY:\c"
+                $KEYGEN -q -t ecdsa -f $ECDSA_KEY -N '' > /dev/null 2>&1
+                $ECHO "."
         fi
 }
 

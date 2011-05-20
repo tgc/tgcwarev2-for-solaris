@@ -55,7 +55,7 @@ fi
 
 # We will try to preserve any existing keys from an old setup
 # Note that new keygen is done in the init script
-for keyfile in ssh_host_key ssh_host_dsa_key ssh_host_rsa_key; do
+for keyfile in ssh_host_key ssh_host_dsa_key ssh_host_rsa_key ssh_host_ecdsa_key; do
     if [ ! -f "${CONFDIR}/$keyfile" ] ; then
 	# Check and see if we might find it in $OLDCONFDIR
 	if [ -f "${OLDCONFDIR}/$keyfile" ]; then
