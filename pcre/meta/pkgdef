@@ -1,10 +1,41 @@
 [pcre]
-pkgname="$pkgprefix""$topdir"
-name="PCRE - Perl Compatible Regular Expressions"
-pkgcat="library"
+pkgname="${pkgprefix}${topdir}"
+name="pcre - Perl Compatible Regular Expressions"
+pkgcat="system"
 pkgvendor="http://www.pcre.org"
 pkgdesc="A set of functions that implement regular expression pattern matching using the same syntax and semantics as Perl 5"
 pkgver="$pkgver"
 files(-,root,bin)
-*
+$_bindir/pcregrep
+$_bindir/pcretest
+$_libdir/*.so.*
+$_mandir/man1/pcregrep.1*
+$_mandir/man1/pcretest.1*
+$_docdir/pcre/pcre.txt
+$_docdir/pcre/pcregrep.txt
+$_docdir/pcre/pcretest.txt
+$_docdir/pcre/AUTHORS
+$_docdir/pcre/ChangeLog
+$_docdir/pcre/NEWS
+$_docdir/pcre/COPYING
+$_docdir/pcre/LICENCE
+$_docdir/pcre/README
+
+[pcre-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="pcre-devel - Development support for pcre"
+pkgcat="system"
+pkgvendor="http://www.pcre.org"
+pkgdesc="A set of functions that implement regular expression pattern matching using the same syntax and semantics as Perl 5"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/pcre-config
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+$_libdir/pkgconfig
+$_mandir/man1/pcre-config.1*
+$_mandir/man3
+$_docdir/pcre/pcre-config.txt
+$_docdir/pcre/html
 
