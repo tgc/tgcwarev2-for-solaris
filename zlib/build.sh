@@ -48,6 +48,7 @@ install()
     doc README
     docs_for zlib-devel ChangeLog doc minigzip.c example.c FAQ
 #    ${__mv} ${stagedir}${prefix}/share/${_mandir} ${stagedir}${prefix}
+    compat zlib 1.2.3 1 3
 }
 
 reg pack
