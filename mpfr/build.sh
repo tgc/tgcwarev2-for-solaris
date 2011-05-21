@@ -7,11 +7,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=mpfr
-version=2.4.2
+version=3.0.1
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=http://www.mpfr.org/mpfr-current/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=mpfr-2.4.2p3.diff
+patch[0]=mpfr-3.0.1p4.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -45,7 +45,11 @@ install()
 {
     generic_install DESTDIR
     ${__mv} ${stagedir}${prefix}/share/doc/mpfr ${stagedir}${prefix}/${_docdir}/mpfr-$version
+    # Grab libraries from mpfr 2.4.2 for compatibility
+    setdir $prefix/${_libdir}
+    ${__tar} -cf - libmpfr.so.1 libmpfr.so.1.2.2 | (cd ${stagedir}${prefix}/${_libdir}; ${__tar} -xf -)
     compat mpfr 2.3.1 1 1
+    compat mpfr 2.4.2 1 1
 }
 
 reg pack
