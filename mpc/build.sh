@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=mpc
-version=0.8.1
+version=0.9
 pkgver=1
 source[0]=http://multiprecision.org/mpc/download/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
