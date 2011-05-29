@@ -8,7 +8,7 @@
 snapshot=
 topdir=gcc
 version=4.3.5
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 #source[0]=gcc-4.3-$snapshot.tar.bz2
 ## If there are no patches, simply comment this
@@ -29,19 +29,22 @@ abbrev_ver=$(echo $version | ${__tr} -d '.')
 # Just major.minor, no subminors
 majorminor=$(echo $version | cut -d. -f1-2)
 
-global_config_args="--prefix=$prefix --with-local-prefix=$prefix --with-libiconv-prefix=$lprefix --with-gmp=$lprefix --with-mpfr=$lprefix --disable-nls --enable-shared"
+global_config_args="--prefix=$prefix --with-local-prefix=$prefix --with-gmp=$lprefix --with-mpfr=$lprefix --disable-nls --enable-shared"
 langs="--enable-languages=c,ada,c++,fortran,objc,obj-c++"
 linker="--without-gnu-ld --with-ld=/usr/ccs/bin/ld"
 assembler="--without-gnu-as --with-as=/usr/ccs/bin/as"
 objdir=all_native
 # platform/arch specific options
 [ "$_os" = "sunos56" -a "$arch" = "i386" ] && assembler="--with-gnu-as --with-as=$lprefix/bin/gas"
-[ "$_os" = "sunos56" ] && { platform_configure_args="--enable-threads=posix95 --enable-obsolete"; sol26=1; }
+[ "$_os" = "sunos56" ] && { platform_configure_args="--with-libiconv-prefix=$lprefix --enable-threads=posix95 --enable-obsolete"; sol26=1; }
 [ "$_os" = "sunos57" ] && { langs="$langs,java --with-java-awt=xlib"; sol27=1; }
 [ "$arch" = "sparc" ] && { vendor="sun"; sparc=1; } || { vendor="pc"; intel=1; }
 [ "$arch" = "sparc" -a -n "$(isalist | grep sparcv9)" ] && { sparcv9=1; m64run=1; } || m64run=0
+[ "$arch" = "sparc" ] && global_config_args="$global_config_args --with-cpu=v7"
 
 configure_args="$global_config_args $linker $assembler $langs $platform_configure_args"
+
+LDFLAGS="-Wl,-R,$prefix/lib -Wl,-R,$lprefix/lib"
 
 export CONFIG_SHELL=/bin/ksh
 
@@ -65,7 +68,11 @@ build()
     setdir source
     ${__mkdir} -p ../$objdir
     echo "$__configure $configure_args"
-    generic_build ../$objdir
+    setdir ../$objdir
+    ${__configure} $configure_args    
+    ${__make} -j2 LDFLAGS="$LDFLAGS" BOOT_LDFLAGS="$LDFLAGS" $make_build_target
+   #  ${__make} LDFLAGS="$LDFLAGS" BOOT_LDFLAGS="$LDFLAGS"
+    #generic_build ../$objdir
     datestamp
 }
 
@@ -136,6 +143,7 @@ install()
 	compat $pkg 4.3.2 1 2
 	compat $pkg 4.3.3 1 2
 	compat $pkg 4.3.4 1 2
+	compat $pkg 4.3.5 1 2
     done
     compat libobjc2 4.2.3 1 2
     compat libobjc2 4.2.4 1 2
@@ -143,19 +151,23 @@ install()
     compat libobjc2 4.3.2 1 2
     compat libobjc2 4.3.3 1 2
     compat libobjc2 4.3.4 1 2
+    compat libobjc2 4.3.5 1 2
     compat libgomp1 4.2.3 1 2
     compat libgomp1 4.2.4 1 2
     compat libgomp1 4.3.1 1 2
     compat libgomp1 4.3.2 1 2
     compat libgomp1 4.3.3 1 2
     compat libgomp1 4.3.4 1 2
+    compat libgomp1 4.3.5 1 2
     compat libgfortran3 4.3.1 1 2
     compat libgfortran3 4.3.2 1 2
     compat libgfortran3 4.3.3 1 2
     compat libgfortran3 4.3.4 1 2
+    compat libgfortran3 4.3.5 1 2
     compat libgnat43 4.3.2 1 2
     compat libgnat43 4.3.3 1 2
     compat libgnat43 4.3.4 1 2
+    compat libgnat43 4.3.5 1 2
     datestamp
 }
 

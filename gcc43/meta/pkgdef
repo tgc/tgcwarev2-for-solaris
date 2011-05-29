@@ -404,6 +404,8 @@ $iprefix/include/c++/${version}/gcj
 $iprefix/include/c++/${version}/gnu
 $iprefix/include/c++/${version}/java
 $iprefix/include/c++/${version}/javax
+$iprefix/include/c++/${version}/org
+$iprefix/include/c++/${version}/sun
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/gcj/libgcj-config.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/jawt.h
 $iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/include/jawt_md.h
