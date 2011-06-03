@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Fri Jun  3 2011 Tom G. Christensen <swpkg@jupiterrise.com> - 5.0.3-2
+- Workaround linker error on SunOS 5.6/x86
+
 * Fri Jun  3 2011 Tom G. Christensen <swpkg@jupiterrise.com> - 5.0.3-1
 - Initial package
