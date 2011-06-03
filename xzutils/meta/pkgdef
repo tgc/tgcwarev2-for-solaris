@@ -1,0 +1,27 @@
+[xzutils]
+pkgname="${pkgprefix}${topdir}"
+name="xzutils - XZ Utils"
+pkgcat="application"
+pkgvendor="http://tuukani.org/xz/"
+pkgdesc="Free general-purpose data compression software with high compression ratio"
+pkgver="$pkgver"
+files(-,root,bin)
+$_sharedir/doc
+$_bindir
+$_libdir/*.so.*
+$_sharedir/locale/*/LC_MESSAGES/xz.mo
+$_mandir/man1
+
+[xzutils-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="xzutils-devel - XZ Utils development support"
+pkgcat="application"
+pkgvendor="http://tuukani.org/xz/"
+pkgdesc="Files needed for developing with xz utils"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/*.so
+$_libdir/*.a
+$_libdir/pkgconfig
+$_includedir
+
