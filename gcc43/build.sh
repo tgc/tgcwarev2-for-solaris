@@ -7,8 +7,8 @@
 # Check the following 4 variables before running the script
 snapshot=
 topdir=gcc
-version=4.3.5
-pkgver=2
+version=4.3.6
+pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 #source[0]=gcc-4.3-$snapshot.tar.bz2
 ## If there are no patches, simply comment this

@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Wed Aug 17 2011 Tom G. Christensen <swpkg@jupiterrise.com> - 4.3.6-1
+- Update to 4.3.6
+
 * Sat May 28 2011 Tom G. Christensen <swpkg@jupiterrise.com> - 4.3.5-2
 - Build for Solaris 7/sparc
 
