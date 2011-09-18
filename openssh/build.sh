@@ -7,7 +7,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=5.8p2
+version=5.9p1
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -21,7 +21,7 @@ export LDFLAGS="-R$prefix/lib -L$prefix/lib"
 export CPPFLAGS="-I$prefix/include"
 make_check_target="tests"
 
-configure_args="--prefix=$prefix --mandir=$prefix/$_mandir --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-default-path=/usr/bin:$prefix/${_bindir} --with-mantype=cat --with-pam --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/bin:/usr/sbin:$prefix/$_bindir:$prefix/$_sbindir --with-lastlog=/var/adm/lastlog --without-zlib-version-check"
+configure_args="--prefix=$prefix --mandir=$prefix/$_mandir --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-default-path=/usr/bin:$prefix/${_bindir} --with-mantype=cat --with-pam --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/bin:/usr/sbin:$prefix/$_bindir:$prefix/$_sbindir --with-lastlog=/var/adm/lastlog --without-zlib-version-check"
 
 reg prep
 prep()
@@ -65,7 +65,7 @@ install()
 
     custom_install=1
     generic_install
-    doc CREDITS ChangeLog INSTALL LICENCE OVERVIEW README* PROTOCOL* TODO WARNING.RNG
+    doc CREDITS ChangeLog INSTALL LICENCE OVERVIEW README* PROTOCOL* TODO
 
     setdir ${stagedir}${prefix}/${_sysconfdir}/ssh
     for i in *; do ${__mv} $i $i.default; done
