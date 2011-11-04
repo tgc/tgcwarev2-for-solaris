@@ -1,6 +1,5 @@
 #!/bin/bash
 # This is a buildpkg build.sh script
-# It can be used nearly unmodified with many packages
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #

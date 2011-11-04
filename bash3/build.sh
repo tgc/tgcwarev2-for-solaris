@@ -1,10 +1,7 @@
 #!/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -15,7 +12,7 @@ pkgver=1
 source[0]=$topdir-$real_version.tar.gz
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 patch[0]=${srcfiles}/${topdir}-${real_version}-patches/bash32-001
 patch[1]=${srcfiles}/${topdir}-${real_version}-patches/bash32-002
