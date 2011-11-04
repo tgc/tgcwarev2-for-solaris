@@ -8,7 +8,7 @@
 topdir=autoconf
 version=2.68
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=ftp://ftp.sunet.se/pub/gnu/autoconf/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
