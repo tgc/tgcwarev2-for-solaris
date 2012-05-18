@@ -8,7 +8,7 @@
 snapshot=
 topdir=gcc
 version=4.3.6
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 #source[0]=gcc-4.3-$snapshot.tar.bz2
 ## If there are no patches, simply comment this
@@ -20,7 +20,6 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$vers
 # Global settings
 lprefix=$prefix
 [ -n "$snapshot" ] && topsrcdir=gcc-$version-$snapshot
-prefix=/usr/tgcware/$topdir-$version
 __configure="../$topsrcdir/configure"
 make_build_target=bootstrap
 
@@ -28,25 +27,71 @@ make_build_target=bootstrap
 abbrev_ver=$(echo $version | ${__tr} -d '.')
 # Just major.minor, no subminors
 majorminor=$(echo $version | cut -d. -f1-2)
+abbrev_majorminor=$(echo $majorminor | tr -d '.')
 
-global_config_args="--prefix=$prefix --with-local-prefix=$prefix --with-gmp=$lprefix --with-mpfr=$lprefix --disable-nls --enable-shared"
+prefix=${lprefix}/${topdir}${abbrev_majorminor}
+
+# In /usr/tgcware/gcc43 goes bin, man, info
+# everything else goes to /usr/tgcware lib,libexec,include,share
+# java/gcj has some files in lib that are unversioned and could
+# cause conflicts if multiple versions are attempted to be installed
+# local-prefix continues to be a noop since I don't want
+# anything to override <prefix>/include automatically
+
+global_config_args="--prefix=$lprefix --with-local-prefix=$prefix --bindir=${prefix}/bin --mandir=${prefix}/man --infodir=${prefix}/info --with-libiconv-prefix=$lprefix --with-gmp=$lprefix --with-mpfr=$lprefix --disable-nls --enable-shared --enable-threads=posix"
 langs="--enable-languages=c,ada,c++,fortran,objc,obj-c++"
 linker="--without-gnu-ld --with-ld=/usr/ccs/bin/ld"
 assembler="--without-gnu-as --with-as=/usr/ccs/bin/as"
 objdir=all_native
 # platform/arch specific options
-[ "$_os" = "sunos56" -a "$arch" = "i386" ] && assembler="--with-gnu-as --with-as=$lprefix/bin/gas"
-[ "$_os" = "sunos56" ] && { platform_configure_args="--with-libiconv-prefix=$lprefix --enable-threads=posix95 --enable-obsolete"; sol26=1; }
-[ "$_os" = "sunos57" ] && { langs="$langs,java --with-java-awt=xlib"; sol27=1; }
+[ "$arch" = "i386" ] && { assembler="--with-gnu-as --with-as=$lprefix/bin/gas"; cpu="--with-arch=i686"; }
 [ "$arch" = "sparc" ] && { vendor="sun"; sparc=1; } || { vendor="pc"; intel=1; }
 [ "$arch" = "sparc" -a -n "$(isalist | grep sparcv9)" ] && { sparcv9=1; m64run=1; } || m64run=0
-[ "$arch" = "sparc" ] && global_config_args="$global_config_args --with-cpu=v7"
+
+platform_configure_args="$cpu"
+
+gnu_os_ver=$(${__uname} -r | ${__sed} -e 's/^5/2/')
+
+# Languages
+langs="$langs,java --with-x --with-java-awt=xlib --with-system-zlib"
+java_libver=9
 
 configure_args="$global_config_args $linker $assembler $langs $platform_configure_args"
 
-LDFLAGS="-Wl,-R,$prefix/lib -Wl,-R,$lprefix/lib"
+# RPATH with just $lprefix since this is where lib goes
+# This *may* pose a problem during bootstrap and in that case a two stage bootstrap will be needed.
+# This forces all linked objects including libraries (ie. libstdc++.so) to have an RPATH
+export LD_OPTIONS="-R$lprefix/lib -R$lprefix/lib/\$ISALIST"
 
 export CONFIG_SHELL=/bin/ksh
+
+# Setup tool path
+export PATH=$srcdir/tools:$PATH
+
+# Creates tool path
+setup_tools()
+{
+    # Setup tools
+    # On Solaris 8 /usr/xpg4/bin/grep mishandles long lines resulting
+    # Use /usr/bin/grep instead (or even better GNU grep)
+    # Use /usr/bin/grep instead
+    # For Java we need GNU diff and GNU find
+    # For C++/libstdc++ we need c++filt
+    # We need a reasonably new jar, jar from Java 1.2 will not work
+    # GNU sed is not a bad idea either
+    # Go needs objcopy
+    # Atleast some configure tests depend on objdump
+    ${__mkdir} -p $srcdir/tools
+    setdir $srcdir/tools
+    ${__ln_s} -f /usr/bin/grep grep
+    ${__ln_s} -f /opt/csw/bin/gdiff diff
+    ${__ln_s} -f /opt/csw/bin/gfind find
+    ${__ln_s} -f /opt/csw/bin/gsed sed
+    ${__ln_s} -f /opt/csw/gcc4/bin/gjar jar
+    ${__ln_s} -f /usr/tgcware/bin/gc++filt c++filt
+    ${__ln_s} -f /usr/tgcware/bin/gobjcopy objcopy
+    ${__ln_s} -f /usr/tgcware/bin/gobjdump objdump
+}
 
 datestamp()
 {
@@ -58,6 +103,7 @@ prep()
 {
     datestamp
     generic_prep
+    setup_tools
     datestamp
 }
 
@@ -65,14 +111,15 @@ reg build
 build()
 {
     datestamp
+    setup_tools
     setdir source
     ${__mkdir} -p ../$objdir
     echo "$__configure $configure_args"
-    setdir ../$objdir
-    ${__configure} $configure_args    
-    ${__make} -j2 LDFLAGS="$LDFLAGS" BOOT_LDFLAGS="$LDFLAGS" $make_build_target
+    #setdir ../$objdir
+    #${__configure} $configure_args
+    #${__make} LDFLAGS="$LDFLAGS" BOOT_LDFLAGS="$LDFLAGS" $make_build_target
    #  ${__make} LDFLAGS="$LDFLAGS" BOOT_LDFLAGS="$LDFLAGS"
-    #generic_build ../$objdir
+    generic_build ../$objdir
     datestamp
 }
 
@@ -80,6 +127,7 @@ reg install
 install()
 {
     datestamp
+    setup_tools
     clean stage
     setdir ${srcdir}/${objdir}
     ${__make} DESTDIR=$stagedir install
@@ -87,21 +135,56 @@ install()
     generic_install
     ${__find} ${stagedir} -name '*.la' -print | ${__xargs} ${__rm} -f
 
-    # Prepare for split lib packages
-    ${__mkdir} -p ${stagedir}${lprefix}/${_libdir}
-    setdir ${stagedir}${prefix}/${_libdir}
-    ${__tar} -cf - libgcc_s.so.1 libstdc++.so.6* libgfortran.so.3* libobjc.so.2* libgomp.so.1* |
-	(cd ${stagedir}${lprefix}/${_libdir}; ${__tar} -xvBpf -)
-    if [ $m64run -eq 1 ]; then # Also install v9 libraries
-	    ${__mkdir} -p ${stagedir}${lprefix}/${_libdir}/sparcv9
-	    setdir ${stagedir}${prefix}/${_libdir}/sparcv9
-	    ${__tar} -cf - libgcc_s.so.1 libstdc++.so.6* libgfortran.so.3* libobjc.so.2* libgomp.so.1* |
-		(cd ${stagedir}${lprefix}/${_libdir}/sparcv9; ${__tar} -xvBpf -)
-    fi
-
-    # Grab gnat libraries from adalib
-    ${__cp} -p ${stagedir}${prefix}/${_libdir}/gcc/${arch}-${vendor}-solaris*/${version}/adalib/libgnarl-$majorminor.so ${stagedir}${lprefix}/${_libdir}
-    ${__cp} -p ${stagedir}${prefix}/${_libdir}/gcc/${arch}-${vendor}-solaris*/${version}/adalib/libgnat-$majorminor.so ${stagedir}${lprefix}/${_libdir}
+    # Lots of rearranging to do to make multiple GCC versions work
+    # This is based on the rhel6 and Fedora current specfiles
+    # First we need to move all gcc version specific files/libraries to the private versioned
+    # libdir
+    FULLPATH=${stagedir}${lprefix}/lib/gcc/${arch}-${vendor}-solaris${gnu_os_ver}/${version}
+    setdir $FULLPATH
+    ${__mv} ../../../libgfortran.a .
+    ${__mv} ../../../libgomp.a .
+    ${__mv} ../../../libgomp.spec .
+    ${__mv} ../../../libffi.a .
+    ${__mv} ../../../libiberty.a .
+    ${__mv} ../../../libstdc++.a .
+    ${__mv} ../../../libsupc++.a .
+    ${__mv} ../../../libssp*.a .
+    ${__mv} ../../../libobjc.a .
+    # Remove .so
+    ${__rm} -f ../../../libffi.so
+    ${__rm} -f ../../../libgcc_s.so
+    ${__rm} -f ../../../libgfortran.so
+    ${__rm} -f ../../../libgomp.so
+    ${__rm} -f ../../../libobjc.so
+    ${__rm} -f ../../../libssp.so
+    ${__rm} -f ../../../libstdc++.so
+    # Create new .so files, note we link not to the full version
+    # since we want to cheat and allow newer compilers to upgrade
+    # them as long as the soversion is matching
+    ${__ln_s} ../../../libffi.so.4 libffi.so
+    ${__ln_s} ../../../libgcc_s.so.1 libgcc_s.so
+    ${__ln_s} ../../../libgfortran.so.3 libgfortran.so
+    ${__ln_s} ../../../libgomp.so.1 libgomp.so
+    ${__ln_s} ../../../libobjc.so.2 libobjc.so
+    ${__ln_s} ../../../libssp.so.0 libssp.so
+    ${__ln_s} ../../../libstdc++.so.6 libstdc++.so
+    # For Ada
+    ${__mv} adalib/libgnarl-*.so ../../../
+    ${__mv} adalib/libgnat-*.so ../../../
+    ${__rm} -f adalib/libgnat.so adalib/libgnarl.so
+    ${__ln_s} ../../../libgnarl-*.so libgnarl.so
+    ${__ln_s} ../../../libgnat-*.so libgnat.so
+    cd $FULLPATH/adalib
+    ${__ln_s} ../../../../libgnarl-*.so libgnarl.so
+    ${__ln_s} ../../../../libgnarl-*.so libgnarl-4.3.so
+    ${__ln_s} ../../../../libgnat-*.so libgnat.so
+    ${__ln_s} ../../../../libgnat-*.so libgnat-4.3.so
+    cd ..
+    # Ada will not work without these symlinks
+    mkdir -p ${stagedir}${prefix}/lib/gcc/${arch}-${vendor}-solaris${gnu_os_ver}/${version}
+    cd ${stagedir}${prefix}/lib/gcc/${arch}-${vendor}-solaris${gnu_os_ver}/${version}
+    ${__ln_s} ../../../../../lib/gcc/${arch}-${vendor}-solaris${gnu_os_ver}/${version}/adainclude .
+    ${__ln_s} ../../../../../lib/gcc/${arch}-${vendor}-solaris${gnu_os_ver}/${version}/adalib .
 
     # Turn all the hardlinks in bin into symlinks
     setdir ${stagedir}${prefix}/${_bindir}
@@ -130,44 +213,6 @@ install()
     prefix=$topinstalldir
     doc COPYING* MAINTAINERS NEWS
 
-    # Setup compat files
-    for pkg in libgcc_s1 libstdc++6
-    do
-	${__rm} -f $metadir/compver.$pkg
-	compat $pkg 3.4.6 1 5
-	compat $pkg 4.0.4 1 2
-	compat $pkg 4.1.2 1 2
-	compat $pkg 4.2.3 1 2
-	compat $pkg 4.2.4 1 2
-	compat $pkg 4.3.1 1 2
-	compat $pkg 4.3.2 1 2
-	compat $pkg 4.3.3 1 2
-	compat $pkg 4.3.4 1 2
-	compat $pkg 4.3.5 1 2
-    done
-    compat libobjc2 4.2.3 1 2
-    compat libobjc2 4.2.4 1 2
-    compat libobjc2 4.3.1 1 2
-    compat libobjc2 4.3.2 1 2
-    compat libobjc2 4.3.3 1 2
-    compat libobjc2 4.3.4 1 2
-    compat libobjc2 4.3.5 1 2
-    compat libgomp1 4.2.3 1 2
-    compat libgomp1 4.2.4 1 2
-    compat libgomp1 4.3.1 1 2
-    compat libgomp1 4.3.2 1 2
-    compat libgomp1 4.3.3 1 2
-    compat libgomp1 4.3.4 1 2
-    compat libgomp1 4.3.5 1 2
-    compat libgfortran3 4.3.1 1 2
-    compat libgfortran3 4.3.2 1 2
-    compat libgfortran3 4.3.3 1 2
-    compat libgfortran3 4.3.4 1 2
-    compat libgfortran3 4.3.5 1 2
-    compat libgnat43 4.3.2 1 2
-    compat libgnat43 4.3.3 1 2
-    compat libgnat43 4.3.4 1 2
-    compat libgnat43 4.3.5 1 2
     datestamp
 }
 
@@ -175,6 +220,7 @@ reg check
 check()
 {
     datestamp
+    setup_tools
     setdir source
     setdir ../$objdir
     # If we can run v9 binaries then we also run the testsuite with -m64
@@ -191,7 +237,7 @@ reg pack
 pack()
 {
     datestamp
-    iprefix=$topdir-$version
+    iprefix=${topdir}${abbrev_majorminor}
     generic_pack
     datestamp
 }
