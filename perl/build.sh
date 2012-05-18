@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=perl
-version=5.8.8
+version=5.14.2
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=http://www.cpan.org/src/5.0/perl-${version}.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -32,7 +32,7 @@ reg build
 build()
 {
     setdir source
-    $__configure -Dcc='/usr/tgcware/gcc-3.4.6/bin/gcc' -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='swpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des
+    $__configure -Dcc='gcc' -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='swpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des
     ${__make} LDDLFLAGS="-shared -L$prefix/lib -R$prefix/lib" CLDFLAGS="-L$prefix/lib -R$prefix/lib"
 }
 
@@ -61,6 +61,8 @@ install()
             $new_perl -i -p -e "s|$stagedir||g;" $i
         fi
     done
+    ${__rm} -f ${stagedir}${prefix}/${_bindir}/perl$version
+    compat perl 5.8.8 1 1
 }
 
 reg pack
