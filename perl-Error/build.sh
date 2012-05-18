@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=Error
-version=0.17015
+version=0.17018
 pkgver=1
 source[0]=http://search.cpan.org/CPAN/authors/id/S/SH/SHLOMIF/$topdir-$version.tar.gz
 # If there are no patches, simply comment this

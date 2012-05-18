@@ -2,7 +2,7 @@
 pkgname="${pkgprefix}plerr"
 name="perl-Error - Perl module Error"
 pkgcat="application"
-pkgvendor="http://search.cpan.org/~shlomif/Error-0.17015/"
+pkgvendor="http://search.cpan.org/~shlomif/"
 pkgdesc="Error/exception handling in an OO-ish way"
 pkgver="$pkgver"
 files(-,root,bin)
