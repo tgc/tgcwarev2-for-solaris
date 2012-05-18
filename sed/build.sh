@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=sed
-version=4.1.5
+version=4.2.1
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=ftp://ftp.sunet.se/pub/sed/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -41,6 +41,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    rmdir ${stagedir}${prefix}/${_libdir}
     doc NEWS ChangeLog BUGS COPYING
 }
 
