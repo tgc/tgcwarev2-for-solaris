@@ -8,7 +8,7 @@
 topdir=grep
 version=2.6.3
 pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/grep/$topdir-$version.tar.gz
+source[0]=ftp://ftp.sunet.se/pub/gnu/grep/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
