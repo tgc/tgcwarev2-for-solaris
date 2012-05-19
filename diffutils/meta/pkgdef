@@ -10,3 +10,4 @@ default_docs
 $_bindir
 $_infodir
 $_mandir
+$_sharedir/locale
