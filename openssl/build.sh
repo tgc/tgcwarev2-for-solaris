@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=1.0.0e
-pkgver=4
+version=1.0.1c
+pkgver=3
 source[0]=http://openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -20,16 +20,17 @@ abbrev_ver=$(echo $version|${__sed} -e 's/\.//g')
 baseversion=$(echo $version|${__sed} -e 's/[a-zA-Z]//g')
 make_check_target="test"
 __configure="./Configure"
-shared_args="--prefix=$prefix --openssldir=${prefix}/${_sharedir}/ssl zlib shared"
+shared_args="--prefix=$prefix --openssldir=${prefix}/${_sharedir}/ssl zlib-dynamic shared"
 if [ "$arch" = "sparc" ]; then
     # For Solaris > 7 we default to sparcv8 ISA
     configure_args="solaris-sparcv8-gcc $shared_args"
-    # Solaris < 8 supports sparcv7 hardware
-    [ "$_os" = "sunos56" -o "$_os" = "sunos57" ] && configure_args="$shared_args solaris-sparcv7-gcc"
 else
-    configure_args="$shared_args 386 solaris-x86-gcc" 
+    configure_args="$shared_args no-sse2 solaris-x86-gcc" 
 fi
 ignore_deps="LWperl"
+
+# Buildsystem is non-standard so we take the easy way out
+export LD_OPTIONS="-R$prefix/lib"
 
 reg prep
 prep()
@@ -45,8 +46,8 @@ build()
     ${__gsed} -i "s;@LIBDIR@;${prefix}/lib;g" Makefile.org
 
     if [ "$arch" = "i386" ]; then
-	# openssl defaults to --march=pentium which should be changed to --march=i386 --mtune=i686
-	${__sed} -e 's/-march=pentium/-march=i386 -mtune=i686/' Configure > Configure.myflags
+	# openssl defaults to --march=pentium which should be changed to --march=i686 --mtune=i686
+	${__sed} -e 's/-march=pentium/-march=i686 -mtune=i686/' Configure > Configure.myflags
 	${__mv} Configure.myflags Configure
 	chmod 755 Configure
     fi
@@ -99,12 +100,6 @@ install()
     custom_install=1
     generic_install INSTALL_PREFIX
 
-    # grab 0.9.8g libraries for compat
-    setdir $prefix/${_libdir}
-    ${__tar} -cf - libcrypto.so.0.9.8 libssl.so.0.9.8 | (cd ${stagedir}${prefix}/${_libdir}; ${__tar} -xf -)
-    compat ossl 0.9.8g 1 2
-    compat ossl 1.0.0 1 1
-    compat ossl 1.0.0a 1 2
 }
 
 reg pack
