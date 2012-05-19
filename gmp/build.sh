@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gmp
-version=5.0.1
+version=5.0.5
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -16,13 +16,13 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.bz2
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
+export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-[ "$_os" = "sunos56" ] && triplet="${arch}-sun-solaris2.6"
-[ "$_os" = "sunos57" ] && triplet="${arch}-sun-solaris2.7"
-configure_args="--host=$triplet --build=$triplet $configure_args --enable-cxx"
-# otherwise configure tests will fail since they don't respect LDFLAGS :(
-export LD_LIBRARY_PATH="$prefix/lib"
-
+[ "$arch" = "sparc" ] &&  vendor="sun" || vendor="pc"
+[ "$_os" = "sunos58" -a "$arch" = "sparc" ] && triplet="${arch}-${vendor}-solaris2.8"
+# Use i686 instructions
+[ "$_os" = "sunos58" -a "$arch" = "i386" ] && triplet="pentiumpro-${vendor}-solaris2.8"
+configure_args="--host=$triplet --build=$triplet $configure_args" # --enable-cxx
 
 reg prep
 prep()
@@ -47,11 +47,6 @@ install()
 {
     generic_install DESTDIR
     doc AUTHORS COPYING COPYING.LIB NEWS README
-
-    # Compat libraries
-    setdir ${prefix}/${_libdir}
-    ${__tar} -cf - libgmp.so.3* | (cd ${stagedir}${prefix}/${_libdir}; ${__tar} -xf -)
-    compat gmp 4.2.4 1 5
 }
 
 reg pack
