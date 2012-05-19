@@ -47,9 +47,9 @@ install()
     generic_install DESTDIR unix
     doc license.terms changes README
     setdir ${stagedir}${prefix}/${_bindir}
-    ${__ln} -s wish${majorver} wish
+    ${__ln_s} wish${majorver} wish
     setdir ${stagedir}${prefix}/${_libdir}
-    ${__ln} -s libtk${majorver}.so libtk.so
+    ${__ln_s} libtk${majorver}.so libtk.so
 
     # Grab headers
     ${__mkdir} -p ${stagedir}${prefix}/${_includedir}/tk-private/{generic,unix}
@@ -57,7 +57,7 @@ install()
     ${__find} generic unix -name "*.h" -print | ${__tar} -T - -cf - | (cd ${stagedir}${prefix}/${_includedir}/tk-private; ${__tar} -xvBpf -)
     ( cd ${stagedir}${prefix}/${_includedir}
         for i in *.h ; do
-            [ -f ${stagedir}${prefix}/${_includedir}/tk-private/generic/$i ] && ln -sf ../../$i ${stagedir}${prefix}/${_includedir}/tk-private/generic ;
+            [ -f ${stagedir}${prefix}/${_includedir}/tk-private/generic/$i ] && ${__ln_s} -f ../../$i ${stagedir}${prefix}/${_includedir}/tk-private/generic ;
         done
     )
 
