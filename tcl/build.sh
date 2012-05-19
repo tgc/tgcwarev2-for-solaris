@@ -40,9 +40,9 @@ install()
     generic_install DESTDIR unix
     doc license.terms changes README
     setdir ${stagedir}${prefix}/${_bindir}
-    ${__ln} -s tclsh${majorver} tclsh
+    ${__ln_s} tclsh${majorver} tclsh
     setdir ${stagedir}${prefix}/${_libdir}
-    ${__ln} -s libtcl${majorver}.so libtcl.so
+    ${__ln_s} libtcl${majorver}.so libtcl.so
 
     # Grab headers
     ${__mkdir} -p ${stagedir}${prefix}/${_includedir}/tcl-private/{generic,unix}
@@ -50,7 +50,7 @@ install()
     ${__find} generic unix -name "*.h" -print | ${__tar} -T - -cf - | (cd ${stagedir}${prefix}/${_includedir}/tcl-private; ${__tar} -xvBpf -)
     ( cd ${stagedir}${prefix}/${_includedir}
         for i in *.h ; do
-            [ -f ${stagedir}${prefix}/${_includedir}/tcl-private/generic/$i ] && ln -sf ../../$i ${stagedir}${prefix}/${_includedir}/tcl-private/generic ;
+            [ -f ${stagedir}${prefix}/${_includedir}/tcl-private/generic/$i ] && ${__ln_s} -f ../../$i ${stagedir}${prefix}/${_includedir}/tcl-private/generic ;
         done
     )
     # Cleanup references to the build
