@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=zlib
-version=1.2.5
+version=1.2.7
 pkgver=1
 source[0]=http://zlib.net/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -45,9 +45,8 @@ install()
     generic_install prefix
     ${__rm} -f ${stagedir}${prefix}/${_libdir}/libz.a
     doc README
-    docs_for zlib-devel ChangeLog doc minigzip.c example.c FAQ
-#    ${__mv} ${stagedir}${prefix}/share/${_mandir} ${stagedir}${prefix}
-    compat zlib 1.2.3 1 3
+    docs_for zlib-devel ChangeLog doc examples test/minigzip.c test/example.c FAQ
+    compat zlib 1.2.5 1 1
 }
 
 reg pack
