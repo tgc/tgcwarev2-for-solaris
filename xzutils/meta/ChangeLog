@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sun May 06 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 5.0.3-3
+- Fork for Solaris 8+
+
 * Fri Jun  3 2011 Tom G. Christensen <swpkg@jupiterrise.com> - 5.0.3-2
 - Workaround linker error on SunOS 5.6/x86
 

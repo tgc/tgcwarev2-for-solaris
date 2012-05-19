@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=xz
 version=5.0.3
-pkgver=2
+pkgver=3
 source[0]=http://tukaani.org/xz/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -23,13 +23,6 @@ reg prep
 prep()
 {
     generic_prep
-    if [ "$_os" = "sunos56" -a "$arch" = "i386" ]; then
-      # Replacing Wl,-z text with -mimpure-text is a workaround to avoid
-      # "ld: fatal: relocations remain against allocatable but non-writable sections"
-      # when linking liblzma
-      setdir source
-      sed -i 's|\${wl}-z \${wl}text|-mimpure-text|g' configure
-    fi
 }
 
 reg build
