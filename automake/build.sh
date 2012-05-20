@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=automake
-version=1.10.1
+version=1.12
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=ftp://ftp.sunet.se/pub/gnu/automake/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -40,7 +40,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
+    doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS
 }
 
 reg pack
