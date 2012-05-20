@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=vim
-version=7.2
+version=7.3
 pkgver=1
-source[0]=ftp://ftp.vim.org/pub/vim/unix/$topdir-$version.tar.bz2
+source[0]=ftp://ftp.vim.org/pub/vim/unix/$topdir-${version}.tar.bz2
 # If there are no patches, simply comment this
 # Generate rough patchlist like this:
 # grep -v Win32 README | grep -v VMS | grep -v Mac | grep -v \.gz |grep -v \(extra|awk '{ print $2 }'|grep 7.1
@@ -20,9 +20,13 @@ source[0]=ftp://ftp.vim.org/pub/vim/unix/$topdir-$version.tar.bz2
 
 # Global settings
 # We need to override this
-topsrcdir=vim72
+topsrcdir=vim73
 patchdir=$srcfiles/vim-${version}-patches
 patch_prefix="-p0"
+# Augment version based on patchlevel
+pver=$(cd $patchdir && ls ${version}*|sort -n|tail -1)
+real_version=$version
+version=$pver
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 # What gui should we build?
@@ -33,6 +37,13 @@ reg prep
 prep()
 {
     generic_prep
+    # Patch
+    setdir source
+    for p in $(ls $patchdir/${real_version}*);
+    do
+      echo "Applying patch $p"
+      ${__patch} -Es $patch_prefix < $p
+    done
 }
 
 reg build
