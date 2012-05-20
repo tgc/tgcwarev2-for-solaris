@@ -6,11 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=bzip2
-version=1.0.5
+version=1.0.6
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=http://bzip.org/${version}/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=bzip2-1.0.5-saneso.patch
+patch[0]=bzip2-1.0.6-sane_soname.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -19,6 +19,8 @@ reg prep
 prep()
 {
     generic_prep
+    # Solaris ld needs -h instead of -soname
+    ${__gsed} -i 's/-soname/-h/g' Makefile-libbz2_so 
 }
 
 reg build
@@ -43,7 +45,7 @@ install()
     setdir source
     ${__mkdir} -p ${stagedir}${prefix}/{${_bindir},${_mandir}/man1,${_libdir},${_includedir}}
     ${__install} -m 755 bzlib.h ${stagedir}${prefix}/${_includedir}
-    ${__install} -m 755 libbz2.so.1.0.4 ${stagedir}${prefix}/${_libdir}
+    ${__install} -m 755 libbz2.so.${version} ${stagedir}${prefix}/${_libdir}
     ${__install} -m 755 libbz2.a ${stagedir}${prefix}/${_libdir}
     ${__install} -m 755 bzip2-shared  ${stagedir}${prefix}/${_bindir}/bzip2
     ${__install} -m 755 bzip2recover bzgrep bzdiff bzmore ${stagedir}${prefix}/${_bindir}/
@@ -52,7 +54,7 @@ install()
     ${__ln} -s bzip2 ${stagedir}${prefix}/${_bindir}/bzcat
     ${__ln} -s bzdiff ${stagedir}${prefix}/${_bindir}/bzcmp
     ${__ln} -s bzmore ${stagedir}${prefix}/${_bindir}/bzless
-    ${__ln} -s libbz2.so.1.0.4 ${stagedir}${prefix}/${_libdir}/libbz2.so.1
+    ${__ln} -s libbz2.so.${version} ${stagedir}${prefix}/${_libdir}/libbz2.so.1
     ${__ln} -s libbz2.so.1 ${stagedir}${prefix}/${_libdir}/libbz2.so
     ${__ln} -s bzip2.1 ${stagedir}${prefix}/${_mandir}/man1/bzip2recover.1
     ${__ln} -s bzip2.1 ${stagedir}${prefix}/${_mandir}/man1/bunzip2.1
