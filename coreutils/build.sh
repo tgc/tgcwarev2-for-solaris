@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=coreutils
-version=6.11
+version=8.16
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=ftp://ftp.sunet.se/pub/gnu/coreutils/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -18,6 +18,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -R/usr/tgcware/lib"
+configure_args="$configure_args --program-prefix=g"
 
 reg prep
 prep()
