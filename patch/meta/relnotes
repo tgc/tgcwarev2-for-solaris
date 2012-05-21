@@ -25,3 +25,6 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+The gnulib snapshot used in this version of patch is missing the strnlen.c file.
+The included patch contains a copy of this file taken from a current gnulib checkout.
+
