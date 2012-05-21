@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gzip
-version=1.3.12
+version=1.4
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=ftp://ftp.sunet.se/pub/gnu/gzip/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -18,14 +18,12 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
+ac_overrides="ac_cv_path_shell=/usr/tgcware/bin/bash"
 
 reg prep
 prep()
 {
     generic_prep
-    # Try ksh before bash when looking for POSIX compliant shell
-    setdir source
-    ${__gsed} -i 's/bash ksh/ksh bash/' configure
 }
 
 reg build
@@ -44,7 +42,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc COPYING AUTHORS TODO NEWS README README-alpha ChangeLog
+    ${__rmdir} ${stagedir}${prefix}/${_libdir}
+    doc COPYING AUTHORS TODO NEWS README ChangeLog
 }
 
 reg pack
