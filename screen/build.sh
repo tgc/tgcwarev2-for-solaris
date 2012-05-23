@@ -8,7 +8,7 @@
 topdir=screen
 version=4.0.3
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=http://ftp.uni-erlangen.de/pub/utilities/screen/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=screen-4.0.2-makefile-madness.diff
 
