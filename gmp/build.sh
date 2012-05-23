@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=gmp
 version=5.0.5
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -47,6 +47,8 @@ install()
 {
     generic_install DESTDIR
     doc AUTHORS COPYING COPYING.LIB NEWS README
+
+    compat gmp 5.0.4 1 1
 }
 
 reg pack
