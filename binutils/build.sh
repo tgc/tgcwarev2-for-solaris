@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=binutils
 version=2.22
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -42,14 +42,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    {__rm} -f ${stagedir}${prefix}/${_mandir}/man1/{dlltool,nlmconv,windres,windmc}*
-
-    ${__mkdir} -p ${stagedir}${prefix}/../bin
-    setdir ${stagedir}${prefix}/../bin
-    for cmd in c++filt objdump objcopy
-    do
-      ${__ln_s} ../binutils/bin/g$cmd $cmd
-    done
+    ${__rm} -f ${stagedir}${prefix}/${_mandir}/man1/g{dlltool,nlmconv,windres,windmc}*
     doc COPYING*
 }
 
