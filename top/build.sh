@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=top
-version=3.7
+version=3.8beta1
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=http://www.unixtop.org/dist/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
