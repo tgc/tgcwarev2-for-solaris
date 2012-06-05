@@ -2,7 +2,7 @@
 pkgname="${pkgprefix}${topdir}"
 name="$topdir - Git revision control system"
 pkgcat="application"
-pkgvendor="http://git.or.cz"
+pkgvendor="http://git-scm.com"
 pkgdesc="A fast, scalable, distributed revision control system"
 pkgver="$pkgver"
 files(-,root,bin)
