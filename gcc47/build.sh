@@ -7,11 +7,11 @@
 # Check the following 4 variables before running the script
 snapshot=
 topdir=gcc
-version=4.7.0
+version=4.7.1
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 ## If there are no patches, simply comment this
-#patch[0]=
+patch[0]=0001-gcc-interface-Makefile.in-gnatlib-shared-default-App.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -110,7 +110,6 @@ prep()
 reg build
 build()
 {
-    datestamp
     setup_tools
     setdir source
     ${__mkdir} -p ../$objdir
@@ -118,13 +117,11 @@ build()
 #    setdir ../$objdir
 #    ${__make}
     generic_build ../$objdir
-    datestamp
 }
 
 reg install
 install()
 {
-    datestamp
     setup_tools
     clean stage
     setdir ${srcdir}/${objdir}
@@ -263,14 +260,24 @@ install()
 	compat libgcc_s1 $ver 1 10
 	compat libquadmath0 $ver 1 10
     done
-
-    datestamp
+    for ver in 4.7.0
+    do
+	compat libstdc++6 $ver 1 10
+	compat libssp0 $ver 1 10
+	compat libffi4 $ver 1 10
+	compat libgomp1 $ver 1 10
+	compat libgfortran3 $ver 1 10
+	compat libgcc_s1 $ver 1 10
+	compat libquadmath0 $ver 1 10
+	compat libitm1 $ver 1 10
+	compat libgo0 $ver 1 10
+	compat libgnat47 $ver 1 10
+    done
 }
 
 reg check
 check()
 {
-    datestamp
     setup_tools
     setdir source
     setdir ../$objdir
@@ -281,16 +288,13 @@ check()
 	echo "Running the testsuite also with -m64"
 	${__make} -k RUNTESTFLAGS="--target_board='unix{,-m64}'" check
     fi
-    datestamp
 }
 
 reg pack
 pack()
 {
-    datestamp
     iprefix=${topdir}${abbrev_majorminor}
     generic_pack
-    datestamp
 }
 
 reg distclean
