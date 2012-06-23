@@ -4,7 +4,7 @@
 # and to make screen SUID root
 
 SHAREDIR=${BASEDIR}/share/screen
-TIC=/usr/5bin/tic
+TIC=/usr/bin/tic
 
 # install terminfo
 ${TIC} ${SHAREDIR}/screeninfo.src

@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Sat Jun 23 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 4.0.3-2
+- Use a different tic in the postinstall script
+
 * Wed May 23 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 4.0.3-1
 - Rebuild
