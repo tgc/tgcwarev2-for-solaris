@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sat Jun 23 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 2.22-4
+- Add compver entries
+
 * Tue Jun 05 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 2.22-3
 - Fix typo in build.sh
 

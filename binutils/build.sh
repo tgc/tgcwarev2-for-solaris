@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=binutils
 version=2.22
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -44,6 +44,7 @@ install()
     generic_install DESTDIR
     ${__rm} -f ${stagedir}${prefix}/${_mandir}/man1/g{dlltool,nlmconv,windres,windmc}*
     doc COPYING*
+    compat binutils 2.22 1 3
 }
 
 reg pack
