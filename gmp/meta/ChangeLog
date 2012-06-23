@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sat Jun 23 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 5.0.5-3
+- Rebuild with more compver entries
+
 * Wed May 23 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 5.0.5-2
 - Rebuild with proper compver entries
 
