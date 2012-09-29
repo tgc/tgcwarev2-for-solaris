@@ -1,0 +1,10 @@
+TGCg30c TGCbinut auto
+TGCg30c libgcc_s1 auto
+TGCg30cx gcc auto
+TGCg30cx libstdc++3 auto
+TGCg30ob gcc auto
+TGCg30ob libobjc1 auto
+TGCg30ft gcc auto
+TGCgccjv gcc auto
+TGClstdc3 libgcc_s1 auto
+TGClobjc1 libgcc_s1 auto
