@@ -1,0 +1,17 @@
+diff -up gcc-2.95.3/gcc/config/sparc/sol2.h.v7 gcc-2.95.3/gcc/config/sparc/sol2.h
+--- gcc-2.95.3/gcc/config/sparc/sol2.h.v7	2012-09-29 14:22:24.961483000 +0200
++++ gcc-2.95.3/gcc/config/sparc/sol2.h	2012-09-29 16:14:29.445316000 +0200
+@@ -58,8 +58,13 @@ Boston, MA 02111-1307, USA.  */
+ #undef ASM_CPU_DEFAULT_SPEC
+ #define ASM_CPU_DEFAULT_SPEC "-xarch=v8"
+ #endif
++#if TARGET_CPU_DEFAULT == TARGET_CPU_v7
++#undef ASM_CPU_DEFAULT_SPEC
++#define ASM_CPU_DEFAULT_SPEC "-xarch=v7"
++#endif
+ #undef ASM_CPU_SPEC
+ #define ASM_CPU_SPEC "\
++%{mcpu=v7:-xarch=v7} \
+ %{mcpu=v8:-xarch=v8} \
+ %{mcpu=v8plus:-xarch=v8plus} \
+ %{mcpu=ultrasparc:-xarch=v8plusa} \

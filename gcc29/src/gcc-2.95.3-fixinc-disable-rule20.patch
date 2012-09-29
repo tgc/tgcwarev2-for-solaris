@@ -1,0 +1,12 @@
+diff -up gcc-2.95.3/gcc/fixinc/fixincl.x.ee gcc-2.95.3/gcc/fixinc/fixincl.x
+--- gcc-2.95.3/gcc/fixinc/fixincl.x.ee	2001-03-16 15:13:48.000000000 +0100
++++ gcc-2.95.3/gcc/fixinc/fixincl.x	2012-09-15 19:48:36.423137400 +0200
+@@ -713,7 +713,7 @@ tTestDesc aEnd_Else_LabelTests[] = {
+ /*
+  *  Fix Command Arguments for End_Else_Label
+  */
+-const char* apzEnd_Else_LabelPatch[] = { "sed",
++const char* apzEnd_Else_LabelPatch[] = { "true",
+     "-e", ":loop\n\
+ /\\\\$/N\n\
+ s/\\\\$/\\\\+++fixinc_eol+++/\n\

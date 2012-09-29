@@ -1,0 +1,21 @@
+diff -up gcc-2.95.3/gcc/fixinc/mkfixinc.sh.orig gcc-2.95.3/gcc/fixinc/mkfixinc.sh
+--- gcc-2.95.3/gcc/fixinc/mkfixinc.sh.orig	1999-05-15 04:21:35.000000000 +0200
++++ gcc-2.95.3/gcc/fixinc/mkfixinc.sh	2012-09-15 19:35:37.143373000 +0200
+@@ -30,7 +30,7 @@ case $machine in
+ 	i[34567]86-*-solaris2.[0-4] | \
+ 	powerpcle-*-solaris2.[0-4] | \
+ 	sparc-*-solaris2.[0-4] )
+-		fixincludes=fixinc.svr4
++		fixincludes=nowrap
+ 		;;
+ 
+ 	i[34567]86-*-interix* | \
+@@ -46,7 +46,7 @@ case $machine in
+ 	sparcv9-*-solaris2* | \
+ 	powerpcle-*-solaris2*  | \
+ 	sparc-*-solaris2* )
+-		fixincludes=fixinc.wrap
++		fixincludes=nowrap
+ 		;;
+ 
+ 	alpha*-*-winnt* | \
