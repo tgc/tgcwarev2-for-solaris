@@ -7,12 +7,10 @@
 # Check the following 4 variables before running the script
 topdir=gcc
 version=3.0.4
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=gcc-3.0.4-sparcv8-cpu.patch
-patch[1]=gcc-3.0.4-sparcv7-cpu.patch
-patch[2]=gcc-3.0.4-libjava-testsuite-link.patch
+patch[0]=gcc-3.0.4-libjava-testsuite-link.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -26,7 +24,7 @@ patch[2]=gcc-3.0.4-libjava-testsuite-link.patch
 libsubdir=gcc-lib
 
 # This old gcc breaks the mold
-configure_args="$global_config_args --with-gxx-include-dir=$lprefix/include/c++/$version $linker $assembler --with-dwarf2 $lang_java --enable-libgcj $gcc_cpu"
+configure_args="$global_config_args --with-gxx-include-dir=$lprefix/include/c++/$version $linker $sunassembler --with-dwarf2 $lang_java --enable-libgcj $gcc_cpu"
 # No cpu setting for x86
 [ "$arch" = "i386" ] && configure_args=$(echo $configure_args | sed -e "s/$gcc_cpu//")
 

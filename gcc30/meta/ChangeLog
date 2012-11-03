@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Fri Nov 02 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 3.0.4-2
+- Build using Sun as/ld
+
 * Mon Sep 17 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 3.0.4-1
 - Initial build
