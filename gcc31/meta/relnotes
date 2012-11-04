@@ -1,0 +1,30 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+I had to use vendor as/ld or ada would fail to build.
+Also java is disabled since there are bugs in the Makefiles causing the build
+to fail.

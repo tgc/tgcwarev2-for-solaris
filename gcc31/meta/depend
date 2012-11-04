@@ -1,0 +1,11 @@
+TGCg31c libgcc_s1 auto
+TGCg31cx gcc auto
+TGCg31cx libstdc++4 auto
+TGCg31ob gcc auto
+TGCg31ob libobjc1 auto
+TGCg31ft gcc auto
+TGCg31ft libg2c0 auto
+TGCg31gn gcc auto
+TGClg2c0 libgcc_s1 auto
+TGClobjc1 libgcc_s1 auto
+TGClstdc4 libgcc_s1 auto
