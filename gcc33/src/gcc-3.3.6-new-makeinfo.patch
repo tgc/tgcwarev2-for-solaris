@@ -1,0 +1,12 @@
+diff -up gcc-3.3.6/gcc/configure.makeinfo gcc-3.3.6/gcc/configure
+--- gcc-3.3.6/gcc/configure.makeinfo	2004-12-04 02:51:43.000000000 +0100
++++ gcc-3.3.6/gcc/configure	2012-11-10 12:28:12.061782800 +0100
+@@ -3299,7 +3299,7 @@ else
+   echo "configure:3300: version of makeinfo is $ac_prog_version" >&5
+   case $ac_prog_version in
+     '')     gcc_cv_prog_makeinfo_modern=no;;
+-    4.[2-9]*)
++    4.[7-9]*|4.[1-9][0-9]*|[5-9]*|[1-9][0-9]*)
+             gcc_cv_prog_makeinfo_modern=yes;;
+     *)      gcc_cv_prog_makeinfo_modern=no;;
+   esac

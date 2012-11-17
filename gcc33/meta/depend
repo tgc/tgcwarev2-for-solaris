@@ -1,0 +1,13 @@
+TGCg33c libgcc_s1 auto
+TGCg33cx gcc auto
+TGCg33cx libstdc++5 auto
+TGCg33ob gcc auto
+TGCg33ob libobjc1 auto
+TGCg33ft gcc auto
+TGCg33ft libg2c0 auto
+TGCg33gn gcc auto
+TGCgccjv gcc auto
+TGCgccjv libffi2 auto
+TGClg2c0 libgcc_s1 auto
+TGClobjc1 libgcc_s1 auto
+TGClstdc5 libgcc_s1 auto
