@@ -1,239 +1,456 @@
 [gcc]
-pkgname="${pkgprefix}g${abbrev_ver}c"
-name="gcc"
+pkgname="${pkgprefix}g${abbrev_majorminor}c"
+name="GCC - GNU Compiler Collection (C)"
 pkgvendor="http://gcc.gnu.org"
 pkgdesc="GNU Compiler Collection (C)"
 pkgver="$pkgver"
 files(-,root,bin)
-dir $iprefix
-dir $iprefix/bin
-dir $iprefix/lib/gcc/sparc-sun-solaris*/3.4.6/include
-dir $iprefix/lib/gcc/sparc-sun-solaris*/3.4.6
-dir $iprefix/lib/gcc/sparc-sun-solaris*
-dir $iprefix/lib/gcc
-dir $iprefix/lib
-dir $iprefix/man
-dir $iprefix/man/man1
-dir $iprefix/man/man7
-dir $iprefix/info
-dir $iprefix/share
-dir $iprefix/libexec/gcc/sparc-sun-solaris*/$version
-dir $iprefix/libexec/gcc/sparc-sun-solaris*
-dir $iprefix/libexec/gcc
-dir $iprefix/libexec
-$iprefix/bin/*gcc*
-$iprefix/bin/gcov
-$iprefix/bin/cpp
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/gcrt*
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/crt*
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/libgcc*
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/libgcov*
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/specs
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/gmon.o
-if(v9libs)$iprefix/lib/gcc/sparc-sun-solaris*/$version/sparcv9/gcrt*
-if(v9libs)$iprefix/lib/gcc/sparc-sun-solaris*/$version/sparcv9/crt*
-if(v9libs)$iprefix/lib/gcc/sparc-sun-solaris*/$version/sparcv9/gmon.o
-if(v9libs)$iprefix/lib/gcc/sparc-sun-solaris*/$version/sparcv9/libgcc*
-if(v9libs)$iprefix/lib/gcc/sparc-sun-solaris*/$version/sparcv9/libgcov*
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/README
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/X11
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/curses.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/float.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/floatingpoint.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/g2c.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/iso646.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/limits.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/math.h
-if(sol26)$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/memory.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/pthread.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/root
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/rpc
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stdarg.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stdbool.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stddef.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stdio.h
-if(sol27)$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stdio_tag.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/stdlib.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/sys
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/syslimits.h
-if(sol26)$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/unistd.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/unwind.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/varargs.h
-if(sol27)$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/wchar.h
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/install-tools
-$iprefix/libexec/gcc/sparc-sun-solaris*/$version/install-tools
-$iprefix/libexec/gcc/sparc-sun-solaris*/$version/collect2
-$iprefix/libexec/gcc/sparc-sun-solaris*/$version/cc1
-$iprefix/info/gcc*
+$iprefix/$_bindir/*gcc*
+$iprefix/$_bindir/*gcov*
+$iprefix/$_bindir/cpp
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/gcrt*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/crt*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgcc*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgcov*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/gmon.o
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libiberty.*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libffi.*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/gcrt*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/crt*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgcc*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgcov*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/gmon.o
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libiberty.*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libffi.*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/specs
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/install-tools
+# "fixed" includes produced during build
+# This list will vary as it depends on the buildhost
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/curses.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/floatingpoint.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/math.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/auth.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/clnt.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/svc.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/xdr.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdio.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdio_tag.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/syslimits.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msreg.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/types.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/signal.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/varargs.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/wchar.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/README
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/X11
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/include/X11/nmdefs.h
+# real gcc includes
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/float.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/iso646.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/limits.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdarg.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdbool.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stddef.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unwind.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/varargs.h
+# ffi includes
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ffi.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/libffi/ffitarget.h
+libexec/gcc/${arch}-${vendor}-solaris*/$version/cc1
+libexec/gcc/${arch}-${vendor}-solaris*/$version/collect2
+libexec/gcc/${arch}-${vendor}-solaris*/$version/install-tools
 $iprefix/info/dir
+$iprefix/info/gcc*
 $iprefix/info/cpp*
-$iprefix/lib/libiberty.a
-$iprefix/lib/libgcc*
-if(v9libs)$iprefix/lib/sparcv9/libiberty.a
-if(v9libs)$iprefix/lib/sparcv9/libgcc*
 $iprefix/man/?a?1/gcc.1
 $iprefix/man/?a?1/cpp.1
 $iprefix/man/?a?1/gcov.1
 $iprefix/man/?a?7/*.7
-$_sharedir
+$_vdocdir
 
 [gcc-gnat]
-pkgname="${pkgprefix}g${abbrev_ver}gn"
-name="gcc-gnat"
+pkgname="${pkgprefix}g${abbrev_majorminor}gn"
+name="gcc-gnat - GNU Compiler Collection (Ada)"
 pkgvendor="http://gcc.gnu.org"
-pkgdesc="GNU Compiler Collection (Ada)"
+pkgdesc="Ada support for GCC"
 pkgver="$pkgver"
 files(-,root,bin)
-dir $iprefix
-dir $iprefix/bin
-dir $iprefix/lib/gcc/sparc-sun-solaris*/$version/adainclude
-dir $iprefix/lib/gcc/sparc-sun-solaris*/$version/adalib
-dir $iprefix/lib/gcc/sparc-sun-solaris*/$version
-dir $iprefix/lib/gcc/sparc-sun-solaris*
-dir $iprefix/lib/gcc
-dir $iprefix/lib
-dir $iprefix/libexec/gcc/sparc-sun-solaris*/3.4.6
-dir $iprefix/libexec/gcc/sparc-sun-solaris*
-dir $iprefix/libexec/gcc
-dir $iprefix/libexec
-dir $iprefix/man/man1
-dir $iprefix/share/gnat
-dir $iprefix/share
-$iprefix/bin/gnat*
-$iprefix/bin/gpr*
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/adainclude
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/adalib
-$iprefix/libexec/gcc/sparc-sun-solaris*/$version/gnat1
-$iprefix/share/gnat/Makefile.*
+$iprefix/bin/gnat
+$iprefix/bin/gnatbind
+$iprefix/bin/gnatbl
+$iprefix/bin/gnatchop
+$iprefix/bin/gnatclean
+$iprefix/bin/gnatfind
+$iprefix/bin/gnatkr
+$iprefix/bin/gnatlink
+$iprefix/bin/gnatls
+$iprefix/bin/gnatmake
+$iprefix/bin/gnatname
+$iprefix/bin/gnatprep
+$iprefix/bin/gnatxref
+$iprefix/bin/gpr2make
+$iprefix/bin/gprcmd
+$iprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/adainclude
+$iprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/adalib
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/adainclude
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/adalib
+libexec/gcc/${arch}-${vendor}-solaris*/$version/gnat1
+$iprefix/info/gnat*
+share/gnat/${version}/Makefile.*
 
 [gcc-c++]
-pkgname="${pkgprefix}g${abbrev_ver}cx"
-name="gcc-c++"
+pkgname="${pkgprefix}g${abbrev_majorminor}cx"
+name="gcc-c++ - GNU Compiler Collection (C++)"
 pkgvendor="http://gcc.gnu.org"
-pkgdesc="GNU Compiler Collection (C++)"
+pkgdesc="C++ support for GCC"
 pkgver="$pkgver"
 files(-,root,bin)
-dir $iprefix
-dir $iprefix/bin
-dir $iprefix/include
-dir $iprefix/lib
-dir $iprefix/libexec/gcc/sparc-sun-solaris*/3.4.6
-dir $iprefix/libexec/gcc/sparc-sun-solaris*
-dir $iprefix/libexec/gcc
-dir $iprefix/libexec
-dir $iprefix/man/man1
-dir $iprefix/man
 $iprefix/bin/*++*
-$iprefix/include/c++
-$iprefix/lib/libstdc++.*
-$iprefix/lib/libsupc++.a
-if(v9libs)$iprefix/lib/sparcv9/libstdc++.*
-if(v9libs)$iprefix/lib/sparcv9/libsupc++.*
-$iprefix/libexec/gcc/sparc-sun-solaris*/$version/cc1plus
+include/c++/${version}/algorithm
+include/c++/${version}/backward/algobase.h
+include/c++/${version}/backward/algo.h
+include/c++/${version}/backward/alloc.h
+include/c++/${version}/backward/backward_warning.h
+include/c++/${version}/backward/bvector.h
+include/c++/${version}/backward/complex.h
+include/c++/${version}/backward/defalloc.h
+include/c++/${version}/backward/deque.h
+include/c++/${version}/backward/fstream.h
+include/c++/${version}/backward/function.h
+include/c++/${version}/backward/hash_map.h
+include/c++/${version}/backward/hash_set.h
+include/c++/${version}/backward/hashtable.h
+include/c++/${version}/backward/heap.h
+include/c++/${version}/backward/iomanip.h
+include/c++/${version}/backward/iostream.h
+include/c++/${version}/backward/istream.h
+include/c++/${version}/backward/iterator.h
+include/c++/${version}/backward/list.h
+include/c++/${version}/backward/map.h
+include/c++/${version}/backward/multimap.h
+include/c++/${version}/backward/multiset.h
+include/c++/${version}/backward/new.h
+include/c++/${version}/backward/ostream.h
+include/c++/${version}/backward/pair.h
+include/c++/${version}/backward/queue.h
+include/c++/${version}/backward/rope.h
+include/c++/${version}/backward/set.h
+include/c++/${version}/backward/slist.h
+include/c++/${version}/backward/stack.h
+include/c++/${version}/backward/streambuf.h
+include/c++/${version}/backward/stream.h
+include/c++/${version}/backward/strstream
+include/c++/${version}/backward/tempbuf.h
+include/c++/${version}/backward/tree.h
+include/c++/${version}/backward/vector.h
+include/c++/${version}/bits/allocator.h
+include/c++/${version}/bits/atomicity.h
+include/c++/${version}/bits/basic_ios.h
+include/c++/${version}/bits/basic_ios.tcc
+include/c++/${version}/bits/basic_string.h
+include/c++/${version}/bits/basic_string.tcc
+include/c++/${version}/bits/boost_concept_check.h
+include/c++/${version}/bits/char_traits.h
+include/c++/${version}/bits/cmath.tcc
+include/c++/${version}/bits/codecvt.h
+include/c++/${version}/bits/concept_check.h
+include/c++/${version}/bits/concurrence.h
+include/c++/${version}/bits/cpp_type_traits.h
+include/c++/${version}/bits/deque.tcc
+include/c++/${version}/bits/list.tcc
+include/c++/${version}/bits/locale_classes.h
+include/c++/${version}/bits/vector.tcc
+include/c++/${version}/bitset
+include/c++/${version}/bits/fstream.tcc
+include/c++/${version}/bits/functexcept.h
+include/c++/${version}/bits/gslice_array.h
+include/c++/${version}/bits/gslice.h
+include/c++/${version}/bits/indirect_array.h
+include/c++/${version}/bits/ios_base.h
+include/c++/${version}/bits/istream.tcc
+include/c++/${version}/bits/locale_facets.h
+include/c++/${version}/bits/locale_facets.tcc
+include/c++/${version}/bits/localefwd.h
+include/c++/${version}/bits/mask_array.h
+include/c++/${version}/bits/ostream.tcc
+include/c++/${version}/bits/postypes.h
+include/c++/${version}/bits/slice_array.h
+include/c++/${version}/bits/sstream.tcc
+include/c++/${version}/bits/stl_algobase.h
+include/c++/${version}/bits/stl_algo.h
+include/c++/${version}/bits/stl_bvector.h
+include/c++/${version}/bits/stl_construct.h
+include/c++/${version}/bits/stl_deque.h
+include/c++/${version}/bits/stl_function.h
+include/c++/${version}/bits/stl_heap.h
+include/c++/${version}/bits/stl_iterator_base_funcs.h
+include/c++/${version}/bits/stl_iterator_base_types.h
+include/c++/${version}/bits/stl_iterator.h
+include/c++/${version}/bits/stl_list.h
+include/c++/${version}/bits/stl_map.h
+include/c++/${version}/bits/stl_multimap.h
+include/c++/${version}/bits/stl_multiset.h
+include/c++/${version}/bits/stl_numeric.h
+include/c++/${version}/bits/stl_pair.h
+include/c++/${version}/bits/stl_queue.h
+include/c++/${version}/bits/stl_raw_storage_iter.h
+include/c++/${version}/bits/stl_relops.h
+include/c++/${version}/bits/stl_set.h
+include/c++/${version}/bits/stl_stack.h
+include/c++/${version}/bits/stl_tempbuf.h
+include/c++/${version}/bits/stl_threads.h
+include/c++/${version}/bits/stl_tree.h
+include/c++/${version}/bits/stl_uninitialized.h
+include/c++/${version}/bits/stl_vector.h
+include/c++/${version}/bits/stream_iterator.h
+include/c++/${version}/bits/streambuf_iterator.h
+include/c++/${version}/bits/streambuf.tcc
+include/c++/${version}/bits/stringfwd.h
+include/c++/${version}/bits/type_traits.h
+include/c++/${version}/bits/valarray_after.h
+include/c++/${version}/bits/valarray_array.h
+include/c++/${version}/bits/valarray_array.tcc
+include/c++/${version}/bits/valarray_before.h
+include/c++/${version}/cassert
+include/c++/${version}/cctype
+include/c++/${version}/cerrno
+include/c++/${version}/cfloat
+include/c++/${version}/ciso646
+include/c++/${version}/climits
+include/c++/${version}/clocale
+include/c++/${version}/cmath
+include/c++/${version}/complex
+include/c++/${version}/csetjmp
+include/c++/${version}/csignal
+include/c++/${version}/cstdarg
+include/c++/${version}/cstddef
+include/c++/${version}/cstdio
+include/c++/${version}/cstdlib
+include/c++/${version}/cstring
+include/c++/${version}/ctime
+include/c++/${version}/cwchar
+include/c++/${version}/cwctype
+include/c++/${version}/cxxabi.h
+include/c++/${version}/debug/bitset
+include/c++/${version}/debug/deque
+include/c++/${version}/debug/debug.h
+include/c++/${version}/debug/formatter.h
+include/c++/${version}/debug/hash_map
+include/c++/${version}/debug/hash_map.h
+include/c++/${version}/debug/hash_multimap.h
+include/c++/${version}/debug/hash_multiset.h
+include/c++/${version}/debug/hash_set
+include/c++/${version}/debug/hash_set.h
+include/c++/${version}/debug/list
+include/c++/${version}/debug/map
+include/c++/${version}/debug/map.h
+include/c++/${version}/debug/multimap.h
+include/c++/${version}/debug/multiset.h
+include/c++/${version}/debug/safe_base.h
+include/c++/${version}/debug/safe_iterator.h
+include/c++/${version}/debug/safe_iterator.tcc
+include/c++/${version}/debug/safe_sequence.h
+include/c++/${version}/debug/set
+include/c++/${version}/debug/set.h
+include/c++/${version}/debug/string
+include/c++/${version}/debug/vector
+include/c++/${version}/deque
+include/c++/${version}/exception
+include/c++/${version}/exception_defines.h
+include/c++/${version}/ext/algorithm
+include/c++/${version}/ext/bitmap_allocator.h
+include/c++/${version}/ext/debug_allocator.h
+include/c++/${version}/ext/enc_filebuf.h
+include/c++/${version}/ext/functional
+include/c++/${version}/ext/hash_fun.h
+include/c++/${version}/ext/hash_map
+include/c++/${version}/ext/hash_set
+include/c++/${version}/ext/hashtable.h
+include/c++/${version}/ext/iterator
+include/c++/${version}/ext/malloc_allocator.h
+include/c++/${version}/ext/memory
+include/c++/${version}/ext/mt_allocator.h
+include/c++/${version}/ext/new_allocator.h
+include/c++/${version}/ext/numeric
+include/c++/${version}/ext/pod_char_traits.h
+include/c++/${version}/ext/pool_allocator.h
+include/c++/${version}/ext/rb_tree
+include/c++/${version}/ext/rope
+include/c++/${version}/ext/ropeimpl.h
+include/c++/${version}/ext/slist
+include/c++/${version}/ext/stdio_filebuf.h
+include/c++/${version}/ext/stdio_sync_filebuf.h
+include/c++/${version}/fstream
+include/c++/${version}/functional
+include/c++/${version}/iomanip
+include/c++/${version}/ios
+include/c++/${version}/iosfwd
+include/c++/${version}/iostream
+include/c++/${version}/istream
+include/c++/${version}/iterator
+include/c++/${version}/limits
+include/c++/${version}/list
+include/c++/${version}/locale
+include/c++/${version}/map
+include/c++/${version}/memory
+include/c++/${version}/new
+include/c++/${version}/numeric
+include/c++/${version}/ostream
+include/c++/${version}/queue
+include/c++/${version}/set
+include/c++/${version}/sstream
+include/c++/${version}/stack
+include/c++/${version}/stdexcept
+include/c++/${version}/streambuf
+include/c++/${version}/string
+include/c++/${version}/typeinfo
+include/c++/${version}/utility
+include/c++/${version}/valarray
+include/c++/${version}/vector
+include/c++/${version}/sparc-sun-solaris*/bits
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libstdc++.*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libsupc++.*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libstdc++.*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libsupc++.*
+libexec/gcc/${arch}-${vendor}-solaris*/$version/cc1plus
 $iprefix/man/man1/g++.1
 
 [gcc-objc]
-pkgname="${pkgprefix}g${abbrev_ver}ob"
-name="gcc-objc"
+pkgname="${pkgprefix}g${abbrev_majorminor}ob"
+name="gcc-objc - GNU Compiler Collection (Objective-C)"
 pkgvendor="http://gcc.gnu.org"
-pkgdesc="GNU Compiler Collection (Objective-C)"
+pkgdesc="Objective-C support for GCC"
 pkgver="$pkgver"
 files(-,root,bin)
-dir $iprefix
-dir $iprefix/lib
-dir $iprefix/lib/gcc/sparc-sun-solaris*/$version/include/objc
-dir $iprefix/lib/gcc/sparc-sun-solaris*/$version/include
-dir $iprefix/lib/gcc/sparc-sun-solaris*/$version
-dir $iprefix/lib/gcc/sparc-sun-solaris*
-dir $iprefix/lib/gcc
-dir $iprefix/lib
-dir $iprefix/libexec/gcc/sparc-sun-solaris*/$version
-dir $iprefix/libexec/gcc/sparc-sun-solaris*
-dir $iprefix/libexec/gcc
-dir $iprefix/libexec
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/objc
-$iprefix/lib/libobjc.*
-if(v9libs)$iprefix/lib/sparcv9/libobjc.*
-$iprefix/libexec/gcc/sparc-sun-solaris*/$version/cc1obj
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/objc
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libobjc.*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libobjc.*
+libexec/gcc/${arch}-${vendor}-solaris*/$version/cc1obj
 
 [gcc-g77]
-pkgname="${pkgprefix}g${abbrev_ver}g7"
-name="gcc-g77"
+pkgname="${pkgprefix}g${abbrev_majorminor}ft"
+name="gcc-g77 - GNU Compiler Collection (Fortran)"
 pkgvendor="http://gcc.gnu.org"
-pkgdesc="GNU Compiler Collection (Fortran 77)"
+pkgdesc="Fortran support for GCC"
 pkgver="$pkgver"
 files(-,root,bin)
-dir $iprefix
-dir $iprefix/bin
-dir $iprefix/lib
-dir $iprefix/lib/gcc/sparc-sun-solaris*/$version/include
-dir $iprefix/lib/gcc/sparc-sun-solaris*/$version
-dir $iprefix/lib/gcc/sparc-sun-solaris*
-dir $iprefix/lib/gcc
-dir $iprefix/lib
-dir $iprefix/libexec/gcc/sparc-sun-solaris*/$version
-dir $iprefix/libexec/gcc/sparc-sun-solaris*
-dir $iprefix/libexec/gcc
-dir $iprefix/libexec
-dir $iprefix/share
-dir $iprefix/info
-dir $iprefix/man
-dir $iprefix/man/man1
 $iprefix/bin/?77
-$iprefix/lib/gcc/sparc-sun-solaris*/$version/include/g2c.h
-$iprefix/lib/libfrtbegin.a
-$iprefix/lib/libg2c.*
-if(v9libs)$iprefix/lib/sparcv9/libfrtbegin.a
-if(v9libs)$iprefix/lib/sparcv9/libg2c.*
-$iprefix/libexec/gcc/sparc-sun-solaris*/$version/f771
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/g2c.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libfrtbegin.a
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libg2c.*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libfrtbegin.a
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libg2c.*
+libexec/gcc/${arch}-${vendor}-solaris*/$version/f771
 $iprefix/man/?a?1/g77.1
 $iprefix/info/g77.info*
 
 [libgcc_s1]
 pkgname="${pkgprefix}lgcc1"
-name="libgcc_s1"
+name="libgcc_s1 - GCC shared support library"
 pkgcat="system"
 pkgvendor="http://gcc.gnu.org"
-pkgdesc="GCC shared support library"
+pkgdesc="Runtime support library for C"
 pkgver="$pkgver"
 files(-,root,bin)
-dir $_libdir
 $_libdir/libgcc_s.so.1*
-if(v9libs)$_libdir/sparcv9/libgcc_s.so.1*
+if(altarch)$_libdir/$altarch/libgcc_s.so.1*
 
 [libstdc++6]
 pkgname="${pkgprefix}lstdc6"
-name="libstdc++6"
+name="libstdc++5 - GNU Standard C++ library"
 pkgcat="system"
 pkgvendor="http://gcc.gnu.org"
-pkgdesc="GNU Standard C++ Library"
+pkgdesc="Runtime support library for C++"
 pkgver="$pkgver"
 files(-,root,bin)
-dir $_libdir
 $_libdir/libstdc++.so.6*
-if(v9libs)$_libdir/sparcv9/libstdc++.so.6*
+if(altarch)$_libdir/$altarch/libstdc++.so.6*
 
 [libobjc1]
 pkgname="${pkgprefix}lobjc1"
-name="libobjc1"
+name="libobjc1 - GNU Objective-C shared support library"
 pkgcat="system"
 pkgvendor="http://gcc.gnu.org"
-pkgdesc="GNU Objective-C shared support library"
+pkgdesc="Runtime support library for Objective-C"
 pkgver="$pkgver"
 files(-,root,bin)
-dir $_libdir
 $_libdir/libobjc.so.1*
-if(v9libs)$_libdir/sparcv9/libobjc.so.1*
+if(altarch)$_libdir/$altarch/libobjc.so.1*
 
 [libg2c0]
 pkgname="${pkgprefix}lg2c0"
-name="libg2c0"
+name="libg2c0 - GNU Fortran shared support library"
 pkgcat="system"
 pkgvendor="http://gcc.gnu.org"
-pkgdesc="GNU g77 shared support library"
+pkgdesc="Runtime support library for Fortran"
 pkgver="$pkgver"
 files(-,root,bin)
 dir $_libdir
 $_libdir/libg2c.so.0*
-if(v9libs)$_libdir/sparcv9/libg2c.so.0*
+if(altarch)$_libdir/$altarch/libg2c.so.0*
 
+[libffi2]
+pkgname="${pkgprefix}lffi2"
+name="libffi2 - GNU Foreign Function Interface shared support library"
+pkgcat="system"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Runtime support library for Foreign Function Interface"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/libffi-2.00-beta.so*
+if(altarch)$_libdir/$altarch/libffi-2.00-beta.so*
+
+# These packages only exist when java is enabled
+# RH splits libgcj into it's own package, I can't be bothered...
+# Note gcc-java is *not* parallel installable, so no versioned pkgname
+[gcc-java]
+pkgname="${pkgprefix}gccjv"
+name="gcc-java - GNU Compiler Collection (Java)"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Java support for GCC"
+pkgver="$pkgver"
+files(-,root,bin)
+# These files are gcc-java
+$iprefix/bin/*gcj
+$iprefix/bin/*gcjh
+$iprefix/bin/grepjar
+$iprefix/bin/jcf-dump
+$iprefix/bin/jv-scan
+$iprefix/bin/jv-convert
+$iprefix/bin/rmic
+$iprefix/bin/rmiregistry
+lib/libgcj*
+lib/lib-org-w3c-dom*
+lib/lib-org-xml-sax*
+lib/lib-gnu-awt-xlib*
+if(altarch)lib/${altarch}/libgcj*
+if(altarch)lib/${altarch}/lib-org-w3c-dom*
+if(altarch)lib/${altarch}/lib-org-xml-sax*
+if(altarch)lib/${altarch}/lib-gnu-awt-xlib*
+lib/logging.properties
+lib/pkgconfig/libgcj*.pc
+libexec/gcc/${arch}-${vendor}-solaris*/$version/jc1
+libexec/gcc/${arch}-${vendor}-solaris*/$version/jvgenmain
+$iprefix/info/gcj.info*
+$iprefix/info/fastjar.info*
+$iprefix/bin/gij
+$iprefix/bin/jar
+share/java/libgcj-$version.jar
+lib/security
+$iprefix/bin/addr2name.awk
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/gcj
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/java
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/javax
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/gnu
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/jni.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/jvmpi.h
+$iprefix/man/?a?1/gcj.1
+$iprefix/man/?a?1/gcjh.1
+$iprefix/man/?a?1/gij.1
+$iprefix/man/?a?1/jcf-dump.1
+$iprefix/man/?a?1/jv-convert.1
+$iprefix/man/?a?1/jv-scan.1
+$iprefix/man/?a?1/rmic.1
+$iprefix/man/?a?1/rmiregistry.1
+$iprefix/man/?a?1/grepjar.1
+$iprefix/man/?a?1/jar.1

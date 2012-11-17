@@ -7,58 +7,48 @@
 # Check the following 4 variables before running the script
 topdir=gcc
 version=3.4.6
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.bz2
 ## If there are no patches, simply comment this
-#patch[0]=
+patch[0]=gcc-3.4.6-new-makeinfo.patch
+patch[1]=gcc-3.4.6-new-gas.patch
+patch[2]=gcc-3.4.6-gnat-share-make.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
-# GCC package naming guide
-# gcc - c
-# gcc-c++ - cx
-# gcc-gnat - gn
-# gcc-objc - ob
-# gcc-objc++ - ox
-# gcc-java - jv
+# Common settings for gcc
+. ${BUILDPKG_BASE}/gcc/build.sh.gcc.common
 
 # Global settings
-prefix=/usr/tgcware/$topdir-$version
-__configure="../$topsrcdir/configure"
-make_build_target=bootstrap
+configure_args="$global_config_args $linker $assembler $lang_java $gcc_cpu"
 
-# Define abbreviated version number (for pkgdef)
-abbrev_ver=$(echo $version | ${__tr} -d '.')
-
-global_config_args="--prefix=$prefix --with-local-prefix=$prefix --disable-nls --enable-shared"
-langs="--enable-languages=c,c++,f77,objc,ada"
-configure_args="$global_config_args $langs $platform_configure_args"
-objdir=cccgoa_native
-export CC=/export/home/tgc/gnat/bin/gcc
-export GNATROOT=/export/home/tgc/gnat
-export PATH=/export/home/tgc/gnat/bin:$PATH
-
-# Conditionals for pkgdef
-[ -n "$(isainfo | grep sparcv9)" ] && v9libs=1
-[ "$_os" = "sunos56" ] && sol26=1
-[ "$_os" = "sunos57" ] && sol27=1
+# This compiler is bootstrapped with gcc 3.3.6
+export PATH=/usr/tgcware/gcc33/bin:$PATH
 
 reg prep
 prep()
 {
     generic_prep
+    setdir source
+    ${__gsed} -i "s/@@GCCVERSION@@/$version/" gcc/ada/Makefile.in gcc/ada/bld.adb
 }
 
 reg build
 build()
 {
     setdir source
+    # Set bugurl and vendor version
+    ${__gsed} -i "/GCCBUGURL/s|URL:[^>]*|URL:$gccbugurl|" gcc/system.h
+    ${__gsed} -i "s/$version/$version (release)/" gcc/version.c
+    ${__gsed} -i "s/(release)/($gccpkgversion)/" gcc/version.c
+    # not gccpkgversion, because the version string will exceed max length
+    ${__gsed} -i "s/(release)/(${version}-${pkgver})/" gcc/ada/gnatvsn.ads
+    #
     ${__mkdir} -p ../$objdir
     echo "$__configure $configure_args"
-    setdir $srcdir/$objdir
-    ${__configure} $configure_args
-    ${__make} $make_build_target
+    generic_build ../$objdir
+    # Build gnat
     setdir ${srcdir}/${objdir}
     ${__make} -C gcc gnatlib
     ${__make} -C gcc gnattools
@@ -74,29 +64,42 @@ install()
     generic_install
     ${__find} ${stagedir} -name '*.la' -print | ${__xargs} ${__rm} -f
 
-    # Prepare for split lib packages
-    lprefix=$topinstalldir
-    ${__mkdir} -p ${stagedir}${lprefix}/${_libdir}
-    setdir ${stagedir}${prefix}/${_libdir}
-    ${__tar} -cf - libgcc_s.so.1 libstdc++.so.6* libg2c.so.0* libobjc.so.1* |
-	(cd ${stagedir}${lprefix}/${_libdir}; ${__tar} -xvBpf -)
+    # Move gcj includes
+    ${__mv} $stagedir$lprefix/include/j*.h $stagedir$lprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include
+    ${__mv} $stagedir$lprefix/include/{gnu,java,javax} $stagedir$lprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include
+    ${__mkdir} -p $stagedir$lprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/gcj
+    ${__mv} $stagedir$lprefix/include/gcj/* $stagedir$lprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/gcj
+    ${__rmdir} $stagedir$lprefix/include/gcj
 
-    if [ "x$v9libs" != "x" ]; then
-	${__mkdir} -p ${stagedir}${lprefix}/${_libdir}/sparcv9
-	setdir ${stagedir}${prefix}/${_libdir}/sparcv9
-	${__tar} -cf - libgcc_s.so.1 libstdc++.so.6* libg2c.so.0* libobjc.so.1* |
-	    (cd ${stagedir}${lprefix}/${_libdir}/sparcv9; ${__tar} -xvBpf -)
-    fi
+    # Move libffi includes
+    ${__mv} $stagedir$lprefix/include/ffi.h $stagedir$lprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include
+
+    # Rearrange libraries for the default arch
+    redo_libs
+    # Rearrange libraries for the alternate arch (if any)
+    [ -n "$altarch" ] && redo_libs $altarch
+
+    # Remove obsolete gccbug script
+    ${__rm} -f $stagedir$prefix/bin/gccbug
+
+    # Turn all the hardlinks in bin into symlinks
+    setdir ${stagedir}${prefix}/${_bindir}
+    for i in c++ ${arch}-${vendor}-solaris*-c++ ${arch}-${vendor}-solaris*-g++
+    do
+	[ -r $i ] && ${__rm} -f $i && ${__ln} -sf g++ $i
+    done
+    for i in ${arch}-${vendor}-solaris*-gcc ${arch}-${vendor}-solaris*-gcc-$version
+    do
+	[ -r $i ] && ${__rm} -f $i && ${__ln} -sf gcc $i
+    done
+    for i in gcj gcjh
+    do
+	[ -r ${arch}-${vendor}-solaris${gnu_os_ver}-$i ] && ${__rm} -f ${arch}-${vendor}-solaris${gnu_os_ver}-$i && ${__ln} -sf $i ${arch}-${vendor}-solaris${gnu_os_ver}-$i
+    done
 
     # Place share/docs in the regular location
     prefix=$topinstalldir
     doc COPYING* BUGS FAQ MAINTAINERS NEWS
-
-    for pkg in libg2c0 libgcc_s1 libobjc1 libstdc++6
-    do
-	${__rm} -f $metadir/compver.$pkg
-	compat $pkg 3.4.6 1 $pkgver
-    done
 }
 
 reg check
@@ -110,7 +113,7 @@ check()
 reg pack
 pack()
 {
-    iprefix=$topdir-$version
+    iprefix=${topdir}${abbrev_majorminor}
     generic_pack
 }
 

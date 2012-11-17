@@ -1,0 +1,24 @@
+diff -up gcc-3.4.6/gcc/ada/Makefile.in.gpr gcc-3.4.6/gcc/ada/Makefile.in
+--- gcc-3.4.6/gcc/ada/Makefile.in.gpr	2004-01-26 22:57:33.000000000 +0100
++++ gcc-3.4.6/gcc/ada/Makefile.in	2012-11-16 20:36:24.625050300 +0100
+@@ -2021,7 +2021,7 @@ b_gnatm.o : b_gnatm.c
+ 
+ ADA_INCLUDE_DIR = $(libsubdir)/adainclude
+ ADA_RTL_OBJ_DIR = $(libsubdir)/adalib
+-ADA_SHARE_MAKE_DIR = $(prefix)/share/gnat
++ADA_SHARE_MAKE_DIR = $(prefix)/share/gnat/@@GCCVERSION@@
+ 
+ # force no sibling call optimization on s-traceb.o so the number of stack
+ # frames to be skipped when computing a call chain is not modified by
+diff -up gcc-3.4.6/gcc/ada/bld.adb.gpr gcc-3.4.6/gcc/ada/bld.adb
+--- gcc-3.4.6/gcc/ada/bld.adb.gpr	2004-01-12 12:36:13.000000000 +0100
++++ gcc-3.4.6/gcc/ada/bld.adb	2012-11-16 20:35:48.956716400 +0100
+@@ -2628,6 +2628,8 @@ package body Bld is
+                Put_Directory_Separator;
+                Put ("gnat");
+                Put_Directory_Separator;
++               Put ("@@GCCVERSION@@");
++               Put_Directory_Separator;
+                Put ("Makefile.prolog");
+                New_Line;
+ 

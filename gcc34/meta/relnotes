@@ -25,3 +25,6 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+After installation the fixed-includes should be regenerated.
+Go to /usr/tgcware/libexec/gcc/<platform>/<version>/install-tools and run
+the mkheaders program.
