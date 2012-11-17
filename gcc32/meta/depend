@@ -1,0 +1,12 @@
+TGCg32c libgcc_s1 auto
+TGCg32cx gcc auto
+TGCg32cx libstdc++5 auto
+TGCg32ob gcc auto
+TGCg32ob libobjc1 auto
+TGCg32ft gcc auto
+TGCg32ft libg2c0 auto
+TGCg32gn gcc auto
+TGCgccjv gcc auto
+TGClg2c0 libgcc_s1 auto
+TGClobjc1 libgcc_s1 auto
+TGClstdc5 libgcc_s1 auto
