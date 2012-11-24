@@ -20,14 +20,6 @@ patch[0]=gcc-3.0.4-libjava-testsuite-link.patch
 
 # Global settings
 
-# Uses lib/gcc-lib instead of lib/gcc
-libsubdir=gcc-lib
-
-# This old gcc breaks the mold
-configure_args="$global_config_args --with-gxx-include-dir=$lprefix/include/c++/$version $linker $sunassembler --with-dwarf2 $lang_java --enable-libgcj $gcc_cpu"
-# No cpu setting for x86
-[ "$arch" = "i386" ] && configure_args=$(echo $configure_args | sed -e "s/$gcc_cpu//")
-
 # This compiler is bootstrapped with gcc 2.95.3
 export PATH=/usr/tgcware/gcc295/bin:$PATH
 
@@ -44,7 +36,7 @@ build()
     # Set bugurl and vendor version
     ${__gsed} -i "/GCCBUGURL/s|URL:[^>]*|URL:$gccbugurl|" gcc/system.h
     ${__gsed} -i "s/$version/$version (release)/" gcc/version.c
-    ${__gsed} -i "s/release/$gccpkgversion/" gcc/version.c gcc/f/version.c
+    ${__gsed} -i "s/(release)/($gccpkgversion)/" gcc/version.c gcc/f/version.c
     #
     ${__mkdir} -p ../$objdir
     echo "$__configure $configure_args"
