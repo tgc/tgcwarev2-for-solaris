@@ -20,17 +20,6 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$vers
 
 # Global settings
 
-# Uses lib/gcc-lib instead of lib/gcc
-libsubdir=gcc-lib
-
-# java support is not buildable due to a problem with include paths
-# not being set correctly during the build.
-# The ada frontend cannot be built with SUN ld/GNU as, it fails with symbol
-# scoping issues when linking gnat1.
-configure_args="$global_config_args --with-gxx-include-dir=$lprefix/include/c++/$version $linker $sunassembler --with-dwarf2 --enable-languages=c,c++,objc,f77,ada $gcc_cpu"
-# No cpu setting for x86
-[ "$arch" = "i386" ] && configure_args=$(echo $configure_args | sed -e "s/$gcc_cpu//")
-
 # This compiler is bootstrapped using the old gnat distributions which also
 # contain gcc 2.8.1. Note that gnat 3.15p will not work.
 # sparc: gnat-3.14p-sparc-sun-solaris2.5.1-bin.tar.gz
@@ -51,7 +40,7 @@ build()
     # Set bugurl and vendor version
     ${__gsed} -i "/GCCBUGURL/s|URL:[^>]*|URL:$gccbugurl|" gcc/system.h
     ${__gsed} -i "s/$version/$version (release)/" gcc/version.c
-    ${__gsed} -i "s/release/$gccpkgversion/" gcc/version.c gcc/f/version.c
+    ${__gsed} -i "s/(release)/($gccpkgversion)/" gcc/version.c gcc/f/version.c
     # not gccpkgversion, because the version string will exceed max length
     ${__gsed} -i "s/(release)/(${version}-${pkgver})/" gcc/ada/gnatvsn.ads
     #
