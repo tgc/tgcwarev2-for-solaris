@@ -21,14 +21,6 @@ patch[1]=gcc-2.95.3-fixinc-disable-rule20.patch
 
 # Global settings
 
-# Uses lib/gcc-lib instead of lib/gcc
-libsubdir=gcc-lib
-
-# This old gcc breaks the mold
-configure_args="$global_config_args --with-gxx-include-dir=$lprefix/include/c++/$version $linker $sunassembler --with-dwarf2 $gcc_cpu"
-# No cpu setting for x86
-[ "$arch" = "i386" ] && configure_args=$(echo $configure_args | sed -e "s/$gcc_cpu//")
-
 # This compiler is bootstrapped using the old gnat distributions which also
 # contain gcc 2.8.1.
 # sparc: gnat-3.15p-sparc-sun-solaris2.5.1-bin.tar.gz
@@ -48,7 +40,7 @@ build()
     setdir source
     # Set bugurl and vendor version
     ${__gsed} -i "/GCCBUGURL/s|URL:[^>]*|URL:$gccbugurl|" gcc/system.h
-    ${__gsed} -i "s/release/$gccpkgversion/" gcc/version.c gcc/f/version.c
+    ${__gsed} -i "s/(release)/($gccpkgversion)/" gcc/version.c gcc/f/version.c
     #
     ${__mkdir} -p ../$objdir
     echo "$__configure $configure_args"
@@ -63,7 +55,7 @@ install()
     mkdir -p $stagedir${prefix}
     mkdir -p $stagedir${lprefix}
     ${__make} prefix=$stagedir${lprefix} gxx_include_dir=$stagedir$lprefix/include/c++/$version bindir=$stagedir${prefix}/bin  mandir=$stagedir${prefix}/man infodir=$stagedir${prefix}/info install
-    # Set perms on libstdc++.so.*
+    # Fix perms on libstdc++.so.* so we can strip it
     chmod 755 $stagedir${lprefix}/lib/libstdc++.so.*
     custom_install=1
     generic_install
