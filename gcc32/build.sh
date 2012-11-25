@@ -20,15 +20,6 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$vers
 
 # Global settings
 
-# Uses lib/gcc-lib instead of lib/gcc
-libsubdir=gcc-lib
-
-# The ada frontend cannot be built with SUN ld/GNU as, it fails with symbol
-# scoping issues when linking gnat1.
-configure_args="$global_config_args --with-gxx-include-dir=$lprefix/include/c++/$version $linker $sunassembler --with-dwarf2 $gcc_cpu"
-# No cpu setting for x86
-[ "$arch" = "i386" ] && configure_args=$(echo $configure_args | sed -e "s/$gcc_cpu//")
-
 # This compiler is bootstrapped with gcc 3.1.1
 export PATH=/usr/tgcware/gcc31/bin:$PATH
 
@@ -63,9 +54,7 @@ install()
 {
     clean stage
     setdir ${srcdir}/${objdir}
-    mkdir -p $stagedir${prefix}
-    mkdir -p $stagedir${lprefix}
-    ${__make} -e prefix=$stagedir${lprefix} gxx_include_dir=$stagedir$lprefix/include/c++/$version glibcppinstalldir=$stagedir$lprefix/include/c++/$version bindir=$stagedir${prefix}/bin  mandir=$stagedir${prefix}/man infodir=$stagedir${prefix}/info install
+    ${__make} DESTDIR=$stagedir install
     custom_install=1
     generic_install
     ${__find} ${stagedir} -name '*.la' -print | ${__xargs} ${__rm} -f
