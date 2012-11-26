@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Sun Nov 25 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 3.3.6-2
+- Fix makeinfo detection
+
 * Wed Nov 07 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 3.3.6-1
 - Initial build

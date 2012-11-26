@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=gcc
 version=3.3.6
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=gcc-3.3.6-new-makeinfo.patch
@@ -19,15 +19,6 @@ patch[0]=gcc-3.3.6-new-makeinfo.patch
 . ${BUILDPKG_BASE}/gcc/build.sh.gcc.common
 
 # Global settings
-
-# Uses lib/gcc-lib instead of lib/gcc
-libsubdir=gcc-lib
-
-# The ada frontend cannot be built with SUN ld/GNU as, it fails with symbol
-# scoping issues when linking gnat1.
-configure_args="$global_config_args --with-gxx-include-dir=$lprefix/include/c++/$version $linker $sunassembler $lang_java --with-dwarf2 $gcc_cpu"
-# No cpu setting for x86
-[ "$arch" = "i386" ] && configure_args=$(echo $configure_args | sed -e "s/$gcc_cpu//")
 
 # This compiler is bootstrapped with gcc 3.2.3
 export PATH=/usr/tgcware/gcc32/bin:$PATH
@@ -63,9 +54,7 @@ install()
 {
     clean stage
     setdir ${srcdir}/${objdir}
-    mkdir -p $stagedir${prefix}
-    mkdir -p $stagedir${lprefix}
-    ${__make} -e prefix=$stagedir${lprefix} gxx_include_dir=$stagedir$lprefix/include/c++/$version glibcppinstalldir=$stagedir$lprefix/include/c++/$version bindir=$stagedir${prefix}/bin  mandir=$stagedir${prefix}/man infodir=$stagedir${prefix}/info install
+    ${__make} DESTDIR=$stagedir install
     custom_install=1
     generic_install
     ${__find} ${stagedir} -name '*.la' -print | ${__xargs} ${__rm} -f
@@ -77,8 +66,13 @@ install()
     ${__mv} $stagedir$lprefix/include/gcj/* $stagedir$lprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/gcj
     ${__rmdir} $stagedir$lprefix/include/gcj
 
-    # Move libffi includes
-    ${__mv} $stagedir$lprefix/include/ffi{,config,_mips}.h $stagedir$lprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include
+    # Remove libffi
+    ${__find} ${stagedir} -type l -name 'libffi*' -print | ${__xargs} ${__rm} -f
+    ${__find} ${stagedir} -type f -name 'libffi*' -print | ${__xargs} ${__rm} -f
+    ${__find} ${stagedir} -type f -name 'ffi*.h' -print | ${__xargs} ${__rm} -f
+
+    # No shared libgnarl but dangling symlink appears
+    ${__find} $stagedir -name 'libgnarl.so*' -exec ${__rm} -f {} \;
 
     # Rearrange libraries for the default arch
     redo_libs
@@ -87,9 +81,6 @@ install()
 
     # Remove obsolete gccbug script
     ${__rm} -f $stagedir$prefix/bin/gccbug
-
-    # No shared libgnarl but dangling symlink appears
-    ${__find} $stagedir -name 'libgnarl.so*' -exec ${__rm} -f {} \;
 
     # Turn all the hardlinks in bin into symlinks
     setdir ${stagedir}${prefix}/${_bindir}
