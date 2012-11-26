@@ -8,7 +8,6 @@ TGCg34ft gcc auto
 TGCg34ft libg2c0 auto
 TGCg34gn gcc auto
 TGCgccjv gcc auto
-TGCgccjv libffi2 auto
 TGClg2c0 libgcc_s1 auto
 TGClobjc1 libgcc_s1 auto
 TGClstdc6 libgcc_s1 auto

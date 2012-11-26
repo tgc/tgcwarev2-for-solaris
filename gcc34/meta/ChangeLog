@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Mon Nov 26 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 3.4.6-6
+- Remove libffi
+
 * Wed Nov 14 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 3.4.6-5
 - Change to new layout

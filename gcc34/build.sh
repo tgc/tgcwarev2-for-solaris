@@ -7,8 +7,8 @@
 # Check the following 4 variables before running the script
 topdir=gcc
 version=3.4.6
-pkgver=5
-source[0]=$topdir-$version.tar.bz2
+pkgver=6
+source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 ## If there are no patches, simply comment this
 patch[0]=gcc-3.4.6-new-makeinfo.patch
 patch[1]=gcc-3.4.6-new-gas.patch
@@ -21,7 +21,6 @@ patch[2]=gcc-3.4.6-gnat-share-make.patch
 . ${BUILDPKG_BASE}/gcc/build.sh.gcc.common
 
 # Global settings
-configure_args="$global_config_args $linker $assembler $lang_java $gcc_cpu"
 
 # This compiler is bootstrapped with gcc 3.3.6
 export PATH=/usr/tgcware/gcc33/bin:$PATH
@@ -37,6 +36,7 @@ prep()
 reg build
 build()
 {
+    setup_tools
     setdir source
     # Set bugurl and vendor version
     ${__gsed} -i "/GCCBUGURL/s|URL:[^>]*|URL:$gccbugurl|" gcc/system.h
@@ -71,8 +71,11 @@ install()
     ${__mv} $stagedir$lprefix/include/gcj/* $stagedir$lprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/gcj
     ${__rmdir} $stagedir$lprefix/include/gcj
 
-    # Move libffi includes
-    ${__mv} $stagedir$lprefix/include/ffi.h $stagedir$lprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include
+    # Remove libffi
+    ${__find} ${stagedir} -type l -name 'libffi*' -print | ${__xargs} ${__rm} -f
+    ${__find} ${stagedir} -type f -name 'libffi*' -print | ${__xargs} ${__rm} -f
+    ${__find} ${stagedir} -type f -name 'ffi*.h' -print | ${__xargs} ${__rm} -f
+    ${__find} ${stagedir} -type d -name 'libffi' -print | ${__xargs} ${__rmdir}
 
     # Rearrange libraries for the default arch
     redo_libs
@@ -107,7 +110,11 @@ check()
 {
     setdir source
     setdir ../$objdir
-    ${__make} -k check
+    if [ $m64run -eq 0 ]; then
+	${__make} -k check
+    else
+	${__make} -k RUNTESTFLAGS="--target_board='unix{,-m64}'" check
+    fi
 }
 
 reg pack

@@ -14,14 +14,12 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgcc*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgcov*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/gmon.o
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libiberty.*
-lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libffi.*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/gcrt*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/crt*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgcc*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgcov*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/gmon.o
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libiberty.*
-if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libffi.*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/specs
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/install-tools
 # "fixed" includes produced during build
@@ -53,9 +51,6 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdbool.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stddef.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unwind.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/varargs.h
-# ffi includes
-lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ffi.h
-lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/libffi/ffitarget.h
 libexec/gcc/${arch}-${vendor}-solaris*/$version/cc1
 libexec/gcc/${arch}-${vendor}-solaris*/$version/collect2
 libexec/gcc/${arch}-${vendor}-solaris*/$version/install-tools
@@ -388,17 +383,6 @@ files(-,root,bin)
 dir $_libdir
 $_libdir/libg2c.so.0*
 if(altarch)$_libdir/$altarch/libg2c.so.0*
-
-[libffi2]
-pkgname="${pkgprefix}lffi2"
-name="libffi2 - GNU Foreign Function Interface shared support library"
-pkgcat="system"
-pkgvendor="http://gcc.gnu.org"
-pkgdesc="Runtime support library for Foreign Function Interface"
-pkgver="$pkgver"
-files(-,root,bin)
-$_libdir/libffi-2.00-beta.so*
-if(altarch)$_libdir/$altarch/libffi-2.00-beta.so*
 
 # These packages only exist when java is enabled
 # RH splits libgcj into it's own package, I can't be bothered...
