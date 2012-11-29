@@ -34,11 +34,9 @@ build()
 {
     setdir source
     # Set bugurl and vendor version
-    ${__gsed} -i "/GCCBUGURL/s|URL:[^>]*|URL:$gccbugurl|" gcc/system.h
+    ${__gsed} -i "s|URL:[^>]*|URL:$gccbugurl|" gcc/version.c
     ${__gsed} -i "s/$version/$version (release)/" gcc/version.c
     ${__gsed} -i "s/(release)/($gccpkgversion)/" gcc/version.c
-    # not gccpkgversion, because the version string will exceed max length
-    ${__gsed} -i "s/(release)/(${version}-${pkgver})/" gcc/ada/gnatvsn.ads
     #
     ${__mkdir} -p ../$objdir
     echo "$__configure $configure_args"
