@@ -352,7 +352,7 @@ if(altarch)$_libdir/$altarch/libgcc_s.so.1*
 
 [libstdc++6]
 pkgname="${pkgprefix}lstdc6"
-name="libstdc++5 - GNU Standard C++ library"
+name="libstdc++6 - GNU Standard C++ library"
 pkgcat="system"
 pkgvendor="http://gcc.gnu.org"
 pkgdesc="Runtime support library for C++"
