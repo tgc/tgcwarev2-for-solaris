@@ -21,7 +21,7 @@ patch[0]=gcc-3.0.4-libjava-testsuite-link.patch
 # Global settings
 
 # This compiler is bootstrapped with gcc 2.95.3
-export PATH=/usr/tgcware/gcc295/bin:$PATH
+export PATH=/usr/tgcware/gcc29/bin:$PATH
 
 reg prep
 prep()
