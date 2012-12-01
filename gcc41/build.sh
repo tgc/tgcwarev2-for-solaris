@@ -8,46 +8,39 @@
 snapshot=
 topdir=gcc
 version=4.1.2
-pkgver=1
-source[0]=$topdir-$version.tar.bz2
+pkgver=2
+source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 [ -n "$snapshot" ] && source[0]=$topdir-$version-$snapshot.tar.bz2
 ## If there are no patches, simply comment this
-patch[0]=gcc-4.0.4-newer-gas.patch
+patch[0]=gcc-4.1.2-new-makeinfo.patch
+patch[1]=gcc-4.1.2-new-gas.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
+# Common settings for gcc
+. ${BUILDPKG_BASE}/gcc/build.sh.gcc.common
+
 # Global settings
-[ -n "$snapshot" ] && topsrcdir=gcc-$version-$snapshot
-lprefix=$prefix
-prefix=/usr/tgcware/$topdir-$version
-__configure="../$topsrcdir/configure"
-make_build_target=bootstrap
 
-# Define abbreviated version number (for pkgdef)
-abbrev_ver=$(echo $version | ${__tr} -d '.')
-
-# Configure args
-global_config_args="--prefix=$prefix --with-local-prefix=$prefix --with-libiconv-prefix=$lprefix --with-gmp=$lprefix --with-mpfr=$lprefix --disable-nls --enable-shared --enable-threads=posix95"
-langs="--enable-languages=c,ada,c++,fortran,objc,obj-c++"
-objdir=all_native
-# platform/arch specific options
-[ "$_os" = "sunos56" -a "$arch" = "i386" ] && platform_configure_args="--with-gnu-as --with-as=$lprefix/bin/gas"
-[ "$arch" = "sparc" ] && vendor="sun" || vendor="pc"
-
-configure_args="$global_config_args $langs $platform_configure_args"
+# This compiler is bootstrapped with gcc 4.0.4
+export PATH=/usr/tgcware/gcc40/bin:$PATH
 
 reg prep
 prep()
 {
     generic_prep
+    setdir source
+    # Set bugurl and vendor version
+    ${__gsed} -i "s|URL:[^>]*|URL:$gccbugurl|" gcc/version.c
+    ${__gsed} -i "/VERSUFFIX/ s/\"\"/\" ($gccpkgversion)\"/" gcc/version.c
 }
 
 reg build
 build()
 {
-    setdir source
-    ${__mkdir} -p ../$objdir
+    setup_tools
+    ${__mkdir} -p ${srcdir}/$objdir
     echo "$__configure $configure_args"
     generic_build ../$objdir
 }
@@ -57,29 +50,47 @@ install()
 {
     clean stage
     setdir ${srcdir}/${objdir}
-    ${__make} SHELL=/bin/ksh DESTDIR=$stagedir install
+    ${__make} DESTDIR=$stagedir install
     custom_install=1
     generic_install
     ${__find} ${stagedir} -name '*.la' -print | ${__xargs} ${__rm} -f
 
-    # Prepare for split lib packages
-    ${__mkdir} -p ${stagedir}${lprefix}/${_libdir}
-    setdir ${stagedir}${prefix}/${_libdir}
-    ${__tar} -cf - libgcc_s.so.1 libstdc++.so.6* libgfortran.so.1* libobjc.so.1* |
-	(cd ${stagedir}${lprefix}/${_libdir}; ${__tar} -xvBpf -)
+    # Remove libffi
+    ${__find} ${stagedir} -type l -name 'libffi*' -print | ${__xargs} ${__rm} -f
+    ${__find} ${stagedir} -type f -name 'libffi*' -print | ${__xargs} ${__rm} -f
+    ${__find} ${stagedir} -type f -name 'ffi*.h' -print | ${__xargs} ${__rm} -f
+    ${__find} ${stagedir} -type d -name 'libffi' -print | ${__xargs} ${__rmdir}
+
+    # Rearrange libraries for the default arch
+    redo_libs
+    # Rearrange libraries for the alternate arch (if any)
+    [ -n "$altarch" ] && redo_libs $altarch
+
+    # Remove obsolete gccbug script
+    ${__rm} -f $stagedir$prefix/bin/gccbug
+
+    # Turn all the hardlinks in bin into symlinks
+    setdir ${stagedir}${prefix}/${_bindir}
+    for i in c++ ${arch}-${vendor}-solaris*-c++ ${arch}-${vendor}-solaris*-g++
+    do
+	[ -r $i ] && ${__rm} -f $i && ${__ln} -sf g++ $i
+    done
+    for i in ${arch}-${vendor}-solaris*-gcc ${arch}-${vendor}-solaris*-gcc-$version
+    do
+	[ -r $i ] && ${__rm} -f $i && ${__ln} -sf gcc $i
+    done
+    for i in gcj gcjh
+    do
+	[ -r ${arch}-${vendor}-solaris${gnu_os_ver}-$i ] && ${__rm} -f ${arch}-${vendor}-solaris${gnu_os_ver}-$i && ${__ln} -sf $i ${arch}-${vendor}-solaris${gnu_os_ver}-$i
+    done
+    for i in ${arch}-${vendor}-solaris*-gfortran
+    do
+        [ -r $i ] && ${__rm} -f $i && ${__ln} -sf gfortran $i
+    done
 
     # Place share/docs in the regular location
     prefix=$topinstalldir
     doc COPYING* BUGS FAQ MAINTAINERS NEWS
-
-    # Setup compat files
-    for pkg in libgcc_s1 libstdc++6
-    do
-        ${__rm} -f $metadir/compver.$pkg
-        compat $pkg 3.4.6 1 5
-        compat $pkg 4.0.4 1 2
-    done
-    compat libobjc1 4.0.4 1 2
 }
 
 reg check
@@ -87,13 +98,17 @@ check()
 {
     setdir source
     setdir ../$objdir
-    ${__make} -k check
+    if [ $m64run -eq 0 ]; then
+	${__make} -k check
+    else
+	${__make} -k RUNTESTFLAGS="--target_board='unix{,-m64}'" check
+    fi
 }
 
 reg pack
 pack()
 {
-    iprefix=$topdir-$version
+    iprefix=${topdir}${abbrev_majorminor}
     generic_pack
 }
 
@@ -102,8 +117,7 @@ distclean()
 {
     META_CLEAN="$META_CLEAN compver.*"
     clean distclean
-    setdir $srcdir
-    ${__rm} -rf $objdir
+    ${__rm} -rf $srcdir/$objdir
 }
 
 ###################################################

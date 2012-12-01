@@ -1,6 +1,7 @@
---- gcc-4.0.4/gcc/configure.orig	2008-05-25 16:24:23.893788000 +0200
-+++ gcc-4.0.4/gcc/configure	2008-05-25 16:26:23.983888000 +0200
-@@ -13419,7 +13419,7 @@
+diff -up gcc-4.1.2/gcc/configure.orig gcc-4.1.2/gcc/configure
+--- gcc-4.1.2/gcc/configure.orig	2006-11-13 23:09:55.000000000 +0100
++++ gcc-4.1.2/gcc/configure	2012-11-27 14:41:08.040178600 +0100
+@@ -14226,7 +14226,7 @@ L2:' > conftest.s
    # arbitrary sections are supported and try the test.
    as_ver=`$gcc_cv_as --version 2>/dev/null | sed 1q`
    if echo "$as_ver" | grep GNU > /dev/null; then

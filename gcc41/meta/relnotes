@@ -25,4 +25,6 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-One simple patch applied to fix configure with binutils 2.18.
+After installation the fixed-includes should be regenerated.
+Go to /usr/tgcware/libexec/gcc/<platform>/<version>/install-tools and run
+the mkheaders program.
