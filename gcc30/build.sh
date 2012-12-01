@@ -27,18 +27,17 @@ reg prep
 prep()
 {
     generic_prep
-}
-
-reg build
-build()
-{
     setdir source
     # Set bugurl and vendor version
     ${__gsed} -i "/GCCBUGURL/s|URL:[^>]*|URL:$gccbugurl|" gcc/system.h
     ${__gsed} -i "s/$version/$version (release)/" gcc/version.c
     ${__gsed} -i "s/(release)/($gccpkgversion)/" gcc/version.c gcc/f/version.c
-    #
-    ${__mkdir} -p ../$objdir
+}
+
+reg build
+build()
+{
+    ${__mkdir} -p ${srcdir}/$objdir
     echo "$__configure $configure_args"
     generic_build ../$objdir
 }
