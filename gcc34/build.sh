@@ -31,19 +31,17 @@ prep()
     generic_prep
     setdir source
     ${__gsed} -i "s/@@GCCVERSION@@/$version/" gcc/ada/Makefile.in gcc/ada/bld.adb
+    # Set bugurl and vendor version
+    ${__gsed} -i "s|URL:[^>]*|URL:$gccbugurl|" gcc/version.c
+    ${__gsed} -i "s/$version/$version (release)/" gcc/version.c
+    ${__gsed} -i "s/(release)/($gccpkgversion)/" gcc/version.c
 }
 
 reg build
 build()
 {
     setup_tools
-    setdir source
-    # Set bugurl and vendor version
-    ${__gsed} -i "s|URL:[^>]*|URL:$gccbugurl|" gcc/version.c
-    ${__gsed} -i "s/$version/$version (release)/" gcc/version.c
-    ${__gsed} -i "s/(release)/($gccpkgversion)/" gcc/version.c
-    #
-    ${__mkdir} -p ../$objdir
+    ${__mkdir} -p ${srcdir}/$objdir
     echo "$__configure $configure_args"
     generic_build ../$objdir
     # Build gnat
