@@ -9,7 +9,6 @@ topdir=gcc
 version=4.0.4
 pkgver=2
 source[0]=$topdir-$version.tar.bz2
-[ -n "$snapshot" ] && source[0]=$topdir-$version-$snapshot.tar.bz2
 ## If there are no patches, simply comment this
 patch[0]=gcc-4.0.4-new-makeinfo.patch
 patch[1]=gcc-4.0.4-new-gas.patch
