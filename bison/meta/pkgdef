@@ -11,6 +11,17 @@ $_bindir
 $_libdir
 $_infodir
 $_mandir
-$_sharedir/locale
+$_sharedir/locale/*/LC_MESSAGES/bison.mo
 $_sharedir/aclocal
 $_sharedir/bison
+
+[bison-runtime]
+pkgname="${pkgprefix}${topdir}r"
+name="${topdir}-runtime - Runtime support for bison generated parsers"
+pkgcat="application"
+pkgvendor="http://www.gnu.org"
+pkgdesc="I18N runtime support for Bison generated parsers"
+pkgver="$pkgver"
+files(-,root,bin)
+$_sharedir/locale/*/LC_MESSAGES/bison-runtime.mo
+

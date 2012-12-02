@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=bison
-version=2.3
-pkgver=2
-source[0]=$topdir-$version.tar.bz2
+version=2.6
+pkgver=1
+source[0]=ftp://ftp.sunet.se/pub/gnu/bison/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
