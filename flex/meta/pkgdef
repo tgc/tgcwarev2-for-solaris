@@ -1,0 +1,16 @@
+[flex]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - the fast lexical analyzer generator"
+pkgcat="system"
+pkgvendor="http://flex.sourceforge.net/"
+pkgdesc="A tool for creating scanners (text pattern recognizers)"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_libdir
+$_includedir
+$_infodir
+$_mandir
+share/locale
+
