@@ -705,7 +705,7 @@ pkgdesc="Runtime support library for Stack Smashing Protection"
 pkgver="$pkgver"
 files(-,root,bin)
 $_libdir/libssp.so.0*
-if(sparcv9)$_libdir/sparcv9/libssp.so.0*
+if(altarch)$_libdir/$altarch/libssp.so.0*
 
 # These packages only exist when java is enabled
 # RH splits libgcj into it's own package, I can't be bothered...
