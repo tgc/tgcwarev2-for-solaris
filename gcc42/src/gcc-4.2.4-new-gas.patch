@@ -1,0 +1,12 @@
+diff -up gcc-4.2.4/gcc/configure.orig gcc-4.2.4/gcc/configure
+--- gcc-4.2.4/gcc/configure.orig	2008-03-12 01:56:34.000000000 +0100
++++ gcc-4.2.4/gcc/configure	2012-12-02 11:25:50.191450000 +0100
+@@ -14045,7 +14045,7 @@ L2:' > conftest.s
+   # arbitrary sections are supported and try the test.
+   as_ver=`$gcc_cv_as --version 2>/dev/null | sed 1q`
+   if echo "$as_ver" | grep GNU > /dev/null; then
+-    as_ver=`echo $as_ver | sed -e 's/GNU assembler \([0-9.][0-9.]*\).*/\1/'`
++    as_ver=`echo $as_ver | sed -e 's/GNU assembler.* \([0-9.][0-9.]*\).*/\1/'`
+     as_major=`echo $as_ver | sed 's/\..*//'`
+     as_minor=`echo $as_ver | sed 's/[^.]*\.\([0-9]*\).*/\1/'`
+     if test $as_major -eq 2 && test $as_minor -lt 11
