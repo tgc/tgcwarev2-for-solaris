@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sat Dec 08 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 4.3.6-3
+- Big build.sh update
+
 * Fri Apr 20 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 4.3.6-2
 - Rebuild with new layout
 

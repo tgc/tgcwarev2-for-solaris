@@ -1,0 +1,90 @@
+http://gcc.gnu.org/ml/java-patches/2010-q1/msg00058.html
+
+diff -up gcc-4.3.6/libffi/configure.ac.unwind gcc-4.3.6/libffi/configure.ac
+--- gcc-4.3.6/libffi/configure.ac.unwind	2010-05-06 19:19:46.000000000 +0200
++++ gcc-4.3.6/libffi/configure.ac	2012-07-08 22:32:03.657151000 +0200
+@@ -243,6 +243,21 @@ if test x$TARGET = xSPARC; then
+     fi
+ fi
+ 
++if test x$TARGET = xX86_64; then
++    AC_CACHE_CHECK([assembler supports unwind section type],
++       libffi_cv_as_x86_64_unwind_section_type, [
++       libffi_cv_as_x86_64_unwind_section_type=yes
++       echo '.section .eh_frame,"a",@unwind' > conftest.s
++       if $CC $CFLAGS -c conftest.s 2>&1 | grep -i warning > /dev/null; then
++           libffi_cv_as_x86_64_unwind_section_type=no
++       fi
++       ])
++    if test "x$libffi_cv_as_x86_64_unwind_section_type" = xyes; then
++       AC_DEFINE(HAVE_AS_X86_64_UNWIND_SECTION_TYPE, 1,
++                 [Define if your assembler supports unwind section type.])
++    fi
++fi
++
+ AC_CACHE_CHECK([whether .eh_frame section should be read-only],
+     libffi_cv_ro_eh_frame, [
+ 	libffi_cv_ro_eh_frame=no
+diff -up gcc-4.3.6/libffi/configure.unwind gcc-4.3.6/libffi/configure
+--- gcc-4.3.6/libffi/configure.unwind	2011-06-27 13:28:31.000000000 +0200
++++ gcc-4.3.6/libffi/configure	2012-07-08 22:41:02.689711000 +0200
+@@ -12522,6 +12522,31 @@ _ACEOF
+     fi
+ fi
+ 
++if test x$TARGET = xX86_64; then
++    echo "$as_me:$LINENO: checking assembler supports unwind section type" >&5
++echo $ECHO_N "checking assembler supports unwind section type... $ECHO_C" >&6
++if test "${libffi_cv_as_x86_64_unwind_section_type+set}" = set; then
++  echo $ECHO_N "(cached) $ECHO_C" >&6
++else
++
++       libffi_cv_as_x86_64_unwind_section_type=yes
++       echo '.section .eh_frame,"a",@unwind' > conftest.s
++       if $CC $CFLAGS -c conftest.s 2>&1 | grep -i warning > /dev/null; then
++           libffi_cv_as_x86_64_unwind_section_type=no
++       fi
++
++fi
++echo "$as_me:$LINENO: result: $libffi_cv_as_x86_64_unwind_section_type" >&5
++echo "${ECHO_T}$libffi_cv_as_x86_64_unwind_section_type" >&6
++    if test "x$libffi_cv_as_x86_64_unwind_section_type" = xyes; then
++
++cat >>confdefs.h <<\_ACEOF
++#define HAVE_AS_X86_64_UNWIND_SECTION_TYPE 1
++_ACEOF
++
++    fi
++fi
++
+ echo "$as_me:$LINENO: checking whether .eh_frame section should be read-only" >&5
+ echo $ECHO_N "checking whether .eh_frame section should be read-only... $ECHO_C" >&6
+ if test "${libffi_cv_ro_eh_frame+set}" = set; then
+diff -up gcc-4.3.6/libffi/fficonfig.h.in.unwind gcc-4.3.6/libffi/fficonfig.h.in
+--- gcc-4.3.6/libffi/fficonfig.h.in.unwind	2011-06-27 13:28:31.000000000 +0200
++++ gcc-4.3.6/libffi/fficonfig.h.in	2012-07-08 22:40:32.000000000 +0200
+@@ -37,6 +37,9 @@
+    */
+ #undef HAVE_AS_SPARC_UA_PCREL
+ 
++/* Define if your assembler supports unwind section type. */
++#undef HAVE_AS_X86_64_UNWIND_SECTION_TYPE
++
+ /* Define to 1 if you have the <dlfcn.h> header file. */
+ #undef HAVE_DLFCN_H
+ 
+diff -up gcc-4.3.6/libffi/src/x86/unix64.S.unwind gcc-4.3.6/libffi/src/x86/unix64.S
+--- gcc-4.3.6/libffi/src/x86/unix64.S.unwind	2005-05-05 06:06:38.000000000 +0200
++++ gcc-4.3.6/libffi/src/x86/unix64.S	2012-07-08 22:33:05.996220000 +0200
+@@ -326,7 +326,11 @@ ffi_closure_unix64:
+ .LUW9:
+ 	.size	ffi_closure_unix64,.-ffi_closure_unix64
+ 
++#ifdef HAVE_AS_X86_64_UNWIND_SECTION_TYPE
++	.section	.eh_frame,"a",@unwind
++#else
+ 	.section	.eh_frame,"a",@progbits
++#endif
+ .Lframe1:
+ 	.long	.LECIE1-.LSCIE1		/* CIE Length */
+ .LSCIE1:

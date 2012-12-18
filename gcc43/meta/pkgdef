@@ -8,102 +8,55 @@ files(-,root,bin)
 $iprefix/$_bindir/*gcc*
 $iprefix/$_bindir/*gcov*
 $iprefix/$_bindir/cpp
-lib/gcc/${arch}-${vendor}-solaris*/$version/gcrt*
-lib/gcc/${arch}-${vendor}-solaris*/$version/crt*
-lib/gcc/${arch}-${vendor}-solaris*/$version/libgcc*
-lib/gcc/${arch}-${vendor}-solaris*/$version/libgcov*
-lib/gcc/${arch}-${vendor}-solaris*/$version/gmon.o
-lib/gcc/${arch}-${vendor}-solaris*/$version/libgomp.*
-lib/gcc/${arch}-${vendor}-solaris*/$version/libssp*
-lib/gcc/${arch}-${vendor}-solaris*/$version/libffi.*
-lib/gcc/${arch}-${vendor}-solaris*/$version/libiberty.*
-if(sparcv9)lib/gcc/${arch}-${vendor}-solaris*/$version/sparcv9/gcrt*
-if(sparcv9)lib/gcc/${arch}-${vendor}-solaris*/$version/sparcv9/crt*
-if(sparcv9)lib/gcc/${arch}-${vendor}-solaris*/$version/sparcv9/libgcc*
-if(sparcv9)lib/gcc/${arch}-${vendor}-solaris*/$version/sparcv9/libgcov*
-if(sparcv9)lib/gcc/${arch}-${vendor}-solaris*/$version/sparcv9/gmon.o
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/arpa/nameser_compat.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/iso/setjmp_iso.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/iso/stdarg_iso.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/iso/stdio_iso.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/iso/wchar_iso.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/net/if.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/net/ppp_defs.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/rpc/xdr.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/stdio_tag.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/wchar.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/zconf.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/README
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/X11
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/Xm
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/kcms
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/xil
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/curses.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/iso646.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/limits.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/math.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/pthread.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/root
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/stdarg.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/stdbool.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/stddef.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/stdio.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/stdlib.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/sys
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/syslimits.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/unwind.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/varargs.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/stdarg.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/stddef.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/stdfix.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/float.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/tgmath.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/varargs.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/ctype.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/gelf.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/libelf.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/link.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/locale.h
-if(sparc)lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/netinet/if_ether.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/omp.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/setjmp.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/signal.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/ssp/ssp.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/ssp/stdio.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/ssp/string.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/ssp/unistd.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/string.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/thread.h
-if(sparc)lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/thread_db.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/time.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/tzfile.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include-fixed/widec.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/ffi.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/ffitarget.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/install-tools
-libexec/gcc/${arch}-${vendor}-solaris*/$version/install-tools
-libexec/gcc/${arch}-${vendor}-solaris*/$version/collect2
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/gcrt*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/crt*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/gmon.o
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgcc*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgcov*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgomp*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libiberty.*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libssp*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/gcrt*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/crt*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/gmon.o
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgcc*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgcov*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgomp*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libiberty.*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libssp*
+# We will not enumerate the fixed-includes, since they will vary according
+# to the buildhost. They are mostly included as a convenience and should
+# be regenerated on the install host.
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include-fixed/*
+# real gcc includes
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/float.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/iso646.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/omp.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdarg.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdbool.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stddef.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdfix.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/tgmath.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unwind.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/varargs.h
+# ssp includes
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ssp/ssp.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ssp/stdio.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ssp/string.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ssp/unistd.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/install-tools
 libexec/gcc/${arch}-${vendor}-solaris*/$version/cc1
+libexec/gcc/${arch}-${vendor}-solaris*/$version/collect2
+libexec/gcc/${arch}-${vendor}-solaris*/$version/install-tools
 $iprefix/info/dir
 $iprefix/info/gcc*
 $iprefix/info/cpp*
-$iprefix/info/libgomp.info
-#if(sparcv9)$iprefix/lib/sparcv9/libssp*
-#if(sparcv9)$iprefix/lib/sparcv9/libgomp*
-#if(sparcv9)$iprefix/lib/sparcv9/libgcc*
-#if(sparcv9)$iprefix/lib/sparcv9/libiberty*
-#if(sparcv9)$iprefix/lib/sparcv9/libffi*
+$iprefix/info/libgomp*
 $iprefix/man/?a?1/gcc.1
 $iprefix/man/?a?1/cpp.1
 $iprefix/man/?a?1/gcov.1
 $iprefix/man/?a?7/*.7
-$_sharedir/doc
-# Only on i386
-if(intel)lib/gcc/${arch}-${vendor}-solaris*/$version/include/*intrin.h
-if(intel)lib/gcc/${arch}-${vendor}-solaris*/$version/include/cpuid.h
-if(intel)lib/gcc/${arch}-${vendor}-solaris*/$version/include/mmintrin-common.h
-if(intel)lib/gcc/${arch}-${vendor}-solaris*/$version/include/mm3dnow.h
-if(intel)lib/gcc/${arch}-${vendor}-solaris*/$version/include/mm_malloc.h
+$_vdocdir
 
 [gcc-gnat]
 pkgname="${pkgprefix}g${abbrev_majorminor}gn"
@@ -125,12 +78,10 @@ $iprefix/bin/gnatmake
 $iprefix/bin/gnatname
 $iprefix/bin/gnatprep
 $iprefix/bin/gnatxref
-lib/gcc/${arch}-${vendor}-solaris*/$version/adainclude
-lib/gcc/${arch}-${vendor}-solaris*/$version/adalib
-$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/adainclude
-$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/adalib
-lib/gcc/${arch}-${vendor}-solaris*/$version/libgnarl.so
-lib/gcc/${arch}-${vendor}-solaris*/$version/libgnat.so
+$iprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/adainclude
+$iprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/adalib
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/adainclude
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/adalib
 libexec/gcc/${arch}-${vendor}-solaris*/$version/gnat1
 $iprefix/info/gnat*
 
@@ -220,11 +171,11 @@ include/c++/${version}/utility
 include/c++/${version}/valarray
 include/c++/${version}/vector
 include/c++/${version}/${arch}-${vendor}-solaris*/bits
-if(sparcv9)include/c++/${version}/${arch}-${vendor}-solaris*/sparcv9/bits
-lib/gcc/${arch}-${vendor}-solaris*/$version/libstdc++.*
-lib/gcc/${arch}-${vendor}-solaris*/$version/libsupc++.*
-#if(sparcv9)$iprefix/lib/sparcv9/libstdc++.*
-#if(sparcv9)$iprefix/lib/sparcv9/libsupc++.a
+if(altarch)include/c++/${version}/${arch}-${vendor}-solaris*/$altarch/bits
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libstdc++.*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libsupc++.*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libstdc++.*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libsupc++.*
 libexec/gcc/${arch}-${vendor}-solaris*/$version/cc1plus
 $iprefix/man/man1/g++.1
 
@@ -235,9 +186,9 @@ pkgvendor="http://gcc.gnu.org"
 pkgdesc="Objective-C support for GCC"
 pkgver="$pkgver"
 files(-,root,bin)
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/objc
-lib/gcc/${arch}-${vendor}-solaris*/$version/libobjc.*
-#if(sparcv9)$iprefix/lib/sparcv9/libobjc.*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/objc
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libobjc.*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libobjc.*
 libexec/gcc/${arch}-${vendor}-solaris*/$version/cc1obj
 
 [gcc-objc++]
@@ -257,10 +208,11 @@ pkgdesc="Fortran support for GCC"
 pkgver="$pkgver"
 files(-,root,bin)
 $iprefix/bin/*fortran
-lib/gcc/${arch}-${vendor}-solaris*/$version/libgfortran*
-#if(sparcv9)$iprefix/lib/sparcv9/libgfortran.*
-#if(sparcv9)$iprefix/lib/gcc/${arch}-${vendor}-solaris*/$version/sparcv9/libgfortranbegin.a
-lib/gcc/${arch}-${vendor}-solaris*/$version/finclude
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/finclude/omp*
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgfortranbegin.a
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgfortran.*
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgfortranbegin.a
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgfortran.*
 libexec/gcc/${arch}-${vendor}-solaris*/$version/f951
 $iprefix/man/?a?1/gfortran.1
 $iprefix/info/gfortran.info*
@@ -274,7 +226,7 @@ pkgdesc="Runtime support library for C"
 pkgver="$pkgver"
 files(-,root,bin)
 $_libdir/libgcc_s.so.1*
-if(sparcv9)$_libdir/sparcv9/libgcc_s.so.1*
+if(altarch)$_libdir/$altarch/libgcc_s.so.1*
 
 [libstdc++6]
 pkgname="${pkgprefix}lstdc6"
@@ -285,7 +237,7 @@ pkgdesc="Runtime support library for C++"
 pkgver="$pkgver"
 files(-,root,bin)
 $_libdir/libstdc++.so.6*
-if(sparcv9)$_libdir/sparcv9/libstdc++.so.6*
+if(altarch)$_libdir/$altarch/libstdc++.so.6*
 
 [libobjc2]
 pkgname="${pkgprefix}lobjc2"
@@ -296,7 +248,7 @@ pkgdesc="Runtime support library for Objective-C"
 pkgver="$pkgver"
 files(-,root,bin)
 $_libdir/libobjc.so.2*
-if(sparcv9)$_libdir/sparcv9/libobjc.so.2*
+if(altarch)$_libdir/$altarch/libobjc.so.2*
 
 [libgfortran3]
 pkgname="${pkgprefix}lgfrt3"
@@ -307,18 +259,18 @@ pkgdesc="Runtime support library for Fortran"
 pkgver="$pkgver"
 files(-,root,bin)
 $_libdir/libgfortran.so.3*
-if(sparcv9)$_libdir/sparcv9/libgfortran.so.3*
+if(altarch)$_libdir/$altarch/libgfortran.so.3*
 
-[libgomp1]
-pkgname="${pkgprefix}lgomp1"
-name="libgomp1 - GNU OpenMP shared support library"
+[libgnat43]
+pkgname="${pkgprefix}lgna${abbrev_majorminor}"
+name="libgnat${abbrev_majorminor} - GNU Ada shared support library"
 pkgcat="system"
 pkgvendor="http://gcc.gnu.org"
-pkgdesc="Runtime support library for OpenMP"
+pkgdesc="Runtime support library for Ada"
 pkgver="$pkgver"
 files(-,root,bin)
-$_libdir/libgomp.so.1*
-if(sparcv9)$_libdir/sparcv9/libgomp.so.1*
+$_libdir/libgnat-${majorminor}.so
+$_libdir/libgnarl-${majorminor}.so
 
 [libssp0]
 pkgname="${pkgprefix}lssp0"
@@ -329,28 +281,18 @@ pkgdesc="Runtime support library for Stack Smashing Protection"
 pkgver="$pkgver"
 files(-,root,bin)
 $_libdir/libssp.so.0*
-if(sparcv9)$_libdir/sparcv9/libssp.so.0*
+if(altarch)$_libdir/$altarch/libssp.so.0*
 
-[libgnat43]
-pkgname="${pkgprefix}lgna43"
-name="libgnat43 - GNU Ada shared support library"
+[libgomp1]
+pkgname="${pkgprefix}lgomp1"
+name="libgomp1 - GNU OpenMP shared support library"
 pkgcat="system"
 pkgvendor="http://gcc.gnu.org"
-pkgdesc="Runtime support library for Ada"
+pkgdesc="Runtime support library for OpenMP"
 pkgver="$pkgver"
 files(-,root,bin)
-$_libdir/libgnat-4.3.so
-$_libdir/libgnarl-4.3.so
-
-[libffi4]
-pkgname="${pkgprefix}lffi4"
-name="libffi4 - GNU Foreign Function Interface shared support library"
-pkgcat="system"
-pkgvendor="http://gcc.gnu.org"
-pkgdesc="Runtime support library for Foreign Function Interface"
-pkgver="$pkgver"
-files(-,root,bin)
-$_libdir/libffi.so.4*
+$_libdir/libgomp.so.1*
+if(altarch)$_libdir/$altarch/libgomp.so.1*
 
 # These packages only exist when java is enabled
 # RH splits libgcj into it's own package, I can't be bothered...
@@ -362,79 +304,75 @@ pkgvendor="http://gcc.gnu.org"
 pkgdesc="Java support for GCC"
 pkgver="$pkgver"
 files(-,root,bin)
-# These files are gcc-java
 $iprefix/bin/*gcj
-$iprefix/bin/gcjh
-$iprefix/bin/jcf-dump
-lib/libgcj-tools.*
-lib/libgcj.*
-lib/libgij.*
-if(sparcv9)lib/sparcv9/libgcj-tools.*
-if(sparcv9)lib/sparcv9/libgcj.*
-if(sparcv9)lib/sparcv9/libgij.*
-libexec/gcc/${arch}-${vendor}-solaris*/$version/jc1
-libexec/gcc/${arch}-${vendor}-solaris*/$version/jvgenmain
-$iprefix/man/?a?1/gcj.1
-$iprefix/man/?a?1/gcjh.1
-$iprefix/man/?a?1/jcf-dump.1
-$iprefix/info/gcj.info*
-# These files are libgcj
+$iprefix/bin/*gcjh
 $iprefix/bin/gappletviewer
+$iprefix/bin/gc-analyze
 $iprefix/bin/gcj-dbtool
-$iprefix/bin/gij
 $iprefix/bin/gjar
 $iprefix/bin/gjarsigner
+$iprefix/bin/gjavah
+$iprefix/bin/jcf-dump
+$iprefix/bin/jv-convert
 $iprefix/bin/gkeytool
+$iprefix/bin/gnative2ascii
 $iprefix/bin/gorbd
 $iprefix/bin/grmic
 $iprefix/bin/grmid
 $iprefix/bin/grmiregistry
 $iprefix/bin/gserialver
 $iprefix/bin/gtnameserv
-$iprefix/bin/jv-convert
 lib/gcj-${version}-${java_libver}/classmap.db
-lib/gcj-${version}-${java_libver}/libjvm.so
-lib/gcj-${version}-${java_libver}/libjvm.a
+lib/gcj-${version}-${java_libver}/libjvm.*
+if(altarch)lib/${altarch}/gcj-${version}-${java_libver}/classmap.db
+if(altarch)lib/${altarch}/gcj-${version}-${java_libver}/libjvm.*
+lib/libgcj*
+lib/libgij*
+lib/lib-gnu-awt-xlib*
+if(altarch)lib/${altarch}/libgcj*
+if(altarch)lib/${altarch}/libgij*
+if(altarch)lib/${altarch}/lib-gnu-awt-xlib*
 lib/logging.properties
+if(altarch)lib/${altarch}/logging.properties
 lib/pkgconfig/libgcj*.pc
-lib/security/classpath.security
-if(sparcv9)$iprefix/lib/sparcv9/gcj-${version}-${java_libver}/classmap.db
-if(sparcv9)$iprefix/lib/sparcv9/gcj-${version}-${java_libver}/libjvm.so
-if(sparcv9)$iprefix/lib/sparcv9/gcj-${version}-${java_libver}/libjvm.a
-if(sparcv9)$iprefix/lib/sparcv9/logging.properties
-if(sparcv9)$iprefix/lib/sparcv9/security/classpath.security
+libexec/gcc/${arch}-${vendor}-solaris*/$version/jc1
+libexec/gcc/${arch}-${vendor}-solaris*/$version/jvgenmain
+$iprefix/info/cp-tools.info*
+$iprefix/info/gcj.info*
+$iprefix/bin/gij
+share/java/libgcj-$version.jar
+share/java/libgcj-tools-$version.jar
+lib/security
+if(altarch)lib/${altarch}/security
+$iprefix/bin/addr2name.awk
+include/c++/${version}/gcj
+include/c++/${version}/gnu
+include/c++/${version}/java
+include/c++/${version}/javax
+include/c++/${version}/sun
+include/c++/${version}/org
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/gcj
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/jawt.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/jawt_md.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/jni.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/jni_md.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/jvmpi.h
+$iprefix/man/?a?1/gcj.1
+$iprefix/man/?a?1/gcjh.1
 $iprefix/man/?a?1/gappletviewer.1
+$iprefix/man/?a?1/gc-analyze.1
 $iprefix/man/?a?1/gcj-dbtool.1
 $iprefix/man/?a?1/gij.1
 $iprefix/man/?a?1/gjar.1
 $iprefix/man/?a?1/gjarsigner.1
+$iprefix/man/?a?1/gjavah.1
+$iprefix/man/?a?1/jcf-dump.1
+$iprefix/man/?a?1/jv-convert.1
 $iprefix/man/?a?1/gkeytool.1
+$iprefix/man/?a?1/gnative2ascii.1
 $iprefix/man/?a?1/gorbd.1
 $iprefix/man/?a?1/grmic.1
 $iprefix/man/?a?1/grmid.1
 $iprefix/man/?a?1/grmiregistry.1
 $iprefix/man/?a?1/gserialver.1
 $iprefix/man/?a?1/gtnameserv.1
-$iprefix/man/?a?1/jv-convert.1
-$iprefix/info/cp-tools.info*
-share/java/libgcj*-${version}.jar
-# These files are libgcj-devel
-$iprefix/bin/addr2name.awk
-$iprefix/bin/gc-analyze
-$iprefix/bin/gjavah
-$iprefix/bin/gnative2ascii
-include/c++/${version}/gcj
-include/c++/${version}/gnu
-include/c++/${version}/java
-include/c++/${version}/javax
-include/c++/${version}/org
-include/c++/${version}/sun
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/gcj/libgcj-config.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/jawt.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/jawt_md.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/jni.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/jni_md.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/jvmpi.h
-$iprefix/man/?a?1/gc-analyze.1
-$iprefix/man/?a?1/gjavah.1
-$iprefix/man/?a?1/gnative2ascii.1
