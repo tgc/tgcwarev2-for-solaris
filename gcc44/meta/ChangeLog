@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sat Dec 08 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 4.4.7-2
+- Overhaul build.sh and metadata
+
 * Sat Apr 21 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 4.4.7-1
 - Update to 4.4.7
 - Build with new layout
