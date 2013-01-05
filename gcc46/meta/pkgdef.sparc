@@ -16,7 +16,6 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgcov*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgomp*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libiberty.*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libssp*
-lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libquadmath.*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/gcrt*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/crt*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/gmon.o
@@ -47,9 +46,6 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ssp/string.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ssp/unistd.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/install-tools
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/plugin/include/*
-# quadmath includes
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/quadmath.h
-lib/gcc/${arch}-${vendor}-solaris*/$version/include/quadmath_weak.h
 libexec/gcc/${arch}-${vendor}-solaris*/$version/cc1
 libexec/gcc/${arch}-${vendor}-solaris*/$version/collect2
 libexec/gcc/${arch}-${vendor}-solaris*/$version/install-tools
@@ -60,7 +56,6 @@ $iprefix/info/dir
 $iprefix/info/gcc*
 $iprefix/info/cpp*
 $iprefix/info/libgomp*
-$iprefix/info/libquadmath*
 $iprefix/man/?a?1/gcc.1
 $iprefix/man/?a?1/cpp.1
 $iprefix/man/?a?1/gcov.1
@@ -317,16 +312,6 @@ pkgver="$pkgver"
 files(-,root,bin)
 $_libdir/libgomp.so.1*
 if(altarch)$_libdir/$altarch/libgomp.so.1*
-
-[libquadmath0]
-pkgname="${pkgprefix}lqma0"
-name="libquadmath0 - GNU __float128 shared support library"
-pkgcat="system"
-pkgvendor="http://gcc.gnu.org"
-pkgdesc="Runtime support library for __float128 math"
-pkgver="$pkgver"
-files(-,root,bin)
-$_libdir/libquadmath.so.0*
 
 # These packages only exist when java is enabled
 # RH splits libgcj into it's own package, I can't be bothered...

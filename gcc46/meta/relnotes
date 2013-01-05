@@ -1,0 +1,36 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+After installation the fixed-includes should be regenerated.
+Go to /usr/tgcware/libexec/gcc/<platform>/<version>/install-tools and run
+the mkheaders program.
+
+Note that the libstdc++ abi_check fails in the testsuite when built for
+sparc v8 since the __sync_compare_and_swap family of builtins are not
+implemented for this cpu (missing CAS or similar instruction).
+This results in 22 missing symbols in libstdc++ compared to the baseline that
+the testsuite uses.

@@ -5,7 +5,6 @@ TGCg46cx gcc auto
 TGCg46cx libstdc++6 auto
 TGCg46ft gcc auto
 TGCg46ft libgfortran3 auto
-TGCg46ft libquadmath0 auto
 TGCg46gn gcc auto
 TGCg46gn libgnat46 auto
 TGCg46ob gcc auto
@@ -18,4 +17,3 @@ TGClgomp1 libgcc_s1 auto
 TGClobjc3 libgcc_s1 auto
 TGClssp0 libgcc_s1 auto
 TGClstdc6 libgcc_s1 auto
-TGClqma0 libgcc_s1 auto
