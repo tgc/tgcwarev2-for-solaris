@@ -1,0 +1,13 @@
+http://gcc.gnu.org/bugzilla/show_bug.cgi?id=45915
+
+diff -up gcc-4.5.4/gcc/configure.pr45915 gcc-4.5.4/gcc/configure
+--- gcc-4.5.4/gcc/configure.pr45915	2012-12-09 16:45:08.315590500 +0100
++++ gcc-4.5.4/gcc/configure	2012-12-09 16:51:23.355717100 +0100
+@@ -24581,6 +24581,7 @@ $as_echo "$gcc_cv_as_gnu_unique_object"
+ if test $gcc_cv_as_gnu_unique_object = yes; then
+   # Also check for ld.so support, i.e. glibc 2.11 or higher.
+    if test x$host = x$build -a x$host = x$target &&
++       ldd --version 2>/dev/null &&
+        glibcver=`ldd --version 2>/dev/null | sed 's/.* //;q'`; then
+       glibcmajor=`expr "$glibcver" : "\([0-9]*\)"`
+       glibcminor=`expr "$glibcver" : "[2-9]*\.\([0-9]*\)"`
