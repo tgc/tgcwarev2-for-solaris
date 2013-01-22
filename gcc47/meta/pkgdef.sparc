@@ -245,11 +245,6 @@ if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgfortr
 libexec/gcc/${arch}-${vendor}-solaris*/$version/f951
 $iprefix/man/?a?1/gfortran.1
 $iprefix/info/gfortran.info*
-# quadmath bits, currently only available on x86
-lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libquadmath.*
-$iprefix/info/libquadmath.info
-lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/quadmath.h
-lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/quadmath_weak.h
 
 [gcc-go]
 pkgname="${pkgprefix}g${abbrev_majorminor}go"
@@ -344,16 +339,6 @@ pkgver="$pkgver"
 files(-,root,bin)
 $_libdir/libgomp.so.1*
 if(altarch)$_libdir/$altarch/libgomp.so.1*
-
-[libquadmath0]
-pkgname="${pkgprefix}lqma0"
-name="libquadmath0 - GNU __float128 shared support library"
-pkgcat="system"
-pkgvendor="http://gcc.gnu.org"
-pkgdesc="Runtime support library for __float128 math"
-pkgver="$pkgver"
-files(-,root,bin)
-$_libdir/libquadmath.so.0*
 
 [libitm1]
 pkgname="${pkgprefix}litm1"
