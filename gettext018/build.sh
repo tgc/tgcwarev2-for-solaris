@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gettext
-version=0.18.1.1
+version=0.18.2
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=ftp://ftp.sunet.se/pub/gnu/gettext/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -19,6 +19,8 @@ source[0]=$topdir-$version.tar.gz
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 configure_args="$configure_args --with-libiconv-prefix=$prefix --disable-java --disable-native-java --disable-openmp"
+
+gnu_link_progs="autopoint envsubst gettext gettext.sh gettextize msgattrib msgcat msgcmp msgcomm msgconv msgen msgexec msgfilter msgfmt msggrep msginit msgmerge msgunfmt msguniq ngettext recode-sr-latin xgettext"
 
 reg prep
 prep()
