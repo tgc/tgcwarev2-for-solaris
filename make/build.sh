@@ -7,13 +7,15 @@
 # Check the following 4 variables before running the script
 topdir=make
 version=3.82
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
+
+gnu_link_progs="make"
 
 reg prep
 prep()
@@ -37,6 +39,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    doc COPYING AUTHORS NEWS
 }
 
 reg pack
