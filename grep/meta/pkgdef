@@ -8,6 +8,7 @@ pkgver="$pkgver"
 files(-,root,bin)
 default_docs
 $_bindir
+$_gnudir
 $_infodir
 $_mandir
 $_sharedir/locale

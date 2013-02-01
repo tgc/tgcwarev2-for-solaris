@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=grep
-version=2.6.3
+version=2.14
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/grep/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
@@ -18,6 +18,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/grep/$topdir-$version.tar.xz
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
+gnu_link_progs="grep"
 
 reg prep
 prep()
