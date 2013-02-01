@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=pcre
-version=7.6
+version=8.32
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -18,7 +18,7 @@ source[0]=$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --enable-utf8"
+configure_args="$configure_args --enable-utf"
 
 reg prep
 prep()
@@ -42,7 +42,6 @@ reg install
 install()
 {
     generic_install DESTDIR
-    setdir ${stagedir}${prefix}/${_docdir}/pcre
 }
 
 reg pack

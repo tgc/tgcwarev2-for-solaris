@@ -26,7 +26,7 @@ pkgname="${pkgprefix}${topdir}d"
 name="pcre-devel - Development support for pcre"
 pkgcat="system"
 pkgvendor="http://www.pcre.org"
-pkgdesc="A set of functions that implement regular expression pattern matching using the same syntax and semantics as Perl 5"
+pkgdesc="Files needed for developing with pcre"
 pkgver="$pkgver"
 files(-,root,bin)
 $_bindir/pcre-config
