@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=tar
 version=1.26
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/tar/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -18,6 +18,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/tar/$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
+gnu_link_progs="tar"
 
 reg prep
 prep()
