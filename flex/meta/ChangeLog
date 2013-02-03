@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Sun Feb 03 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 2.5.37-2
+- Build with CPPFLAGS & LDFLAGS
+
 * Sun Dec 02 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 2.5.37-1
 - Initial package

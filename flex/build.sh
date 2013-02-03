@@ -7,13 +7,17 @@
 # Check the following 4 variables before running the script
 topdir=flex
 version=2.5.37
-pkgver=1
+pkgver=2
 source[0]=http://downloads.sourceforge.net/project/flex/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
+
+# Global settings
+export CPPFLAGS="-I/$prefix/include"
+export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 
 reg prep
 prep()
