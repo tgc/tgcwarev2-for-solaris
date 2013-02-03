@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=bash
 real_version=4.2
-version=4.2.28
+version=4.2.42
 pkgver=1
 source[0]=$topdir-$real_version.tar.gz
 
@@ -42,6 +42,20 @@ patch[24]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-02
 patch[25]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-026
 patch[26]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-027
 patch[27]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-028
+patch[28]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-029
+patch[29]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-030
+patch[30]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-031
+patch[31]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-032
+patch[32]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-033
+patch[33]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-034
+patch[34]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-035
+patch[35]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-036
+patch[36]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-037
+patch[37]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-038
+patch[38]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-039
+patch[39]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-040
+patch[40]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-041
+patch[41]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-042
 
 # Global settings
 export CPPFLAGS="-I$prefix/include"
