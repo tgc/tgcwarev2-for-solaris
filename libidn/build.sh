@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn
-version=1.25
+version=1.26
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/libidn/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -43,10 +43,6 @@ install()
 {
     generic_install DESTDIR
     doc AUTHORS COPYING* NEWS THANKS TODO FAQ README
-    # It's compatible with previous build
-    compat libidn 1.10 1 1
-    compat libidn 1.18 1 1
-    compat libidn 1.24 1 1
 }
 
 reg pack
