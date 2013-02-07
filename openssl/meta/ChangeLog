@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Thu Feb 07 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 1.0.1c-4
+- Better cpu flags handling
+
 * Sat May 19 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 1.0.1c-3
 - Update to 1.0.1c
 

@@ -7,13 +7,16 @@
 # Check the following 4 variables before running the script
 topdir=openssl
 version=1.0.1c
-pkgver=3
+pkgver=4
 source[0]=http://openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
+
+# For cpu settings
+. ${BUILDPKG_BASE}/gcc/build.sh.gcc.cpu
 
 # Global settings
 abbrev_ver=$(echo $version|${__sed} -e 's/\.//g')
@@ -22,10 +25,9 @@ make_check_target="test"
 __configure="./Configure"
 shared_args="--prefix=$prefix --openssldir=${prefix}/${_sharedir}/ssl zlib-dynamic shared"
 if [ "$arch" = "sparc" ]; then
-    # For Solaris > 7 we default to sparcv8 ISA
-    configure_args="solaris-sparcv8-gcc $shared_args"
+    configure_args="solaris-sparc${gcc_cpu##*=}-gcc $shared_args"
 else
-    configure_args="$shared_args no-sse2 solaris-x86-gcc" 
+    configure_args="$shared_args no-sse2 solaris-x86-gcc"
 fi
 ignore_deps="LWperl"
 
@@ -46,11 +48,13 @@ build()
     ${__gsed} -i "s;@LIBDIR@;${prefix}/lib;g" Makefile.org
 
     if [ "$arch" = "i386" ]; then
-	# openssl defaults to --march=pentium which should be changed to --march=i686 --mtune=i686
-	${__sed} -e 's/-march=pentium/-march=i686 -mtune=i686/' Configure > Configure.myflags
-	${__mv} Configure.myflags Configure
-	chmod 755 Configure
+	# openssl defaults to --march=pentium which should be changed
+	${__gsed} -i "/solaris-x86-gcc/ s;-march=pentium;$gcc_cpu;" Configure
+	# There is no reason to disable inline asm
+	${__gsed} -i "/solaris-x86-gcc/ s; -DOPENSSL_NO_INLINE_ASM;;" Configure
     fi
+    # The -mv8 alias is not supported with newer gcc
+    ${__gsed} -i 's/mv8/mcpu=v8/g' Configure
 
     echo $__configure $configure_args
     $__configure $configure_args
@@ -76,7 +80,7 @@ install()
     setdir ${stagedir}${prefix}/${_mandir}
     for j in $(${__ls} -1d man?)
     do
- 	cd $j
+	cd $j
 	for manpage in *
 	do
 	    if [ -L "${manpage}" ]; then
@@ -99,7 +103,6 @@ install()
 
     custom_install=1
     generic_install INSTALL_PREFIX
-
 }
 
 reg pack
