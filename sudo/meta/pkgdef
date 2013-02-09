@@ -1,0 +1,33 @@
+[sudo]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - Allows restricted root access for specified users"
+pkgcat="application"
+pkgvendor="http://www.sudo.ws/sudo"
+pkgdesc="Allows restricted root access for specified users"
+pkgver="$pkgver"
+files(755,root,sys)
+dir var
+dir usr
+dir $lprefix
+files(775,root,sys)
+dir var/adm
+files(700,root,root)
+dir var/adm/sudo
+files(750,root,root)
+dir $lprefix/$_sysconfdir/sudoers.d
+files(440,root,root)
+$lprefix/$_sysconfdir/sudoers
+files(4755,root,root)
+$lprefix/$_bindir/sudo
+files(755,root,root)
+$lprefix/$_bindir/sudoedit
+$lprefix/$_bindir/sudoreplay
+$lprefix/$_sbindir/visudo
+files(644,root,root)
+$lprefix/libexec/sudo*.so
+files(-,root,bin)
+default_docs
+$lprefix/$_includedir
+$lprefix/$_mandir
+$lprefix/share/locale/*/LC_MESSAGES/sudo*
+
