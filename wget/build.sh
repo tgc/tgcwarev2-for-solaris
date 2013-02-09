@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=wget
-version=1.13.4
+version=1.14
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/wget/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
