@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=1.0.1c
-pkgver=4
+version=1.0.1e
+pkgver=1
 source[0]=http://openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -29,7 +29,6 @@ if [ "$arch" = "sparc" ]; then
 else
     configure_args="$shared_args no-sse2 solaris-x86-gcc"
 fi
-ignore_deps="LWperl"
 
 # Buildsystem is non-standard so we take the easy way out
 export LD_OPTIONS="-R$prefix/lib"
@@ -103,6 +102,9 @@ install()
 
     custom_install=1
     generic_install INSTALL_PREFIX
+
+    # Compatible with previous releases
+    compat openssl 1.0.1c 4 4
 }
 
 reg pack
