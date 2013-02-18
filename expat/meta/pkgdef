@@ -1,0 +1,26 @@
+[expat]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - an XML parser library"
+pkgcat="system"
+pkgvendor="http://expat.sourceforge.net/"
+pkgdesc="An XML parser library"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/xmlwf
+$_libdir/libexpat.so.*
+$_mandir/man1/xmlwf.1*
+$_vdocdir
+
+[expat-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="expat-devel - Development support"
+pkgcat="system"
+pkgvendor="http://expat.sourceforge.net/"
+pkgdesc="Files needed for developing with expat"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir
+$_libdir/libexpat.so
+$_libdir/libexpat.a
+$_libdir/pkgconfig/expat.pc
+
