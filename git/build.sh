@@ -6,26 +6,23 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=1.7.10.4
+version=1.8.1.3
 pkgver=1
 source[0]=http://git-core.googlecode.com/files/$topdir-$version.tar.gz
 source[1]=http://git-core.googlecode.com/files/$topdir-manpages-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=git-1.7.2.3-symlinks.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 
-export ICONVDIR=$prefix
-export PERL_PATH=$prefix/bin/perl
-export CC=gcc
 no_configure=1
 __configure="make"
 configure_args=""
 # HACK: -e must be last or echo will think it's an argument
-__make="/usr/tgcware/bin/make -e"
+#__make="/usr/tgcware/bin/make -e"
 make_build_target="V=1"
 make_check_target="test"
 
@@ -34,14 +31,18 @@ prep()
 {
     generic_prep
     setdir source
-    # Solaris 2.8
     cat <<EOF> config.mak
-NO_EXPAT=YesPlease
+CC=gcc
+PERL_PATH=$prefix/bin/perl
+ICONVDIR=$prefix
+SANE_TOOL_PATH=/usr/tgcware/bin/gnu:/usr/xpg6/bin:/usr/xpg4/bin
+NO_INSTALL_HARDLINKS=YesPlease
 BASIC_CFLAGS += -I/usr/tgcware/include
 BASIC_LDFLAGS += -L/usr/tgcware/lib -Wl,-R,/usr/tgcware/lib
 NEEDS_LIBICONV = YesPlease
 NO_PYTHON = YesPlease
-TAR = /usr/tgcware/bin/tar
+INSTALL = /usr/tgcware/bin/ginstall
+TAR = /usr/tgcware/bin/gtar
 prefix=$prefix
 EOF
 
