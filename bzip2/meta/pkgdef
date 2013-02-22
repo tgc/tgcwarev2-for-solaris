@@ -9,7 +9,7 @@ files(-,root,bin)
 default_docs
 $_bindir
 $_libdir/*.so.*
-$_mandir/man1
+$_mandir/man1/*.1
 
 [bzip2-devel]
 pkgname="${pkgprefix}${topdir}d"
