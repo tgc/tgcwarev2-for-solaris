@@ -8,7 +8,8 @@ pkgver="$pkgver"
 files(-,root,bin)
 default_docs
 $_bindir
-$_libdir/libexpect${majorver}.so
+$_libdir/libexpect.so
+$_libdir/expect${majorver}/libexpect${majorver}.so
 $_libdir/expect${majorver}/pkgIndex.tcl
 $_mandir/?a?[12456789]
 
@@ -21,8 +22,5 @@ pkgdesc="Files needed for developing with libexpect"
 pkgver="$pkgver"
 files(-,root,bin)
 $_includedir
-$_libdir/libexpect.so
-$_libdir/*.a
-$_libdir/expect${majorver}/*.a
 $_mandir/?a?3
 
