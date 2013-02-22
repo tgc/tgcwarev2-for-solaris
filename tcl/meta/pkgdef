@@ -11,6 +11,8 @@ $_bindir
 $_mandir/?a?[12456789]
 $_libdir/libtcl${majorver}.so
 $_libdir/tcl${majorver}
+$_libdir/tcl8/${majorver}
+$_libdir/tcl8/8.4
 $_libdir/tclConfig.sh
 
 [tcl-devel]

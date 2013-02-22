@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tcl
-version=8.4.19
+version=8.5.13
 pkgver=1
-source[0]=$topdir$version-src.tar.gz
+source[0]=http://prdownloads.sourceforge.net/tcl/$topdir${version}-src.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -16,8 +16,9 @@ source[0]=$topdir$version-src.tar.gz
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
+export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="--prefix=$prefix --mandir=$prefix/$_mandir --disable-symbols --enable-man-symlinks"
+configure_args="--prefix=$prefix --mandir=$prefix/$_mandir --enable-man-symlinks"
 topsrcdir=$topdir$version
 
 majorver="${version%.*}"
@@ -26,6 +27,9 @@ reg prep
 prep()
 {
     generic_prep
+    # Make sure libtcl is installed writable or we can't strip it
+    setdir source
+    ${__gsed} -i 's/555/755/' unix/Makefile.in
 }
 
 reg build
