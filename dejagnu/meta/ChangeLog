@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Fri Feb 22 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 1.5-3
+- Rebuild
+
 * Sat Jun 23 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 1.5-2
 - 'runtest' needs /bin/ksh due to shell syntax used
 
