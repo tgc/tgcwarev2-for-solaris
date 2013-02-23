@@ -1,0 +1,12 @@
+[zip]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - Zip from Info-Zip"
+pkgcat="application"
+pkgvendor="http://www.info-zip.org/Zip.html"
+shortdesc="A utility for creating zip files"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_mandir
+
