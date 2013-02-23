@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=xz
-version=5.0.3
-pkgver=3
+version=5.0.4
+pkgver=1
 source[0]=http://tukaani.org/xz/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -18,6 +18,8 @@ source[0]=http://tukaani.org/xz/$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/lib"
 export LDFLAGS="-L/usr/tgcware/lib -R/usr/tgcware/lib"
+
+ac_overrides="gl_cv_posix_shell=/usr/bin/ksh"
 
 reg prep
 prep()
