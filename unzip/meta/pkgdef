@@ -9,3 +9,4 @@ files(-,root,bin)
 default_docs
 $_bindir
 $_mandir
+

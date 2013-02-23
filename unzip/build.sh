@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=unzip
-version=5.52
-pkgver=3
-source[0]=${topdir}552.tar.gz
+version=6.0
+pkgver=1
+source[0]=http://prdownloads.sourceforge.net/infozip/${topdir}60.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -16,11 +16,15 @@ source[0]=${topdir}552.tar.gz
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
+LDFLAGS="-L$prefix/lib -R$prefix/lib -lbz2"
+CPPFLAGS="-I$prefix/include -D_USE_BZIP2"
 shortroot=1
 __configure="make"
-make_build_target="CC=gcc -f unix/Makefile solaris"
-configure_args="$make_build_target"
+make_build_target="-f unix/Makefile generic_gcc"
+make_install_target="-f unix/Makefile install"
+configure_args="$make_build_target L_BZ2=\\\"$LDFLAGS\\\" CC=\\\"gcc $CPPFLAGS\\\""
 no_configure=1
+topsrcdir=${topdir}60
 
 reg prep
 prep()
@@ -31,7 +35,8 @@ prep()
 reg build
 build()
 {
-    generic_build
+    setdir source
+    ${__make} -e -f unix/Makefile generic_gcc L_BZ2="$LDFLAGS" CC="gcc $CPPFLAGS"
 }
 
 reg check
@@ -45,7 +50,7 @@ install()
 {
     generic_install prefix
     doc README BUGS LICENSE ToDo
-    ${__mv} ${stagedir}${prefix}/man ${stagedir}${prefix}/${_mandir}
+    ${__mv} ${stagedir}${prefix}/man ${stagedir}${prefix}/share
 }
 
 reg pack
