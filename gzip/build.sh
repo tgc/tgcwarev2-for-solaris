@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gzip
-version=1.4
+version=1.5
 pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/gzip/$topdir-$version.tar.gz
+source[0]=ftp://ftp.sunet.se/pub/gnu/gzip/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -18,7 +18,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/gzip/$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-ac_overrides="ac_cv_path_shell=/usr/tgcware/bin/bash"
+ac_overrides="ac_cv_path_shell=/usr/bin/ksh"
 
 reg prep
 prep()
