@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=binutils
-version=2.22
-pkgver=4
-source[0]=$topdir-$version.tar.bz2
+version=2.23.1
+pkgver=1
+source[0]=ftp://ftp.sunet.se/pub/gnu/binutils/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -18,7 +18,7 @@ source[0]=$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --disable-nls --disable-werror --program-prefix=g"
+configure_args="$configure_args --disable-werror --program-prefix=g"
 
 reg prep
 prep()
@@ -44,7 +44,7 @@ install()
     generic_install DESTDIR
     ${__rm} -f ${stagedir}${prefix}/${_mandir}/man1/g{dlltool,nlmconv,windres,windmc}*
     doc COPYING*
-    compat binutils 2.22 1 3
+    compat binutils 2.22 1 4
 }
 
 reg pack

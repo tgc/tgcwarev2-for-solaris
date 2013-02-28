@@ -12,5 +12,6 @@ $_libdir
 $_mandir
 $_infodir
 $_includedir
+$_sharedir/locale/*/LC_MESSAGES/*.mo
 *-solaris*
 
