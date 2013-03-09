@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=1.8.1.3
+version=1.8.1.5
 pkgver=1
 source[0]=http://git-core.googlecode.com/files/$topdir-$version.tar.gz
 source[1]=http://git-core.googlecode.com/files/$topdir-manpages-$version.tar.gz
@@ -77,6 +77,12 @@ install()
     ${__rm} -rf ${stagedir}${prefix}/${_libdir}/perl5/5.*
     ${__rm} -rf ${stagedir}${prefix}/${_libdir}/perl5/site_perl/*/*solaris
     ${__rm} -f ${stagedir}${prefix}/${_libdir}/perl5/site_perl/*/Error.pm
+
+    # Install completion support
+    ${__install} -Dp -m0644 contrib/completion/git-completion.bash \
+	${stagedir}${prefix}/${_datadir}/git-core/contrib/completion/git-completion.bash
+    ${__install} -Dp -m0644 contrib/completion/git-prompt.sh \
+	${stagedir}${prefix}/${_datadir}/git-core/contrib/completion/git-prompt.sh
 }
 
 reg pack
