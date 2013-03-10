@@ -31,6 +31,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/iso646.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/iso/float_iso.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/iso/setjmp_iso.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/iso/stdio_iso.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/kerberos/osconf.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/layout/IndicLayoutEngine.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/layout/LayoutEngine.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/layout/LEFontInstance.h
@@ -54,6 +55,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/resolv.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/dt/share/include/Xm/XmosP.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/dt/share/include/Xm/Xmos_r.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/share/include/X11/DPS/dpsconfig.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/share/include/X11/dni.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/share/include/X11/nmdefs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/share/include/X11/Xfuncs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/share/include/X11/Xlibint.h
@@ -64,11 +66,14 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/auth.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/clnt.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/svc.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/xdr.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/setjmp.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdarg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdbool.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stddef.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdio.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdlib.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/audiovar.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/audio_4231.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/ce_hp.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/core.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/cpc_event.h
@@ -94,6 +99,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/isa_defs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/kbio.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/kobj.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/syslimits.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msreg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/openpromio.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pcmcia/pcelx.h
@@ -113,6 +119,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/user.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/utsname.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/varargs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/vuid_event.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/thread_db.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/tzfile.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unicode/caniter.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unicode/chariter.h
@@ -151,6 +158,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unicode/uobject.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unicode/usetiter.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unicode/utrace.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unicode/utypes.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unistd.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/va-alpha.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/va-arc.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/va-c4x.h
