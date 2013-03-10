@@ -1,0 +1,12 @@
+diff -up gcc-3.1.1/gcc/scan-decls.c.orig gcc-3.1.1/gcc/scan-decls.c
+--- gcc-3.1.1/gcc/scan-decls.c.orig	2001-09-25 00:53:06.000000000 +0200
++++ gcc-3.1.1/gcc/scan-decls.c	2012-11-30 18:46:17.146335000 +0100
+@@ -32,7 +32,7 @@ int brace_nesting = 0;
+    indicate the (brace nesting levels of) left braces that were
+    prefixed by extern "C".  */
+ int extern_C_braces_length = 0;
+-char extern_C_braces[20];
++char extern_C_braces[200];
+ #define in_extern_C_brace (extern_C_braces_length>0)
+ 
+ /* True if the function declaration currently being scanned is

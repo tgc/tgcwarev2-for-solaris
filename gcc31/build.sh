@@ -10,7 +10,7 @@ version=3.1.1
 pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=gcc-3.1.1-fix-scandecls.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
