@@ -25,20 +25,27 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/cpp0
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/tradcpp0
 # "fixed" includes produced during build
 # This list will vary as it depends on the buildhost
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/alloca.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/arpa/nameser_compat.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/audio/au.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/curses.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/floatingpoint.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/iso/stdlib_iso.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/iso/wchar_iso.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/kerberos/osconf.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/libintl.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/math.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/netinet/if_ether.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/net/ppp_defs.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/proc_service.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/prof.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/pthread.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/regex.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/resolv.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/dt/share/include/Xm/XmosP.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/dt/share/include/Xm/Xmos_r.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/share/include/X11/DPS/dpsconfig.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/share/include/X11/dni.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/share/include/X11/nmdefs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/share/include/X11/Xfuncs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/share/include/X11/Xlib.h
@@ -50,8 +57,11 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/auth.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/clnt.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/svc.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/xdr.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/setjmp.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdio.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdio_tag.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdlib.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/audio_4231.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/core.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/ddidmareq.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/ddi_impldefs.h
@@ -65,6 +75,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/fs/udf_volume.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/fs/ufs_inode.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/ieeefp.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/syslimits.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msreg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/openpromio.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pctypes.h
@@ -76,7 +87,10 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/sunddi.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/types.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/user.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/varargs.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/thread_db.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/tzfile.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unistd.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/wchar.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/v7
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/v9
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/fixed
