@@ -27,12 +27,14 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/install-tools
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/curses.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/floatingpoint.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/math.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/pthread.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/auth.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/clnt.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/svc.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/xdr.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdio.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdio_tag.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdlib.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/syslimits.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msreg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/types.h
@@ -41,6 +43,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/varargs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/wchar.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/README
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/X11
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/include/X11/dni.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/include/X11/nmdefs.h
 # real gcc includes
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/float.h
