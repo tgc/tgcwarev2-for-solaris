@@ -42,6 +42,7 @@ fi
 # 4.5.4: libstdc++.so.6, libgcc_s.so.1, libobjc.so.2, libgfortran.so.3, libssp.so.0, libgomp.so.1
 # 4.6.x: libstdc++.so.6, libgcc_s.so.1, libobjc.so.3, libgfortran.so.3, libssp.so.0, libgomp.so.1
 # 4.7.x: libstdc++.so.6, libgcc_s.so.1, libobjc.so.4, libgfortran.so.3, libssp.so.0, libgomp.so.1, libgo.so.0, libitm.so.1, libquadmath.so.0 (x86)
+# 4.8.x: libstdc++.so.6, libgcc_s.so.1, libobjc.so.4, libgfortran.so.3, libssp.so.0, libgomp.so.1, libgo.so.3, libitm.so.1, libquadmath.so.0 (x86), libatomic.so.1
 
 # Global settings
 __configure="../$topsrcdir/configure"
@@ -128,8 +129,6 @@ configure_args="$global_config_args $gxxinclude $hostlibs $linker $assembler $dw
 [ $abbrev_majorminor -eq 45 -a "$gnu_os_ver" = "2.7" ] && configure_args="--enable-obsolete $configure_args"
 # Solaris 8 support was marked obsolete in gcc 4.7.x
 [ $abbrev_majorminor -eq 47 -a "$gnu_os_ver" = "2.8" ] && configure_args="--enable-obsolete $configure_args"
-# Solaris 9 support was marked obsolete in gcc 4.8.x
-[ $abbrev_majorminor -eq 47 -a "$gnu_os_ver" = "2.9" ] && configure_args="--enable-obsolete $configure_args"
 
 # Default 
 objdir=all_native
@@ -209,12 +208,14 @@ redo_libs()
     for f in libg2c.a libfrtbegin.a libgfortran.a libgfortran.spec libgomp.a \
 	    libgomp.spec libffi.a libiberty.a libstdc++.a libsupc++.a \
 	    libssp.a libssp_nonshared.a libobjc.a libquadmath.a libgo.a \
-	    libgobegin.a libitm.a libitm.spec libiberty.a libgfortranbegin.a
+	    libgobegin.a libitm.a libitm.spec libiberty.a libgfortranbegin.a \
+	    libatomic.a
     do
 	mvif ${backref}${archlib}/$f $FULLPATH
     done
     # Relocate .so files
-    for f in g2c ffi gcc_s gcc_s_sparcv9 gfortran gomp objc ssp stdc++ quadmath go itm
+    for f in g2c ffi gcc_s gcc_s_sparcv9 gfortran gomp objc ssp stdc++ \
+	    quadmath go itm atomic
     do
 	if [ -L ${backref}${archlib}/lib$f.so ]; then
 	    # File exists and is a symlink, determine linktarget

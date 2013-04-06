@@ -50,8 +50,8 @@ case "${vendor}-${gnu_os_ver}" in
     *)
 	;;
 esac
-# gcc 4.7.x cannot be built for sparcv8 since libitm is v8+ only.
-[ $abbrev_majorminor -eq 47 -a "$vendor" = "sun" ] && gcc_cpu="--with-cpu=v9"
+# gcc 4.7.x and later cannot be built for sparcv8 since libitm is v8+ only.
+[ $abbrev_majorminor -gt 46 -a "$vendor" = "sun" ] && gcc_cpu="--with-cpu=v9"
 # For gcc > 4.3 and x86 set {arch,tune}-32 instead of {arch,tune}.
 [ $abbrev_majorminor -gt 43 -a "$vendor" = "pc" ] && gcc_cpu=$(echo $gcc_cpu | ${__sed} -e 's/arch=/arch-32=/;s/tune=/tune-32=/')
 # For gcc < 4.4 and x86_64, there is no arch-32 and setting arch conflicts with the 64bit support
