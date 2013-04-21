@@ -107,6 +107,10 @@ sunassembler="--without-gnu-as --with-as=/usr/ccs/bin/as"
 # Note that vendor tools on Solaris < 7 cannot support DWARF 2
 [ $abbrev_majorminor -lt 34 ] && dwarf2="--with-dwarf2"
 
+# For gcc 4.0 we need to explicitly disable COMDAT group support
+# since configure fails to check if ld also supports it (and it does not)
+[ $abbrev_majorminor -eq 40 ] && ac_overrides="gcc_cv_as_comdat_group=no gcc_cv_as_comdat_group_percent=no"
+
 # These libraries are needed based on the GCC version being built
 withgmp="--with-gmp=$lprefix"
 withmpfr="--with-mpfr=$lprefix"
