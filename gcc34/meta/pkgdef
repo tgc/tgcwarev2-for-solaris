@@ -25,9 +25,12 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/install-tools
 # "fixed" includes produced during build
 # This list will vary as it depends on the buildhost
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/curses.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/emmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/floatingpoint.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/math.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/mmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/pthread.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/pmmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/auth.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/clnt.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rpc/svc.h
@@ -36,11 +39,13 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdio.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdio_tag.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdlib.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/syslimits.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/mii.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msreg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/types.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/signal.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/varargs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/wchar.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/xmmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/README
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/X11
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/root/usr/openwin/include/X11/dni.h
@@ -305,7 +310,7 @@ include/c++/${version}/typeinfo
 include/c++/${version}/utility
 include/c++/${version}/valarray
 include/c++/${version}/vector
-include/c++/${version}/sparc-sun-solaris*/bits
+include/c++/${version}/${arch}-${vendor}-solaris*/bits
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libstdc++.*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libsupc++.*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libstdc++.*
