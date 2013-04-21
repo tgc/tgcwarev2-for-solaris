@@ -28,14 +28,19 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/alloca.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/arpa/nameser_compat.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/audio/au.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/curses.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/emmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/floatingpoint.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ia32
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ia64
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/iso/stdlib_iso.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/iso/wchar_iso.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/kerberos/osconf.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/libintl.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/math.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/mmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/netinet/if_ether.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/proc_service.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/pmmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/prof.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/pthread.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/regex.h
@@ -59,6 +64,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/fs/udf_volume.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/fs/ufs_inode.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/ieeefp.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/syslimits.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/mii.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msreg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/openpromio.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pctypes.h
@@ -73,6 +79,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/varargs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/thread_db.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unistd.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/wchar.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/xmmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/v7
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/v9
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/fixed
@@ -305,7 +312,7 @@ include/c++/${version}/typeinfo
 include/c++/${version}/utility
 include/c++/${version}/valarray
 include/c++/${version}/vector
-include/c++/${version}/sparc-sun-solaris*/bits
+include/c++/${version}/${arch}-${vendor}-solaris*/bits
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libstdc++.*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libsupc++.*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libstdc++.*
