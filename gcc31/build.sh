@@ -24,6 +24,7 @@ patch[0]=gcc-3.1.1-fix-scandecls.patch
 # contain gcc 2.8.1. Note that gnat 3.15p will not work.
 # sparc: gnat-3.14p-sparc-sun-solaris2.5.1-bin.tar.gz
 # x86: gnat-3.12p-i386-pc-solaris2.6-bin.tar.gz
+# For x86 it is necessary to build gnat 3.14p from source using gnat 3.12p.
 # Put gnat compiler first in the path
 export PATH=$HOME/gnat314p/bin:$PATH
 
@@ -38,6 +39,12 @@ prep()
     ${__gsed} -i "s/(release)/($gccpkgversion)/" gcc/version.c gcc/f/version.c
     # not gccpkgversion, because the version string will exceed max length
     ${__gsed} -i "s/(release)/(${version}-${pkgver})/" gcc/ada/gnatvsn.ads
+
+    if [ "$vendor" = "pc" ]; then
+	# Building ada with -g is not possible on x86
+	${__gsed} -i '/STAGE1_CFLAGS/ s/-g//' gcc/Makefile.in
+	${__gsed} -i '/FORCE_DEBUG_ADAFLAGS/ s/-g//' gcc/ada/Makefile.in
+    fi
 }
 
 reg build
