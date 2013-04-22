@@ -1,0 +1,319 @@
+commit db61fd22822da6974c2ca4caa2975d74229a4c70
+Author: Paul Eggert <eggert@cs.ucla.edu>
+Date:   Wed Jan 30 21:26:44 2013 -0800
+
+    sys_time: port to Solaris 2.6
+    
+    There is a circularity problem on Solaris 2.6, where <time.h> includes
+    <sys/time.h> for struct timespec.  The include nesting is gnulib
+    <time.h>, system <time.h>, gnulib <sys/time.h>, system
+    <sys/time.h>, gnulib <sys/types.h>, system <sys/types.h>, gnulib
+    <sys/select.h>, gnulib <signal.h>, system <sys/signal.h>, system
+    <sys/siginfo.h>; the last, innermost file needs struct
+    timestruc_t, which is defined in <sys/time.h>, which has not been
+    fully parsed.  Problem reported by Tom G. Christensen in
+    <http://lists.gnu.org/archive/html/bug-gnulib/2013-01/msg00113.html>.
+    * lib/sys_select.in.h: Treat Solaris 2.6's problem with
+    <sys/time.h> and <sys/types.h> like OSF/1's similar problem.
+    * lib/sys_time.in.h: Redo to resemble sys_select.in.h, which
+    uses split double-inclusion guards.
+
+
+Above is the original commit message from gnulib.
+The patch below is a rediff against the two gnulib copies in gettext 0.18.2
+
+--- gettext-0.18.2/gettext-tools/gnulib-lib/sys_select.in.h.orig	2012-12-25 06:29:43.000000000 +0100
++++ gettext-0.18.2/gettext-tools/gnulib-lib/sys_select.in.h	2013-03-25 21:56:28.871449000 +0100
+@@ -19,14 +19,25 @@
+ # endif
+ @PRAGMA_COLUMNS@
+ 
+-/* On OSF/1, <sys/types.h> and <sys/time.h> include <sys/select.h>.
++/* On OSF/1 and Solaris 2.6, <sys/types.h> and <sys/time.h>
++   both include <sys/select.h>.
+    Simply delegate to the system's header in this case.  */
+-#if @HAVE_SYS_SELECT_H@ && defined __osf__ && (defined _SYS_TYPES_H_ && !defined _GL_SYS_SELECT_H_REDIRECT_FROM_SYS_TYPES_H) && defined _OSF_SOURCE
++#if (@HAVE_SYS_SELECT_H@                                                \
++     && ((defined __osf__ && defined _SYS_TYPES_H_ && defined _OSF_SOURCE) \
++         || (defined __sun && defined _SYS_TYPES_H                      \
++             && (! (defined _XOPEN_SOURCE || defined _POSIX_C_SOURCE)   \
++                 || defined __EXTENSIONS__)))                           \
++     && !defined _GL_SYS_SELECT_H_REDIRECT_FROM_SYS_TYPES_H)
+ 
+ # define _GL_SYS_SELECT_H_REDIRECT_FROM_SYS_TYPES_H
+ # @INCLUDE_NEXT@ @NEXT_SYS_SELECT_H@
+ 
+-#elif @HAVE_SYS_SELECT_H@ && defined __osf__ && (defined _SYS_TIME_H_ && !defined _GL_SYS_SELECT_H_REDIRECT_FROM_SYS_TIME_H) && defined _OSF_SOURCE
++#elif (@HAVE_SYS_SELECT_H@                                              \
++       && ((defined __osf__ && defined _SYS_TIME_H_ && defined _OSF_SOURCE) \
++           || (defined __sun && defined _SYS_TIME_H                     \
++               && (! (defined _XOPEN_SOURCE || defined _POSIX_C_SOURCE) \
++                   || defined __EXTENSIONS__)))                         \
++       && !defined _GL_SYS_SELECT_H_REDIRECT_FROM_SYS_TIME_H)
+ 
+ # define _GL_SYS_SELECT_H_REDIRECT_FROM_SYS_TIME_H
+ # @INCLUDE_NEXT@ @NEXT_SYS_SELECT_H@
+--- gettext-0.18.2/gettext-tools/gnulib-lib/sys_time.in.h.orig	2012-12-25 06:29:43.000000000 +0100
++++ gettext-0.18.2/gettext-tools/gnulib-lib/sys_time.in.h	2013-03-25 21:56:28.911448000 +0100
+@@ -17,37 +17,34 @@
+ 
+ /* Written by Paul Eggert.  */
+ 
++#ifndef _@GUARD_PREFIX@_SYS_TIME_H
++
+ #if __GNUC__ >= 3
+ @PRAGMA_SYSTEM_HEADER@
+ #endif
+ @PRAGMA_COLUMNS@
+ 
+-#if defined _@GUARD_PREFIX@_SYS_TIME_H
+-
+-/* Simply delegate to the system's header, without adding anything.  */
+-# if @HAVE_SYS_TIME_H@
+-#  @INCLUDE_NEXT@ @NEXT_SYS_TIME_H@
+-# endif
+-
+-#else
++/* The include_next requires a split double-inclusion guard.  */
++#if @HAVE_SYS_TIME_H@
++# @INCLUDE_NEXT@ @NEXT_SYS_TIME_H@
++#endif
+ 
+-# define _@GUARD_PREFIX@_SYS_TIME_H
++#ifndef _@GUARD_PREFIX@_SYS_TIME_H
++#define _@GUARD_PREFIX@_SYS_TIME_H
+ 
+-# if @HAVE_SYS_TIME_H@
+-#  @INCLUDE_NEXT@ @NEXT_SYS_TIME_H@
+-# else
+-#  include <time.h>
+-# endif
++#if ! @HAVE_SYS_TIME_H@
++# include <time.h>
++#endif
+ 
+ /* On native Windows with MSVC, get the 'struct timeval' type.
+    Also, on native Windows with a 64-bit time_t, where we are overriding the
+    'struct timeval' type, get all declarations of system functions whose
+    signature contains 'struct timeval'.  */
+-# if (defined _MSC_VER || @REPLACE_STRUCT_TIMEVAL@) && @HAVE_WINSOCK2_H@ && !defined _GL_INCLUDING_WINSOCK2_H
+-#  define _GL_INCLUDING_WINSOCK2_H
+-#  include <winsock2.h>
+-#  undef _GL_INCLUDING_WINSOCK2_H
+-# endif
++#if (defined _MSC_VER || @REPLACE_STRUCT_TIMEVAL@) && @HAVE_WINSOCK2_H@ && !defined _GL_INCLUDING_WINSOCK2_H
++# define _GL_INCLUDING_WINSOCK2_H
++# include <winsock2.h>
++# undef _GL_INCLUDING_WINSOCK2_H
++#endif
+ 
+ /* The definitions of _GL_FUNCDECL_RPL etc. are copied here.  */
+ 
+@@ -55,112 +52,112 @@
+ 
+ /* The definition of _GL_WARN_ON_USE is copied here.  */
+ 
+-# ifdef __cplusplus
++#ifdef __cplusplus
+ extern "C" {
+-# endif
++#endif
+ 
+-# if !@HAVE_STRUCT_TIMEVAL@ || @REPLACE_STRUCT_TIMEVAL@
++#if !@HAVE_STRUCT_TIMEVAL@ || @REPLACE_STRUCT_TIMEVAL@
+ 
+-#  if @REPLACE_STRUCT_TIMEVAL@
+-#   define timeval rpl_timeval
+-#  endif
++# if @REPLACE_STRUCT_TIMEVAL@
++#  define timeval rpl_timeval
++# endif
+ 
+-#  if !GNULIB_defined_struct_timeval
++# if !GNULIB_defined_struct_timeval
+ struct timeval
+ {
+   time_t tv_sec;
+   long int tv_usec;
+ };
+-#   define GNULIB_defined_struct_timeval 1
+-#  endif
+-
++#  define GNULIB_defined_struct_timeval 1
+ # endif
+ 
+-# ifdef __cplusplus
++#endif
++
++#ifdef __cplusplus
+ }
+-# endif
++#endif
+ 
+-# if @GNULIB_GETTIMEOFDAY@
+-#  if @REPLACE_GETTIMEOFDAY@
+-#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+-#    undef gettimeofday
+-#    define gettimeofday rpl_gettimeofday
+-#   endif
++#if @GNULIB_GETTIMEOFDAY@
++# if @REPLACE_GETTIMEOFDAY@
++#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
++#   undef gettimeofday
++#   define gettimeofday rpl_gettimeofday
++#  endif
+ _GL_FUNCDECL_RPL (gettimeofday, int,
+                   (struct timeval *restrict, void *restrict)
+                   _GL_ARG_NONNULL ((1)));
+ _GL_CXXALIAS_RPL (gettimeofday, int,
+                   (struct timeval *restrict, void *restrict));
+-#  else
+-#   if !@HAVE_GETTIMEOFDAY@
++# else
++#  if !@HAVE_GETTIMEOFDAY@
+ _GL_FUNCDECL_SYS (gettimeofday, int,
+                   (struct timeval *restrict, void *restrict)
+                   _GL_ARG_NONNULL ((1)));
+-#   endif
++#  endif
+ /* Need to cast, because on glibc systems, by default, the second argument is
+                                                   struct timezone *.  */
+ _GL_CXXALIAS_SYS_CAST (gettimeofday, int,
+                        (struct timeval *restrict, void *restrict));
+-#  endif
++# endif
+ _GL_CXXALIASWARN (gettimeofday);
+-# elif defined GNULIB_POSIXCHECK
+-#  undef gettimeofday
+-#  if HAVE_RAW_DECL_GETTIMEOFDAY
++#elif defined GNULIB_POSIXCHECK
++# undef gettimeofday
++# if HAVE_RAW_DECL_GETTIMEOFDAY
+ _GL_WARN_ON_USE (gettimeofday, "gettimeofday is unportable - "
+                  "use gnulib module gettimeofday for portability");
+-#  endif
+ # endif
++#endif
+ 
+ /* Hide some function declarations from <winsock2.h>.  */
+ 
+-# if defined _MSC_VER && @HAVE_WINSOCK2_H@
+-#  if !defined _@GUARD_PREFIX@_UNISTD_H
+-#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+-#    undef close
+-#    define close close_used_without_including_unistd_h
+-#   else
++#if defined _MSC_VER && @HAVE_WINSOCK2_H@
++# if !defined _@GUARD_PREFIX@_UNISTD_H
++#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
++#   undef close
++#   define close close_used_without_including_unistd_h
++#  else
+      _GL_WARN_ON_USE (close,
+                       "close() used without including <unistd.h>");
+-#   endif
+-#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+-#    undef gethostname
+-#    define gethostname gethostname_used_without_including_unistd_h
+-#   else
++#  endif
++#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
++#   undef gethostname
++#   define gethostname gethostname_used_without_including_unistd_h
++#  else
+      _GL_WARN_ON_USE (gethostname,
+                       "gethostname() used without including <unistd.h>");
+-#   endif
+ #  endif
+-#  if !defined _@GUARD_PREFIX@_SYS_SOCKET_H
+-#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+-#    undef socket
+-#    define socket              socket_used_without_including_sys_socket_h
+-#    undef connect
+-#    define connect             connect_used_without_including_sys_socket_h
+-#    undef accept
+-#    define accept              accept_used_without_including_sys_socket_h
+-#    undef bind
+-#    define bind                bind_used_without_including_sys_socket_h
+-#    undef getpeername
+-#    define getpeername         getpeername_used_without_including_sys_socket_h
+-#    undef getsockname
+-#    define getsockname         getsockname_used_without_including_sys_socket_h
+-#    undef getsockopt
+-#    define getsockopt          getsockopt_used_without_including_sys_socket_h
+-#    undef listen
+-#    define listen              listen_used_without_including_sys_socket_h
+-#    undef recv
+-#    define recv                recv_used_without_including_sys_socket_h
+-#    undef send
+-#    define send                send_used_without_including_sys_socket_h
+-#    undef recvfrom
+-#    define recvfrom            recvfrom_used_without_including_sys_socket_h
+-#    undef sendto
+-#    define sendto              sendto_used_without_including_sys_socket_h
+-#    undef setsockopt
+-#    define setsockopt          setsockopt_used_without_including_sys_socket_h
+-#    undef shutdown
+-#    define shutdown            shutdown_used_without_including_sys_socket_h
+-#   else
++# endif
++# if !defined _@GUARD_PREFIX@_SYS_SOCKET_H
++#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
++#   undef socket
++#   define socket              socket_used_without_including_sys_socket_h
++#   undef connect
++#   define connect             connect_used_without_including_sys_socket_h
++#   undef accept
++#   define accept              accept_used_without_including_sys_socket_h
++#   undef bind
++#   define bind                bind_used_without_including_sys_socket_h
++#   undef getpeername
++#   define getpeername         getpeername_used_without_including_sys_socket_h
++#   undef getsockname
++#   define getsockname         getsockname_used_without_including_sys_socket_h
++#   undef getsockopt
++#   define getsockopt          getsockopt_used_without_including_sys_socket_h
++#   undef listen
++#   define listen              listen_used_without_including_sys_socket_h
++#   undef recv
++#   define recv                recv_used_without_including_sys_socket_h
++#   undef send
++#   define send                send_used_without_including_sys_socket_h
++#   undef recvfrom
++#   define recvfrom            recvfrom_used_without_including_sys_socket_h
++#   undef sendto
++#   define sendto              sendto_used_without_including_sys_socket_h
++#   undef setsockopt
++#   define setsockopt          setsockopt_used_without_including_sys_socket_h
++#   undef shutdown
++#   define shutdown            shutdown_used_without_including_sys_socket_h
++#  else
+      _GL_WARN_ON_USE (socket,
+                       "socket() used without including <sys/socket.h>");
+      _GL_WARN_ON_USE (connect,
+@@ -189,17 +186,18 @@
+                       "setsockopt() used without including <sys/socket.h>");
+      _GL_WARN_ON_USE (shutdown,
+                       "shutdown() used without including <sys/socket.h>");
+-#   endif
+ #  endif
+-#  if !defined _@GUARD_PREFIX@_SYS_SELECT_H
+-#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+-#    undef select
+-#    define select select_used_without_including_sys_select_h
+-#   else
++# endif
++# if !defined _@GUARD_PREFIX@_SYS_SELECT_H
++#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
++#   undef select
++#   define select select_used_without_including_sys_select_h
++#  else
+      _GL_WARN_ON_USE (select,
+                       "select() used without including <sys/select.h>");
+-#   endif
+ #  endif
+ # endif
++#endif
+ 
+ #endif /* _@GUARD_PREFIX@_SYS_TIME_H */
++#endif /* _@GUARD_PREFIX@_SYS_TIME_H */

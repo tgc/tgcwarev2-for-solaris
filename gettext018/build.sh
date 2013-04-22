@@ -7,10 +7,11 @@
 # Check the following 4 variables before running the script
 topdir=gettext
 version=0.18.2
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/gettext/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=gettext-0.18.2-fix-gnulib-locale_h.patch
+patch[1]=gettext-0.18.2-fix-gnulib-sys_time.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
