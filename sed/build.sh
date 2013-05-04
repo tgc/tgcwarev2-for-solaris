@@ -7,10 +7,10 @@
 # Check the following 4 variables before running the script
 topdir=sed
 version=4.2.2
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/sed/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=sed-4.2.2-fix-gnulib-locale_h.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
