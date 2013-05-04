@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.29.0
+version=7.30.0
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -47,6 +47,8 @@ install()
       docs/MANUAL docs/RESOURCES docs/TODO docs/TheArtOfHttpScripting \
       docs/examples/*.c docs/examples/Makefile.example docs/INTERNALS \
       docs/CONTRIBUTE
+
+    compat curl 7.29.0 1 1
 }
 
 reg pack
