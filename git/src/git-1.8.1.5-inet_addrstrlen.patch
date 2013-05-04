@@ -1,0 +1,14 @@
+diff -up git-1.8.1.5/git-compat-util.h.orig git-1.8.1.5/git-compat-util.h
+--- git-1.8.1.5/git-compat-util.h.orig	2013-03-01 22:33:17.000000000 +0100
++++ git-1.8.1.5/git-compat-util.h	2013-04-28 18:02:29.670665000 +0200
+@@ -651,3 +651,10 @@ void warn_on_inaccessible(const char *pa
+ struct passwd *xgetpwuid_self(void);
+ 
+ #endif
++
++#if !defined(INET_ADDRSTRLEN)
++#define INET_ADDRSTRLEN 16
++#endif
++#if !defined(INET6_ADDRSTRLEN) && !defined(NO_IPV6)
++#define INET6_ADDRSTRLEN 46
++#endif
