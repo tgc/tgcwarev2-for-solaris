@@ -7,10 +7,10 @@
 # Check the following 4 variables before running the script
 topdir=grep
 version=2.14
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/grep/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=grep-2.14-fix-gnulib-locale_h.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
