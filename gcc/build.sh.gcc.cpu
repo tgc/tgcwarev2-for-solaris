@@ -37,7 +37,7 @@ case "${vendor}-${gnu_os_ver}" in
 	;;
     sun-2.7)
 	gcc_cpu="--with-cpu=v7"
-	gmp_host="sparcv7-${vendor}-solaris${gnu_os_ver}"
+	gmp_host="sparc-${vendor}-solaris${gnu_os_ver}"
 	;;
     sun-2.[89])
 	# For gcc < 3.4 we'll use sparcv8
