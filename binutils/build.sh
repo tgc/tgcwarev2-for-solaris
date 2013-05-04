@@ -44,7 +44,7 @@ install()
     generic_install DESTDIR
     ${__rm} -f ${stagedir}${prefix}/${_mandir}/man1/g{dlltool,nlmconv,windres,windmc}*
     doc COPYING*
-    compat binutils 2.22 1 4
+    compat binutils 2.22 1 6
 }
 
 reg pack
