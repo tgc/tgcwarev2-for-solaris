@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Thu May 09 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 1.8.6p5-3
+- Fix building with stack protection
+
 * Sun Apr 28 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 1.8.6p5-2
 - Set proper configure flags and define CPPFLAGS & LDFLAGS
 

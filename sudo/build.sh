@@ -7,10 +7,10 @@
 # Check the following 4 variables before running the script
 topdir=sudo
 version=1.8.6p5
-pkgver=2
+pkgver=3
 source[0]=http://www.sudo.ws/sudo/dist/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=sudo-1.8.6p5-fix-ssp-link.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
