@@ -35,7 +35,7 @@ prep()
 CC=gcc
 PERL_PATH=$prefix/bin/perl
 ICONVDIR=$prefix
-SANE_TOOL_PATH=/usr/tgcware/bin/gnu:/usr/xpg6/bin:/usr/xpg4/bin
+SANE_TOOL_PATH=/usr/tgcware/gnu:/usr/xpg6/bin:/usr/xpg4/bin
 NO_INSTALL_HARDLINKS=YesPlease
 BASIC_CFLAGS += -I/usr/tgcware/include
 BASIC_LDFLAGS += -L/usr/tgcware/lib -Wl,-R,/usr/tgcware/lib
