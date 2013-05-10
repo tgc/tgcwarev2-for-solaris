@@ -7,10 +7,10 @@
 # Check the following 4 variables before running the script
 topdir=zip
 version=3.0
-pkgver=1
+pkgver=2
 source[0]=http://prdownloads.sourceforge.net/infozip/${topdir}30.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=zip-3.0-use-gcc-as-cpp.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions

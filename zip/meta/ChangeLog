@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Thu May 09 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 3.0-2
+- Always use gcc -E instead of /lib/cpp
+
 * Sat Feb 23 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 3.0-1
 - Update to 3.0
