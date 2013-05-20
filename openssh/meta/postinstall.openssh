@@ -99,15 +99,13 @@ if [ -n "$temp" ]; then
     fi
     if [ "$ugid" != "$gid" ]; then
         echo "  User sshd doesn't have group sshd!"
-        echo "  This is a critical error that must be resolved"
-        echo "  before privilege seperation can be enabled."
-	echo "  Since privilege seperation is on by default this problem"
-	echo "  will prevent sshd from starting."
+	echo "  This is not a critical error but please make sure that the sshd user has"
+	echo "  a suitable group (preferably the sshd group.)"
     fi
     if [ "`echo $temp|$CUT -d: -f6`" != "/var/empty/sshd" ]; then
 	echo "  User sshd does not have homedir in /var/empty/sshd!"
 	echo "  This is a possible security risk so please make sure that"
-	echo "  user sshd has a homedir accessable only by root (perm 711)."
+	echo "  user sshd has a homedir accessible only by root (perm 711)."
     fi
     if [ "`echo $temp|$CUT -d: -f7`" != "/bin/false" ]; then
 	echo "  User sshd does not have /bin/false as its shell!"
@@ -122,8 +120,8 @@ fi
 # Notice how the ssh host keys are not associated with the package.
 # I find that convenient as I'm sure that they don't disappear if someone
 # uninstalls the package.
-# This is nice because we can then avoid the "hostid changed" warnings.  
-# The config files will not be associated with the package either, this way when 
+# This is nice because we can then avoid the "hostid changed" warnings.
+# The config files will not be associated with the package either, this way when
 # installing a newer version the config files will be in place and will be preserved
 
 # If original config-files where preserved, urge the operator
