@@ -113,6 +113,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/sunddi.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/trap.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/traptrace.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/types.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/uadmin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/user.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/utsname.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/varargs.h
