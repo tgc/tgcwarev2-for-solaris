@@ -11,6 +11,7 @@ $iprefix/$_bindir/cpp
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/gcrt*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/crt*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/gmon.o
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libatomic*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgcc*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgcov*
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libgomp*
@@ -20,6 +21,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libssp*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/gcrt*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/crt*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/gmon.o
+if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libatomic*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgcc*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgcov*
 if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libgomp*
@@ -30,9 +32,37 @@ if(altarch)lib/$libsubdir/${arch}-${vendor}-solaris*/$version/$altarch/libssp*
 # be regenerated on the install host.
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include-fixed/*
 # real gcc includes
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/adxintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ammintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/avx2intrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/avxintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/bmi2intrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/bmiintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/bmmintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/cpuid.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/cross-stdarg.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/emmintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/f16cintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/float.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/fma4intrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/fmaintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/fxsrintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ia32intrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/immintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/iso646.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/lwpintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/lzcntintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/mm3dnow.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/mm_malloc.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/mmintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/nmmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/omp.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/pmmintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/popcntintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/prfchwintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rdseedintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/rtmintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/smmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdalign.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdarg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdbool.h
@@ -40,10 +70,19 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stddef.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdfix.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdint.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/stdnoreturn.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/tbmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/tgmath.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/tmmintrin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/unwind.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/varargs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/visintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/wmmintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/x86intrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/xmmintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/xopintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/xsaveintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/xsaveoptintrin.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/xtestintrin.h
 # ssp includes
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ssp/ssp.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/ssp/stdio.h
@@ -310,7 +349,7 @@ files(-,root,bin)
 $_libdir/libgfortran.so.3*
 if(altarch)$_libdir/$altarch/libgfortran.so.3*
 
-[libgnat47]
+[libgnat48]
 pkgname="${pkgprefix}lgna${abbrev_majorminor}"
 name="libgnat${abbrev_majorminor} - GNU Ada shared support library"
 pkgcat="system"
@@ -366,16 +405,27 @@ files(-,root,bin)
 $_libdir/libitm.so.1*
 if(altarch)$_libdir/$altarch/libitm.so.1*
 
-[libgo0]
-pkgname="${pkgprefix}lgo0"
-name="libgo0 - GNU Go shared support library"
+[libgo3]
+pkgname="${pkgprefix}lgo3"
+name="libgo3 - GNU Go shared support library"
 pkgcat="system"
 pkgvendor="http://gcc.gnu.org"
 pkgdesc="Runtime support library for GNU Go"
 pkgver="$pkgver"
 files(-,root,bin)
-$_libdir/libgo.so.0*
-if(altarch)$_libdir/$altarch/libgo.so.0*
+$_libdir/libgo.so.3*
+if(altarch)$_libdir/$altarch/libgo.so.3*
+
+[libatomic1]
+pkgname="${pkgprefix}latm1"
+name="libatomic1 - GNU Atomic shared support library"
+pkgcat="system"
+pkgvendor="http://gcc.gnu.org"
+pkgdesc="Runtime support library for atomic operations"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/libatomic.so.1*
+if(altarch)$_libdir/$altarch/libatomic.so.1*
 
 # These packages only exist when java is enabled
 # RH splits libgcj into it's own package, I can't be bothered...
