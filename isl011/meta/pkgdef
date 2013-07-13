@@ -1,0 +1,26 @@
+[libisl10]
+pkgname="${pkgprefix}libisl10"
+name="libisl10 - isl library"
+pkgcat="system"
+pkgvendor="http://freecode.com/projects/isl"
+pkgdesc="A library for manipulating sets and relations of integer points bounded by linear constraints"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/*.so.10
+$_libdir/*.so.10.1.2
+
+[isl-devel]
+pkgname="${pkgprefix}isld"
+name="isl-devel - Development support for isl"
+pkgcat="system"
+pkgvendor="http://freecode.com/projects/isl"
+pkgdesc="Files needed for developing with isl"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_includedir/isl
+$_libdir/*.so
+$_libdir/*.so*.py
+$_libdir/pkgconfig/isl.pc
+
