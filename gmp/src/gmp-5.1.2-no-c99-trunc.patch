@@ -1,0 +1,17 @@
+diff -up gmp-5.1.2/tests/cxx/t-ops2.cc.orig gmp-5.1.2/tests/cxx/t-ops2.cc
+--- gmp-5.1.2/tests/cxx/t-ops2.cc.orig	2013-05-20 16:59:58.000000000 +0200
++++ gmp-5.1.2/tests/cxx/t-ops2.cc	2013-06-26 22:05:24.510417000 +0200
+@@ -26,6 +26,13 @@ the GNU MP Library test suite.  If not,
+ #include "gmp-impl.h"
+ #include "tests.h"
+ 
++#ifndef trunc
++double trunc(double x)
++{
++  return x < 0 ? ceil(x) : floor(x);
++}
++#endif
++
+ 
+ #define CHECK1(Type,a,fun) \
+   ASSERT_ALWAYS(fun((Type)(a))==fun(a))
