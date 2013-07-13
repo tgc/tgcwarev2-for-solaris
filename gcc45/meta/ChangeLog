@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Wed Jul 03 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 4.5.4-2
+- Rebuild with CLooG/PPL
+
 * Sun Dec 09 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 4.5.4-1
 - Update to 4.5.4
 
