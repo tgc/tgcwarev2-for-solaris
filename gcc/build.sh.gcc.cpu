@@ -24,34 +24,41 @@ m64run=0
 gnu_os_ver=$(${__uname} -r | ${__sed} -e 's/^5/2/')
 case "${vendor}-${gnu_os_ver}" in
     pc-2.7)
-	gcc_cpu="--with-arch=i486 --with-tune=pentium"
+	gcc_arch=i486
+	gcc_cpu="--with-arch=$gcc_arch --with-tune=pentium"
 	gmp_host="i486-${vendor}-solaris${gnu_os_ver}"
 	;;
     pc-2.[89])
-	gcc_cpu="--with-arch=pentium"
+	gcc_arch=pentium
+	gcc_cpu="--with-arch=$gcc_arch"
 	gmp_host="i586-${vendor}-solaris${gnu_os_ver}"
 	;;
     pc-2.1[01])
-	gcc_cpu="--with-arch=i686"
+	gcc_arch=i686
+	gcc_cpu="--with-arch=$gcc_arch"
 	gmp_host="i686-${vendor}-solaris${gnu_os_ver}"
 	;;
     sun-2.7)
-	gcc_cpu="--with-cpu=v7"
+	gcc_arch=v7
+	gcc_cpu="--with-cpu=$gcc_arch"
 	gmp_host="sparc-${vendor}-solaris${gnu_os_ver}"
 	;;
     sun-2.[89])
 	# For gcc < 3.4 we'll use sparcv8
 	if [ $abbrev_majorminor -lt 34 ]; then
-	    gcc_cpu="--with-cpu=v8"
+	    gcc_arch=v8
+	    gcc_cpu="--with-cpu=$gcc_arch"
 	else
-	    gcc_cpu="--with-cpu=v9"
+	    gcc_arch=v9
+	    gcc_cpu="--with-cpu=$gcc_arch"
 	fi
 	gmp_host="sparcv9-${vendor}-solaris${gnu_os_ver}"
 	# Force 32 bit ABI or gmp will build 64 bit objects
 	export ABI=32
 	;;
     sun-2.1[01])
-	gcc_cpu="--with-cpu=v9"
+	gcc_arch=v9
+	gcc_cpu="--with-cpu=$gcc_arch"
 	gmp_host="sparcv9-${vendor}-solaris${gnu_os_ver}"
 	# Force 32 bit ABI or gmp will build 64 bit objects
 	export ABI=32
