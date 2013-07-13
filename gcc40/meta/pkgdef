@@ -124,6 +124,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/psw.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pte.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/reg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/scsi/adapters/glmvar.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/scsi/adapters/mptvar.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/scsi/impl/pkt_wrapper.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/signal.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/stack.h
