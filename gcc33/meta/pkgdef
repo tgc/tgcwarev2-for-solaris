@@ -71,6 +71,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pctypes.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/proc/prdata.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/prsystm.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/scsi/adapters/glmvar.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/scsi/adapters/mptvar.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/scsi/impl/pkt_wrapper.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/sunddi.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/types.h
