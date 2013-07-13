@@ -1,0 +1,33 @@
+[cloog-isl]
+pkgname="${pkgprefix}cloog-isl"
+name="cloog-isl - CLooG using isl"
+pkgcat="system"
+pkgvendor="http://www.cloog.org/"
+pkgdesc="Software to generate code for scanning Z-polyhedra"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/cloog-isl
+
+[libcloog-isl4]
+pkgname="${pkgprefix}libcloog-isl4"
+name="libcloog-isl4 - CLooG library"
+pkgcat="system"
+pkgvendor="http://www.cloog.org/"
+pkgdesc="A library to generate code for scanning Z-polyhedra"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/*.so.*
+
+[cloog-devel]
+pkgname="${pkgprefix}cloogd"
+name="cloog-devel - Development support for CLooG using isl"
+pkgcat="system"
+pkgvendor="http://www.cloog.org/"
+pkgdesc="Files needed for developing with CLooG using isl"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir/cloog
+$_libdir/*.so
+$_libdir/pkgconfig/cloog-isl.pc
+
