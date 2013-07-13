@@ -1,6 +1,9 @@
 TGCg48c TGCbinut auto
 TGCg48c libgcc_s1 auto
 TGCg48c libgomp1 auto
+TGCg48c libitm1 auto
+TGCg48c libatomic1 auto
+TGCg48c libssp0 auto
 TGCg48cx gcc auto
 TGCg48cx libstdc++6 auto
 TGCg48ft gcc auto

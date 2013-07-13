@@ -5,7 +5,8 @@ pkgvendor="http://gcc.gnu.org"
 pkgdesc="GNU Compiler Collection (C)"
 pkgver="$pkgver"
 files(-,root,bin)
-$iprefix/$_bindir/*gcc*
+$iprefix/$_bindir/*gcc
+$iprefix/$_bindir/*gcc-*
 $iprefix/$_bindir/*gcov*
 $iprefix/$_bindir/cpp
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/gcrt*
@@ -98,7 +99,8 @@ libexec/gcc/${arch}-${vendor}-solaris*/$version/lto-wrapper
 libexec/gcc/${arch}-${vendor}-solaris*/$version/plugin/gengtype
 libexec/gcc/${arch}-${vendor}-solaris*/$version/lto1
 $iprefix/info/dir
-$iprefix/info/gcc*
+$iprefix/info/gcc.*
+$iprefix/info/gccin*
 $iprefix/info/cpp*
 $iprefix/info/libgomp*
 $iprefix/info/libitm*
@@ -304,6 +306,7 @@ lib/go/$version/${arch}-${vendor}-solaris*/*
 if(altarch)lib/$altarch/go/$version/${arch}-${vendor}-solaris*/*
 libexec/gcc/${arch}-${vendor}-solaris*/$version/go1
 $iprefix/man/?a?1/gccgo.1
+$iprefix/info/gccgo.*
 
 [libgcc_s1]
 pkgname="${pkgprefix}lgcc1"
