@@ -118,6 +118,16 @@ withmpc="--with-mpc=$lprefix"
 [ $abbrev_majorminor -ge 40 ] && hostlibs="$withgmp $withmpfr"
 [ $abbrev_majorminor -gt 44 ] && hostlibs="$hostlibs $withmpc"
 
+# For building with CLooG
+# CLooG > 0.16 with isl >= 0.11
+withcloogisl="--with-cloog=$lprefix --with-isl=$lprefix"
+# CLooG-PPL 0.15.x and ppl >= 0.10
+withcloogppl="--with-cloog=$lprefix --with-ppl=$lprefix"
+[ $abbrev_majorminor -ge 44 -a $abbrev_majorminor -lt 48 ] && hostlibs="$hostlibs $withcloogppl"
+# 4.4.x expects PPL 0.10 so disable the version check
+[ $abbrev_majorminor -eq 44 ] && hostlibs="$hostlibs $withcloogppl --disable-ppl-version-check"
+[ $abbrev_majorminor -eq 48 ] && hostlibs="$hostlibs $withcloogisl --with-cloog-backend=isl"
+
 # Set a build vendor for gcc > 4.2
 gccbugurl=http://jupiterrise.com/tgcware
 gccpkgversion="tgcware ${version}-${pkgver}"
