@@ -1,0 +1,33 @@
+[cloog-ppl]
+pkgname="${pkgprefix}cloog-ppl"
+name="cloog-ppl - CLooG using ppl"
+pkgcat="system"
+pkgvendor="http://www.cloog.org/"
+pkgdesc="Software to generate code for scanning Z-polyhedra"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/cloog-ppl
+$_infodir/cloog.info*
+
+[libcloog0]
+pkgname="${pkgprefix}libcloog0"
+name="libcloog0 - CLooG library"
+pkgcat="system"
+pkgvendor="http://www.cloog.org/"
+pkgdesc="A library to generate code for scanning Z-polyhedra"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/*.so.*
+
+[cloog-devel]
+pkgname="${pkgprefix}cloogd"
+name="cloog-devel - Development support for CLooG using ppl"
+pkgcat="system"
+pkgvendor="http://www.cloog.org/"
+pkgdesc="Files needed for developing with CLooG using ppl"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir/cloog
+$_libdir/*.so
+
