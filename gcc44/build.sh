@@ -7,10 +7,10 @@
 # Check the following 4 variables before running the script
 topdir=gcc
 version=4.4.7
-pkgver=2
+pkgver=3
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 ## If there are no patches, simply comment this
-#patch[0]=
+patch[0]=gcc-4.4.7-sunos59-libgomp-link.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions

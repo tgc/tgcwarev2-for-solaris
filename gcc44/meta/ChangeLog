@@ -1,5 +1,9 @@
 CHANGELOG
 ---------
+* Sun Jun 30 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 4.4.7-3
+- Rebuild with CLooG/PPL
+- Link libgomp with libthread on Solaris 9
+
 * Sat Dec 08 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 4.4.7-2
 - Overhaul build.sh and metadata
 

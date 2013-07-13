@@ -1,0 +1,14 @@
+diff -up gcc-4.4.7/libgomp/configure.tgt.orig gcc-4.4.7/libgomp/configure.tgt
+--- gcc-4.4.7/libgomp/configure.tgt.orig	2010-12-10 17:28:44.000000000 +0100
++++ gcc-4.4.7/libgomp/configure.tgt	2013-06-30 22:06:45.073585000 +0200
+@@ -111,6 +111,10 @@ case "${target}" in
+ 	XLDFLAGS="${XLDFLAGS} -lposix4"
+ 	;;
+ 
++  *-*-solaris2.9)
++	XLDFLAGS="${XLDFLAGS} -lpthread -lthread"
++	;;
++
+   *-*-darwin*)
+ 	config_path="bsd posix"
+ 	;;
