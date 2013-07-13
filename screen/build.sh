@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=screen
 version=4.0.3
-pkgver=2
+pkgver=3
 source[0]=http://ftp.uni-erlangen.de/pub/utilities/screen/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=screen-4.0.2-makefile-madness.diff
@@ -16,6 +16,7 @@ patch[0]=screen-4.0.2-makefile-madness.diff
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
+configure_args="$configure_args --enable-colors256"
 
 reg prep
 prep()

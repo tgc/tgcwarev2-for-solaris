@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sat Jul 06 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 4.0.3-3
+- Enable 256color support
+
 * Sat Jun 23 2012 Tom G. Christensen <swpkg@jupiterrise.com> - 4.0.3-2
 - Use a different tic in the postinstall script
 
