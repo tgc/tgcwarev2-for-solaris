@@ -1,0 +1,80 @@
+[ppl-utils]
+pkgname="${pkgprefix}ppl-utils"
+name="ppl-utils - Utilities using ppl"
+pkgcat="system"
+pkgvendor="http://bugseng.com/products/ppl/"
+pkgdesc="The Parma Polyhedra Library (PPL) provides numerical abstractions"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/ppl_lcdd
+$_bindir/ppl_pips
+$_mandir/man1/ppl_lcdd.1*
+$_mandir/man1/ppl_pips.1*
+
+[ppl-docs]
+pkgname="${pkgprefix}ppl-docs"
+name="ppl-docs - Documentation for ppl"
+pkgcat="system"
+pkgvendor="http://bugseng.com/products/ppl/"
+pkgdesc="Documentation for The Parma Polyhedra Library (PPL)"
+pkgver="$pkgver"
+files(-,root,bin)
+$_vdocdir/ChangeLog*
+$_vdocdir/README.doc
+$_vdocdir/fdl.*
+$_vdocdir/gpl.pdf
+$_vdocdir/gpl.ps.gz
+$_vdocdir/ppl-user-${version}-html
+$_vdocdir/ppl-user-${version}.pdf
+$_vdocdir/ppl-user-c-interface-${version}-html
+$_vdocdir/ppl-user-c-interface-${version}.pdf
+$_vdocdir/ppl-user-${version}.ps.gz
+$_vdocdir/ppl-user-c-interface-${version}.ps.gz
+
+[libppl11]
+pkgname="${pkgprefix}libppl11"
+name="libppl11 - ppl library (C++)"
+pkgcat="system"
+pkgvendor="http://bugseng.com/products/ppl/"
+pkgdesc="The Parma Polyhedra Library (PPL) provides numerical abstractions"
+pkgver="$pkgver"
+files(-,root,bin)
+$_vdocdir/BUGS
+$_vdocdir/COPYING
+$_vdocdir/CREDITS
+$_vdocdir/NEWS
+$_vdocdir/README
+$_vdocdir/README.configure
+$_vdocdir/TODO
+$_vdocdir/gpl.txt
+$_bindir/ppl-config
+$_mandir/man1/ppl-config.1*
+$_libdir/libppl.so.11
+$_libdir/libppl.so.11.0.0
+
+[libppl_c4]
+pkgname="${pkgprefix}libpplc4"
+name="libppl_c4 - ppl_c library (C)"
+pkgcat="system"
+pkgvendor="http://bugseng.com/products/ppl/"
+pkgdesc="The Parma Polyhedra Library (PPL) provides numerical abstractions"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/libppl_c.so.4
+$_libdir/libppl_c.so.4.0.0
+
+[ppl-devel]
+pkgname="${pkgprefix}ppld"
+name="ppl-devel - Development support for ppl"
+pkgcat="system"
+pkgvendor="http://bugseng.com/products/ppl/"
+pkgdesc="Files needed for developing with ppl"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir/ppl*
+$_libdir/*.so
+$_sharedir/aclocal/ppl.m4
+$_sharedir/aclocal/ppl_c.m4
+$_mandir/man3/libppl.3*
+$_mandir/man3/libppl_c.3*
+
