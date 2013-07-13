@@ -47,10 +47,14 @@ case "${vendor}-${gnu_os_ver}" in
 	    gcc_cpu="--with-cpu=v9"
 	fi
 	gmp_host="sparcv9-${vendor}-solaris${gnu_os_ver}"
+	# Force 32 bit ABI or gmp will build 64 bit objects
+	export ABI=32
 	;;
     sun-2.1[01])
 	gcc_cpu="--with-cpu=v9"
 	gmp_host="sparcv9-${vendor}-solaris${gnu_os_ver}"
+	# Force 32 bit ABI or gmp will build 64 bit objects
+	export ABI=32
 	;;
     *)
 	;;
