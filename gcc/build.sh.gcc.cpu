@@ -44,8 +44,8 @@ case "${vendor}-${gnu_os_ver}" in
 	gmp_host="sparc-${vendor}-solaris${gnu_os_ver}"
 	;;
     sun-2.[89])
-	# For gcc < 3.4 we'll use sparcv8
-	if [ $abbrev_majorminor -lt 34 ]; then
+	# When building gcc < 3.4 we'll use sparcv8 otherwise default to sparcv9
+	if [ $abbrev_majorminor -lt 34 -a $abbrev_majorminor -gt 0 ]; then
 	    gcc_arch=v8
 	    gcc_cpu="--with-cpu=$gcc_arch"
 	else
