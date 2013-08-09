@@ -28,10 +28,6 @@ reg prep
 prep()
 {
     generic_prep
-    setdir source
-    # Set bugurl and vendor version
-    ${__gsed} -i "/BUGURL=.*bugs.html.*/ s|http://gcc.gnu.org/bugs.html|$gccbugurl|" gcc/configure
-    ${__gsed} -i "/PKGVERSION=.*GCC.*/ s|GCC|$gccpkgversion|" gcc/configure
 }
 
 reg build

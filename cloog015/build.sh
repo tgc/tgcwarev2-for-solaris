@@ -21,7 +21,7 @@ source[0]=ftp://gcc.gnu.org/pub/gcc/infrastructure/${topdir}-${version}.tar.gz
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --disable-static --with-ppl"
+configure_args+=(--disable-static --with-ppl)
 
 reg prep
 prep()

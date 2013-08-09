@@ -19,7 +19,7 @@ source[0]=http://search.cpan.org/CPAN/authors/id/S/SH/SHLOMIF/$topdir-$version.t
 maketest=1
 perlpkgname="$(echo $pkgdir | ${__tr} '-' '_')"
 __configure="perl"
-configure_args="Makefile.PL"
+configure_args=(Makefile.PL)
 
 reg prep
 prep()

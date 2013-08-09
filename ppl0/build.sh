@@ -18,7 +18,7 @@ patch[0]=ppl-gmp-5.1.0.patch
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --disable-static --enable-interfaces='cxx c'"
+configure_args+=(--disable-static --enable-interfaces="cxx c")
 PATH=/usr/tgcware/gcc45/bin:$PATH
 export PATH
 
@@ -31,9 +31,7 @@ prep()
 reg build
 build()
 {
-    setdir source
-    ./configure --prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --disable-static --enable-interfaces="cxx c"
-    ${__make}
+    generic_build
 }
 
 reg check

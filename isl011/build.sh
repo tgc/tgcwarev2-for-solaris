@@ -21,7 +21,7 @@ source[0]=ftp://ftp.linux.student.kuleuven.be/pub/people/skimo/$topdir/${topdir}
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --disable-static --with-gcc-arch=$gcc_arch"
+configure_args+=(--disable-static --with-gcc-arch=$gcc_arch)
 
 reg prep
 prep()

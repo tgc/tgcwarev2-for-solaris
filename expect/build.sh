@@ -19,7 +19,7 @@ source[0]=http://prdownloads.sourceforge.net/expect/$topdir$version.tar.gz
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 
-configure_args="--prefix=$prefix --mandir=$prefix/$_mandir --with-tcl=${prefix}/${_libdir} --with-tclinclude=${prefix}/${_includedir} --enable-shared"
+configure_args=(--prefix=$prefix --mandir=$prefix/$_mandir --with-tcl=${prefix}/${_libdir} --with-tclinclude=${prefix}/${_includedir} --enable-shared)
 make_check_target=test
 topsrcdir=$topdir${version}
 majorver=$version

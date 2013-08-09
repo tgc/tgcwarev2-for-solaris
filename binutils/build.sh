@@ -18,7 +18,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/binutils/$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --disable-werror --program-prefix=g"
+configure_args+=(--disable-werror --program-prefix=g)
 
 reg prep
 prep()

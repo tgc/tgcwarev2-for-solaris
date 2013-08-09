@@ -20,7 +20,7 @@ patch[0]=git-1.8.1.5-inet_addrstrlen.patch
 
 no_configure=1
 __configure="make"
-configure_args=""
+configure_args=
 # HACK: -e must be last or echo will think it's an argument
 #__make="/usr/tgcware/bin/make -e"
 make_build_target="V=1"

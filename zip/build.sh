@@ -22,7 +22,7 @@ shortroot=1
 __configure="make"
 make_build_target="-f unix/Makefile generic_gcc"
 make_install_target="-f unix/Makefile install"
-configure_args="$make_build_target LFLAGS2=\\\"$LDFLAGS\\\" CC=\\\"gcc $CPPFLAGS\\\""
+configure_args=($make_build_target LFLAGS2="$LDFLAGS" CC="gcc $CPPFLAGS")
 no_configure=1
 topsrcdir=${topdir}30
 
@@ -36,7 +36,7 @@ reg build
 build()
 {
     setdir source
-    ${__make} -e -f unix/Makefile generic_gcc LFLAGS2="$LDFLAGS" CC="gcc $CPPFLAGS"
+    ${__make} -e "${configure_args[@]}"
 }
 
 reg check

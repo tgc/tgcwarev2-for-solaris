@@ -23,11 +23,11 @@ abbrev_ver=$(echo $version|${__sed} -e 's/\.//g')
 baseversion=$(echo $version|${__sed} -e 's/[a-zA-Z]//g')
 make_check_target="test"
 __configure="./Configure"
-shared_args="--prefix=$prefix --openssldir=${prefix}/${_sharedir}/ssl zlib-dynamic shared"
+configure_args=(--prefix=$prefix --openssldir=${prefix}/${_sharedir}/ssl zlib-dynamic shared)
 if [ "$arch" = "sparc" ]; then
-    configure_args="solaris-sparc${gcc_cpu##*=}-gcc $shared_args"
+    configure_args+=(solaris-sparc${gcc_arch}-gcc)
 else
-    configure_args="$shared_args no-sse2 solaris-x86-gcc"
+    configure_args+=(no-sse2 solaris-x86-gcc)
 fi
 
 # Buildsystem is non-standard so we take the easy way out
@@ -48,15 +48,15 @@ build()
 
     if [ "$arch" = "i386" ]; then
 	# openssl defaults to --march=pentium which should be changed
-	${__gsed} -i "/solaris-x86-gcc/ s;-march=pentium;$gcc_cpu;" Configure
+	${__gsed} -i "/solaris-x86-gcc/ s;-march=pentium;-march=$gcc_arch;" Configure
 	# There is no reason to disable inline asm
 	${__gsed} -i "/solaris-x86-gcc/ s; -DOPENSSL_NO_INLINE_ASM;;" Configure
     fi
     # The -mv8 alias is not supported with newer gcc
     ${__gsed} -i 's/mv8/mcpu=v8/g' Configure
 
-    echo $__configure $configure_args
-    $__configure $configure_args
+    echo $__configure "${configure_args[@]}"
+    $__configure "${configure_args[@]}"
 
     ${__gsed} -i "/^CFLAG=/s;CFLAG=;CFLAG=-I${prefix}/include;" Makefile
     ${__gsed} -i "/EX_LIBS/s;-lz;-L${prefix}/lib -R${prefix}/lib -lz;" Makefile

@@ -18,7 +18,7 @@ patch[0]=sudo-1.8.6p5-fix-ssp-link.patch
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --sysconfdir=/usr/tgcware/etc --with-man"
+configure_args+=(--sysconfdir=/usr/tgcware/etc --with-man)
 
 reg prep
 prep()

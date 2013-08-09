@@ -18,7 +18,7 @@ source[0]=ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$topdir-$version
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --enable-utf"
+configure_args+=(--enable-utf)
 
 reg prep
 prep()

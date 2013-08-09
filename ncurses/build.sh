@@ -18,7 +18,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --with-shared --without-debug --with-install-prefix=${stagedir} --disable-rpath --enable-symlinks --with-manpage-format=normal --without-ada"
+configure_args+=(--with-shared --without-debug --with-install-prefix=${stagedir} --disable-rpath --enable-symlinks --with-manpage-format=normal --without-ada)
 
 reg prep
 prep()

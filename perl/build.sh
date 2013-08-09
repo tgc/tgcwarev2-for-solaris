@@ -20,7 +20,7 @@ make_check_target="test"
 __configure="sh Configure"
 [ "$arch" = "sparc" ] && arch_name="sun4-solaris"
 [ "$arch" = "i386" ] && arch_name="i86pc-solaris"
-configure_args="-Dcc='gcc' -Accflags=-fno-stack-protector -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='swpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des"
+configure_args=(-Dcc=gcc -Accflags=-fno-stack-protector -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by="Tom G. Christensen" -Dcf_email=swpkg@jupiterrise.com -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager=/usr/bin/more -Dlocincpth=/usr/tgcware/include -Dloclibpth=/usr/tgcware/lib -des)
 
 reg prep
 prep()
@@ -32,7 +32,7 @@ reg build
 build()
 {
     setdir source
-    $__configure -Dcc='gcc' -Accflags=-fno-stack-protector -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='swpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des
+    $__configure "${configure_args[@]}"
     ${__make} LDDLFLAGS="-shared -L$prefix/lib -R$prefix/lib" CLDFLAGS="-L$prefix/lib -R$prefix/lib"
 }
 

@@ -19,7 +19,7 @@ patch[1]=gettext-0.18.2-fix-gnulib-sys_time.patch
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --with-libiconv-prefix=$prefix --disable-java --disable-native-java --disable-openmp"
+configure_args+=(--with-libiconv-prefix=$prefix --disable-java --disable-native-java --disable-openmp)
 
 gnu_link_progs="autopoint envsubst gettext gettext.sh gettextize msgattrib msgcat msgcmp msgcomm msgconv msgen msgexec msgfilter msgfmt msggrep msginit msgmerge msgunfmt msguniq ngettext recode-sr-latin xgettext"
 

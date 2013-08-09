@@ -19,7 +19,7 @@ patch[1]=wget-1.14-no-ipv6.patch
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --with-ssl=openssl"
+configure_args+=(--with-ssl=openssl)
 
 reg prep
 prep()

@@ -18,7 +18,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/readline/$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --disable-static"
+configure_args+=(--disable-static)
 
 reg prep
 prep()

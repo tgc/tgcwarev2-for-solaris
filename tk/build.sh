@@ -18,7 +18,7 @@ source[0]=http://prdownloads.sourceforge.net/tcl/${topdir}${version}-src.tar.gz
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="--prefix=$prefix --mandir=$prefix/$_mandir --enable-man-symlinks --with-tcl=${prefix}/${_libdir}"
+configure_args=(--prefix=$prefix --mandir=$prefix/$_mandir --enable-man-symlinks --with-tcl=${prefix}/${_libdir})
 topsrcdir=$topdir$version
 
 majorver="${version%.*}"

@@ -18,7 +18,7 @@ source[0]=http://rsync.samba.org/ftp/rsync/src/$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args="$configure_args --with-included-popt"
+configure_args+=(--with-included-popt)
 
 reg prep
 prep()

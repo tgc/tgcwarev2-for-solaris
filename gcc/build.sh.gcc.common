@@ -126,23 +126,21 @@ withcloogppl="--with-cloog=$lprefix --with-ppl=$lprefix"
 [ $abbrev_majorminor -ge 44 -a $abbrev_majorminor -lt 48 ] && hostlibs="$hostlibs $withcloogppl"
 # 4.4.x expects PPL 0.10 so disable the version check
 [ $abbrev_majorminor -eq 44 ] && hostlibs="$hostlibs --disable-ppl-version-check"
+# 4.8 builds with isl
 [ $abbrev_majorminor -eq 48 ] && hostlibs="$hostlibs $withcloogisl --with-cloog-backend=isl"
+
+# Assemble a default configure_args
+configure_args=($global_config_args $gxxinclude $hostlibs $linker $assembler $dwarf2 $langs $lang_java $gcc_cpu)
 
 # Set a build vendor for gcc > 4.2
 gccbugurl=http://jupiterrise.com/tgcware
 gccpkgversion="tgcware ${version}-${pkgver}"
-# Sadly $gccpkgversion contains spaces, making it almost impossible to pass it
-# unmodified through the various expansions so we just cannot add it to
-# configure_args
-[ $abbrev_majorminor -gt 42 ] && vendorargs="--with-pkgversion=$gccpkgversion --with-bugurl=$gccbugurl"
-
-# Assemble a default configure_args
-configure_args="$global_config_args $gxxinclude $hostlibs $linker $assembler $dwarf2 $langs $lang_java $gcc_cpu"
+[ $abbrev_majorminor -gt 42 ] && configure_args+=(--with-pkgversion="$gccpkgversion" --with-bugurl=$gccbugurl)
 
 # Solaris 7 support was marked obsolete in gcc 4.5.x
-[ $abbrev_majorminor -eq 45 -a "$gnu_os_ver" = "2.7" ] && configure_args="--enable-obsolete $configure_args"
+[ $abbrev_majorminor -eq 45 -a "$gnu_os_ver" = "2.7" ] && configure_args=(--enable-obsolete "${configure_args[@]}")
 # Solaris 8 support was marked obsolete in gcc 4.7.x
-[ $abbrev_majorminor -eq 47 -a "$gnu_os_ver" = "2.8" ] && configure_args="--enable-obsolete $configure_args"
+[ $abbrev_majorminor -eq 47 -a "$gnu_os_ver" = "2.8" ] && configure_args=(--enable-obsolete "${configure_args[@]}")
 
 # Default 
 objdir=all_native

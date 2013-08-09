@@ -16,7 +16,7 @@ patch[0]=screen-4.0.2-makefile-madness.diff
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args="$configure_args --enable-colors256"
+configure_args+=(--enable-colors256)
 
 reg prep
 prep()

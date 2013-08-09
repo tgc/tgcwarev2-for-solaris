@@ -16,7 +16,7 @@ source[0]=http://www.greenwoodsoftware.com/less/$topdir-$version.tar.gz
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args="$configure_args --with-editor=/bin/vi"
+configure_args+=(--with-editor=/bin/vi)
 
 reg prep
 prep()

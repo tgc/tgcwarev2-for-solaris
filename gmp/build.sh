@@ -22,7 +22,7 @@ patch[0]=gmp-5.1.2-no-c99-trunc.patch
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 export LD_OPTIONS="-R$prefix/lib"
-configure_args="--host=$gmp_host --build=$gmp_host $configure_args --enable-cxx"
+configure_args=(--host=$gmp_host --build=$gmp_host "${configure_args[@]}" --enable-cxx)
 
 reg prep
 prep()
