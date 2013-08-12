@@ -16,7 +16,7 @@ source[0]=http://zlib.net/$topdir-$version.tar.bz2
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args='--shared --prefix=$prefix'
+configure_args=(--shared --prefix=$prefix)
 export LDSHARED="gcc -shared -R ${prefix}/${_libdir} -Wl,-h,libz.so.1"
 shortroot=1
 
