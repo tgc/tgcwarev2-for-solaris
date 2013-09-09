@@ -19,7 +19,7 @@ patch[0]=ppl-gmp-5.1.0.patch
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 configure_args+=(--disable-static --enable-interfaces="cxx c")
-PATH=/usr/tgcware/gcc45/bin:$PATH
+PATH=$prefix/gcc45/bin:$PATH
 export PATH
 
 reg prep

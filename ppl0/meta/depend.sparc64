@@ -1,0 +1,4 @@
+TGCXlibpplc4 libppl11 auto
+TGCXppl-utils libppl11 auto
+TGCXppld libppl11 auto
+TGCXppld libppl_c4 auto
