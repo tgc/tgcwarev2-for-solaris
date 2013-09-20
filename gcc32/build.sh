@@ -73,15 +73,7 @@ install()
     ${__rm} -f $stagedir$prefix/bin/gccbug
 
     # Turn all the hardlinks in bin into symlinks
-    setdir ${stagedir}${prefix}/${_bindir}
-    for i in c++ ${arch}-${vendor}-solaris*-c++ ${arch}-${vendor}-solaris*-g++
-    do
-	[ -r $i ] && ${__rm} -f $i && ${__ln} -sf g++ $i
-    done
-    for i in ${arch}-${vendor}-solaris*-gcc ${arch}-${vendor}-solaris*-gcc-$version
-    do
-	[ -r $i ] && ${__rm} -f $i && ${__ln} -sf gcc $i
-    done
+    redo_bin
 
     # Place share/docs in the regular location
     prefix=$topinstalldir

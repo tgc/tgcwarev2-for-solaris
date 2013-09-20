@@ -64,23 +64,7 @@ install()
     redo_libs
 
     # Turn all the hardlinks in bin into symlinks
-    setdir ${stagedir}${prefix}/${_bindir}
-    for i in c++ ${arch}-${vendor}-solaris*-c++ ${arch}-${vendor}-solaris*-g++
-    do
-	[ -r $i ] && ${__rm} -f $i && ${__ln} -sf g++ $i
-    done
-    for i in ${arch}-${vendor}-solaris*-gcc ${arch}-${vendor}-solaris*-gcc-$version
-    do
-	[ -r $i ] && ${__rm} -f $i && ${__ln} -sf gcc $i
-    done
-    for i in gcj gcjh
-    do
-	[ -r ${arch}-${vendor}-solaris${gnu_os_ver}-$i ] && ${__rm} -f ${arch}-${vendor}-solaris${gnu_os_ver}-$i && ${__ln} -sf $i ${arch}-${vendor}-solaris${gnu_os_ver}-$i
-    done
-    for i in ${arch}-${vendor}-solaris*-gfortran
-    do
-	[ -r $i ] && ${__rm} -f $i && ${__ln} -sf gfortran $i
-    done
+    redo_bin
 
     # Place share/docs in the regular location
     prefix=$topinstalldir
