@@ -58,10 +58,8 @@ install()
     # man3 is now empty
     ${__rmdir} ${stagedir}${prefix}/$iprefix/man/man3
 
-    # Rearrange libraries for the default arch
+    # Rearrange libraries
     redo_libs
-    # Rearrange libraries for the alternate arch (if any)
-    [ -n "$altarch" ] && redo_libs $altarch
 
     # Turn all the hardlinks in bin into symlinks
     setdir ${stagedir}${prefix}/${_bindir}
@@ -97,10 +95,10 @@ check()
 {
     setdir source
     setdir ../$objdir
-    if [ $m64run -eq 0 ]; then
+    if [ $multilib -eq 0 ]; then
 	${__make} -k check
     else
-	${__make} -k RUNTESTFLAGS="--target_board='unix{,-m64}'" check
+	${__make} -k RUNTESTFLAGS="--target_board='unix{,$multilib_testopt}'" check
     fi
 }
 

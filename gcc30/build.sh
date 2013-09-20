@@ -60,7 +60,7 @@ install()
     # Move libobjc.so* so redo_libs can fix it up
     ${__mv} $stagedir$lprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/libobjc.so* $stagedir$lprefix/lib
 
-    # Rearrange libraries for the default arch
+    # Rearrange libraries
     redo_libs
 
     # Remove obsolete gccbug script

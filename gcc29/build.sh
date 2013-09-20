@@ -70,7 +70,7 @@ install()
     # Remove $lprefix/<target-triplet> which now only holds a duplicate of assert.h
     ${__rm} -rf $stagedir${lprefix}/${arch}-${vendor}-solaris*
 
-    # Rearrange libraries for the default arch
+    # Rearrange libraries
     redo_libs
 
     # Turn all the hardlinks in bin into symlinks

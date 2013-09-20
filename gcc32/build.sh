@@ -66,10 +66,8 @@ install()
     ${__mv} $stagedir$lprefix/include/gcj/* $stagedir$lprefix/lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/gcj
     ${__rmdir} $stagedir$lprefix/include/gcj
 
-    # Rearrange libraries for the default arch
+    # Rearrange libraries
     redo_libs
-    # Rearrange libraries for the alternate arch (if any)
-    [ -n "$altarch" ] && redo_libs $altarch
 
     # Remove obsolete gccbug script
     ${__rm} -f $stagedir$prefix/bin/gccbug
@@ -95,10 +93,10 @@ check()
 {
     setdir source
     setdir ../$objdir
-    if [ $m64run -eq 0 ]; then
+    if [ $multilib -eq 0 ]; then
 	${__make} -k check
     else
-	${__make} -k RUNTESTFLAGS="--target_board='unix{,-m64}'" check
+	${__make} -k RUNTESTFLAGS="--target_board='unix{,$multilib_testopt}'" check
     fi
 }
 
