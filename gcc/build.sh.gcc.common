@@ -196,6 +196,34 @@ setup_tools()
     ${__ln_s} -f /usr/tgcware/bin/makeinfo makeinfo
 }
 
+# link_helper: redo hardlinks as symlinks
+# params: $1 = link target $2... = link names
+link_helper()
+{
+    local target=$1
+    local src
+    shift
+    setdir ${stagedir}${prefix}/${_bindir}
+    for src in $@
+    do
+	[ -r $src ] && ${__rm} -f $src && ${__ln} -sf ${prefix}/${_bindir}/$target $src
+    done
+}
+
+# Turn all hardlinks in bin/ into symlinks
+redo_bin()
+{
+    link_helper g++ c++ ${build_arch}-${vendor}-solaris*-c++ ${build_arch}-${vendor}-solaris*-g++
+    link_helper gcc ${build_arch}-${vendor}-solaris*-gcc ${build_arch}-${vendor}-solaris*-gcc-$version
+    link_helper gcj ${build_arch}-${vendor}-solaris${gnu_os_ver}-gcj
+    link_helper gcjh ${build_arch}-${vendor}-solaris${gnu_os_ver}-gcjh
+    link_helper gfortran ${build_arch}-${vendor}-solaris*-gfortran
+    link_helper gccgo ${build_arch}-${vendor}-solaris*-gccgo
+    link_helper gcc-ar ${build_arch}-${vendor}-solaris*-gcc-ar
+    link_helper gcc-nm ${build_arch}-${vendor}-solaris*-gcc-nm
+    link_helper gcc-ranlib ${build_arch}-${vendor}-solaris*-gcc-ranlib
+}
+
 # Rearrange libraries to allow multiple gcc versions
 # $1 = archlibdir (subdir under lib where libraries go)
 # $2 = gccarchlibdir (subdir in lib/$libsubdir/<triplet>/<ver> where libs go)
