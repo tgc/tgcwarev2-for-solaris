@@ -129,12 +129,17 @@ withcloogppl="--with-cloog=$lprefix --with-ppl=$lprefix"
 # 4.8 builds with isl
 [ $abbrev_majorminor -eq 48 ] && hostlibs="$hostlibs $withcloogisl --with-cloog-backend=isl"
 
+# For 64bit targets
+[ "$build_arch" != "$arch" ] && hostopts=(--build=${build_arch}-${vendor}-solaris${gnu_os_ver} CC="gcc -m64" CXX="g++ -m64")
+# Enable multilib?
+[ $multilib -eq 0 ] && hostopts+=(--disable-multilib)
+
 # Assemble a default configure_args
-configure_args=($global_config_args $gxxinclude $hostlibs $linker $assembler $dwarf2 $langs $lang_java $gcc_cpu)
+configure_args=("${hostopts[@]}" $global_config_args $gxxinclude $hostlibs $linker $assembler $dwarf2 $langs $lang_java $gcc_cpu)
 
 # Set a build vendor for gcc > 4.2
 gccbugurl=http://jupiterrise.com/tgcware
-gccpkgversion="tgcware ${version}-${pkgver}"
+gccpkgversion="$pkgdirdesig ${version}-${pkgver}"
 [ $abbrev_majorminor -gt 42 ] && configure_args+=(--with-pkgversion="$gccpkgversion" --with-bugurl=$gccbugurl)
 
 # Solaris 7 support was marked obsolete in gcc 4.5.x
@@ -142,7 +147,7 @@ gccpkgversion="tgcware ${version}-${pkgver}"
 # Solaris 8 support was marked obsolete in gcc 4.7.x
 [ $abbrev_majorminor -eq 47 -a "$gnu_os_ver" = "2.8" ] && configure_args=(--enable-obsolete "${configure_args[@]}")
 
-# Default 
+# Default
 objdir=all_native
 
 # For gcc > 3.3
@@ -192,19 +197,22 @@ setup_tools()
 }
 
 # Rearrange libraries to allow multiple gcc versions
-# $1 = archlib
-# It should be called with no arguments for the default arch
-# and once with amd64/sparcv9 to handle the alternate libs
-redo_libs()
+# $1 = archlibdir (subdir under lib where libraries go)
+# $2 = gccarchlibdir (subdir in lib/$libsubdir/<triplet>/<ver> where libs go)
+redo_libs_helper()
 {
-    local archlib=$1
+    local archlibdir=$1
+    local gccarchlibdir=$2
+
+    # For the default case
     local backref="../../.."
 
-    if [ -n "$archlib" ]; then
-	archlib="/${archlib}"
-	# Need one more backref when using archlib
+    if [ -n "$gccarchlibdir" ]; then
+	gccarchlibdir="/${gccarchlibdir}"
+	# Need one more backref when using gccarchlibdir
 	backref="../../../.."
     fi
+    [ -n "$archlibdir" ] && archlibdir="/${archlibdir}"
 
     mvif()
     {
@@ -215,7 +223,7 @@ redo_libs()
     # This is based on the rhel6 and Fedora specfiles
     # First we need to move all gcc version specific files/libraries to the private versioned
     # libdir
-    FULLPATH=${stagedir}${lprefix}/lib/$libsubdir/${arch}-${vendor}-solaris${gnu_os_ver}/${version}${archlib}
+    FULLPATH=${stagedir}${lprefix}/lib/$libsubdir/${build_arch}-${vendor}-solaris${gnu_os_ver}/${version}${gccarchlibdir}
     setdir $FULLPATH
     for f in libg2c.a libfrtbegin.a libgfortran.a libgfortran.spec libgomp.a \
 	    libgomp.spec libffi.a libiberty.a libstdc++.a libsupc++.a \
@@ -223,22 +231,22 @@ redo_libs()
 	    libgobegin.a libitm.a libitm.spec libiberty.a libgfortranbegin.a \
 	    libatomic.a
     do
-	mvif ${backref}${archlib}/$f $FULLPATH
+	mvif ${backref}${archlibdir}/$f $FULLPATH
     done
     # Relocate .so files
     for f in g2c ffi gcc_s gcc_s_sparcv9 gfortran gomp objc ssp stdc++ \
 	    quadmath go itm atomic
     do
-	if [ -L ${backref}${archlib}/lib$f.so ]; then
+	if [ -L ${backref}${archlibdir}/lib$f.so ]; then
 	    # File exists and is a symlink, determine linktarget
 	    # The linktarget is the soname of the library
-	    linktarget=$(elfdump -d ${backref}${archlib}/lib$f.so | awk '/SONAME/ { print $4 }')
+	    linktarget=$(elfdump -d ${backref}${archlibdir}/lib$f.so | awk '/SONAME/ { print $4 }')
 	    # Remove the old symlink
-	    ${__rm} -f ${backref}${archlib}/lib$f.so
+	    ${__rm} -f ${backref}${archlibdir}/lib$f.so
 	    # Create new .so file, note we link not to the full version
 	    # since we want to cheat and allow newer compilers to upgrade
 	    # them as long as the soversion is matching
-	    ${__ln_s} ${backref}${archlib}/$linktarget lib$f.so
+	    ${__ln_s} ${backref}${archlibdir}/$linktarget lib$f.so
 	fi
     done
 
@@ -247,24 +255,55 @@ redo_libs()
 	cd $FULLPATH/adalib
 	for f in gnarl gnat
 	do
-	    if [ -L lib$f.so ]; then 
+	    if [ -L lib$f.so ]; then
 		# File exists and is a symlink, determine linktarget
 		# The linktarget is the soname of the library
 		linktarget=$(elfdump -d lib$f.so | awk '/SONAME/ { print $4 }')
 		# Relocate linktarget to main libdir
-		mvif $linktarget ${backref}/..${archlib}
+		mvif $linktarget ${backref}/..${archlibdir}
 		# Remove the old symlink
 		${__rm} -f lib$f.so
 		# Create new symlinks to linktarget
-		${__ln_s} ${backref}/..${archlib}/$linktarget lib$f.so
-		${__ln_s} ${backref}/..${archlib}/$linktarget $linktarget
+		${__ln_s} ${backref}/..${archlibdir}/$linktarget lib$f.so
+		${__ln_s} ${backref}/..${archlibdir}/$linktarget $linktarget
 	    fi
 	done
 
 	# Ada will not work without these symlinks
-	mkdir -p ${stagedir}${prefix}/lib/$libsubdir/${arch}-${vendor}-solaris${gnu_os_ver}/${version}${archlib}
-	cd ${stagedir}${prefix}/lib/$libsubdir/${arch}-${vendor}-solaris${gnu_os_ver}/${version}${archlib}
-	${__ln_s} ${backref}/../../lib/$libsubdir/${arch}-${vendor}-solaris${gnu_os_ver}/${version}${archlib}/adainclude .
-	${__ln_s} ${backref}/../../lib/$libsubdir/${arch}-${vendor}-solaris${gnu_os_ver}/${version}${archlib}/adalib .
+	mkdir -p ${stagedir}${prefix}/lib/$libsubdir/${build_arch}-${vendor}-solaris${gnu_os_ver}/${version}${gccarchlibdir}
+	cd ${stagedir}${prefix}/lib/$libsubdir/${build_arch}-${vendor}-solaris${gnu_os_ver}/${version}${gccarchlibdir}
+	${__ln_s} ${backref}/../../lib/$libsubdir/${build_arch}-${vendor}-solaris${gnu_os_ver}/${version}${gccarchlibdir}/adainclude .
+	${__ln_s} ${backref}/../../lib/$libsubdir/${build_arch}-${vendor}-solaris${gnu_os_ver}/${version}${gccarchlibdir}/adalib .
     fi
 }
+
+# Wrapper around redo_libs helper
+redo_libs()
+{
+    case $build_arch in
+	sparc64)
+	    # Make sparc64 builds have 64bit libs in lib/ instead of lib/sparcv9
+	    # thus in a multilib build we also move the 32bit libs to lib/sparcv8plus
+	    setdir ${stagedir}${lprefix}/${_libdir}
+	    if [ $multilib -eq 1 ]; then
+		${__mkdir} -p $gccarchlib
+		${__mv} *.a *.so* logging.properties lib*.spec $gccarchlib
+		${__mv} go security gcj* $gccarchlib
+	    fi
+	    ${__mv} sparcv9/* .
+	    ${__rmdir} sparcv9
+	    cd -
+	    redo_libs_helper "" ""
+	    [ $multilib -eq 1 ] && redo_libs_helper $archlib $gccarchlib
+	    ;;
+	i386|sparc)
+	    redo_libs_helper "" ""
+	    [ $multilib -eq 1 ] && redo_libs_helper $archlib $gccarchlib
+	    ;;
+	*)
+	    echo "redo_libs: unknown $build_arch"
+	    ;;
+    esac
+}
+
+# vim: set sw=4 sts=4 et ft=sh : #

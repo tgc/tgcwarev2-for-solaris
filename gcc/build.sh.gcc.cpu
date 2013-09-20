@@ -1,9 +1,8 @@
 # This defines the default cpu options to be passed on to
 # gcc and gmp configure scripts ($gcc_cpu and $gmp_host)
-# Additionally for gcc it defines $altarch for biarch
-# builds when relevant (ie. sparc/sparcv9, i386/amd64)
-# and the $m64run indicator to signal that the host can run
-# 64bit executables.
+# Additionally it defines $multilib to indicate if gcc is to be
+# built with multilibs (ie. sparc/sparcv9, i386/amd64).
+# In a multilib build $altarch will be defined to the alternate arch.
 #
 # The gcc bits depends on the definition of $abbrev_majorminor
 # usually provided by the gcc build.sh
@@ -12,36 +11,62 @@
 abbrev_majorminor=${abbrev_majorminor:-0}
 
 # platform/arch specific options
-m64run=0
-[ "$arch" = "i386" -a -n "$(isalist | grep amd64)" ] && { amd64=1; m64run=1; }
-[ "$arch" = "sparc" -a -n "$(isalist | grep sparcv9)" ] && { sparcv9=1; m64run=1; }
-# Determine alternate arch name
-[ -n "$amd64" ] && altarch=amd64
-[ -n "$sparcv9" ] && altarch=sparcv9
+multilib=0
+case $build_arch in
+    sparc64)
+	multilib=1
+	# We make sparc64 builds have 64bit libs in lib/ instead of lib/sparcv9
+	# thus in a multilib build we also move the 32bit libs to lib/sparcv8plus
+	# and sparcv8plus would be the alternate arch
+	archlib=sparcv8plus
+	gccarchlib=sparcv8plus
+	# The alternate arch in a multilib config
+	[ $multilib -eq 1 ] && altarch=sparcv8plus
+	multilib_testopt="-m32"
+	;;
+    sparc)
+	# Enable multilib if isalist contains sparcv9
+	[ -n "$(isalist | grep sparcv9)" ] && { multilib=1; altarch=sparcv9; }
+	archlib=sparcv9
+	gccarchlib=sparcv9
+	multilib_testopt="-m64"
+	;;
+    i386)
+	# Enable multilib if isalist contains amd64
+	[ -n "$(isalist | grep amd64)" ] && { multilib=1; altarch=amd64; }
+	archlib=amd64
+	gccarchlib=amd64
+	multilib_testopt="-m64"
+	;;
+    *)
+	echo "Unknown build_arch: $build_arch"
+	exit 1
+	;;
+esac
 
 # Set default arch based on OS minimum cpu required
-case "${vendor}-${gnu_os_ver}" in
-    pc-2.7)
+case "${build_arch}-${gnu_os_ver}" in
+    i386-2.7)
 	gcc_arch=i486
 	gcc_cpu="--with-arch=$gcc_arch --with-tune=pentium"
 	gmp_host="i486-${vendor}-solaris${gnu_os_ver}"
 	;;
-    pc-2.[89])
+    i386-2.[89])
 	gcc_arch=pentium
 	gcc_cpu="--with-arch=$gcc_arch"
 	gmp_host="i586-${vendor}-solaris${gnu_os_ver}"
 	;;
-    pc-2.1[01])
+    i386-2.1[01])
 	gcc_arch=i686
 	gcc_cpu="--with-arch=$gcc_arch"
 	gmp_host="i686-${vendor}-solaris${gnu_os_ver}"
 	;;
-    sun-2.7)
+    sparc-2.7)
 	gcc_arch=v7
 	gcc_cpu="--with-cpu=$gcc_arch"
 	gmp_host="sparc-${vendor}-solaris${gnu_os_ver}"
 	;;
-    sun-2.[89])
+    sparc-2.[89])
 	# When building gcc < 3.4 we'll use sparcv8 otherwise default to sparcv9
 	if [ $abbrev_majorminor -lt 34 -a $abbrev_majorminor -gt 0 ]; then
 	    gcc_arch=v8
@@ -54,21 +79,33 @@ case "${vendor}-${gnu_os_ver}" in
 	# Force 32 bit ABI or gmp will build 64 bit objects
 	export ABI=32
 	;;
-    sun-2.1[01])
+    sparc-2.1[01])
 	gcc_arch=v9
 	gcc_cpu="--with-cpu=$gcc_arch"
 	gmp_host="sparcv9-${vendor}-solaris${gnu_os_ver}"
 	# Force 32 bit ABI or gmp will build 64 bit objects
 	export ABI=32
 	;;
+    sparc64-2.[789])
+	gcc_arch=v9
+	gcc_cpu="--with-cpu=$gcc_arch"
+	gmp_host="${build_arch}-${vendor}-solaris${gnu_os_ver}"
+	;;
+    sparc64-2.1[01])
+	gcc_arch=v9
+	gcc_cpu="--with-cpu=$gcc_arch"
+	gmp_host="${build_arch}-${vendor}-solaris${gnu_os_ver}"
+	;;
     *)
 	;;
 esac
 # gcc 4.7.x and later cannot be built for sparcv8 since libitm is v8+ only.
-[ $abbrev_majorminor -gt 46 -a "$vendor" = "sun" ] && gcc_cpu="--with-cpu=v9"
+[ $abbrev_majorminor -gt 46 -a "$build_arch" = "sparc" ] && gcc_cpu="--with-cpu=v9"
 # For gcc > 4.3 and x86 set {arch,tune}-32 instead of {arch,tune}.
 [ $abbrev_majorminor -gt 43 -a "$vendor" = "pc" ] && gcc_cpu=$(echo $gcc_cpu | ${__sed} -e 's/arch=/arch-32=/;s/tune=/tune-32=/')
 # For gcc < 4.4 and x86_64, there is no arch-32 and setting arch conflicts with the 64bit support
-[ $abbrev_majorminor -lt 44 -a $m64run -eq 1 -a "$vendor" = "pc" ] && gcc_cpu=$(echo $gcc_cpu | sed -e 's/--with-arch=[^ ]//')
+[ $abbrev_majorminor -lt 44 -a $multilib -eq 1 -a "$vendor" = "pc" ] && gcc_cpu=$(echo $gcc_cpu | sed -e 's/--with-arch=[^ ]//')
 # For gcc < 3.4 and x86 there are no arch options
 [ $abbrev_majorminor -lt 34 -a "$vendor" = "pc" ] && gcc_cpu=
+
+# vim: set sw=4 sts=4 et ft=sh : #
