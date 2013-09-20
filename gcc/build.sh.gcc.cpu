@@ -15,13 +15,11 @@ abbrev_majorminor=${abbrev_majorminor:-0}
 m64run=0
 [ "$arch" = "i386" -a -n "$(isalist | grep amd64)" ] && { amd64=1; m64run=1; }
 [ "$arch" = "sparc" -a -n "$(isalist | grep sparcv9)" ] && { sparcv9=1; m64run=1; }
-[ "$arch" = "sparc" ] && { vendor="sun"; sparc=1; } || { vendor="pc"; intel=1; }
 # Determine alternate arch name
 [ -n "$amd64" ] && altarch=amd64
 [ -n "$sparcv9" ] && altarch=sparcv9
 
 # Set default arch based on OS minimum cpu required
-gnu_os_ver=$(${__uname} -r | ${__sed} -e 's/^5/2/')
 case "${vendor}-${gnu_os_ver}" in
     pc-2.7)
 	gcc_arch=i486
