@@ -40,7 +40,6 @@ reg build
 build()
 {
     ${__mkdir} -p ${srcdir}/$objdir
-    echo "$__configure $configure_args"
     generic_build ../$objdir
     # Build gnat
     setdir ${srcdir}/${objdir}

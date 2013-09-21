@@ -51,7 +51,6 @@ reg build
 build()
 {
     ${__mkdir} -p ${srcdir}/$objdir
-    echo "$__configure $configure_args"
     generic_build ../$objdir
     # Build gnat
     # This is hacky but the buildsystem tries to use the host gnatbind

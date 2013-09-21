@@ -38,7 +38,6 @@ build()
 {
     setup_tools
     ${__mkdir} -p ${srcdir}/$objdir
-    echo "$__configure $configure_args"
     generic_build ../$objdir
 }
 
