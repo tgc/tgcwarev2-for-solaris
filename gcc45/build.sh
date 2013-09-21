@@ -56,7 +56,7 @@ install()
     ${__find} ${stagedir} -type d -name 'libffi' -print | ${__xargs} ${__rmdir}
     ${__find} ${stagedir} -type f -name 'ffi*.3' -print | ${__xargs} ${__rm} -f
     # man3 is now empty
-    ${__rmdir} ${stagedir}${prefix}/$iprefix/man/man3
+    ${__rmdir} ${stagedir}${prefix}/man/man3
 
     # Rearrange libraries
     redo_libs

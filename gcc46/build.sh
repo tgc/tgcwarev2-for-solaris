@@ -56,10 +56,10 @@ install()
     ${__find} ${stagedir} -type d -name 'libffi' -print | ${__xargs} ${__rmdir}
     ${__find} ${stagedir} -type f -name 'ffi*.3' -print | ${__xargs} ${__rm} -f
     # man3 is now empty
-    ${__rmdir} ${stagedir}${prefix}/$iprefix/man/man3
+    ${__rmdir} ${stagedir}${prefix}/man/man3
 
     # libquadmath is not available on sparc but documentation is installed
-    [ "$arch" = "sparc" ] && ${__rm} -f ${stagedir}${prefix}/$iprefix/info/libquadmath.info
+    [ "$arch" = "sparc" ] && ${__rm} -f ${stagedir}${prefix}/info/libquadmath.info
 
     # Rearrange libraries
     redo_libs
