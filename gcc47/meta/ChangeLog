@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Mon Sep 16 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 4.7.3-3
+- Accommodate building for sparc64
+
 * Sat Jul 06 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 4.7.3-2
 - Rebuild with CLooG/PPL
 
