@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=mpc
 version=1.0.1
-pkgver=1
+pkgver=2
 source[0]=http://multiprecision.org/mpc/download/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -41,7 +41,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc README NEWS COPYING.LIB AUTHORS
+    doc README NEWS COPYING.LESSER AUTHORS
 }
 
 reg pack
