@@ -15,7 +15,7 @@ source[0]=$topdir-$version.tar.bz2
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
-gnu_link_progs="make"
+gnu_link make
 
 reg prep
 prep()

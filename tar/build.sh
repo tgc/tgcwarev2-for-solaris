@@ -18,7 +18,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/tar/$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-gnu_link_progs="tar"
+gnu_link tar
 
 reg prep
 prep()

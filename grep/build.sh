@@ -18,7 +18,7 @@ patch[0]=grep-2.14-fix-gnulib-locale_h.patch
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-gnu_link_progs="grep"
+gnu_link grep
 
 reg prep
 prep()

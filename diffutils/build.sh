@@ -18,7 +18,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/diffutils/$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-gnu_link_progs="cmp diff diff3 sdiff"
+gnu_link cmp diff diff3 sdiff
 
 reg prep
 prep()

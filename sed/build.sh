@@ -18,7 +18,7 @@ patch[0]=sed-4.2.2-fix-gnulib-locale_h.patch
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-gnu_link_progs="sed"
+gnu_link sed
 
 reg prep
 prep()

@@ -19,7 +19,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/patch/$topdir-$version.tar.bz2
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 ac_overrides="ac_cv_path_ed_PROGRAM=/usr/bin/ed"
-gnu_link_progs="patch"
+gnu_link patch
 
 reg prep
 prep()

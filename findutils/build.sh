@@ -18,7 +18,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/findutils/$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-gnu_link_progs="find locate oldfind updatedb xargs"
+gnu_link find locate oldfind updatedb xargs
 
 reg prep
 prep()

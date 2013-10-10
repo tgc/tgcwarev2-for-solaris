@@ -19,7 +19,7 @@ source[0]=$topdir-$version.tar.gz
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 configure_args+=(--enable-extra-encodings)
-gnu_link_progs="iconv"
+gnu_link iconv
 
 reg prep
 prep()
