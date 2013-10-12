@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=bash
 real_version=4.2
-version=4.2.42
+version=4.2.45
 pkgver=1
 source[0]=$topdir-$real_version.tar.gz
 
@@ -56,6 +56,9 @@ patch[38]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-03
 patch[39]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-040
 patch[40]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-041
 patch[41]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-042
+patch[42]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-043
+patch[43]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-044
+patch[44]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-045
 
 # Global settings
 export CPPFLAGS="-I$prefix/include"
@@ -86,6 +89,7 @@ install()
 {
     generic_install DESTDIR
     doc AUTHORS CHANGES COMPAT NEWS POSIX RBASH README COPYING
+    compat bash 4.2.42 1 1
 }
 
 reg pack
