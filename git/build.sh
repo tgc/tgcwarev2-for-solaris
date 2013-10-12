@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=1.8.1.5
-pkgver=2
+version=1.8.4.1
+pkgver=1
 source[0]=http://git-core.googlecode.com/files/$topdir-$version.tar.gz
 source[1]=http://git-core.googlecode.com/files/$topdir-manpages-$version.tar.gz
 # If there are no patches, simply comment this
