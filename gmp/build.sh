@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gmp
-version=5.1.2
+version=5.1.3
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -49,6 +49,7 @@ install()
     doc AUTHORS COPYING COPYING.LIB NEWS README
 
     compat gmp 5.0.5 1 4
+    compat gmp 5.1.2 1 1
 }
 
 reg pack
