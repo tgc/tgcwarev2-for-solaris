@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.32.0
+version=7.33.0
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
