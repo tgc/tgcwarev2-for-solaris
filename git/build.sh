@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=git
 version=1.8.4.1
-pkgver=1
+pkgver=2
 source[0]=http://git-core.googlecode.com/files/$topdir-$version.tar.gz
 source[1]=http://git-core.googlecode.com/files/$topdir-manpages-$version.tar.gz
 # If there are no patches, simply comment this
@@ -67,6 +67,7 @@ install()
     mkdir -p ${stagedir}${prefix}/${_mandir}
     setdir ${stagedir}${prefix}/${_mandir}
     ${__tar} -xf $(get_source_absfilename "${source[1]}")
+    chmod 755 ${stagedir}${prefix}/${_mandir}
     doc COPYING Documentation/RelNotes/${version}.txt README
 
     # fix git symlink
