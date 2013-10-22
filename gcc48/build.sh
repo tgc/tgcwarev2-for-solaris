@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=4.8.1
-pkgver=3
+version=4.8.2
+pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -69,13 +69,16 @@ install()
     prefix=$topinstalldir
     doc COPYING* MAINTAINERS NEWS
 
-    if [ "$build_arch" = "sparc" ]; then
-	for lib in gcc_s1 stdc++6 ssp0 gomp1 atomic1 itm1 quadmath0 gfortran3 gnat48 go3 objc4
-	do
-	    compat lib$lib 4.8.0 1 9
-	    compat lib$lib 4.8.1 1 1
-	done
-    fi
+    # Compatibility information
+    case $build_arch in
+	sparc|i386)
+	    for lib in gcc_s1 stdc++6 ssp0 gomp1 atomic1 itm1 quadmath0 gfortran3 gnat48 objc4
+	    do
+		compat lib$lib 4.8.0 1 9
+		compat lib$lib 4.8.1 1 9
+	    done
+	    ;;
+    esac
 }
 
 reg check

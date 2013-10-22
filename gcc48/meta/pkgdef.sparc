@@ -201,7 +201,9 @@ include/c++/${version}/utility
 include/c++/${version}/valarray
 include/c++/${version}/vector
 include/c++/${version}/${build_arch}-${vendor}-solaris*/bits
+include/c++/${version}/${build_arch}-${vendor}-solaris*/ext
 if(altarch)include/c++/${version}/${build_arch}-${vendor}-solaris*/$altarch/bits
+if(altarch)include/c++/${version}/${build_arch}-${vendor}-solaris*/$altarch/ext
 lib/$libsubdir/${build_arch}-${vendor}-solaris*/$version/libstdc++.*
 lib/$libsubdir/${build_arch}-${vendor}-solaris*/$version/libsupc++.*
 if(altarch)lib/$libsubdir/${build_arch}-${vendor}-solaris*/$version/$altarch/libstdc++.*
@@ -356,16 +358,16 @@ files(-,root,bin)
 $_libdir/libitm.so.1*
 if(altarch)$_libdir/$altarch/libitm.so.1*
 
-[libgo3]
-pkgname="${pkgprefix}lgo3"
-name="libgo3 - GNU Go shared support library"
+[libgo4]
+pkgname="${pkgprefix}lgo4"
+name="libgo4 - GNU Go shared support library"
 pkgcat="system"
 pkgvendor="http://gcc.gnu.org"
 pkgdesc="Runtime support library for GNU Go"
 pkgver="$pkgver"
 files(-,root,bin)
-$_libdir/libgo.so.3*
-if(altarch)$_libdir/$altarch/libgo.so.3*
+$_libdir/libgo.so.4*
+if(altarch)$_libdir/$altarch/libgo.so.4*
 
 [libatomic1]
 pkgname="${pkgprefix}latm1"

@@ -12,7 +12,7 @@ TGCg48ft libquadmath0 auto
 TGCg48gn gcc auto
 TGCg48gn libgnat48 auto
 TGCg48go gcc auto
-TGCg48go libgo3 auto
+TGCg48go libgo4 auto
 TGCg48ob gcc auto
 TGCg48ob libobjc4 auto
 TGCg48ox gcc auto

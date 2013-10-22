@@ -11,7 +11,7 @@ TGCXg48ft libgfortran3 auto
 TGCXg48gn gcc auto
 TGCXg48gn libgnat48 auto
 TGCXg48go gcc auto
-TGCXg48go libgo3 auto
+TGCXg48go libgo4 auto
 TGCXg48ob gcc auto
 TGCXg48ob libobjc4 auto
 TGCXg48ox gcc auto
