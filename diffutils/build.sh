@@ -7,10 +7,10 @@
 # Check the following 4 variables before running the script
 topdir=diffutils
 version=3.3
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/diffutils/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=diffutils-3.3-fix-locale-install.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
