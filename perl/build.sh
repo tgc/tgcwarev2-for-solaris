@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=perl
-version=5.16.2
+version=5.16.3
 pkgver=1
 source[0]=http://www.cpan.org/src/5.0/perl-${version}.tar.gz
 # If there are no patches, simply comment this
@@ -20,7 +20,7 @@ make_check_target="test"
 __configure="sh Configure"
 [ "$arch" = "sparc" ] && arch_name="sun4-solaris"
 [ "$arch" = "i386" ] && arch_name="i86pc-solaris"
-configure_args=(-Dcc=gcc -Accflags=-fno-stack-protector -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by="Tom G. Christensen" -Dcf_email=swpkg@jupiterrise.com -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager=/usr/bin/more -Dlocincpth=/usr/tgcware/include -Dloclibpth=/usr/tgcware/lib -des)
+configure_args=(-Dcc=gcc -Accflags=-fno-stack-protector -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by="Tom G. Christensen" -Dcf_email=swpkg@jupiterrise.com -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager=/usr/bin/more -Dlocincpth=/usr/tgcware/include -Dloclibpth=/usr/tgcware/lib -des -Dinc_version_list="5.16.2")
 
 reg prep
 prep()
@@ -62,6 +62,7 @@ install()
         fi
     done
     ${__rm} -f ${stagedir}${prefix}/${_bindir}/perl$version
+    compat perl 5.16.2 1 1
 }
 
 reg pack
