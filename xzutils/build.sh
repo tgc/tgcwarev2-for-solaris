@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=xz
-version=5.0.4
+version=5.0.5
 pkgver=1
 source[0]=http://tukaani.org/xz/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -44,6 +44,7 @@ install()
 {
     generic_install DESTDIR
     ${__mv} ${stagedir}${prefix}/${_docdir}/xz ${stagedir}${prefix}/${_vdocdir}
+    compat xzutils 5.0.4 1 1
 }
 
 reg pack
