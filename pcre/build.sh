@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=pcre
-version=8.32
+version=8.33
 pkgver=1
 source[0]=ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -42,6 +42,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    compat pcre 8.32 1 1
 }
 
 reg pack
