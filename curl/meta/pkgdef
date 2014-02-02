@@ -37,4 +37,5 @@ $_libdir/*.so
 $_libdir/pkgconfig
 $_mandir/?a?3
 $_vdocdir/docs/examples
+$_sharedir/aclocal/libcurl.m4
 
