@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gzip
-version=1.5
+version=1.6
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gzip/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
