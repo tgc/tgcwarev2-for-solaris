@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sat Mar 29 2014 Tom G. Christensen <swpkg@jupiterrise.com> - 1.15-1
+- Update to 1.15
+
 * Sun Apr 28 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 1.14-2
 - Fix build on Solaris 7
 
