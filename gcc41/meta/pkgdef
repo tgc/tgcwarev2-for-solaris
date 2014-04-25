@@ -105,6 +105,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/int_const.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/int_fmtio.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/int_limits.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/int_types.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/isa_defs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/kbio.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/kobj.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/kstat.h
@@ -115,6 +116,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/mmu.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msreg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/openpromio.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pci_impl.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pctypes.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pcmcia/pcelx.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pic.h
