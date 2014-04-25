@@ -97,6 +97,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/fs/udf_volume.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/fs/ufs_inode.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/fs/xmem.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/ieeefp.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/isa_defs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/int_const.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/int_fmtio.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/int_limits.h
@@ -111,6 +112,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/mmu.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msreg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/openpromio.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pci_impl.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pcmcia/pcelx.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pctypes.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pic.h
