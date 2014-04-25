@@ -113,6 +113,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/mii.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/mmu.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/msreg.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/openpromio.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pci_impl.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pcmcia/pcelx.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pctypes.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/pic.h
@@ -137,6 +138,7 @@ lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/traptrace.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/types.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/uadmin.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/user.h
+lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/utrap.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/utsname.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/varargs.h
 lib/$libsubdir/${arch}-${vendor}-solaris*/$version/include/sys/vuid_event.h
