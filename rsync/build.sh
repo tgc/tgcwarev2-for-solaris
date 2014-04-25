@@ -24,6 +24,11 @@ reg prep
 prep()
 {
     generic_prep
+    setdir source
+    # Fix IPv6 test
+    # It should test for something that the header would define instead of relying
+    # on the preprocesser to stop when the include fails (gcc < 4.5 does not)
+    ${__gsed} -i 's/__sun/_NETINET_IP6_H/g' configure.sh
 }
 
 reg build
