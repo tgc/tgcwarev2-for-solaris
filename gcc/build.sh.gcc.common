@@ -43,6 +43,7 @@ fi
 # 4.6.x: libstdc++.so.6, libgcc_s.so.1, libobjc.so.3, libgfortran.so.3, libssp.so.0, libgomp.so.1
 # 4.7.x: libstdc++.so.6, libgcc_s.so.1, libobjc.so.4, libgfortran.so.3, libssp.so.0, libgomp.so.1, libgo.so.0, libitm.so.1, libquadmath.so.0 (x86)
 # 4.8.x: libstdc++.so.6, libgcc_s.so.1, libobjc.so.4, libgfortran.so.3, libssp.so.0, libgomp.so.1, libgo.so.3, libitm.so.1, libquadmath.so.0 (x86), libatomic.so.1
+# 4.9.x: libstdc++.so.6, libgcc_s.so.1, libobjc.so.4, libgfortran.so.3, libssp.so.0, libgomp.so.1, libgo.so.5, libitm.so.1, libquadmath.so.0 (x86), libatomic.so.1, libcilkrts.so.5
 
 # Global settings
 __configure="../$topsrcdir/configure"
@@ -126,8 +127,8 @@ withcloogppl="--with-cloog=$lprefix --with-ppl=$lprefix"
 [ $abbrev_majorminor -ge 44 -a $abbrev_majorminor -lt 48 ] && hostlibs="$hostlibs $withcloogppl"
 # 4.4.x expects PPL 0.10 so disable the version check
 [ $abbrev_majorminor -eq 44 ] && hostlibs="$hostlibs --disable-ppl-version-check"
-# 4.8 builds with isl
-[ $abbrev_majorminor -eq 48 ] && hostlibs="$hostlibs $withcloogisl --with-cloog-backend=isl"
+# 4.8+ builds with isl
+[ $abbrev_majorminor -ge 48 ] && hostlibs="$hostlibs $withcloogisl --with-cloog-backend=isl"
 
 # For 64bit targets
 [ "$build_arch" != "$arch" ] && hostopts=(--build=${build_arch}-${vendor}-solaris${gnu_os_ver} CC="gcc -m64" CXX="g++ -m64")
@@ -146,6 +147,8 @@ gccpkgversion="$pkgdirdesig ${version}-${pkgver}"
 [ $abbrev_majorminor -eq 45 -a "$gnu_os_ver" = "2.7" ] && configure_args=(--enable-obsolete "${configure_args[@]}")
 # Solaris 8 support was marked obsolete in gcc 4.7.x
 [ $abbrev_majorminor -eq 47 -a "$gnu_os_ver" = "2.8" ] && configure_args=(--enable-obsolete "${configure_args[@]}")
+# Solaris 9 support was marked obsolete in gcc 4.9.x
+[ $abbrev_majorminor -eq 49 -a "$gnu_os_ver" = "2.9" ] && configure_args=(--enable-obsolete "${configure_args[@]}")
 
 # Default
 objdir=all_native
@@ -257,13 +260,13 @@ redo_libs_helper()
 	    libgomp.spec libffi.a libiberty.a libstdc++.a libsupc++.a \
 	    libssp.a libssp_nonshared.a libobjc.a libquadmath.a libgo.a \
 	    libgobegin.a libitm.a libitm.spec libiberty.a libgfortranbegin.a \
-	    libatomic.a
+	    libatomic.a libgcc-unwind.map libcilkrts.a libcilkrts.spec
     do
 	mvif ${backref}${archlibdir}/$f $FULLPATH
     done
     # Relocate .so files
     for f in g2c ffi gcc_s gcc_s_sparcv9 gfortran gomp objc ssp stdc++ \
-	    quadmath go itm atomic
+	    quadmath go itm atomic cilkrts
     do
 	if [ -L ${backref}${archlibdir}/lib$f.so ]; then
 	    # File exists and is a symlink, determine linktarget
@@ -316,7 +319,7 @@ redo_libs()
 	    if [ $multilib -eq 1 ]; then
 		${__mkdir} -p $gccarchlib
 		${__mv} *.a *.so* logging.properties lib*.spec $gccarchlib
-		${__mv} go security gcj* $gccarchlib
+		${__mv} go security gcj* pkgconfig $gccarchlib
 	    fi
 	    ${__mv} sparcv9/* .
 	    ${__rmdir} sparcv9
