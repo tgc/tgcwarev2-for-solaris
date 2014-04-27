@@ -192,7 +192,6 @@ setup_tools()
     ${__ln_s} -f /usr/tgcware/bin/diff diff
     ${__ln_s} -f /usr/tgcware/bin/find find
     ${__ln_s} -f /usr/tgcware/bin/sed sed
-    ${__ln_s} -f /opt/csw/gcc4/bin/gjar jar
     ${__ln_s} -f /usr/tgcware/bin/gc++filt c++filt
     ${__ln_s} -f /usr/tgcware/bin/gobjcopy objcopy
     ${__ln_s} -f /usr/tgcware/bin/gobjdump objdump
