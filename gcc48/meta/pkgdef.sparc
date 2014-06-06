@@ -423,6 +423,7 @@ if(altarch)lib/${altarch}/lib-gnu-awt-xlib*
 lib/logging.properties
 if(altarch)lib/${altarch}/logging.properties
 lib/pkgconfig/libgcj*.pc
+if(altarch)lib/${altarch}/pkgconfig/libgcj*.pc
 libexec/gcc/${build_arch}-${vendor}-solaris*/$version/jc1
 libexec/gcc/${build_arch}-${vendor}-solaris*/$version/jvgenmain
 $iprefix/info/cp-tools.info*
