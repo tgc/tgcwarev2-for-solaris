@@ -18,6 +18,7 @@ lib/$libsubdir/${build_arch}-${vendor}-solaris*/$version/libgcov*
 lib/$libsubdir/${build_arch}-${vendor}-solaris*/$version/libgomp*
 lib/$libsubdir/${build_arch}-${vendor}-solaris*/$version/libitm.*
 lib/$libsubdir/${build_arch}-${vendor}-solaris*/$version/libssp*
+lib/$libsubdir/${build_arch}-${vendor}-solaris*/$version/clearcap.map
 if(altarch)lib/$libsubdir/${build_arch}-${vendor}-solaris*/$version/$altarch/gcrt*
 if(altarch)lib/$libsubdir/${build_arch}-${vendor}-solaris*/$version/$altarch/crt*
 if(altarch)lib/$libsubdir/${build_arch}-${vendor}-solaris*/$version/$altarch/gmon.o
