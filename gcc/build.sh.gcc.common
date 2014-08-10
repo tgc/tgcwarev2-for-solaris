@@ -259,7 +259,8 @@ redo_libs_helper()
 	    libgomp.spec libffi.a libiberty.a libstdc++.a libsupc++.a \
 	    libssp.a libssp_nonshared.a libobjc.a libquadmath.a libgo.a \
 	    libgobegin.a libitm.a libitm.spec libiberty.a libgfortranbegin.a \
-	    libatomic.a libgcc-unwind.map libcilkrts.a libcilkrts.spec
+	    libatomic.a libgcc-unwind.map libcilkrts.a libcilkrts.spec \
+	    clearcap.map
     do
 	mvif ${backref}${archlibdir}/$f $FULLPATH
     done
