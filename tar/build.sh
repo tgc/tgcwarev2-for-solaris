@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tar
-version=1.26
-pkgver=2
+version=1.28
+pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/tar/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
