@@ -6,59 +6,45 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=bash
-real_version=4.2
-version=4.2.45
+real_version=4.3
+version=4.3.26
 pkgver=1
-source[0]=$topdir-$real_version.tar.gz
+source[0]=ftp://ftp.sunet.se/pub/gnu/bash/$topdir-$real_version.tar.gz
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
-patch[0]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-001
-patch[1]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-002
-patch[2]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-003
-patch[3]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-004
-patch[4]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-005
-patch[5]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-006
-patch[6]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-007
-patch[7]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-008
-patch[8]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-009
-patch[9]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-010
-patch[10]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-011
-patch[11]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-012
-patch[12]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-013
-patch[13]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-014
-patch[14]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-015
-patch[15]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-016
-patch[16]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-017
-patch[17]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-018
-patch[18]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-019
-patch[19]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-020
-patch[20]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-021
-patch[21]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-022
-patch[22]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-023
-patch[23]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-024
-patch[24]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-025
-patch[25]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-026
-patch[26]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-027
-patch[27]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-028
-patch[28]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-029
-patch[29]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-030
-patch[30]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-031
-patch[31]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-032
-patch[32]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-033
-patch[33]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-034
-patch[34]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-035
-patch[35]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-036
-patch[36]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-037
-patch[37]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-038
-patch[38]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-039
-patch[39]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-040
-patch[40]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-041
-patch[41]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-042
-patch[42]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-043
-patch[43]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-044
-patch[44]=ftp://ftp.sunet.se/pub/gnu/bash/bash-${real_version}-patches/bash42-045
+# Patches have been run through:
+# sed 's|../bash-4\.3/||'
+# Otherwise they cannot be applied by GNU Patch 2.7.1
+patch[0]=bash43-001.edited
+patch[1]=bash43-002.edited
+patch[2]=bash43-003.edited
+patch[3]=bash43-004.edited
+patch[4]=bash43-005.edited
+patch[5]=bash43-006.edited
+patch[6]=bash43-007.edited
+patch[7]=bash43-008.edited
+patch[8]=bash43-009.edited
+patch[9]=bash43-010.edited
+patch[10]=bash43-011.edited
+patch[11]=bash43-012.edited
+patch[12]=bash43-013.edited
+patch[13]=bash43-014.edited
+patch[14]=bash43-015.edited
+patch[15]=bash43-016.edited
+patch[16]=bash43-017.edited
+patch[17]=bash43-018.edited
+patch[18]=bash43-019.edited
+patch[19]=bash43-020.edited
+patch[20]=bash43-021.edited
+patch[21]=bash43-022.edited
+patch[22]=bash43-023.edited
+patch[23]=bash43-024.edited
+patch[24]=bash43-025.edited
+patch[25]=bash43-026.edited
+patch[26]=bash-4.2-cve-2014-7169-1.patch
+patch[27]=bash-4.2-cve-2014-7169-2.patch
 
 # Global settings
 export CPPFLAGS="-I$prefix/include"
@@ -88,8 +74,11 @@ reg install
 install()
 {
     generic_install DESTDIR
+    ${__mv} ${stagedir}${prefix}/${_docdir}/bash ${stagedir}${prefix}/${_vdocdir}
     doc AUTHORS CHANGES COMPAT NEWS POSIX RBASH README COPYING
+    compat bash 3.2.39 1 1
     compat bash 4.2.42 1 1
+    compat bash 4.2.45 1 1
 }
 
 reg pack
