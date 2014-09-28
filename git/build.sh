@@ -6,10 +6,10 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=1.8.5.3
+version=2.1.1
 pkgver=1
-source[0]=http://git-core.googlecode.com/files/$topdir-$version.tar.gz
-source[1]=http://git-core.googlecode.com/files/$topdir-manpages-$version.tar.gz
+source[0]=https://www.kernel.org/pub/software/scm/git/$topdir-$version.tar.gz
+source[1]=https://www.kernel.org/pub/software/scm/git/$topdir-manpages-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=git-1.8.1.5-inet_addrstrlen.patch
 
