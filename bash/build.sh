@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=bash
 real_version=4.3
-version=4.3.26
+version=4.3.27
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/bash/$topdir-$real_version.tar.gz
 
@@ -43,7 +43,7 @@ patch[22]=bash43-023.edited
 patch[23]=bash43-024.edited
 patch[24]=bash43-025.edited
 patch[25]=bash43-026.edited
-patch[26]=bash-4.2-cve-2014-7169-1.patch
+patch[26]=bash43-027.edited
 patch[27]=bash-4.2-cve-2014-7169-2.patch
 
 # Global settings
@@ -79,6 +79,8 @@ install()
     compat bash 3.2.39 1 1
     compat bash 4.2.42 1 1
     compat bash 4.2.45 1 1
+    compat bash 4.3.25 1 1
+    compat bash 4.3.26 1 1
 }
 
 reg pack

@@ -1,8 +1,11 @@
 CHANGELOG
 ---------
+* Sun Sep 28 2014 Tom G. Christensen <swpkg@jupiterrise.com> - 4.3.27-1
+- Update to 4.3.27 (replaces a RedHat patch with identical from upstream)
+
 * Sat Sep 27 2014 Tom G. Christensen <swpkg@jupiterrise.com> - 4.3.26-1
 - Update to 4.3.26 to fix CVE-2014-7169
-- Add patches from RedHat that provides more hardening against ShellShock
+- Add patches from RedHat that provides more hardening against Shellshock
   and also fixes CVE-2014-7186
 
 * Wed Oct 09 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 4.2.45-1
