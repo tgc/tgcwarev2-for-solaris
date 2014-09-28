@@ -1,0 +1,14 @@
+[gdb]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - The GNU Debugger"
+pkgcat="application"
+pkgvendor="https://www.sourceware.org/gdb/"
+pkgdesc="A GNU source-level debugger for C, C++, Java and other languages"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_infodir
+$_mandir
+$_sharedir/gdb
+
