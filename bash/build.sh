@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=bash
 real_version=4.3
-version=4.3.27
+version=4.3.30
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/bash/$topdir-$real_version.tar.gz
 
@@ -44,7 +44,9 @@ patch[23]=bash43-024.edited
 patch[24]=bash43-025.edited
 patch[25]=bash43-026.edited
 patch[26]=bash43-027.edited
-patch[27]=bash-4.2-cve-2014-7169-2.patch
+patch[27]=bash43-028.edited
+patch[28]=bash43-029.edited
+patch[29]=bash43-030.edited
 
 # Global settings
 export CPPFLAGS="-I$prefix/include"
@@ -56,6 +58,8 @@ reg prep
 prep()
 {
     generic_prep
+    setdir source
+    ${__rm} -f y.tab.*
 }
 
 reg build
@@ -81,6 +85,7 @@ install()
     compat bash 4.2.45 1 1
     compat bash 4.3.25 1 1
     compat bash 4.3.26 1 1
+    compat bash 4.3.27 1 1
 }
 
 reg pack

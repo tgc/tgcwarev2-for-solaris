@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Wed Oct 15 2014 Tom G. Christensen <swpkg@jupiterrise.com> - 4.3.30-1
+- Update to 4.3.30
+
 * Sun Sep 28 2014 Tom G. Christensen <swpkg@jupiterrise.com> - 4.3.27-1
 - Update to 4.3.27 (replaces a RedHat patch with identical from upstream)
 
