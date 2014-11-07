@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=4.9.1
+version=4.9.2
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -77,10 +77,12 @@ install()
 		compat lib$lib 4.8.2 1 9
 		compat lib$lib 4.8.3 1 9
 		compat lib$lib 4.9.0 1 9
+		compat lib$lib 4.9.1 1 9
 	    done
 	    for lib in go5 cilkrts5
 	    do
 		compat lib$lib 4.9.0 1 9
+		compat lib$lib 4.9.1 1 9
 	    done
 	    ;;
     esac
