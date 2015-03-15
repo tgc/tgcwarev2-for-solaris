@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gettext
-version=0.18.3.1
+version=0.19.4
 pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/gettext/$topdir-$version.tar.gz
+source[0]=ftp://ftp.sunet.se/pub/gnu/gettext/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -46,6 +46,7 @@ install()
     generic_install DESTDIR
     doc NEWS README COPYING
     compat gettext 0.18.2 2 2
+    compat gettext 0.18.3.1 1 1
 }
 
 reg pack
