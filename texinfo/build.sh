@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=texinfo
-version=4.13a
+version=5.2
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=ftp://ftp.sunet.se/pub/gnu/texinfo/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -16,7 +16,6 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-topsrcdir=${topdir}-4.13
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 
@@ -42,7 +41,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc NEWS ChangeLog INTRODUCTION TODO COPYING
+    doc NEWS ChangeLog AUTHORS TODO COPYING
 }
 
 reg pack

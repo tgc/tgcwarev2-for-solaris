@@ -12,5 +12,5 @@ $_libdir
 $_mandir
 $_infodir
 $_sharedir/texinfo
-$_sharedir/locale/*/LC_MESSAGES/texinfo.mo
+$_sharedir/locale/*/LC_MESSAGES/texinfo*.mo
 
