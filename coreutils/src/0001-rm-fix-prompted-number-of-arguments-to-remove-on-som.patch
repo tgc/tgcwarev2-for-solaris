@@ -1,0 +1,160 @@
+From 7d1fe8868e29ae2644831685df4a29638721d6ba Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?P=C3=A1draig=20Brady?= <P@draigBrady.com>
+Date: Thu, 27 Nov 2014 00:51:00 +0000
+Subject: [PATCH] rm: fix prompted number of arguments to remove on some
+ platforms
+
+"zu" was output on solaris 8 for example rather than the number,
+since coreutils-8.22.
+
+* cfg.mk: Disallow %z, since we don't currently use the gnulib
+fprintf module, so any usage with it is non portable.  Also
+our usage with error() currently works only through an ancillary
+dependency on the vfprintf gnulib module.
+* src/rm.c (main): Use %PRIuMAX rather than %zu for portability.
+* src/dd.c (alloc_[io]buf): Likewise for consistency.
+* src/od.c (main): Likewise.
+* src/split.c (set_suffix_length): Likewise.
+* NEWS: Mention the rm bug fix.
+Reported in http://bugs.gnu.org/19184
+---
+ NEWS        |  3 +++
+ cfg.mk      | 17 +++++++++--------
+ src/dd.c    |  5 +++--
+ src/od.c    |  3 ++-
+ src/rm.c    | 10 +++++-----
+ src/split.c |  4 ++--
+ 6 files changed, 24 insertions(+), 18 deletions(-)
+
+diff --git a/NEWS b/NEWS
+index 27847d4..3a62656 100644
+--- a/NEWS
++++ b/NEWS
+@@ -25,6 +25,9 @@ GNU coreutils NEWS                                    -*- outline -*-
+   character at the 4GiB position.
+   [the bug dates back to the initial implementation]
+ 
++  rm indicates the correct number of arguments in its confirmation prompt,
++  on all platforms.  [bug introduced in coreutils-8.22]
++
+ ** New features
+ 
+   chroot accepts the new --skip-chdir option to not change the working directory
+diff --git a/cfg.mk b/cfg.mk
+index 7347322..ee444ba 100644
+--- a/cfg.mk
++++ b/cfg.mk
+@@ -213,14 +213,15 @@ sc_check-I18N-AUTHORS:
+ 		    '$$(LIBICONV)' 1>&2; exit 1; };			\
+ 	  done
+ 
+-# Ensure %j is not used for intmax_t as it's not universally supported.
+-# There are issues on HPUX for example.  But note that %ju was used between
+-# coreutils 8.13 (2011-10) and 8.20 (2012-10) without any reported issue,
+-# and the particular issue this check is associated with was for %*jx.
+-# So we may be able to relax this restriction soon.
+-sc_prohibit-j-printf-format:
+-	@cd $(srcdir)/src && GIT_PAGER= git grep -n '%[0*]*j[udx]' *.c	\
+-	  && { echo '$(ME): Use PRI*MAX instead of %j' 1>&2; exit 1; }  \
++# Disallow the C99 printf size specifiers %z and %j as they're not portable.
++# The gnulib printf replacement does support them, however the printf
++# replacement is not currently explicitly depended on by the gnulib error()
++# module for example.  Also we use fprintf() in a few places to output simple
++# formats but don't use the gnulib module as it is seen as overkill at present.
++# We'd have to adjust the above gnulib items before disabling this.
++sc_prohibit-c99-printf-format:
++	@cd $(srcdir)/src && GIT_PAGER= git grep -n '%[0*]*[jz][udx]' *.c    \
++	  && { echo '$(ME): Use PRI*MAX instead of %j or %z' 1>&2; exit 1; } \
+ 	  || :
+ 
+ # Ensure the alternative __attribute (keyword) form isn't used as
+diff --git a/src/dd.c b/src/dd.c
+index 78433ff..0b5a4b2 100644
+--- a/src/dd.c
++++ b/src/dd.c
+@@ -696,7 +696,7 @@ alloc_ibuf (void)
+   char *real_buf = malloc (input_blocksize + INPUT_BLOCK_SLOP);
+   if (!real_buf)
+     error (EXIT_FAILURE, 0,
+-           _("memory exhausted by input buffer of size %zu bytes (%s)"),
++           _("memory exhausted by input buffer of size %"PRIuMAX" bytes (%s)"),
+            input_blocksize, human_size (input_blocksize));
+ 
+   real_buf += SWAB_ALIGN_OFFSET;	/* allow space for swab */
+@@ -718,7 +718,8 @@ alloc_obuf (void)
+       char *real_obuf = malloc (output_blocksize + OUTPUT_BLOCK_SLOP);
+       if (!real_obuf)
+         error (EXIT_FAILURE, 0,
+-               _("memory exhausted by output buffer of size %zu bytes (%s)"),
++               _("memory exhausted by output buffer of size %"PRIuMAX
++                 " bytes (%s)"),
+                output_blocksize, human_size (output_blocksize));
+       obuf = ptr_align (real_obuf, page_size);
+     }
+diff --git a/src/od.c b/src/od.c
+index 7ac663a..79bc7fc 100644
+--- a/src/od.c
++++ b/src/od.c
+@@ -1962,7 +1962,8 @@ main (int argc, char **argv)
+     }
+ 
+ #ifdef DEBUG
+-  printf ("lcm=%d, width_per_block=%zu\n", l_c_m, width_per_block);
++  printf ("lcm=%d, width_per_block=%"PRIuMAX"\n", l_c_m,
++          (uintmax_t) width_per_block);
+   for (i = 0; i < n_specs; i++)
+     {
+       int fields_per_block = bytes_per_block / width_bytes[spec[i].size];
+diff --git a/src/rm.c b/src/rm.c
+index f7adf5b..4c8ee6e 100644
+--- a/src/rm.c
++++ b/src/rm.c
+@@ -332,18 +332,18 @@ main (int argc, char **argv)
+                quote ("/"));
+     }
+ 
+-  size_t n_files = argc - optind;
++  uintmax_t n_files = argc - optind;
+   char **file =  argv + optind;
+ 
+   if (prompt_once && (x.recursive || 3 < n_files))
+     {
+       fprintf (stderr,
+                (x.recursive
+-                ? ngettext ("%s: remove %zu argument recursively? ",
+-                            "%s: remove %zu arguments recursively? ",
++                ? ngettext ("%s: remove %"PRIuMAX" argument recursively? ",
++                            "%s: remove %"PRIuMAX" arguments recursively? ",
+                             select_plural (n_files))
+-                : ngettext ("%s: remove %zu argument? ",
+-                            "%s: remove %zu arguments? ",
++                : ngettext ("%s: remove %"PRIuMAX" argument? ",
++                            "%s: remove %"PRIuMAX" arguments? ",
+                             select_plural (n_files))),
+                program_name, n_files);
+       if (!yesno ())
+diff --git a/src/split.c b/src/split.c
+index ec0da7d..0eec3ec 100644
+--- a/src/split.c
++++ b/src/split.c
+@@ -158,7 +158,7 @@ set_suffix_length (uintmax_t n_units, enum Split_type split_type)
+ {
+ #define DEFAULT_SUFFIX_LENGTH 2
+ 
+-  size_t suffix_needed = 0;
++  uintmax_t suffix_needed = 0;
+ 
+   /* The suffix auto length feature is incompatible with
+      a user specified start value as the generated suffixes
+@@ -183,7 +183,7 @@ set_suffix_length (uintmax_t n_units, enum Split_type split_type)
+       if (suffix_length < suffix_needed)
+         {
+           error (EXIT_FAILURE, 0,
+-                 _("the suffix length needs to be at least %zu"),
++                 _("the suffix length needs to be at least %"PRIuMAX),
+                  suffix_needed);
+         }
+       suffix_auto = false;
+-- 
+2.3.1
+

@@ -6,11 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=coreutils
-version=8.21
+version=8.23
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/coreutils/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=0001-rm-fix-prompted-number-of-arguments-to-remove-on-som.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
