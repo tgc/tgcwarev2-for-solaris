@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=wget
-version=1.15
+version=1.16.2
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/wget/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
@@ -18,7 +18,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/wget/$topdir-$version.tar.xz
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args+=(--with-ssl=openssl)
+configure_args+=(--with-ssl=openssl --with-libssl-prefix=$prefix)
 
 reg prep
 prep()
