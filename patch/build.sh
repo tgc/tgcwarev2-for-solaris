@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=patch
-version=2.7.1
+version=2.7.5
 pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/patch/$topdir-$version.tar.bz2
+source[0]=ftp://ftp.sunet.se/pub/gnu/patch/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
