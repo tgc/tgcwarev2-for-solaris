@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Thu Mar 19 2015 Tom G. Christensen <swpkg@jupiterrise.com> - 2.3.3-1
+- Update to 2.3.3
+
 * Tue Jan 20 2015 Tom G. Christensen <swpkg@jupiterrise.com> - 2.2.2-1
 - Update to 2.2.2
 - Fix git-gui support for Tcl 8.4 (from Kyle J. McKay)
