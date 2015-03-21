@@ -6,12 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=sudo
-version=1.8.10p2
+version=1.8.12
 pkgver=1
 source[0]=http://www.sudo.ws/sudo/dist/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=sudo-1.8.10p2-fix-ssp-link.patch
-patch[1]=sudo-1.8.10p2-inet_ntoa.patch
+patch[0]=sudo-1.8.12-netlibs-link.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -19,12 +18,15 @@ patch[1]=sudo-1.8.10p2-inet_ntoa.patch
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-configure_args+=(--sysconfdir=/usr/tgcware/etc --with-man)
+configure_args+=(--sysconfdir=/usr/tgcware/etc --with-man --with-all-insults)
 
 reg prep
 prep()
 {
     generic_prep
+    setdir source
+    ${__gsed} -i "/^install_uid/ s/0/$(id -u)/" Makefile.in
+    ${__gsed} -i "/^install_gid/ s/0/$(id -u)/" Makefile.in
 }
 
 reg build
@@ -44,6 +46,8 @@ install()
 {
     generic_install DESTDIR
     ${__mv} ${stagedir}${prefix}/share/doc/sudo ${stagedir}${prefix}/${_vdocdir}
+    ${__mv} ${stagedir}${prefix}/share/examples/sudo ${stagedir}${prefix}/${_vdocdir}/examples
+    ${__rmdir} ${stagedir}${prefix}/share/examples
 }
 
 reg pack

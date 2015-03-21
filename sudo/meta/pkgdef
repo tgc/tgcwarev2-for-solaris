@@ -9,13 +9,12 @@ files(755,root,sys)
 dir var
 dir usr
 dir $lprefix
-files(755,root,other)
+files(755,root,sys)
 dir var/run
 files(775,root,sys)
 dir var/adm
-files(700,root,root)
-dir var/adm/sudo
 files(711,root,root)
+dir var/adm/sudo
 dir var/run/sudo
 files(750,root,root)
 dir $lprefix/$_sysconfdir/sudoers.d
@@ -31,6 +30,8 @@ files(755,root,root)
 dir $lprefix/libexec/sudo
 files(644,root,root)
 $lprefix/libexec/sudo/*.so
+$lprefix/libexec/sudo/libsudo_util.so.*
+$lprefix/libexec/sudo/*.la
 files(-,root,bin)
 default_docs
 $lprefix/$_includedir
