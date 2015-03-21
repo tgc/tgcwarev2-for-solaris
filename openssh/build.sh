@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=6.7p1
+version=6.8p1
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
