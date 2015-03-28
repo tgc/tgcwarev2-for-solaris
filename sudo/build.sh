@@ -7,10 +7,11 @@
 # Check the following 4 variables before running the script
 topdir=sudo
 version=1.8.12
-pkgver=1
+pkgver=2
 source[0]=http://www.sudo.ws/sudo/dist/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=sudo-1.8.12-netlibs-link.patch
+patch[1]=sudo-1.8.12-ssp-link.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions

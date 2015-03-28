@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sat Mar 28 2015 Tom G. Christensen <swpkg@jupiterrise.com> - 1.8.12-2
+- Fix build on Solaris/x86 with gcc < 4.9
+
 * Fri Mar 20 2015 Tom G. Christensen <swpkg@jupiterrise.com> - 1.8.12-1
 - Update to 1.8.12
 
