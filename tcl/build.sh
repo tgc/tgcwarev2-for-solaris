@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tcl
-version=8.5.13
+version=8.5.18
 pkgver=1
 source[0]=http://prdownloads.sourceforge.net/tcl/$topdir${version}-src.tar.gz
 # If there are no patches, simply comment this
@@ -60,6 +60,8 @@ install()
     # Cleanup references to the build
     ${__gsed} -i "s|${srcdir}/${topsrcdir}/unix|${prefix}/${_libdir}|" ${stagedir}${prefix}/${_libdir}/tclConfig.sh
     ${__gsed} -i "s|${srcdir}/${topsrcdir}|${prefix}/${_includedir}/tcl-private|" ${stagedir}${prefix}/${_libdir}/tclConfig.sh
+
+    compat tcl 8.5.13 1 1
 }
 
 reg pack

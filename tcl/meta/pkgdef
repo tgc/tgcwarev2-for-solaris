@@ -26,5 +26,6 @@ files(-,root,bin)
 $_includedir
 $_libdir/libtcl.so
 $_libdir/*.a
+$_libdir/pkgconfig/tcl.pc
 $_mandir/?a?[3n]
 
