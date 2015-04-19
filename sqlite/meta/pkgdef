@@ -1,0 +1,24 @@
+[sqlite]
+pkgname="${pkgprefix}sqlit"
+name="$topdir - SQL database engine"
+pkgcat="application"
+pkgvendor="http://www.sqlite.org"
+pkgdesc="Library that implements an embeddable SQL database engine"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/sqlite3
+$_libdir/libsqlite3.so.*
+$_mandir/man1/sqlite3.1*
+
+[sqlite-devel]
+pkgname="${pkgprefix}sqlitd"
+name="$topdir-devel - sqlite development support"
+pkgcat="application"
+pkgvendor="http://www.sqlite.org"
+pkgdesc="Files needed for developing with sqlite"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/libsqlite3.so
+$_libdir/pkgconfig/sqlite3.pc
+$_includedir/sqlite*
+
