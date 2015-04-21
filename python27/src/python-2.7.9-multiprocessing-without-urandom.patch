@@ -1,0 +1,34 @@
+Patch based on http://bugs.python.org/issue6645
+
+--- Python-2.7.9/Lib/multiprocessing/process.py.nourandom	2014-12-10 16:59:39.000000000 +0100
++++ Python-2.7.9/Lib/multiprocessing/process.py	2015-04-20 08:20:38.663871000 +0200
+@@ -306,7 +306,12 @@
+         self._popen = None
+         self._counter = itertools.count(1)
+         self._children = set()
+-        self._authkey = AuthenticationString(os.urandom(32))
++        try:
++            self._authkey = AuthenticationString(os.urandom(32))
++        except:
++            import random
++            bytes = [chr(random.randrange(256)) for i in range(32)]
++            self._authkey = AuthenticationString(bytes)
+         self._tempdir = None
+ 
+ _current_process = _MainProcess()
+--- Python-2.7.9/Lib/multiprocessing/connection.py.nourandom	2014-12-10 16:59:39.000000000 +0100
++++ Python-2.7.9/Lib/multiprocessing/connection.py	2015-04-20 08:21:05.113976000 +0200
+@@ -412,7 +412,12 @@
+ def deliver_challenge(connection, authkey):
+     import hmac
+     assert isinstance(authkey, bytes)
+-    message = os.urandom(MESSAGE_LENGTH)
++    try:
++        message = os.urandom(MESSAGE_LENGTH)
++    except:
++        import random
++        bytes = [chr(random.randrange(256)) for i in range(MESSAGE_LENGTH)]
++        self._authkey = AuthenticationString(bytes)
+     connection.send_bytes(CHALLENGE + message)
+     digest = hmac.new(authkey, message).digest()
+     response = connection.recv_bytes(256)        # reject large message

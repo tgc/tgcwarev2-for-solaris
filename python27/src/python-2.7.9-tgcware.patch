@@ -1,0 +1,16 @@
+--- Python-2.7.9/setup.py.tgcware	2014-12-10 17:00:01.000000000 +0100
++++ Python-2.7.9/setup.py	2015-03-21 13:24:40.240267000 +0100
+@@ -438,10 +438,10 @@
+             os.unlink(tmpfile)
+ 
+     def detect_modules(self):
+-        # Ensure that /usr/local is always used
++        # Ensure that /usr/tgcware is always used
+         if not cross_compiling:
+-            add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
+-            add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
++            add_dir_to_list(self.compiler.library_dirs, '/usr/tgcware/lib')
++            add_dir_to_list(self.compiler.include_dirs, '/usr/tgcware/include')
+         if cross_compiling:
+             self.add_gcc_paths()
+         self.add_multiarch_paths()
