@@ -24,5 +24,6 @@ files(-,root,bin)
 $_includedir
 $_libdir/libtk.so
 $_libdir/*.a
+$_libdir/pkgconfig/tk.pc
 $_mandir/?a?[3n]
 
