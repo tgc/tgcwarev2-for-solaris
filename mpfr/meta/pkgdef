@@ -15,7 +15,7 @@ pkgname="${pkgprefix}${topdir}d"
 name="${topdir}-devel - Development support for mpfr"
 pkgcat="system"
 pkgvendor="http://www.mpfr.org"
-pkgdesc="Files need for developing with mpfr"
+pkgdesc="Files needed for developing with mpfr"
 pkgver="$pkgver"
 files(-,root,bin)
 $_libdir/*.so
