@@ -1,0 +1,92 @@
+From 5af04e20f6333dc224d1668dcd433d7c8ca84e71 Mon Sep 17 00:00:00 2001
+From: Joel Brobecker <brobecker@adacore.com>
+Date: Tue, 14 Oct 2014 12:47:43 -0400
+Subject: [PATCH] Use strtod instead of strtold in libiberty/d-demangle.c
+
+strtold is currently used to decode templates which have a floating-point
+value encoded inside; but this routine is not available on some systems,
+such as Solaris 2.9 for instance.
+
+This patch fixes the issue by replace the use of strtold by strtod.
+It reduces a bit the precision, but it should still remain acceptable
+in most cases.
+
+libiberty/ChangeLog:
+
+        * d-demangle.c: Replace strtold with strtod in global comment.
+        (strtold): Remove declaration.
+        (strtod): New declaration.
+        (dlang_parse_real): Declare value as double instead of long
+        double.  Replace call to strtold by call to strtod.
+        Update format in call to snprintf.
+---
+ libiberty/ChangeLog    |  9 +++++++++
+ libiberty/d-demangle.c | 10 +++++-----
+ 2 files changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/libiberty/ChangeLog b/libiberty/ChangeLog
+index 829f684..9e91cce 100644
+--- a/libiberty/ChangeLog
++++ b/libiberty/ChangeLog
+@@ -1,3 +1,12 @@
++2014-10-16  Joel Brobecker  <brobecker@adacore.com>
++
++	* d-demangle.c: Replace strtold with strtod in global comment.
++	(strtold): Remove declaration.
++	(strtod): New declaration.
++	(dlang_parse_real): Declare value as double instead of long
++	double.  Replace call to strtold by call to strtod.
++	Update format in call to snprintf.
++
+ 2014-09-26  Jason Merrill  <jason@redhat.com>
+ 
+ 	* cp-demangle.c (d_substitution): Handle abi tags on abbreviation.
+diff --git a/libiberty/d-demangle.c b/libiberty/d-demangle.c
+index d31bf94..bb481c0 100644
+--- a/libiberty/d-demangle.c
++++ b/libiberty/d-demangle.c
+@@ -28,7 +28,7 @@ If not, see <http://www.gnu.org/licenses/>.  */
+ 
+ /* This file exports one function; dlang_demangle.
+ 
+-   This file imports strtol and strtold for decoding mangled literals.  */
++   This file imports strtol and strtod for decoding mangled literals.  */
+ 
+ #ifdef HAVE_CONFIG_H
+ #include "config.h"
+@@ -44,7 +44,7 @@ If not, see <http://www.gnu.org/licenses/>.  */
+ #include <stdlib.h>
+ #else
+ extern long strtol (const char *nptr, char **endptr, int base);
+-extern long double strtold (const char *nptr, char **endptr);
++extern double strtod (const char *nptr, char **endptr);
+ #endif
+ 
+ #include <demangle.h>
+@@ -810,7 +810,7 @@ dlang_parse_real (string *decl, const char *mangled)
+ {
+   char buffer[64];
+   int len = 0;
+-  long double value;
++  double value;
+   char *endptr;
+ 
+   /* Handle NAN and +-INF.  */
+@@ -877,12 +877,12 @@ dlang_parse_real (string *decl, const char *mangled)
+ 
+   /* Convert buffer from hexadecimal to floating-point.  */
+   buffer[len] = '\0';
+-  value = strtold (buffer, &endptr);
++  value = strtod (buffer, &endptr);
+ 
+   if (endptr == NULL || endptr != (buffer + len))
+     return NULL;
+ 
+-  len = snprintf (buffer, sizeof(buffer), "%#Lg", value);
++  len = snprintf (buffer, sizeof(buffer), "%#g", value);
+   string_appendn (decl, buffer, len);
+   return mangled;
+ }
+-- 
+1.9.4
+

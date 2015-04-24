@@ -6,11 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=binutils
-version=2.23.1
+version=2.25
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/binutils/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=binutils-2.25-use-strtod-instead-of-strtold.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -45,6 +45,7 @@ install()
     ${__rm} -f ${stagedir}${prefix}/${_mandir}/man1/g{dlltool,nlmconv,windres,windmc}*
     doc COPYING*
     compat binutils 2.22 1 6
+    compat binutils 2.23.1 1 1
 }
 
 reg pack
