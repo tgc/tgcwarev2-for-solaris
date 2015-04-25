@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=mpc
-version=1.0.1
-pkgver=2
+version=1.0.3
+pkgver=1
 source[0]=http://multiprecision.org/mpc/download/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -42,6 +42,8 @@ install()
 {
     generic_install DESTDIR
     doc README NEWS COPYING.LESSER AUTHORS
+
+    compat mpc 1.0.1 1 2
 }
 
 reg pack
