@@ -1,5 +1,11 @@
 CHANGELOG
 ---------
+* Sat Jun 06 2015 Tom G. Christensen <swpkg@jupiterrise.com> - 3.8.10.2-1
+- Update to 3.8.10.2
+
+* Sat May 09 2015 Tom G. Christensen <swpkg@jupiterrise.com> - 3.8.10-1
+- Update to 3.8.10 (fixes CVE-2015-3414, CVE-2015-3415, CVE-2015-3416)
+
 * Sat Mar 21 2015 Tom G. Christensen <swpkg@jupiterrise.com> - 3.8.8.3-1
 - Update to 3.8.8.3
 

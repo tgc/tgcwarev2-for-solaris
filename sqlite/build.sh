@@ -6,9 +6,10 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=sqlite
-version=3.8.8.3
+version=3.8.10.2
+shortver=3081002
 pkgver=1
-source[0]=http://www.sqlite.org/2015/sqlite-autoconf-3080803.tar.gz
+source[0]=http://www.sqlite.org/2015/sqlite-autoconf-${shortver}.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -20,7 +21,7 @@ export CFLAGS="-O2 -g -D__EXTENSIONS__"
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 configure_args+=(--disable-static)
-topsrcdir=sqlite-autoconf-3080803
+topsrcdir=sqlite-autoconf-${shortver}
 
 reg prep
 prep()
@@ -44,6 +45,8 @@ reg install
 install()
 {
     generic_install DESTDIR
+    compat sqlite 3.8.8.3 1 1
+    compat sqlite 3.8.10 1 1
 }
 
 reg pack
