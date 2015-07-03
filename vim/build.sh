@@ -4,8 +4,8 @@
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
-hgrev=e026e4f106a5
-patchlevel=703
+hgrev=d3a23af4bba1
+patchlevel=768
 basever=7.4
 # Check the following 4 variables before running the script
 topdir=vim

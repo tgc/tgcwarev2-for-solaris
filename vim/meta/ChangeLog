@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Fri Jul 03 2015 Tom G. Christensen <swpkg@jupiterrise.com> - 7.4.768-1
+- Update to 7.4.768 (HG d3a23af4bba1)
+
 * Tue Apr 21 2015 Tom G. Christensen <swpkg@jupiterrise.com> - 7.4.703-1
 - Update to 7.4.703 (HG e026e4f106a5)
   This includes updates to the runtime parts
