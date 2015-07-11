@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=1.0.1o
-pkgver=9
+version=1.0.1p
+pkgver=10
 source[0]=http://openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -25,7 +25,7 @@ make_check_target="test"
 __configure="./Configure"
 configure_args=(--prefix=$prefix --openssldir=${prefix}/${_sharedir}/ssl zlib-dynamic shared)
 if [ "$arch" = "sparc" ]; then
-    configure_args+=(solaris-sparcv9-gcc)
+    configure_args+=(solaris-sparc${gcc_arch}-gcc)
 else
     configure_args+=(no-sse2 solaris-x86-gcc)
 fi
@@ -113,6 +113,7 @@ install()
     compat openssl 1.0.1j 6 6
     compat openssl 1.0.1k 7 7
     compat openssl 1.0.1m 8 8
+    compat openssl 1.0.1o 9 9
 }
 
 reg pack
