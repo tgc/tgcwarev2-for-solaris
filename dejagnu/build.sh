@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=dejagnu
-version=1.5.2
+version=1.5.3
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/dejagnu/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
