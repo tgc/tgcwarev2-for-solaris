@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=4.9.2
+version=4.9.3
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -70,22 +70,13 @@ install()
     doc COPYING* MAINTAINERS NEWS
 
     # Compatibility information
-    case $build_arch in
-	sparc|i386)
-	    for lib in gcc_s1 stdc++6 ssp0 gomp1 atomic1 itm1 quadmath0 gfortran3 objc4
-	    do
-		compat lib$lib 4.8.2 1 9
-		compat lib$lib 4.8.3 1 9
-		compat lib$lib 4.9.0 1 9
-		compat lib$lib 4.9.1 1 9
-	    done
-	    for lib in go5 cilkrts5
-	    do
-		compat lib$lib 4.9.0 1 9
-		compat lib$lib 4.9.1 1 9
-	    done
-	    ;;
-    esac
+    for lib in $(${__gsed} -n '/^\[lib/ s/^\[lib\([^]]*\)\]$/\1/p' $metadir/pkgdef* | sort -u)
+    do
+	for gccver in $(gcc_compat lib$lib)
+	do
+	    compat lib$lib $gccver 1 9
+	done
+    done
 }
 
 reg check
