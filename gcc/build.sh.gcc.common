@@ -40,10 +40,11 @@ fi
 # 4.3.6: libstdc++.so.6, libgcc_s.so.1, libobjc.so.2, libgfortran.so.3, libssp.so.0, libgomp.so.1
 # 4.4.7: libstdc++.so.6, libgcc_s.so.1, libobjc.so.2, libgfortran.so.3, libssp.so.0, libgomp.so.1
 # 4.5.4: libstdc++.so.6, libgcc_s.so.1, libobjc.so.2, libgfortran.so.3, libssp.so.0, libgomp.so.1
-# 4.6.x: libstdc++.so.6, libgcc_s.so.1, libobjc.so.3, libgfortran.so.3, libssp.so.0, libgomp.so.1
-# 4.7.x: libstdc++.so.6, libgcc_s.so.1, libobjc.so.4, libgfortran.so.3, libssp.so.0, libgomp.so.1, libgo.so.0, libitm.so.1, libquadmath.so.0 (x86)
-# 4.8.x: libstdc++.so.6, libgcc_s.so.1, libobjc.so.4, libgfortran.so.3, libssp.so.0, libgomp.so.1, libgo.so.3, libitm.so.1, libquadmath.so.0 (x86), libatomic.so.1
+# 4.6.4: libstdc++.so.6, libgcc_s.so.1, libobjc.so.3, libgfortran.so.3, libssp.so.0, libgomp.so.1
+# 4.7.4: libstdc++.so.6, libgcc_s.so.1, libobjc.so.4, libgfortran.so.3, libssp.so.0, libgomp.so.1, libgo.so.0, libitm.so.1, libquadmath.so.0 (x86)
+# 4.8.5: libstdc++.so.6, libgcc_s.so.1, libobjc.so.4, libgfortran.so.3, libssp.so.0, libgomp.so.1, libgo.so.3, libitm.so.1, libquadmath.so.0 (x86), libatomic.so.1
 # 4.9.x: libstdc++.so.6, libgcc_s.so.1, libobjc.so.4, libgfortran.so.3, libssp.so.0, libgomp.so.1, libgo.so.5, libitm.so.1, libquadmath.so.0 (x86), libatomic.so.1, libcilkrts.so.5
+# See also the SQLite database versions.db
 
 # Global settings
 __configure="../$topsrcdir/configure"
@@ -51,6 +52,8 @@ make_build_target=bootstrap
 
 # Define abbreviated version number (for pkgdef)
 abbrev_ver=$(echo $version | ${__tr} -d '.')
+# Make sure 2.95.3 < 3.0.0 (295 < 300)
+[ $abbrev_ver -eq 2953 ] && abbrev_ver=295
 # Just major.minor, no subminors
 majorminor=$(echo $version | cut -d. -f1-2)
 abbrev_majorminor=$(echo $majorminor | tr -d '.')
@@ -335,6 +338,31 @@ redo_libs()
 	    echo "redo_libs: unknown $build_arch"
 	    ;;
     esac
+}
+
+# Easily find compat information for gcc libraries
+# params: $1 = section name, $2 = gccver (optional), $3 = build_arch (optional)
+# This will return a list of versions before gccver that contained the section name in pkgdef
+# it defaults to using the current values of $version and $build_arch.
+# Note that this function depends on an SQLite database.
+# Failure to access the database will result in an error.
+gcc_compat()
+{
+    local section=$1 gccver=${2:-$version} gccarch=${3:-$build_arch}
+    local db=${BUILDPKG_BASE}/gcc/versions.db
+
+    type -p sqlite3 > /dev/null || { echo "gcc_compat: unable to find sqlite command"; exit 1; }
+    [ -r $db ] || { echo "gcc_compat: unable to find sqlite database"; exit 1; }
+
+    # As a sanity check, verify that we have information for the reference $gccver
+    if [ -z "$(sqlite3 $db "SELECT gccver FROM releases WHERE gccver = \"$gccver\" AND gnuosver = \"$gnu_os_ver\" AND arch = \"$gccarch\";")" ];
+    then
+        echo "gcc_compat: did not find section name information for $gccver, perhaps you need to update the database?"
+        exit 1
+    fi
+
+    # Output gcc versions to stdout
+    sqlite3 $db "SELECT gccver FROM releases WHERE gnuosver = \"$gnu_os_ver\" AND arch = \"$gccarch\" AND section=\"$section\" AND CAST(replace(gccver,'.','') as INTEGER) < \"$abbrev_ver\" ORDER BY gccver;"
 }
 
 # vim: set sw=4 sts=4 et ft=sh : #
