@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=grep
-version=2.21
+version=2.22
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/grep/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
