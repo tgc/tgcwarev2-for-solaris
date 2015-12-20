@@ -6,13 +6,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=python
-version=2.7.10
+version=2.7.11
 pkgver=1
 source[0]=https://www.python.org/ftp/python/$version/Python-$version.tar.xz
 # If there are no patches, simply comment this
-patch[0]=python-2.7.9-mmap-fcntl_h.patch
-patch[1]=python-2.7.9-tgcware.patch
-patch[2]=python-2.7.9-multiprocessing-without-urandom.patch
+patch[0]=python-2.7.9-tgcware.patch
+patch[1]=python-2.7.9-multiprocessing-without-urandom.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -83,6 +82,10 @@ install()
     compat python27-libs 2.7.9 1 1
     compat python27-tkinter 2.7.9 1 1
     compat python27-tools 2.7.9 1 1
+    compat python27 2.7.10 1 1
+    compat python27-libs 2.7.10 1 1
+    compat python27-tkinter 2.7.10 1 1
+    compat python27-tools 2.7.10 1 1
 }
 
 reg pack
