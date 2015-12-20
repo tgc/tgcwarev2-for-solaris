@@ -22,6 +22,7 @@ $_vdocdir/docs/TheArtOfHttpScripting
 $_bindir/curl
 $_mandir/?a?1
 $_libdir/libcurl.so.*
+$_sharedir/zsh/site-functions/_curl
 
 [curl-devel]
 pkgname="${pkgprefix}${topdir}d"
