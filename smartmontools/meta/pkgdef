@@ -1,0 +1,20 @@
+[smartmontools]
+pkgname="${pkgprefix}smont"
+name="$topdir - tools for monitoring SMART capable hard disks"
+pkgcat="application"
+pkgvendor="https://www.smartmontools.org/"
+pkgdesc="Control and monitor storage systems using the SMART System"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_sysconfdir/smartd_warning.sh
+dir $_sysconfdir/smartd_warning.d
+$_sbindir/smartctl
+$_sbindir/smartd
+$_sbindir/update-smart-drivedb
+$_sharedir/$topdir/drivedb.h
+$_mandir/man1m/smartctl.*
+$_mandir/man1m/smartd.*
+$_mandir/man1m/update-smart-drivedb.*
+$_mandir/man4/smartd.conf.*
+
