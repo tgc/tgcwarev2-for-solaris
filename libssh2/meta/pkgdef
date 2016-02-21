@@ -1,0 +1,24 @@
+[libssh2]
+pkgname="${pkgprefix}lssh2"
+name="$topdir - library implementing the SSH2 protocol"
+pkgcat="application"
+pkgvendor="http://www.libssh2.org/"
+pkgdesc="A client-side C library implementing the SSH2 protocol"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/*.so.*
+
+[libssh2-devel]
+pkgname="${pkgprefix}lssh2d"
+name="${topdir}-devel - Development support for libssh2 "
+pkgcat="application"
+pkgvendor="http://www.libssh2.org/"
+pkgdesc="Files needed for developing with libssh2"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir
+$_libdir/pkgconfig/libssh2.pc
+$_libdir/libssh2.so
+$_mandir/man3/libssh2*
+
