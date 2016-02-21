@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.46.0
+version=7.47.1
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -19,7 +19,7 @@ source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 
-configure_args+=(--enable-static=no --enable-http --enable-ftp --enable-file --disable-ldap --enable-manual --enable-cookies --enable-crypto --with-libidn)
+configure_args+=(--enable-static=no --enable-http --enable-ftp --enable-file --disable-ldap --enable-manual --enable-cookies --enable-crypto --with-libidn --with-libssh2)
 
 reg prep
 prep()
@@ -58,6 +58,7 @@ install()
     compat curl 7.42.0 1 1
     compat curl 7.42.1 1 1
     compat curl 7.44.1 1 1
+    compat curl 7.46.0 1 1
 }
 
 reg pack
