@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=bison
-version=2.6
+version=3.0.4
 pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/bison/$topdir-$version.tar.xz
+source[0]=ftp://ftp.heanet.ie/pub/gnu/bison/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -41,7 +41,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc ChangeLog TODO COPYING AUTHORS THANKS NEWS
+    # Move docdir to versioned ditto
+    ${__mv} ${stagedir}${prefix}/${_docdir}/bison ${stagedir}${prefix}/${_vdocdir}
 }
 
 reg pack
