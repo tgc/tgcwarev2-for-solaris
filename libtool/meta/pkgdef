@@ -1,0 +1,50 @@
+[libtool]
+pkgname="${pkgprefix}lt"
+name="$topdir - The GNU Portable Library Tool"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/libtool/"
+pkgdesc="Libtool provides a consistent, portable interface which simplifies the process of using shared libraries"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir/libtool
+$_bindir/libtoolize
+$_sharedir/aclocal/*.m4
+$_sharedir/libtool/build-aux
+$_infodir/libtool.info*
+$_mandir/man1/libtool*
+
+[libtool-ltdl]
+pkgname="${pkgprefix}ltdl"
+name="${topdir}-ltdl - The GNU Libtool Dynamic Module Loader"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/libtool/"
+pkgdesc="a library that provides a consistent, portable interface which simplifies the process of using dynamic modules"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/libltdl.so.7*
+
+[libtool-ltdl-devel]
+pkgname="${pkgprefix}ltdld"
+name="${topdir}-ltdl-devel - Development support for libtool-ltdl"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/libtool/"
+pkgdesc="Files needed for developing with libtool-ltdl"
+pkgver="$pkgver"
+files(-,root,bin)
+$_libdir/libltdl.so
+$_libdir/libltdl.a
+$_includedir/ltdl.h
+$_includedir/libltdl
+$_sharedir/libtool/libltdl
+$_sharedir/libtool/loaders
+$_sharedir/libtool/ltdl.*
+$_sharedir/libtool/lt_*.c
+$_sharedir/libtool/slist.c
+$_sharedir/libtool/Makefile*
+$_sharedir/libtool/config*
+$_sharedir/libtool/aclocal.m4
+$_sharedir/libtool/README
+$_sharedir/libtool/COPYING.LIB
+
