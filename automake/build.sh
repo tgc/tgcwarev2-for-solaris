@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=automake
-version=1.12
+version=1.15
 pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/automake/$topdir-$version.tar.xz
+source[0]=ftp://ftp.heanet.ie/pub/gnu/automake/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
