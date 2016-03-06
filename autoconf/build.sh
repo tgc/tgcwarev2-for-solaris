@@ -8,7 +8,7 @@
 topdir=autoconf
 version=2.69
 pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/autoconf/$topdir-$version.tar.xz
+source[0]=ftp://ftp.heanet.ie/pub/gnu/autoconf/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
