@@ -1,0 +1,12 @@
+[links]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - Web browser running in text mode"
+pkgcat="application"
+pkgvendor="http://links.twibright.com/"
+pkgdesc="Web browser running in text mode"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir/links
+$_mandir/man1/links.1*
+
