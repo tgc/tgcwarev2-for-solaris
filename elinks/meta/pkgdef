@@ -1,0 +1,14 @@
+[elinks]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - A text-mode Web browser"
+pkgcat="application"
+pkgvendor="http://change.me/please"
+pkgdesc="Elinks is a text-based Web browser"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir/elinks
+$_sharedir/locale/*/LC_MESSAGES/elinks.mo
+$_mandir/man1/elinks.1*
+$_mandir/man5/elinks*.5*
+

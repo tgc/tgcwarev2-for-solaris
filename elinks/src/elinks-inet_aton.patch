@@ -1,0 +1,11 @@
+--- elinks-4efea7e/configure.in.orig	2016-02-07 11:51:17.000000000 +0100
++++ elinks-4efea7e/configure.in	2016-03-05 20:30:29.360017000 +0100
+@@ -403,6 +403,8 @@
+ 		AC_DEFINE_UNQUOTED(XTERM, "$withval", [How to invoke XTerm])
+ 	      fi ])
+ 
++AC_SEARCH_LIBS([inet_aton], [resolv nsl])
++
+ # ===================================================================
+ # Checks for a libraries, optional even if installed.
+ # ===================================================================
