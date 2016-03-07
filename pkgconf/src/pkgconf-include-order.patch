@@ -1,0 +1,15 @@
+--- pkgconf-0.9.12-56-g7e6fa32/libpkgconf/bsdstubs.c.orig	2016-01-21 17:16:39.000000000 +0100
++++ pkgconf-0.9.12-56-g7e6fa32/libpkgconf/bsdstubs.c	2016-03-05 18:10:11.010001000 +0100
+@@ -17,11 +17,10 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
++#include <libpkgconf/config.h>
+ #include <sys/types.h>
+ #include <string.h>
+-
+ #include <libpkgconf/bsdstubs.h>
+-#include <libpkgconf/config.h>
+ 
+ #ifndef HAVE_STRLCPY
+ 

@@ -1,0 +1,11 @@
+--- pkgconf-0.9.12-56-g7e6fa32/Makefile.am.orig	2016-01-21 17:16:39.000000000 +0100
++++ pkgconf-0.9.12-56-g7e6fa32/Makefile.am	2016-03-05 17:55:49.610012000 +0100
+@@ -72,7 +72,7 @@
+ pkgconf_SOURCES  = main.c getopt_long.c
+ noinst_HEADERS   = getopt_long.h
+ 
+-dist_doc_DATA = README.md AUTHORS
++dist_doc_DATA = README.md AUTHORS NEWS COPYING
+ 
+ m4datadir              = $(datadir)/aclocal
+ m4data_DATA            = pkg.m4
