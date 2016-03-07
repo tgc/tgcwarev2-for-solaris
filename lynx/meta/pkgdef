@@ -1,0 +1,13 @@
+[lynx]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - A text-based Web browser"
+pkgcat="application"
+pkgvendor="http://lynx.invisible-island.net/"
+pkgdesc="Lynx is a text-based Web browser"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir/lynx
+$_sysconfdir/lynx.*
+$_mandir/man1/lynx.1*
+
