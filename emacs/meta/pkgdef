@@ -1,0 +1,43 @@
+[emacs-common]
+pkgname="${pkgprefix}${topdir}c"
+name="${topdir}-common - Emacs common files"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/emacs/"
+pkgdesc="This package contains all the common files needed by emacs or emacs-nox."
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir/ebrowse
+$_bindir/emacsclient
+$_bindir/etags
+$_bindir/gctags
+$_bindir/grep-changelog
+$_mandir/man?/*
+$_infodir/*
+$_sharedir/emacs
+libexec/emacs
+
+[emacs]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - GNU Emacs text editor"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/emacs/"
+pkgdesc="This package provides an emacs binary with support for X windows."
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/emacs
+$_bindir/emacs-$version
+$_sharedir/applications/emacs.desktop
+$_sharedir/icons
+
+[emacs-nox]
+pkgname="${pkgprefix}${topdir}n"
+name="${topdir}-nox - GNU Emacs text editor without X support"
+pkgcat="application"
+pkgvendor="http://www.gnu.org/software/emacs/"
+pkgdesc="This package provides an emacs binary with no X windows support."
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/emacs-nox
+$_bindir/emacs-${version}-nox
+
