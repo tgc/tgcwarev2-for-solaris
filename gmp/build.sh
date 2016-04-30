@@ -6,10 +6,10 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gmp
-real_version=6.0.0
-version=${real_version}a
+real_version=6.1.0
+version=${real_version}
 pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.xz
+source[0]=http://ftp.download-by.net/gnu/gnu/gmp/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 patch[0]=gmp-5.1.2-no-c99-trunc.patch
 
@@ -53,6 +53,7 @@ install()
     compat gmp 5.0.5 1 4
     compat gmp 5.1.2 1 1
     compat gmp 5.1.3 1 1
+    compat gmp 6.0.0a 1 1
 }
 
 reg pack
