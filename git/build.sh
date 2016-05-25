@@ -6,17 +6,13 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=2.8.1
+version=2.8.3
 pkgver=1
 source[0]=https://www.kernel.org/pub/software/scm/git/$topdir-$version.tar.gz
 source[1]=https://www.kernel.org/pub/software/scm/git/$topdir-manpages-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=git-1.8.1.5-inet_addrstrlen.patch
 patch[1]=git-2.6.3-stdint_h.patch
-patch[2]=git-2.8.1-avoid-null-with-printf.patch
-patch[3]=git-2.8.1-lower-case-error-strings.patch
-patch[4]=git-2.8.1-all-non-zero-returns.patch
-patch[5]=git-2.8.1-handle-unset-errors.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
