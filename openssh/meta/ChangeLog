@@ -1,5 +1,10 @@
 CHANGELOG
 ---------
+* Wed Aug 03 2016 Tom G. Christensen <swpkg@jupiterrise.com> - 7.3p1-1
+- Update to 7.3p1
+- Include upstream patch to fix issue when ssh1 support is enabled
+  but no ssh1 hostkey is specified
+
 * Fri Mar 11 2016 Tom G. Christensen <swpkg@jupiterrise.com> - 7.2p2-1
 - Update to 7.2p2
 

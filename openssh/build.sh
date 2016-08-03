@@ -6,11 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=7.2p2
+version=7.3p1
 pkgver=1
 source[0]=ftp://ftp.heanet.ie/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=0001-upstream-commit.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
