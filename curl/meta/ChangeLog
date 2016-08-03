@@ -1,5 +1,13 @@
 CHANGELOG
 ---------
+* Tue Aug 02 2016 Tom G. Christensen <swpkg@jupiterrise.com> - 7.50.0-1
+- Update to 7.50.0
+- Make the cert bundle an optional install
+
+* Thu Jul 21 2016 Tom G. Christensen <swpkg@jupiterrise.com> - 7.49.1-1
+- Update to 7.49.1
+- Include mozilla cacert bundle 2016-04-20
+
 * Wed May 25 2016 Tom G. Christensen <swpkg@jupiterrise.com> - 7.49.0-1
 - Update to 7.49.0
 

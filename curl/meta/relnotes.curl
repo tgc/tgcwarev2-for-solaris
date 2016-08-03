@@ -1,0 +1,37 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+curl is configured to use a CA cert store.
+If you do not install the curl-cacerts package then you must provide
+your own cacerts file.
+Failure to do so will result in errors like the below when accessing
+https urls:
+
+ error setting certificate verify locations:
+   CAfile: /usr/tgcware/etc/curl-ca-bundle.pem
+   CApath: none
+

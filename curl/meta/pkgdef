@@ -22,7 +22,6 @@ $_vdocdir/docs/TheArtOfHttpScripting
 $_bindir/curl
 $_mandir/?a?1
 $_libdir/libcurl.so.*
-$_sharedir/zsh/site-functions/_curl
 
 [curl-devel]
 pkgname="${pkgprefix}${topdir}d"
@@ -40,3 +39,12 @@ $_mandir/?a?3
 $_vdocdir/docs/examples
 $_sharedir/aclocal/libcurl.m4
 
+[curl-cacerts]
+pkgname="${pkgprefix}${topdir}ca"
+name="${topdir}-cacerts - Mozilla CA cert bundle $certdate"
+pkgcat="application"
+pkgvendor="http://curl.haxx.se"
+pkgdesc="The mozilla CA cert bundle as distributed by the curl project"
+pkgver="$pkgver"
+files(-,root,bin)
+$_sysconfdir/curl-ca-bundle.pem
