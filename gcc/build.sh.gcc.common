@@ -49,6 +49,7 @@ fi
 # Global settings
 __configure="../$topsrcdir/configure"
 make_build_target=bootstrap
+compat_db=${BUILDPKG_BASE}/gcc/versions.db.sql
 
 # Define abbreviated version number (for pkgdef)
 abbrev_ver=$(echo $version | ${__tr} -d '.')
@@ -340,6 +341,31 @@ redo_libs()
     esac
 }
 
+# Verify that compat_gcc will work
+# params: $1 = gccver (optional), $2 = build_arch (optional)
+# This verifies that we have all the bits needed for the gcc_compat function
+# to work and should always be run before using gcc_compat()
+gcc_compat_check()
+{
+    local gccver=${1:-$version} gccarch=${2:-$build_arch}
+    local db=${compat_db}.tempdb.$$ check
+
+    type -p sqlite3 > /dev/null || { echo "gcc_compat: unable to find sqlite command"; exit 1; }
+    [ -r $compat_db ] || { echo "gcc_compat: unable to find sqlite database"; exit 1; }
+
+    # Create the DB from the dump
+    sqlite3 $db < $compat_db
+    # As a sanity check, verify that we have information for the reference $gccver
+    check="$(sqlite3 $db "SELECT gccver FROM releases WHERE gccver = \"$gccver\" AND gnuosver = \"$gnu_os_ver\" AND arch = \"$gccarch\";")"
+    rm -f $db
+    if [ -z "$check" ];
+    then
+        echo "gcc_compat: did not find section name information for $gccver, perhaps you need to update the database?"
+        exit 1
+    fi
+    exit 0
+}
+
 # Easily find compat information for gcc libraries
 # params: $1 = section name, $2 = gccver (optional), $3 = build_arch (optional)
 # This will return a list of versions before gccver that contained the section name in pkgdef
@@ -349,20 +375,14 @@ redo_libs()
 gcc_compat()
 {
     local section=$1 gccver=${2:-$version} gccarch=${3:-$build_arch}
-    local db=${BUILDPKG_BASE}/gcc/versions.db
+    local db=${compat_db}.tempdb.$$
 
-    type -p sqlite3 > /dev/null || { echo "gcc_compat: unable to find sqlite command"; exit 1; }
-    [ -r $db ] || { echo "gcc_compat: unable to find sqlite database"; exit 1; }
-
-    # As a sanity check, verify that we have information for the reference $gccver
-    if [ -z "$(sqlite3 $db "SELECT gccver FROM releases WHERE gccver = \"$gccver\" AND gnuosver = \"$gnu_os_ver\" AND arch = \"$gccarch\";")" ];
-    then
-        echo "gcc_compat: did not find section name information for $gccver, perhaps you need to update the database?"
-        exit 1
-    fi
+    # Create the DB from the dump
+    sqlite3 $db < $compat_db
 
     # Output gcc versions to stdout
     sqlite3 $db "SELECT gccver FROM releases WHERE gnuosver = \"$gnu_os_ver\" AND arch = \"$gccarch\" AND section=\"$section\" AND CAST(replace(gccver,'.','') as INTEGER) < \"$abbrev_ver\" ORDER BY gccver;"
+    rm -f $db
 }
 
 # vim: set sw=4 sts=4 et ft=sh : #
