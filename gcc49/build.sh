@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=4.9.3
+version=4.9.4
 pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
+source[0]=http://mirrors.kernel.org/gnu/gcc/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -53,8 +53,6 @@ install()
     ${__find} ${stagedir} -type f -name 'libffi*' -print | ${__xargs} ${__rm} -f
     ${__find} ${stagedir} -type f -name 'ffi*.h' -print | ${__xargs} ${__rm} -f
     ${__find} ${stagedir} -type f -name 'ffi*.3' -print | ${__xargs} ${__rm} -f
-    # man3 is now empty
-    ${__rmdir} ${stagedir}${prefix}/man/man3
 
     # libquadmath is not available on sparc but documentation is installed
     [ "$arch" = "sparc" ] && ${__rm} -f ${stagedir}${prefix}/info/libquadmath.info
@@ -70,9 +68,14 @@ install()
     doc COPYING* MAINTAINERS NEWS
 
     # Compatibility information
-    for lib in $(${__gsed} -n '/^\[lib/ s/^\[lib\([^]]*\)\]$/\1/p' $metadir/pkgdef* | sort -u)
+    for lib in $(${__gsed} -n '/^\[lib/ s/^\[lib\([^]]*\)\]$/\1/p' $metadir/$pkgdef_file | sort -u)
     do
-	for gccver in $(gcc_compat lib$lib)
+	gccvers="$(gcc_compat lib$lib)"
+	if [ -z "$gccvers" ]; then
+	    echo "FATAL: Did not find compat information for lib$lib"
+	    exit 1
+	fi
+	for gccver in $gccvers
 	do
 	    compat lib$lib $gccver 1 9
 	done
