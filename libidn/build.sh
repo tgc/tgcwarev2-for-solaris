@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn
-version=1.30
+version=1.33
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/libidn/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -45,6 +45,7 @@ install()
     doc AUTHORS COPYING* NEWS THANKS TODO FAQ README
     compat libidn 1.26 1 1
     compat libidn 1.28 1 1
+    compat libidn 1.30 1 1
 }
 
 reg pack
