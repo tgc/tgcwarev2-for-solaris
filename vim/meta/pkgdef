@@ -36,4 +36,6 @@ $_bindir/gvim
 $_bindir/gvimdiff
 $_bindir/gview
 $_mandir/man1/g*
+$_sharedir/applications
+$_sharedir/icons
 

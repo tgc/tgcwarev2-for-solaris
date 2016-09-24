@@ -4,13 +4,14 @@
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
-patchlevel=977
-basever=7.4
+patchlevel=8
+repo_pl=0008
+basever=8.0
 # Check the following 4 variables before running the script
 topdir=vim
 version=${basever}.${patchlevel}
 pkgver=1
-source[0]=https://github.com/vim/vim/archive/v${basever}.${patchlevel}.tar.gz
+source[0]=https://github.com/vim/vim/archive/v${basever}.${repo_pl}.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -24,7 +25,7 @@ basic_args=(--prefix=$prefix --without-local-dir --with-features=huge --enable-m
 # Do not let scripts add a dependency on perl
 ignore_deps="TGCperl"
 # We need to override this
-topsrcdir=vim-${basever}.${patchlevel}
+topsrcdir=vim-${basever}.${repo_pl}
 
 reg prep
 prep()
