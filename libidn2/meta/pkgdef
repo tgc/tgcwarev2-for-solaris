@@ -1,0 +1,27 @@
+[libidn2]
+pkgname="${pkgprefix}lidn2"
+name="$topdir - GNU libidn2"
+pkgcat="application"
+pkgvendor="https://www.gnu.org/software/libidn/"
+pkgdesc="An implementation of the IDNA2008 specifications"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir/idn2
+$_libdir/libidn2.so.*
+$_infodir
+$_mandir/man1
+
+[libidn2-devel]
+pkgname="${pkgprefix}lidn2d"
+name="${topdir}-devel - Development support for libidn2"
+pkgcat="application"
+pkgvendor="https://www.gnu.org/software/libidn/"
+pkgdesc="Files needed for developing with libidn2"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir
+$_libdir/libidn2.so
+$_mandir/man3
+$_sharedir/gtk-doc/html/libidn2
+
