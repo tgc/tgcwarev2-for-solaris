@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=1.0.1u
-pkgver=15
+version=1.0.2j
+pkgver=1
 source[0]=http://openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -27,7 +27,7 @@ configure_args=(--prefix=$prefix --openssldir=${prefix}/${_sharedir}/ssl zlib-dy
 if [ "$arch" = "sparc" ]; then
     configure_args+=(solaris-sparc${gcc_arch}-gcc)
 else
-    configure_args+=(no-sse2 solaris-x86-gcc)
+    configure_args+=(386 solaris-x86-gcc)
 fi
 
 # Buildsystem is non-standard so we take the easy way out
@@ -104,21 +104,6 @@ install()
     generic_install INSTALL_PREFIX
 
     # Compatible with previous releases
-    compat openssl 1.0.1c 4 4
-    compat openssl 1.0.1e 1 1
-    compat openssl 1.0.1f 2 2
-    compat openssl 1.0.1g 3 3
-    compat openssl 1.0.1h 4 4
-    compat openssl 1.0.1i 5 5
-    compat openssl 1.0.1j 6 6
-    compat openssl 1.0.1k 7 7
-    compat openssl 1.0.1m 8 8
-    compat openssl 1.0.1o 9 9
-    compat openssl 1.0.1p 10 10
-    compat openssl 1.0.1q 11 11
-    compat openssl 1.0.1r 12 12
-    compat openssl 1.0.1s 13 13
-    compat openssl 1.0.1t 14 14
 }
 
 reg pack
