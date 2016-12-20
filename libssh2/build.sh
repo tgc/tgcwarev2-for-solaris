@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libssh2
-version=1.7.0
+version=1.8.0
 pkgver=1
 source[0]=http://www.libssh2.org/download/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -44,6 +44,7 @@ install()
     generic_install DESTDIR
     doc NEWS README RELEASE-NOTES
     compat libssh2 1.6.0 1 1
+    compat libssh2 1.7.0 1 1
 }
 
 reg pack
