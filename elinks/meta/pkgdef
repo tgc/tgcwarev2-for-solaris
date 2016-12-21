@@ -2,7 +2,7 @@
 pkgname="${pkgprefix}${topdir}"
 name="$topdir - A text-mode Web browser"
 pkgcat="application"
-pkgvendor="http://change.me/please"
+pkgvendor="http://elinks.or.cz"
 pkgdesc="Elinks is a text-based Web browser"
 pkgver="$pkgver"
 files(-,root,bin)

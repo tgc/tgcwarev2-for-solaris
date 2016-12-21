@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Wed Dec 21 2016 Tom G. Christensen <swpkg@jupiterrise.com> - 0.13-0.1.4efea7e-2
+- Add support for libidn2 (via patch from fedora)
+
 * Sat Mar 05 2016 Tom G. Christensen <swpkg@jupiterrise.com> - 0.13-0.1.4efea7e-1
 - First package

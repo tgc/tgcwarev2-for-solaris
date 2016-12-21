@@ -7,10 +7,11 @@
 # Check the following 4 variables before running the script
 topdir=elinks
 version=0.13-0.1.4efea7e
-pkgver=1
+pkgver=2
 source[0]=http://repo.or.cz/elinks.git/snapshot/4efea7e314b49df660799e71ede713dff0cd1230.tar.gz
 # If there are no patches, simply comment this
 patch[0]=elinks-inet_aton.patch
+patch[1]=elinks-0.12pre6-libidn2.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
