@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=python
-version=2.7.12
+version=2.7.13
 pkgver=1
 source[0]=https://www.python.org/ftp/python/$version/Python-$version.tar.xz
 # If there are no patches, simply comment this
@@ -78,14 +78,13 @@ install()
     docs_for python27 LICENSE README
     docs_for python27-libs LICENSE README
 
-    compat python27 2.7.9 1 1
-    compat python27-libs 2.7.9 1 1
-    compat python27-tkinter 2.7.9 1 1
-    compat python27-tools 2.7.9 1 1
-    compat python27 2.7.10 1 1
-    compat python27-libs 2.7.10 1 1
-    compat python27-tkinter 2.7.10 1 1
-    compat python27-tools 2.7.10 1 1
+    for ver in 2.7.9 2.7.10 2.7.11 2.7.12
+    do
+        compat python27 $ver 1 1
+        compat python27-libs $ver 1 1
+        compat python27-tkinter $ver 1 1
+        compat python27-tools $ver 1 1
+    done
 }
 
 reg pack
