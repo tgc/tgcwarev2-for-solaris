@@ -1,0 +1,11 @@
+--- git-2.11.0/compat/regex/regex.c.stdint_h	2016-11-29 22:06:51.000000000 +0100
++++ git-2.11.0/compat/regex/regex.c	2016-12-20 22:58:12.054712000 +0100
+@@ -60,7 +60,7 @@
+    GNU regex allows.  Include it before <regex.h>, which correctly
+    #undefs RE_DUP_MAX and sets it to the right value.  */
+ #include <limits.h>
+-#include <stdint.h>
++#include <inttypes.h>
+ 
+ #ifdef GAWK
+ #undef alloca
