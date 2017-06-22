@@ -6,11 +6,14 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn2
-version=0.11
+version=2.0.2
 pkgver=1
-source[0]=http://www.mirrorservice.org/sites/alpha.gnu.org/gnu/libidn/$topdir-$version.tar.gz
+#source[0]=http://www.mirrorservice.org/sites/alpha.gnu.org/gnu/libidn/$topdir-$version.tar.gz
+# Source bootstrapped on F24 with gnulib modules gettext-gnu
+# and printf-posix added
+source[0]=libidn2-2.0.2-tgcware.tar.gz
 # If there are no patches, simply comment this
-patch[0]=libidn2-0.11-add-getopt-gnu.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -28,7 +31,7 @@ prep()
     # Do not build examples
     ${__gsed} -i 's/examples//' Makefile.in
     # No stdint.h on Solaris < 10
-    ${__gsed} -i 's/stdint.h/inttypes.h/' idn2.h.in
+    ${__gsed} -i 's/stdint.h/inttypes.h/' lib/idn2.h.in
 }
 
 reg build
@@ -40,8 +43,6 @@ build()
 reg check
 check()
 {
-    setdir source
-    ${__gsed} -i '/^DEFAULT_INCLUDES/ s#.*#& -I../gl#' tests/Makefile.in
     generic_check
 }
 
@@ -49,7 +50,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc AUTHORS COPYING* NEWS README
+    doc AUTHORS COPYING* NEWS README.md
+    compat libidn2 0.11 1 1
 }
 
 reg pack

@@ -22,6 +22,7 @@ pkgver="$pkgver"
 files(-,root,bin)
 $_includedir
 $_libdir/libidn2.so
+$_libdir/pkgconfig/libidn2.pc
 $_mandir/man3
 $_sharedir/gtk-doc/html/libidn2
 
