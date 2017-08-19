@@ -6,11 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.52.1
+version=7.55.1
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # https://curl.haxx.se/docs/caextract.html
-certdate=2016-11-02
+certdate=2017-06-07
 source[1]=https://curl.haxx.se/ca/cacert-$certdate.pem
 # If there are no patches, simply comment this
 #patch[0]=
@@ -69,6 +69,7 @@ install()
     compat curl 7.50.0 1 1
     compat curl 7.50.3 1 1
     compat curl 7.51.0 1 1
+    compat curl 7.52.1 1 1
 }
 
 reg pack

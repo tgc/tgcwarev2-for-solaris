@@ -1,5 +1,9 @@
 CHANGELOG
 ---------
+* Fri Aug 18 2017 Tom G. Christensen <swpkg@jupiterrise.com> - 7.55.1-1
+- Update to 7.55.1
+- Update CA bundle to 2017-06-07
+
 * Thu Dec 29 2016 Tom G. Christensen <swpkg@jupiterrise.com> - 7.52.1-1
 - Update to 7.52.1
 

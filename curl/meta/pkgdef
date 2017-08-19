@@ -11,10 +11,8 @@ $_vdocdir/README
 $_vdocdir/RELEASE-NOTES
 $_vdocdir/COPYING
 $_vdocdir/docs/BUGS
-$_vdocdir/docs/CONTRIBUTE
 $_vdocdir/docs/FAQ
 $_vdocdir/docs/FEATURES
-$_vdocdir/docs/INTERNALS
 $_vdocdir/docs/MANUAL
 $_vdocdir/docs/RESOURCES
 $_vdocdir/docs/TODO
