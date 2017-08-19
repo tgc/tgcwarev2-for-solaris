@@ -28,9 +28,9 @@ ERRORS/MISCELLANEOUS
 The upstream release will not build on Solaris < 10 out of the box as it
 requires a GNU compatible getopt function and a printf function that
 understands %zu.
-To work around this the source was re-bootstrapped from the 2.0.2 release tag
+To work around this the source was re-bootstrapped from the 2.0.3 release tag
 with the getopt-gnu and printf-posix modules added to bootstrap.conf.
-The bootstrap was done on a Fedora Core 24/x86_64 system and the resulting
+The bootstrap was done on a Fedora Core 26/x86_64 system and the resulting
 source archive was used to build this package.
 
 Note that to make libidn2 and programs using it actually do IDNA mapping
