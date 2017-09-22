@@ -6,12 +6,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn2
-version=2.0.3
+version=2.0.4
 pkgver=1
 #source[0]=http://www.mirrorservice.org/sites/alpha.gnu.org/gnu/libidn/$topdir-$version.tar.gz
-# Source bootstrapped on F26 with gnulib modules gettext-gnu
+# Source bootstrapped on Fedora 26 with gnulib modules gettext-gnu
 # and printf-posix added
-source[0]=libidn2-2.0.3-tgcware.tar.gz
+source[0]=libidn2-2.0.4-tgcware.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -54,6 +54,7 @@ install()
     doc AUTHORS COPYING* NEWS README.md
     compat libidn2 0.11 1 1
     compat libidn2 2.0.2 1 1
+    compat libidn2 2.0.3 1 1
 }
 
 reg pack
