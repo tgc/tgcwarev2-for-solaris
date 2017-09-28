@@ -6,19 +6,40 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=2.11.3
+version=2.14.2
 pkgver=1
 source[0]=https://www.kernel.org/pub/software/scm/git/$topdir-$version.tar.gz
 source[1]=https://www.kernel.org/pub/software/scm/git/$topdir-manpages-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=git-1.8.1.5-inet_addrstrlen.patch
 patch[1]=git-2.11.0-stdint_h.patch
+patch[2]=git-2.14.1-fix-t5545.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-
+nosv=$(printf "5%02d" ${gnu_os_ver##*.})
+if [ $nosv -ge 507 ]; then # Solaris >= 7
+    # fails to distinguish file vs. dir
+    GIT_SKIP_TESTS="t1308.23"
+fi
+if [ $nosv -lt 509 ]; then # Solaris < 9
+    # cat-file --textconv is buggy, output is truncated
+    GIT_SKIP_TESTS="$GIT_SKIP_TESTS t8010.8"
+fi
+if [ $nosv -eq 507 ]; then # Solaris = 7
+    # SIGPIPE issues
+    GIT_SKIP_TESTS="$GIT_SKIP_TESTS t0005.4 t0005.5"
+    GIT_SKIP_TESTS="$GIT_SKIP_TESTS t0021.6 t0021.9"
+    GIT_SKIP_TESTS="$GIT_SKIP_TESTS t5571.11"
+    GIT_SKIP_TESTS="$GIT_SKIP_TESTS t5801.24 t5801.25 t5801.27"
+    # TZ=UTC returns GMT instead of UTC
+    GIT_SKIP_TESTS="$GIT_SKIP_TESTS t0006.25"
+    # fatal: cannot lock ref 'HEAD': Unable to create 'git-2.14.2/t/trash directory.t7600-merge/.git/HEAD.lock': File exists.
+    GIT_SKIP_TESTS="$GIT_SKIP_TESTS t7600.56"
+fi
+export GIT_SKIP_TESTS
 no_configure=1
 __configure="make"
 configure_args=
@@ -106,4 +127,5 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
+T_SKIP_TESTS="$GIT_SKIP_TEST t0006.25" # TZ=UTC returns GMT instead of UTC
 build_sh $*

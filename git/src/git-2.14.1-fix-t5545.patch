@@ -1,0 +1,26 @@
+--- git-2.14.1/t/t5545-push-options.sh.tfix	2017-08-09 21:54:31.000000000 +0200
++++ git-2.14.1/t/t5545-push-options.sh	2017-09-24 20:37:42.373751000 +0200
+@@ -1,4 +1,4 @@
+-#!/bin/sh
++#!/bin/ksh
+ 
+ test_description='pushing to a repository using push options'
+ 
+@@ -13,7 +13,7 @@
+ 		git config receive.denyCurrentBranch warn &&
+ 		mkdir -p .git/hooks &&
+ 		cat >.git/hooks/pre-receive <<-'EOF' &&
+-		#!/bin/sh
++		#!/bin/ksh
+ 		if test -n "$GIT_PUSH_OPTION_COUNT"; then
+ 			i=0
+ 			>hooks/pre-receive.push_options
+@@ -27,7 +27,7 @@
+ 		chmod u+x .git/hooks/pre-receive
+ 
+ 		cat >.git/hooks/post-receive <<-'EOF' &&
+-		#!/bin/sh
++		#!/bin/ksh
+ 		if test -n "$GIT_PUSH_OPTION_COUNT"; then
+ 			i=0
+ 			>hooks/post-receive.push_options
