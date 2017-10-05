@@ -1,5 +1,9 @@
 CHANGELOG
 ---------
+* Wed Oct 04 2017 Tom G. Christensen <swpkg@jupiterrise.com> - 7.6p1-1
+- Update to 7.6p1
+- Add post 7.6 fix for PermitOpen
+
 * Sun Mar 26 2017 Tom G. Christensen <swpkg@jupiterrise.com> - 7.5p1-1
 - Update to 7.5p1
 
