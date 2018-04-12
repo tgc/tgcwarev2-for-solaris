@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=lynx
-version=2.8.9dev.11
+version=2.8.9dev.17
 pkgver=1
 source[0]=http://invisible-mirror.net/archives/$topdir/tarballs/${topdir}${version}.tar.bz2
 # If there are no patches, simply comment this
