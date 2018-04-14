@@ -1,0 +1,12 @@
+[lzip]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - a lossless data compressor"
+pkgcat="application"
+pkgvendor="https://www.nongnu.org/lzip/lzip.html"
+pkgdesc="A lossless data compressor with a user interface similar to the one of gzip or bzip2"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_infodir
+$_mandir
