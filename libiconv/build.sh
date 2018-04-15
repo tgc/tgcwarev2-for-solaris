@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libiconv
-version=1.14
-pkgver=2
+version=1.15
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -38,10 +38,14 @@ install()
 {
     generic_install DESTDIR
     doc NOTES ChangeLog DESIGN NEWS COPYING AUTHORS README COPYING.LIB
+    ${__rm} -f ${stagedir}${prefix}/share/doc/*.html
 
     # Sadly configure ignores --program-prefix, so we have to fix this manually
     ${__mv} ${stagedir}${prefix}/${_bindir}/iconv ${stagedir}${prefix}/${_bindir}/${gnu_prefix}iconv
     ${__mv} ${stagedir}${prefix}/${_mandir}/man1/iconv.1 ${stagedir}/${prefix}/${_mandir}/man1/giconv.1
+
+    # Compatible with previous package
+    compat libiconv 1.14 1 2
 }
 
 reg pack
