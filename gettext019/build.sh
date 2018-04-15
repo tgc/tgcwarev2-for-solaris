@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gettext
-version=0.19.4
+version=0.19.8.1
 pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/gettext/$topdir-$version.tar.xz
+source[0]=https://mirrors.kernel.org/gnu/gettext/$topdir-$version.tar.lz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -47,6 +47,7 @@ install()
     doc NEWS README COPYING
     compat gettext 0.18.2 2 2
     compat gettext 0.18.3.1 1 1
+    compat gettext 0.19.4 1 1
 }
 
 reg pack

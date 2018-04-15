@@ -25,6 +25,8 @@ $_sharedir/locale/locale.alias
 $_sharedir/doc/gettext/envsubst.1.html
 $_sharedir/doc/gettext/ngettext.1.html
 $_sharedir/doc/gettext/gettext.1.html
+$_sharedir/emacs
+$_sharedir/gettext-0.19.8
 
 [gettext-devel]
 pkgname="${pkgprefix}gtextd"
