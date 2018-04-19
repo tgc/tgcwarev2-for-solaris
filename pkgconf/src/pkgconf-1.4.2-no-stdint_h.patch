@@ -1,0 +1,26 @@
+--- pkgconf-pkgconf-1.4.2/libpkgconf/stdinc.h.stdint_h	2018-04-12 21:52:14.297482000 +0200
++++ pkgconf-pkgconf-1.4.2/libpkgconf/stdinc.h	2018-04-12 21:55:03.149282000 +0200
+@@ -24,7 +24,9 @@
+ #include <stdarg.h>
+ #include <string.h>
+ #include <sys/types.h>
++#ifdef HAVE_STDINT_H
+ #include <stdint.h>
++#endif
+ 
+ #ifdef _WIN32
+ # define WIN32_LEAN_AND_MEAN
+--- pkgconf-pkgconf-1.4.2/getopt_long.h.stdint_h	2018-02-12 07:37:03.000000000 +0100
++++ pkgconf-pkgconf-1.4.2/getopt_long.h	2018-04-12 21:52:14.367487000 +0200
+@@ -33,7 +33,11 @@
+ #ifndef _GETOPT_LONG_H_
+ #define _GETOPT_LONG_H_
+ 
++#ifdef HAVE_STDINT_H
+ #include <stdint.h>
++#else
++#include <inttypes.h>
++#endif
+ 
+ /*
+  * GNU-like getopt_long()/getopt_long_only() with 4.4BSD optreset extension.

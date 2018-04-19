@@ -6,21 +6,18 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=pkgconf
-version=0.9.12-56-g7e6fa32
+version=1.4.2
 pkgver=1
-# Source fetched from https://github.com/pkgconf/pkgconf
-# git archive --format=tar --prefix=pkgconf-0.9.12-56-g7e6fa32/ \
-# -o ../pkgconf-0.9.12-56-g7e6fa32.tar pkgconf-0.9.12-56-g7e6fa32
-source[0]=$topdir-$version.tar.xz
+source[0]=https://github.com/pkgconf/pkgconf/archive/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=pkgconf-stdint_h.patch
+patch[0]=pkgconf-1.4.2-no-stdint_h.patch
 patch[1]=pkgconf-dist-doc.patch
-patch[2]=pkgconf-include-order.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
+topsrcdir=${topdir}-${topdir}-$version
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 configure_args+=(--docdir=$prefix/$_vdocdir)

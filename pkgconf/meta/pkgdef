@@ -9,12 +9,12 @@ files(-,root,bin)
 default_docs
 $_bindir/pkgconf
 $_libdir/libpkgconf.so.*
-$_sharedir/aclocal/pkg.m4
 $_mandir/man1/pkgconf.1*
+$_mandir/man5/pc.5*
 
 [pkgconf-devel]
 pkgname="${pkgprefix}pkcfd"
-name="${topdir}d - A pkg-config replacement"
+name="${topdir}-devel - A pkg-config replacement"
 pkgcat="application"
 pkgvendor="https://github.com/pkgconf/pkgconf/wiki"
 pkgdesc="Package compiler and linker metadata toolkit"
@@ -22,5 +22,8 @@ pkgver="$pkgver"
 files(-,root,bin)
 $_libdir/libpkgconf.so
 $_libdir/libpkgconf.a
+$_libdir/pkgconfig/libpkgconf.pc
 $_includedir/pkgconf
+$_sharedir/aclocal/pkg.m4
+$_mandir/man7/pkg.m4.7*
 
