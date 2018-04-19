@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=wget
-version=1.18
-pkgver=2
-source[0]=https://mirrors.kernel.org/gnu/wget/$topdir-$version.tar.xz
+version=1.19.4
+pkgver=1
+source[0]=https://mirrors.kernel.org/gnu/wget/$topdir-$version.tar.lz
 # If there are no patches, simply comment this
 #patch[0]=
 
