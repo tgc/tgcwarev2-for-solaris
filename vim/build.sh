@@ -4,14 +4,15 @@
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
-patchlevel=8
-repo_pl=0008
+patchlevel=1733
+# repo_pl is always 4 digits
+repo_pl=$patchlevel
 basever=8.0
 # Check the following 4 variables before running the script
 topdir=vim
 version=${basever}.${patchlevel}
 pkgver=1
-source[0]=https://github.com/vim/vim/archive/v${basever}.${repo_pl}.tar.gz
+source[0]=https://github.com/vim/vim/archive/v${basever}.${repo_pl}.tar.gz#/${topdir}-${version}.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
