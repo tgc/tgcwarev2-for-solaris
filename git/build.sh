@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=2.14.2
+version=2.16.3
 pkgver=1
 source[0]=https://www.kernel.org/pub/software/scm/git/$topdir-$version.tar.gz
 source[1]=https://www.kernel.org/pub/software/scm/git/$topdir-manpages-$version.tar.gz
@@ -26,7 +26,7 @@ if [ $nosv -ge 507 ]; then # Solaris >= 7
 fi
 if [ $nosv -lt 509 ]; then # Solaris < 9
     # cat-file --textconv is buggy, output is truncated
-    GIT_SKIP_TESTS="$GIT_SKIP_TESTS t8010.8"
+    GIT_SKIP_TESTS="$GIT_SKIP_TESTS t8010.8 t8010.9"
 fi
 if [ $nosv -eq 507 ]; then # Solaris = 7
     # SIGPIPE issues
@@ -127,5 +127,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-T_SKIP_TESTS="$GIT_SKIP_TEST t0006.25" # TZ=UTC returns GMT instead of UTC
 build_sh $*
