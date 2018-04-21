@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=rsync
-version=3.0.9
+version=3.1.3
 pkgver=1
 source[0]=http://rsync.samba.org/ftp/rsync/src/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -35,6 +35,12 @@ reg build
 build()
 {
     generic_build
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg install
