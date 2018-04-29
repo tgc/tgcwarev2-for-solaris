@@ -90,11 +90,15 @@ langs="--enable-languages=all,ada,obj-c++,go"
 [ $abbrev_majorminor -lt 40 ] && langs=
 # No java for gcc 3.1 (broken include paths)
 [ $abbrev_majorminor -eq 31 ] && langs="--enable-languages=c,c++,objc,f77,ada"
+# No java for gcc 4.5 on 7/x86 due to libffi build issues
+[ $abbrev_majorminor -eq 45 -a "$gnu_os_ver" = "2.7" -a "$build_arch" = "i386"  ] && langs="--enable-languages=c,c++,objc,obj-c++,fortran,ada"
 
 # Java specific opts
 lang_java="--with-x --enable-java-awt=xlib"
 # No AWT for gcc < 3.3
 [ $abbrev_majorminor -lt 33 ] && lang_java=
+# No java for gcc 4.5 on 7/x86
+[ $abbrev_majorminor -eq 45 -a "$gnu_os_ver" = "2.7" -a "$build_arch" = "i386"  ] && lang_java=
 
 # Use Solaris ld by default
 linker="--without-gnu-ld --with-ld=/usr/ccs/bin/ld"
