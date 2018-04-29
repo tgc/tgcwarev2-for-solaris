@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sun Apr 29 2018 Tom G. Christensen <swpkg@jupiterrise.com> - 4.5.4-4
+- Build for Solaris 7/x86
+
 * Mon Sep 09 2013 Tom G. Christensen <swpkg@jupiterrise.com> - 4.5.4-3
 - Accommodate building for sparc64
 

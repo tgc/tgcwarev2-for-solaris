@@ -7,10 +7,11 @@
 # Check the following 4 variables before running the script
 topdir=gcc
 version=4.5.4
-pkgver=3
+pkgver=4
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=gcc-4.5.4-pr45915.patch
+patch[1]=gcc-4.5.4-texi-fixes.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -71,6 +72,20 @@ install()
     # Place share/docs in the regular location
     prefix=$topinstalldir
     doc COPYING* MAINTAINERS NEWS
+
+    # Compatibility information
+    for lib in $(${__gsed} -n '/^\[lib/ s/^\[lib\([^]]*\)\]$/\1/p' $metadir/pkgdef | sort -u)
+    do
+	gccvers="$(gcc_compat lib$lib)"
+	if [ -z "$gccvers" ]; then
+	    echo "FATAL: Did not find compat information for lib$lib"
+	    exit 1
+	fi
+	for gccver in $gccvers
+	do
+	    compat lib$lib $gccver 1 9
+	done
+    done
 }
 
 reg check

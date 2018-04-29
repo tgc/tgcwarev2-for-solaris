@@ -1,0 +1,118 @@
+diff -up gcc-4.5.4/gcc/doc/cppopts.texi.itemx gcc-4.5.4/gcc/doc/cppopts.texi
+--- gcc-4.5.4/gcc/doc/cppopts.texi.itemx	2010-04-02 21:54:46.000000000 +0200
++++ gcc-4.5.4/gcc/doc/cppopts.texi	2018-04-28 21:15:26.470019000 +0200
+@@ -760,7 +760,7 @@ Replacement:      [    ]    @{    @}
+ Enable special code to work around file systems which only permit very
+ short file names, such as MS-DOS@.
+ 
+-@itemx --help
++@item --help
+ @itemx --target-help
+ @opindex help
+ @opindex target-help
+diff -up gcc-4.5.4/gcc/doc/generic.texi.itemx gcc-4.5.4/gcc/doc/generic.texi
+--- gcc-4.5.4/gcc/doc/generic.texi.itemx	2010-07-06 22:23:53.000000000 +0200
++++ gcc-4.5.4/gcc/doc/generic.texi	2018-04-28 21:18:38.290004000 +0200
+@@ -1407,13 +1407,13 @@ generate these expressions anyhow, if it
+ not matter.  The type of the operands and that of the result are
+ always of @code{BOOLEAN_TYPE} or @code{INTEGER_TYPE}.
+ 
+-@itemx POINTER_PLUS_EXPR
++@item POINTER_PLUS_EXPR
+ This node represents pointer arithmetic.  The first operand is always
+ a pointer/reference type.  The second operand is always an unsigned
+ integer type compatible with sizetype.  This is the only binary
+ arithmetic operand that can operate on pointer types.
+ 
+-@itemx PLUS_EXPR
++@item PLUS_EXPR
+ @itemx MINUS_EXPR
+ @itemx MULT_EXPR
+ These nodes represent various binary arithmetic operations.
+diff -up gcc-4.5.4/gcc/doc/invoke.texi.itemx gcc-4.5.4/gcc/doc/invoke.texi
+--- gcc-4.5.4/gcc/doc/invoke.texi.itemx	2011-03-23 23:03:29.000000000 +0100
++++ gcc-4.5.4/gcc/doc/invoke.texi	2018-04-28 21:22:05.340021000 +0200
+@@ -4875,11 +4875,11 @@ Dump after duplicating the computed goto
+ @option{-fdump-rtl-ce3} enable dumping after the three
+ if conversion passes.
+ 
+-@itemx -fdump-rtl-cprop_hardreg
++@item -fdump-rtl-cprop_hardreg
+ @opindex fdump-rtl-cprop_hardreg
+ Dump after hard register copy propagation.
+ 
+-@itemx -fdump-rtl-csa
++@item -fdump-rtl-csa
+ @opindex fdump-rtl-csa
+ Dump after combining stack adjustments.
+ 
+@@ -4890,11 +4890,11 @@ Dump after combining stack adjustments.
+ @option{-fdump-rtl-cse1} and @option{-fdump-rtl-cse2} enable dumping after
+ the two common sub-expression elimination passes.
+ 
+-@itemx -fdump-rtl-dce
++@item -fdump-rtl-dce
+ @opindex fdump-rtl-dce
+ Dump after the standalone dead code elimination passes.
+ 
+-@itemx -fdump-rtl-dbr
++@item -fdump-rtl-dbr
+ @opindex fdump-rtl-dbr
+ Dump after delayed branch scheduling.
+ 
+@@ -4939,7 +4939,7 @@ Dump after the initialization of the reg
+ @opindex fdump-rtl-initvals
+ Dump after the computation of the initial value sets.
+ 
+-@itemx -fdump-rtl-into_cfglayout
++@item -fdump-rtl-into_cfglayout
+ @opindex fdump-rtl-into_cfglayout
+ Dump after converting to cfglayout mode.
+ 
+@@ -4969,7 +4969,7 @@ Dump after removing redundant mode switc
+ @opindex fdump-rtl-rnreg
+ Dump after register renumbering.
+ 
+-@itemx -fdump-rtl-outof_cfglayout
++@item -fdump-rtl-outof_cfglayout
+ @opindex fdump-rtl-outof_cfglayout
+ Dump after converting from cfglayout mode.
+ 
+diff -up gcc-4.5.4/gcc/doc/md.texi.itemx gcc-4.5.4/gcc/doc/md.texi
+--- gcc-4.5.4/gcc/doc/md.texi.itemx	2011-08-12 18:27:23.000000000 +0200
++++ gcc-4.5.4/gcc/doc/md.texi	2018-04-28 21:24:18.360024000 +0200
+@@ -3914,8 +3914,8 @@ means of constraints requiring operands
+ @cindex @code{ior@var{m}3} instruction pattern
+ @cindex @code{xor@var{m}3} instruction pattern
+ @item @samp{ssadd@var{m}3}, @samp{usadd@var{m}3}
+-@item @samp{sub@var{m}3}, @samp{sssub@var{m}3}, @samp{ussub@var{m}3}
+-@item @samp{mul@var{m}3}, @samp{ssmul@var{m}3}, @samp{usmul@var{m}3}
++@itemx @samp{sub@var{m}3}, @samp{sssub@var{m}3}, @samp{ussub@var{m}3}
++@itemx @samp{mul@var{m}3}, @samp{ssmul@var{m}3}, @samp{usmul@var{m}3}
+ @itemx @samp{div@var{m}3}, @samp{ssdiv@var{m}3}
+ @itemx @samp{udiv@var{m}3}, @samp{usdiv@var{m}3}
+ @itemx @samp{mod@var{m}3}, @samp{umod@var{m}3}
+diff -up gcc-4.5.4/gcc/doc/sourcebuild.texi.itemx gcc-4.5.4/gcc/doc/sourcebuild.texi
+--- gcc-4.5.4/gcc/doc/sourcebuild.texi.itemx	2018-04-28 21:25:04.020022000 +0200
++++ gcc-4.5.4/gcc/doc/sourcebuild.texi	2011-04-12 18:37:04.000000000 +0200
+@@ -676,7 +676,7 @@ standard rule in @file{gcc/Makefile.in}
+ @code{lang_checks}.
+ 
+ @table @code
+-@item all.cross
++@itemx all.cross
+ @itemx start.encap
+ @itemx rest.encap
+ FIXME: exactly what goes in each of these targets?
+diff -up gcc-4.5.4/gcc/ada/gnat-style.texi.texifix gcc-4.5.4/gcc/ada/gnat-style.texi
+--- gcc-4.5.4/gcc/ada/gnat-style.texi.texifix	2009-02-20 16:20:38.000000000 +0100
++++ gcc-4.5.4/gcc/ada/gnat-style.texi	2018-04-28 22:00:52.730011000 +0200
+@@ -42,7 +42,7 @@ Texts.  A copy of the license is include
+ @titlepage
+ @titlefont{GNAT Coding Style:}
+ @sp 1
+-@title @hfill A Guide for GNAT Developers
++@title A Guide for GNAT Developers
+ @subtitle GNAT, The GNU Ada Compiler
+ @versionsubtitle
+ @author Ada Core Technologies, Inc.
