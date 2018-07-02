@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=python
-version=2.7.14
+version=2.7.15
 pkgver=1
 source[0]=https://www.python.org/ftp/python/$version/Python-$version.tar.xz
 # If there are no patches, simply comment this

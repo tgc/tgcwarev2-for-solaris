@@ -275,8 +275,8 @@ $dynload_dir/_collections.so*
 $dynload_dir/_csv.so*
 $dynload_dir/_ctypes.so*
 $dynload_dir/_ctypes_test.so*
-$dynload_dir/_curses_failed.so*
-$dynload_dir/_curses_panel_failed.so*
+$dynload_dir/_curses.so*
+$dynload_dir/_curses_panel.so*
 $dynload_dir/_elementtree.so*
 $dynload_dir/_functools.so*
 $dynload_dir/_hashlib.so*
