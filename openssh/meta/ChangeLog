@@ -1,5 +1,9 @@
 CHANGELOG
 ---------
+* Sat Aug 25 2018 Tom G. Christensen <swpkg@jupiterrise.com> - 7.8p1-1
+- Update to 7.8p1
+- Drop creation of DSA keys in the init script
+
 * Sun Apr 08 2018 Tom G. Christensen <swpkg@jupiterrise.com> - 7.7p1-1
 - Update to 7.7p1
 

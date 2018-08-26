@@ -6,7 +6,6 @@
 SSHD=/usr/tgcware/sbin/sshd
 KEYGEN=/usr/tgcware/bin/ssh-keygen
 RSA_KEY=/usr/tgcware/etc/ssh/ssh_host_rsa_key
-DSA_KEY=/usr/tgcware/etc/ssh/ssh_host_dsa_key
 ECDSA_KEY=/usr/tgcware/etc/ssh/ssh_host_ecdsa_key
 ED25519_KEY=/usr/tgcware/etc/ssh/ssh_host_ed25519_key
 ECHO=/usr/bin/echo
@@ -28,11 +27,6 @@ do_hostkeygen()
                 $ECHO "Generating $RSA_KEY:\c"
                 $KEYGEN -q -t rsa -f $RSA_KEY -N '' > /dev/null 2>&1
 		$ECHO "."
-        fi
-        if [ ! -s $DSA_KEY ]; then
-                $ECHO "Generating $DSA_KEY:\c"
-                $KEYGEN -q -t dsa -f $DSA_KEY -N '' > /dev/null 2>&1
-                $ECHO "."
         fi
         if [ ! -s $ECDSA_KEY ]; then
                 $ECHO "Generating $ECDSA_KEY:\c"
@@ -72,7 +66,7 @@ case $mode in
             $ECHO "."
         fi
         ;;
-    stop) 
+    stop)
 	kill_sshd
 	exit 0
 	;;
@@ -82,7 +76,7 @@ case $mode in
     *)
 	echo "Usage: $0 {start|stop|restart}"
 	;;
-esac 
+esac
 
 else
   echo "$0: this script must be run as root... fatal error"
