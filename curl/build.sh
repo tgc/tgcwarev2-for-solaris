@@ -6,11 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.59.0
+version=7.61.1
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # https://curl.haxx.se/docs/caextract.html
-certdate=2018-03-07
+certdate=2018-10-17
 source[1]=https://curl.haxx.se/ca/cacert-$certdate.pem
 # If there are no patches, simply comment this
 #patch[0]=
@@ -28,6 +28,11 @@ reg prep
 prep()
 {
     generic_prep
+    setdir source
+    # There are weak pthread_* symbols in libc but curl actually needs the real
+    # thing so we reverse the test that would normally make configure skip
+    # looking for the pthread symbols in libpthread.
+    ${__gsed} -i '/USE_THREADS_POSIX/ s/\!= "1"/\= "1"/' configure
 }
 
 reg build
@@ -71,6 +76,7 @@ install()
     compat curl 7.51.0 1 1
     compat curl 7.52.1 1 1
     compat curl 7.55.1 1 1
+    compat curl 7.59.0 1 1
 }
 
 reg pack
