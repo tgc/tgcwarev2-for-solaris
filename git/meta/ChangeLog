@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Tue Oct 30 2018 Tom G. Christensen <swpkg@jupiterrise.com> - 2.16.5-1
+- Update to 2.16.5 (fixes CVE-2018-17456)
+
 * Mon Jul 02 2018 Tom G. Christensen <swpkg@jupiterrise.com> - 2.16.4-1
 - Update to 2.16.4
 
