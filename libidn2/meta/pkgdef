@@ -11,6 +11,7 @@ $_bindir/idn2
 $_libdir/libidn2.so.*
 $_infodir
 $_mandir/man1
+$_sharedir/locale/*/LC_MESSAGES/${topdir}.mo
 
 [libidn2-devel]
 pkgname="${pkgprefix}lidn2d"

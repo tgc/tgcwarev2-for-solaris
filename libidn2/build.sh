@@ -6,12 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn2
-version=2.0.4
+version=2.1.1a
 pkgver=1
-#source[0]=http://www.mirrorservice.org/sites/alpha.gnu.org/gnu/libidn/$topdir-$version.tar.gz
-# Source bootstrapped on Fedora 26 with gnulib modules gettext-gnu
-# and printf-posix added
-source[0]=libidn2-2.0.4-tgcware.tar.gz
+source[0]=http://www.mirrorservice.org/sites/ftp.gnu.org/gnu/libidn/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -22,7 +19,7 @@ source[0]=libidn2-2.0.4-tgcware.tar.gz
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 configure_args+=(--disable-static --with-libiconv-prefix=$prefix --with-libintl-prefix=$prefix)
-ac_overrides="ac_cv_prog_RONN=/bin/true"
+topsrcdir=$topdir-2.1.1
 
 reg prep
 prep()
@@ -55,6 +52,7 @@ install()
     compat libidn2 0.11 1 1
     compat libidn2 2.0.2 1 1
     compat libidn2 2.0.3 1 1
+    compat libidn2 2.0.4 1 1
 }
 
 reg pack
