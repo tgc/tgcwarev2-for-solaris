@@ -1,0 +1,24 @@
+[nghttp2]
+pkgname="${pkgprefix}ngh2"
+name="$topdir - HTTP/2 C Library"
+pkgcat="application"
+pkgvendor="https://nghttp2.org/"
+pkgdesc="an implementation of HTTP/2 and its header compression algorithm HPACK in C"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/libnghttp2.so.*
+$_sharedir/$topdir/fetch-ocsp-response
+
+[nghttp2-devel]
+pkgname="${pkgprefix}ngh2d"
+name="${topdir}-devel - Development support for nghttp2"
+pkgcat="application"
+pkgvendor="https://nghttp2.org/"
+pkgdesc="Files needed for developing with nghttp2"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir
+$_libdir/libnghttp2.so
+$_libdir/pkgconfig/libnghttp2.pc
+
