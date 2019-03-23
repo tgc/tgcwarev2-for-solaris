@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=wget
-version=1.19.4
+version=1.20.1
 pkgver=1
 source[0]=https://mirrors.kernel.org/gnu/wget/$topdir-$version.tar.lz
 # If there are no patches, simply comment this
@@ -43,7 +43,6 @@ install()
 {
     generic_install DESTDIR
     doc AUTHORS COPYING NEWS README MAILING-LIST
-    rmdir ${stagedir}${prefix}/lib
 }
 
 reg pack
