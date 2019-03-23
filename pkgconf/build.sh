@@ -6,12 +6,13 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=pkgconf
-version=1.4.2
+version=1.6.0
 pkgver=1
 source[0]=https://github.com/pkgconf/pkgconf/archive/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=pkgconf-1.4.2-no-stdint_h.patch
-patch[1]=pkgconf-dist-doc.patch
+patch[0]=0001-Fix-building-without-stdint.h.patch
+patch[1]=0002-Use-u-instead-of-zu-for-compatibility.patch
+patch[2]=0003-Install-NEWS-and-COPYING-files.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions

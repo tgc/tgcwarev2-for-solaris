@@ -1,0 +1,25 @@
+From 57745f10835d13932e706f00564a8758a748eb5b Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Sat, 23 Mar 2019 20:48:59 +0100
+Subject: [PATCH 2/3] Use %u instead of %zu for compatibility
+
+---
+ libpkgconf/stdinc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libpkgconf/stdinc.h b/libpkgconf/stdinc.h
+index d071ae4..a47cd52 100644
+--- a/libpkgconf/stdinc.h
++++ b/libpkgconf/stdinc.h
+@@ -54,7 +54,7 @@
+ # define PKGCONF_ITEM_SIZE (_MAX_PATH + 1024)
+ #else
+ # define PATH_DEV_NULL	"/dev/null"
+-# define SIZE_FMT_SPECIFIER	"%zu"
++# define SIZE_FMT_SPECIFIER	"%u"
+ # ifdef __HAIKU__
+ #  include <FindDirectory.h>
+ # endif
+-- 
+2.16.5
+

@@ -11,6 +11,7 @@ $_bindir/pkgconf
 $_libdir/libpkgconf.so.*
 $_mandir/man1/pkgconf.1*
 $_mandir/man5/pc.5*
+$_mandir/man5/pkgconf-personality.5*
 
 [pkgconf-devel]
 pkgname="${pkgprefix}pkcfd"

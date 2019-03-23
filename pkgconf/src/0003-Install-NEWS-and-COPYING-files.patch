@@ -1,0 +1,25 @@
+From ea66d2b6bc9b5c2478c197ad4e36df9a7cb60dc0 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Sat, 23 Mar 2019 21:05:23 +0100
+Subject: [PATCH 3/3] Install NEWS and COPYING files
+
+---
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index e7be56a..5d8c4ee 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -161,7 +161,7 @@ noinst_HEADERS   = \
+ 	cli/getopt_long.h			\
+ 	cli/renderer-msvc.h
+ 
+-dist_doc_DATA = README.md AUTHORS
++dist_doc_DATA = README.md AUTHORS NEWS COPYING
+ 
+ m4datadir              = $(datadir)/aclocal
+ m4data_DATA            = pkg.m4
+-- 
+2.16.5
+
