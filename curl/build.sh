@@ -6,11 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.61.1
+version=7.64.0
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # https://curl.haxx.se/docs/caextract.html
-certdate=2018-10-17
+certdate=2019-01-23
 source[1]=https://curl.haxx.se/ca/cacert-$certdate.pem
 # If there are no patches, simply comment this
 #patch[0]=
@@ -21,8 +21,9 @@ source[1]=https://curl.haxx.se/ca/cacert-$certdate.pem
 # Global settings
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
+export PKG_CONFIG=pkgconf
 
-configure_args+=(--enable-static=no --enable-http --enable-ftp --enable-file --disable-ldap --enable-manual --enable-cookies --enable-crypto --with-libidn2 --with-libssh2 --with-ca-bundle=${prefix}/${_sysconfdir}/curl-ca-bundle.pem)
+configure_args+=(--enable-static=no --enable-http --enable-ftp --enable-file --disable-ldap --enable-manual --enable-cookies --enable-crypto --with-libidn2 --with-libssh2 --with-nghttp2 --with-ca-bundle=${prefix}/${_sysconfdir}/curl-ca-bundle.pem)
 
 reg prep
 prep()
@@ -77,6 +78,7 @@ install()
     compat curl 7.52.1 1 1
     compat curl 7.55.1 1 1
     compat curl 7.59.0 1 1
+    compat curl 7.61.1 1 1
 }
 
 reg pack
