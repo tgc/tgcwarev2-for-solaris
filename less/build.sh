@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=less
-version=451
+version=530
 pkgver=1
 source[0]=http://www.greenwoodsoftware.com/less/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
