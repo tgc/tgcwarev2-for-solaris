@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=bison
-version=3.0.4
+version=3.3.2
 pkgver=1
-source[0]=ftp://ftp.heanet.ie/pub/gnu/bison/$topdir-$version.tar.xz
+source[0]=https://mirrors.kernel.org/gnu/$topdir/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
