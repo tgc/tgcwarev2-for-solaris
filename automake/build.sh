@@ -6,9 +6,10 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=automake
-version=1.15
+version=1.16.1
+aversion=${version%.*}
 pkgver=1
-source[0]=ftp://ftp.heanet.ie/pub/gnu/automake/$topdir-$version.tar.xz
+source[0]=https://mirrors.kernel.org/gnu/$topdir/$topdir-$version.tar.xz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -17,6 +18,9 @@ source[0]=ftp://ftp.heanet.ie/pub/gnu/automake/$topdir-$version.tar.xz
 
 # Global settings
 export PERL=$prefix/bin/perl
+# To allow configure and the testsuite to work properly
+export LD_OPTIONS="-L$prefix/lib"
+export LD_LIBRARY_PATH="$prefix/lib"
 
 reg prep
 prep()

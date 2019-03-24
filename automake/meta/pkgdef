@@ -10,8 +10,8 @@ default_docs
 $_bindir
 $_infodir
 $_sharedir/aclocal
-$_sharedir/automake-${version}
-$_sharedir/aclocal-${version}
+$_sharedir/automake-${aversion}
+$_sharedir/aclocal-${aversion}
 $_sharedir/doc/automake
 $_mandir
 
