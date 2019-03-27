@@ -7,12 +7,13 @@
 # Check the following 4 variables before running the script
 topdir=pkgconf
 version=1.6.0
-pkgver=1
+pkgver=2
 source[0]=https://github.com/pkgconf/pkgconf/archive/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=0001-Fix-building-without-stdint.h.patch
 patch[1]=0002-Use-u-instead-of-zu-for-compatibility.patch
 patch[2]=0003-Install-NEWS-and-COPYING-files.patch
+patch[3]=0004-Re-add-sys-stat.h-to-stdinc.h.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions

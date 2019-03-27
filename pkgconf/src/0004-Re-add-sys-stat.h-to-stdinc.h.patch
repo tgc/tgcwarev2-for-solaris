@@ -1,0 +1,25 @@
+From df44a42677b501384563a0ac04098b776a87184e Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Sun, 24 Mar 2019 12:48:11 +0100
+Subject: [PATCH 4/4] Re-add <sys/stat.h> to stdinc.h
+
+This fixes a segfault on Solaris 2.6.
+---
+ libpkgconf/stdinc.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libpkgconf/stdinc.h b/libpkgconf/stdinc.h
+index a47cd52..0256040 100644
+--- a/libpkgconf/stdinc.h
++++ b/libpkgconf/stdinc.h
+@@ -24,6 +24,7 @@
+ #include <stdarg.h>
+ #include <string.h>
+ #include <sys/types.h>
++#include <sys/stat.h>
+ #ifdef HAVE_STDINT_H
+ #include <stdint.h>
+ #endif
+-- 
+2.16.5
+
