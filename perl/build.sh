@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=perl
-version=5.16.3
+version=5.28.1
 pkgver=1
 source[0]=http://www.cpan.org/src/5.0/perl-${version}.tar.gz
 # If there are no patches, simply comment this
@@ -20,7 +20,10 @@ make_check_target="test"
 __configure="sh Configure"
 [ "$arch" = "sparc" ] && arch_name="sun4-solaris"
 [ "$arch" = "i386" ] && arch_name="i86pc-solaris"
-configure_args=(-Dcc=gcc -Accflags=-fno-stack-protector -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by="Tom G. Christensen" -Dcf_email=swpkg@jupiterrise.com -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager=/usr/bin/more -Dlocincpth=/usr/tgcware/include -Dloclibpth=/usr/tgcware/lib -des -Dinc_version_list="5.16.2")
+configure_args=(-Dcc=gcc -Doptimize='-O2' -Darchname=${arch_name} -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by="Tom G. Christensen" -Dcf_email=swpkg@jupiterrise.com -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager=/usr/bin/more -Dlocincpth=/usr/tgcware/include -Dloclibpth=/usr/tgcware/lib -des -Dinc_version_list='5.16.3 5.16.2')
+# Force alignment on SPARC since the configure test can fail:
+# https://rt.perl.org/Public/Bug/Display.html?id=133495
+[ "$arch" = "sparc" ] && configure_args+=(-Dd_u32align)
 
 reg prep
 prep()
@@ -46,11 +49,13 @@ reg install
 install()
 {
     generic_install UNKNOWN
-    new_perl_lib=${stagedir}${prefix}/lib/$version
-    new_arch_lib=${stagedir}${prefix}/lib/$version/${arch_name}
-    new_perl_flags="export LD_LIBRARY_PATH=$new_arch_lib/CORE; export PERL5LIB=$new_perl_lib;"
+    new_perl_lib=${stagedir}${prefix}/lib/perl5/$version
+    new_arch_lib=${stagedir}${prefix}/lib/perl5/$version/${arch_name}
     new_perl="${stagedir}${prefix}/bin/perl"
     echo "new_perl = $new_perl"
+    echo "new_perl_lib = $new_perl_lib"
+    echo "new_arch_lib = $new_arch_lib"
+    export LD_LIBRARY_PATH=$new_arch_lib/CORE; export PERL5LIB=$new_perl_lib;
     # fix the packlist and friends
     $new_perl -i -p -e "s|$stagedir||g;" ${stagedir}${prefix}/lib/perl5/$version/${arch_name}/.packlist
     $new_perl -i -p -e "s|$stagedir||g;" ${stagedir}${prefix}/lib/perl5/$version/${arch_name}/Config.pm
@@ -61,8 +66,15 @@ install()
             $new_perl -i -p -e "s|$stagedir||g;" $i
         fi
     done
-    ${__rm} -f ${stagedir}${prefix}/${_bindir}/perl$version
+    # Strip shared libraries
+    cd $stagedir
+    find . -name '*.so' -print | ${__xargs} chmod 755
+    do_strip_shared
+    cd -
+
+    # Mark compatible the previous versions added to @INC
     compat perl 5.16.2 1 1
+    compat perl 5.16.3 1 1
 }
 
 reg pack
