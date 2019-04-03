@@ -19,6 +19,11 @@ source[0]=https://github.com/${topdir}/${topdir}/releases/download/v${version}/$
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 configure_args+=(--disable-static --enable-lib-only)
+if [ "$arch" = "i386" -a "$gnu_os_ver" = "2.7" ]; then
+  # Building with gcc 3.4.6 avoids this linker error:
+  # "ld: fatal: relocations remain against allocatable but non-writable sections"
+  export CC="/usr/tgcware/gcc34/bin/gcc"
+fi
 make_build_target="V=1"
 # No python deps from packaged scripts
 ignore_deps="TGCpy27"
@@ -27,13 +32,6 @@ reg prep
 prep()
 {
     generic_prep
-    if [ "$arch" = "i386" ]; then
-      # Replacing Wl,-z text with -mimpure-text is a workaround to avoid
-      # "ld: fatal: relocations remain against allocatable but non-writable sections"
-      # when linking libnghttp2
-      setdir source
-      sed -i 's|\$wl-z \${wl}text|-mimpure-text|g' configure
-    fi
 }
 
 reg build
