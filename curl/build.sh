@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.64.0
+version=7.64.1
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # https://curl.haxx.se/docs/caextract.html
@@ -34,6 +34,8 @@ prep()
     # thing so we reverse the test that would normally make configure skip
     # looking for the pthread symbols in libpthread.
     ${__gsed} -i '/USE_THREADS_POSIX/ s/\!= "1"/\= "1"/' configure
+    # Ensure testsuite can find sshd
+    sed -i 's#/usr/freeware#/usr/tgcware#' tests/sshhelp.pm
 }
 
 reg build
@@ -79,6 +81,7 @@ install()
     compat curl 7.55.1 1 1
     compat curl 7.59.0 1 1
     compat curl 7.61.1 1 1
+    compat curl 7.64.0 1 1
 }
 
 reg pack
