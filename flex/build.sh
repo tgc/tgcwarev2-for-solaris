@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=flex
-version=2.5.37
-pkgver=2
-source[0]=http://downloads.sourceforge.net/project/flex/$topdir-$version.tar.bz2
+version=2.6.4
+pkgver=1
+source[0]=https://github.com/westes/$topdir/releases/download/v${version}/$topdir-$version.tar.lz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -41,8 +41,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc README NEWS COPYING
-    ${__rm} -rf ${stagedir}${prefix}/share/doc/flex
+    ${__mv} ${stagedir}${prefix}/${_docdir}/flex ${stagedir}${prefix}/${_vdocdir}
 }
 
 reg pack
