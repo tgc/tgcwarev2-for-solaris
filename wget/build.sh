@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=wget
-version=1.20.1
+version=1.20.3
 pkgver=1
 source[0]=https://mirrors.kernel.org/gnu/wget/$topdir-$version.tar.lz
 # If there are no patches, simply comment this
