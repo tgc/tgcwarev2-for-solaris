@@ -3,7 +3,7 @@ pkgname="${pkgprefix}ngh2"
 name="$topdir - HTTP/2 C Library"
 pkgcat="application"
 pkgvendor="https://nghttp2.org/"
-pkgdesc="an implementation of HTTP/2 and its header compression algorithm HPACK in C"
+pkgdesc="An implementation of HTTP/2 and its header compression algorithm HPACK in C"
 pkgver="$pkgver"
 files(-,root,bin)
 default_docs
