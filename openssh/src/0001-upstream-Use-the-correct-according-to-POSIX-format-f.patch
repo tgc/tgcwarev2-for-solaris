@@ -1,0 +1,37 @@
+From 62dd70613b77b229f53db3cc1c3e8a206fa2b582 Mon Sep 17 00:00:00 2001
+From: "dtucker@openbsd.org" <dtucker@openbsd.org>
+Date: Fri, 3 May 2019 06:06:30 +0000
+Subject: [PATCH] upstream: Use the correct (according to POSIX) format for
+
+left-justification in snmprintf. bz#3002, patch from velemas at gmail.com, ok
+markus@.
+
+OpenBSD-Commit-ID: 65d252b799be0cc8f68b6c47cece0a57bb00fea7
+---
+ progressmeter.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/progressmeter.c b/progressmeter.c
+index e385c125..0e58edde 100644
+--- a/progressmeter.c
++++ b/progressmeter.c
+@@ -1,4 +1,4 @@
+-/* $OpenBSD: progressmeter.c,v 1.47 2019/01/24 16:52:17 dtucker Exp $ */
++/* $OpenBSD: progressmeter.c,v 1.48 2019/05/03 06:06:30 dtucker Exp $ */
+ /*
+  * Copyright (c) 2003 Nils Nordman.  All rights reserved.
+  *
+@@ -169,8 +169,8 @@ refresh_progress_meter(int force_update)
+ 	file_len = win_size - 36;
+ 	if (file_len > 0) {
+ 		buf[0] = '\r';
+-		snmprintf(buf+1, sizeof(buf)-1 , &file_len, "%*s",
+-		    file_len * -1, file);
++		snmprintf(buf+1, sizeof(buf)-1, &file_len, "%-*s",
++		    file_len, file);
+ 	}
+ 
+ 	/* percent of transfer done */
+-- 
+2.16.5
+
