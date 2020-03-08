@@ -1,0 +1,11 @@
+[compat-openssl102]
+pkgname="${pkgprefix}co102"
+name="compat-openssl102 - Secure Sockets Layer"
+pkgcat="system"
+pkgvendor="http://www.openssl.org"
+pkgdesc="Toolkit implementing SSL v2/v3 and TLS v1"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_libdir/*.so.*
+
