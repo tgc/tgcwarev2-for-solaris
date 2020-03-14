@@ -8,7 +8,6 @@ pkgver="$pkgver"
 files(-,root,bin)
 $_bindir/xmlwf
 $_libdir/libexpat.so.*
-$_mandir/man1/xmlwf.1*
 $_vdocdir
 
 [expat-devel]
