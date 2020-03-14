@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=nghttp2
-version=1.38.0
+version=1.40.0
 pkgver=1
 source[0]=https://github.com/${topdir}/${topdir}/releases/download/v${version}/${topdir}-${version}.tar.xz
 # If there are no patches, simply comment this
@@ -58,6 +58,7 @@ install()
     ${__rm} -rf  ${stagedir}${prefix}/${_mandir}
 
     compat nghttp2 1.37.0 1 1
+    compat nghttp2 1.38.0 1 1
 }
 
 reg pack
