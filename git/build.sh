@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=2.16.5
+version=2.16.6
 pkgver=1
 source[0]=https://www.kernel.org/pub/software/scm/git/$topdir-$version.tar.gz
 source[1]=https://www.kernel.org/pub/software/scm/git/$topdir-manpages-$version.tar.gz
@@ -43,9 +43,6 @@ export GIT_SKIP_TESTS
 no_configure=1
 __configure="make"
 configure_args=
-# HACK: -e must be last or echo will think it's an argument
-#__make="/usr/tgcware/bin/make -e"
-make_build_target="V=1"
 make_check_target="test"
 
 reg prep
@@ -54,6 +51,7 @@ prep()
     generic_prep
     setdir source
     cat << EOF > config.mak
+V=1
 CC=gcc
 SHELL=/usr/tgcware/bin/bash
 PERL_PATH=$prefix/bin/perl
