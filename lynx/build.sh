@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=lynx
 version=2.8.9rel.1
-pkgver=1
+pkgver=2
 source[0]=https://invisible-mirror.net/archives/$topdir/tarballs/${topdir}${version}.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -27,6 +27,11 @@ prep()
     generic_prep
     setdir source
     ${__gsed} -i 's|^#! /bin/sh|#!/bin/bash|' configure
+    # Build with libidn2 instead of libidn
+    ${__gsed} -i 's/idna.h/idn2.h/' configure WWW/Library/Implementation/HTParse.c
+    ${__gsed} -i '/idn-free.h/d' configure WWW/Library/Implementation/HTParse.c
+    ${__gsed} -i 's/-lidn/-lidn2/' configure
+
 }
 
 reg build

@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sun Mar 15 2020 Tom G. Christensen <swpkg@jupiterrise.com> - 2.8.9rel.1-2
+- Rebuild with libidn2
+
 * Thu Apr 04 2019 Tom G. Christensen <swpkg@jupiterrise.com> - 2.8.9rel.1-1
 - Update to 2.8.9rel.1
 
