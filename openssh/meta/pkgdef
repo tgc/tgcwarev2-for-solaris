@@ -30,5 +30,6 @@ $lprefix/$_sysconfdir
 $lprefix/libexec/ssh-keysign
 $lprefix/libexec/sftp-server
 $lprefix/libexec/ssh-pkcs11-helper
+$lprefix/libexec/ssh-sk-helper
 default_docs
 
