@@ -1,5 +1,10 @@
 CHANGELOG
 ---------
+* Thu Mar 19 2020 Tom G. Christensen <swpkg@jupiterrise.com> - 1.0.2u-6
+- Update to 1.0.2u
+- Allow use of asm modules on x86
+- Move devel manpages into their own package
+
 * Sat Mar 23 2019 Tom G. Christensen <swpkg@jupiterrise.com> - 1.0.2r-5
 - Update to 1.0.2r
 

@@ -2,8 +2,8 @@
 pkgname="${pkgprefix}ossl"
 name="openssl - Secure Sockets Layer"
 pkgcat="system"
-pkgvendor="http://www.openssl.org"
-pkgdesc="Toolkit implementing SSL v2/v3 and TLS v1"
+pkgvendor="https://www.openssl.org"
+pkgdesc="Cryptography and SSL/TLS Toolkit"
 pkgver="$pkgver"
 files(-,root,bin)
 default_docs
@@ -15,14 +15,23 @@ $_sharedir/ssl
 
 [openssl-devel]
 pkgname="${pkgprefix}ossld"
-name="openssl-devel - Development support for openssl"
+name="openssl-devel - Development support for OpenSSL"
 pkgcat="system"
-pkgvendor="http://www.openssl.org"
-pkgdesc="Files needed for developing with openssl"
+pkgvendor="https://www.openssl.org"
+pkgdesc="Files needed for developing with OpenSSL"
 pkgver="$pkgver"
 files(-,root,bin)
 $_includedir
 $_libdir/*.so
 $_libdir/pkgconfig
+
+[openssl-devel-manpages]
+pkgname="${pkgprefix}osslm"
+name="openssl-devel-manpages - Development documentation for OpenSSL"
+pkgcat="system"
+pkgvendor="https://www.openssl.org"
+pkgdesc="Developement manpages for OpenSSL"
+pkgver="$pkgver"
+files(-,root,bin)
 $_mandir/man3
 
