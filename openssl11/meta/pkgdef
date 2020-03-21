@@ -1,0 +1,47 @@
+[openssl]
+pkgname="${pkgprefix}ossl"
+name="openssl - Secure Sockets Layer"
+pkgcat="system"
+pkgvendor="https://www.openssl.org"
+pkgdesc="Cryptography and SSL/TLS Toolkit"
+pkgver="$pkgver"
+files(-,root,bin)
+default_docs
+$_bindir
+$_libdir/*.so.*
+$_libdir/engines-1.1/*.so
+$_mandir/man{1,5,7}
+$_sharedir/ssl
+
+[openssl-devel]
+pkgname="${pkgprefix}ossld"
+name="openssl-devel - Development support for OpenSSL"
+pkgcat="system"
+pkgvendor="https://www.openssl.org"
+pkgdesc="Files needed for developing with OpenSSL"
+pkgver="$pkgver"
+files(-,root,bin)
+$_includedir
+$_libdir/*.so
+$_libdir/pkgconfig
+
+[openssl-devel-manpages]
+pkgname="${pkgprefix}osslm"
+name="openssl-devel-manpages - Development documentation for OpenSSL"
+pkgcat="system"
+pkgvendor="https://www.openssl.org"
+pkgdesc="Developement manpages for OpenSSL"
+pkgver="$pkgver"
+files(-,root,bin)
+$_mandir/man3
+
+[openssl-htmldocs]
+pkgname="${pkgprefix}osslh"
+name="openssl-htmldocs - Documentation in HTML format"
+pkgcat="system"
+pkgvendor="http://www.openssl.org"
+pkgdesc="OpenSSL documentation in HTML format"
+pkgver="$pkgver"
+files(-,root,bin)
+$_sharedir/doc/openssl
+
