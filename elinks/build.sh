@@ -6,12 +6,24 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=elinks
-version=0.13-0.1.4efea7e
-pkgver=2
-source[0]=http://repo.or.cz/elinks.git/snapshot/4efea7e314b49df660799e71ede713dff0cd1230.tar.gz
+version=0.12pre6
+pkgver=3
+source[0]=http://elinks.or.cz/download/elinks-${version}.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=elinks-inet_aton.patch
-patch[1]=elinks-0.12pre6-libidn2.patch
+patch[1]=elinks-0.11.0-getaddrinfo.patch
+patch[2]=elinks-0.11.0-ssl-noegd.patch
+patch[3]=elinks-0.11.0-sysname.patch
+patch[4]=elinks-0.11.3-macropen.patch
+patch[5]=elinks-0.12pre5-ddg-search.patch
+patch[6]=elinks-0.12pre6-autoconf.patch
+patch[7]=elinks-0.12pre6-libidn2.patch
+patch[8]=elinks-0.12pre6-list_is_singleton.patch
+patch[9]=elinks-0.12pre6-openssl11.patch
+patch[10]=elinks-0.12pre6-recent-gcc-versions.patch
+patch[11]=elinks-0.12pre6-ssl-hostname.patch
+patch[12]=elinks-0.12pre6-static-analysis.patch
+patch[13]=elinks-scroll.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -23,14 +35,20 @@ export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 
 # No MAP_ANON for Solaris < 8
 [ "$gnu_os_ver" = "2.7" ] && ac_overrides="ac_cv_func_mmap_fixed_mapped=no"
-topsrcdir=${topdir}-4efea7e
-configure_args+=(--without-x --with-lzma)
+configure_args+=(--without-x --enable-256-colors)
 
 reg prep
 prep()
 {
     generic_prep
     setdir source
+    # rename the input file of autoconf to eliminate a warning
+    mv configure.in configure.ac
+    ${__gsed} -e 's/configure\.in/configure.ac/' \
+	    -i Makefile* acinclude.m4 doc/man/man1/Makefile
+    # remove bogus serial numbers
+    ${__gsed} -i 's/^# *serial [AM0-9]*$//' acinclude.m4 config/m4/*.m4
+
     bash autogen.sh
 }
 
