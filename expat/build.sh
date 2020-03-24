@@ -10,7 +10,7 @@ version=2.2.9
 pkgver=1
 source[0]=https://downloads.sourceforge.net/project/expat/expat/${version}/$topdir-$version.tar.lz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=expat-2.2.9-no-stdint_h.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -18,12 +18,18 @@ source[0]=https://downloads.sourceforge.net/project/expat/expat/${version}/$topd
 # Global settings
 export LDFLAGS="-L/usr/tgcware/lib -R/usr/tgcware/lib"
 export CPPFLAGS="-I/usr/tgcware/include"
+if [ "$arch" = "i386" -a "$gnu_os_ver" = "2.7" ]; then
+    # Building with gcc 4.3.6 avoids this linker error:
+    # "ld: fatal: relocations remain against allocatable but non-writable sections"
+    export CC=/usr/tgcware/gcc43/bin/gcc
+    export CXX=/usr/tgcware/gc43/bin/g++
+fi
+
 
 reg prep
 prep()
 {
     generic_prep
-    ${__gsed} -i 's/fgrep -q/fgrep -s/' configure
 }
 
 reg build
