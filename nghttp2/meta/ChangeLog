@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Tue Oct 13 2020 Tom G. Christensen <swpkg@jupiterrise.com> - 1.41.0-1
+- Update to 1.41.0 (fixes CVE-2020-11080)
+
 * Sat Mar 14 2020 Tom G. Christensen <swpkg@jupiterrise.com> - 1.40.0-1
 - Update to 1.40.0
 
