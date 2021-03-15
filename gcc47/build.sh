@@ -7,10 +7,12 @@
 # Check the following 4 variables before running the script
 topdir=gcc
 version=4.7.4
-pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
+pkgver=2
+source[0]=http://mirrors.kernel.org/gnu/gcc/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=0001-Disable-local-dynamic-TLS-model-on-Solaris-x86-if-as.patch
+patch[1]=0002-Add-sse-os-support-check-to-SSSE3-and-SSSE4-tests.patch
+patch[2]=0003-gcc-config-sol2-Link-with-thread-libraries-also-for-.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -68,6 +70,20 @@ install()
     # Place share/docs in the regular location
     prefix=$topinstalldir
     doc COPYING* MAINTAINERS NEWS
+
+    # Compatibility information
+    for lib in $(${__gsed} -n '/^\[lib/ s/^\[lib\([^]]*\)\]$/\1/p' $metadir/$pkgdef_file | sort -u)
+    do
+	gccvers="$(gcc_compat lib$lib)"
+	if [ -z "$gccvers" ]; then
+	    echo "FATAL: Did not find compat information for lib$lib"
+	    exit 1
+	fi
+	for gccver in $gccvers
+	do
+	    compat lib$lib $gccver 1 9
+	done
+    done
 }
 
 reg check

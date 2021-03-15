@@ -1,0 +1,35 @@
+From 8808add5d4e4c253b7e034331adc0a1cb1dbdf33 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Sun, 22 Nov 2020 18:08:18 +0100
+Subject: [PATCH 3/3] gcc/config/sol2: Link with thread libraries also for
+ -fprofile-arcs
+
+---
+ gcc/config/sol2.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/gcc/config/sol2.h b/gcc/config/sol2.h
+index b265f15ad39..2763649c2c4 100644
+--- a/gcc/config/sol2.h
++++ b/gcc/config/sol2.h
+@@ -110,7 +110,7 @@ along with GCC; see the file COPYING3.  If not see
+ #define LIB_SPEC \
+   "%{!symbolic:\
+      %{pthreads|pthread:-lpthread} \
+-     %{pthreads|pthread|fprofile-generate*:" LIB_TLS_SPEC "} \
++     %{pthreads|pthread|fprofile-arcs|fprofile-generate*:" LIB_TLS_SPEC "} \
+      %{p|pg:-ldl} -lc}"
+ 
+ #ifndef CROSS_DIRECTORY_STRUCTURE
+@@ -173,7 +173,7 @@ along with GCC; see the file COPYING3.  If not see
+    %{static:-dn -Bstatic} \
+    %{shared:-G -dy %{!mimpure-text:-z text}} \
+    %{symbolic:-Bsymbolic -G -dy -z text} \
+-   %{pthreads|pthread|fprofile-generate*:" LIB_THREAD_LDFLAGS_SPEC "} \
++   %{pthreads|pthread|fprofile-arcs|fprofile-generate*:" LIB_THREAD_LDFLAGS_SPEC "} \
+    %(link_arch) \
+    %{Qy:} %{!Qn:-Qy}"
+ 
+-- 
+2.24.3
+

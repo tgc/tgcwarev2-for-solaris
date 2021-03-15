@@ -1,0 +1,339 @@
+From 45f38f56b92d28e86351251650c7ac1918a9f0e3 Mon Sep 17 00:00:00 2001
+From: Rainer Orth <ro@CeBiTec.Uni-Bielefeld.DE>
+Date: Fri, 7 Mar 2014 11:30:40 +0000
+Subject: [PATCH 1/3] Disable local dynamic TLS model on Solaris/x86 if as/ld
+ cannot handle it
+
+	* configure.ac (TLS_SECTION_ASM_FLAG): Save as tls_section_flag.
+	(LIB_TLS_SPEC): Save as ld_tls_libs.
+	(HAVE_AS_IX86_TLSLDMPLT): Define as 1/0.
+	(HAVE_AS_IX86_TLSLDM): New test.
+	* configure, config.in: Regenerate.
+	* config/i386/i386.c (legitimize_tls_address): Fall back to
+	TLS_MODEL_GLOBAL_DYNAMIC on 32-bit Solaris/x86 if tool chain
+	cannot support TLS_MODEL_LOCAL_DYNAMIC.
+	* config/i386/i386.md (*tls_local_dynamic_base_32_gnu): Use if
+	instead of #ifdef in HAVE_AS_IX86_TLSLDMPLT test.
+
+From-SVN: r208398
+---
+ gcc/ChangeLog           | 13 +++++++
+ gcc/config.in           |  8 ++++-
+ gcc/config/i386/i386.c  |  7 ++++
+ gcc/config/i386/i386.md | 11 +++---
+ gcc/configure           | 78 ++++++++++++++++++++++++++++++++++++++---
+ gcc/configure.ac        | 49 ++++++++++++++++++++++++--
+ 6 files changed, 153 insertions(+), 13 deletions(-)
+
+diff --git a/gcc/ChangeLog b/gcc/ChangeLog
+index db5c5f1df45..ce65dff87fa 100644
+--- a/gcc/ChangeLog
++++ b/gcc/ChangeLog
+@@ -1,3 +1,16 @@
++2014-03-07  Rainer Orth  <ro@CeBiTec.Uni-Bielefeld.DE>
++
++	* configure.ac (TLS_SECTION_ASM_FLAG): Save as tls_section_flag.
++	(LIB_TLS_SPEC): Save as ld_tls_libs.
++	(HAVE_AS_IX86_TLSLDMPLT): Define as 1/0.
++	(HAVE_AS_IX86_TLSLDM): New test.
++	* configure, config.in: Regenerate.
++	* config/i386/i386.c (legitimize_tls_address): Fall back to
++	TLS_MODEL_GLOBAL_DYNAMIC on 32-bit Solaris/x86 if tool chain
++	cannot support TLS_MODEL_LOCAL_DYNAMIC.
++	* config/i386/i386.md (*tls_local_dynamic_base_32_gnu): Use if
++	instead of #ifdef in HAVE_AS_IX86_TLSLDMPLT test.
++
+ 2014-06-12  Release Manager
+ 
+ 	* GCC 4.7.4 released.
+diff --git a/gcc/config.in b/gcc/config.in
+index 2e632b24280..d1ad0a2b34c 100644
+--- a/gcc/config.in
++++ b/gcc/config.in
+@@ -363,7 +363,13 @@
+ #endif
+ 
+ 
+-/* Define if your assembler and linker support @tlsldmplt. */
++/* Define to 1 if your assembler and linker support @tlsldm. */
++#ifndef USED_FOR_TARGET
++#undef HAVE_AS_IX86_TLSLDM
++#endif
++
++
++/* Define to 1 if your assembler and linker support @tlsldmplt. */
+ #ifndef USED_FOR_TARGET
+ #undef HAVE_AS_IX86_TLSLDMPLT
+ #endif
+diff --git a/gcc/config/i386/i386.c b/gcc/config/i386/i386.c
+index b39ec9dea18..b6848c24618 100644
+--- a/gcc/config/i386/i386.c
++++ b/gcc/config/i386/i386.c
+@@ -12674,6 +12674,13 @@ legitimize_tls_address (rtx x, enum tls_model model, bool for_mov)
+   rtx pic = NULL_RTX, tp = NULL_RTX;
+   int type;
+ 
++  /* Fall back to global dynamic model if tool chain cannot support local
++     dynamic.  */
++  if (TARGET_SUN_TLS && !TARGET_64BIT
++      && !HAVE_AS_IX86_TLSLDMPLT && !HAVE_AS_IX86_TLSLDM
++      && model == TLS_MODEL_LOCAL_DYNAMIC)
++    model = TLS_MODEL_GLOBAL_DYNAMIC;
++
+   switch (model)
+     {
+     case TLS_MODEL_GLOBAL_DYNAMIC:
+diff --git a/gcc/config/i386/i386.md b/gcc/config/i386/i386.md
+index f09717d15a0..8e323c89157 100644
+--- a/gcc/config/i386/i386.md
++++ b/gcc/config/i386/i386.md
+@@ -12658,11 +12658,12 @@
+   output_asm_insn
+     ("lea{l}\t{%&@tlsldm(%1), %0|%0, %&@tlsldm[%1]}", operands);
+   if (TARGET_SUN_TLS)
+-#ifdef HAVE_AS_IX86_TLSLDMPLT
+-    return "call\t%&@tlsldmplt";
+-#else
+-    return "call\t%p2@plt";
+-#endif
++    {
++      if (HAVE_AS_IX86_TLSLDMPLT)
++	return "call\t%&@tlsldmplt";
++      else
++	return "call\t%p2@plt";
++    }
+   return "call\t%P2";
+ }
+   [(set_attr "type" "multi")
+diff --git a/gcc/configure b/gcc/configure
+index 0d8c5e71d1f..100ebbc0471 100755
+--- a/gcc/configure
++++ b/gcc/configure
+@@ -11116,6 +11116,10 @@ else
+     force_sjlj_exceptions=yes
+     enableval=yes
+     ;;
++  lm32*-*-*)
++     force_sjlj_exceptions=yes
++     enableval=yes
++     ;;
+   *)
+     force_sjlj_exceptions=no
+     ;;
+@@ -18046,7 +18050,7 @@ else
+   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
+   lt_status=$lt_dlunknown
+   cat > conftest.$ac_ext <<_LT_EOF
+-#line 18049 "configure"
++#line 17930 "configure"
+ #include "confdefs.h"
+ 
+ #if HAVE_DLFCN_H
+@@ -18152,7 +18156,7 @@ else
+   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
+   lt_status=$lt_dlunknown
+   cat > conftest.$ac_ext <<_LT_EOF
+-#line 18155 "configure"
++#line 18036 "configure"
+ #include "confdefs.h"
+ 
+ #if HAVE_DLFCN_H
+@@ -23366,6 +23370,7 @@ foo:	.long	25
+ 	.section .tdata,"awt",@progbits'
+       tls_first_major=0
+       tls_first_minor=0
++      tls_section_flag=t
+ 
+ $as_echo "#define TLS_SECTION_ASM_FLAG 't'" >>confdefs.h
+ 
+@@ -23374,6 +23379,7 @@ $as_echo "#define TLS_SECTION_ASM_FLAG 't'" >>confdefs.h
+ 	.section ".tdata","awT",@progbits'
+       tls_first_major=2
+       tls_first_minor=14
++      tls_section_flag=T
+       tls_as_opt="--fatal-warnings"
+     fi
+     conftest_s="$conftest_s
+@@ -23404,6 +23410,7 @@ foo:	.long	25
+ 	movq	$foo@TPOFF, %rax'
+ 	tls_first_major=2
+ 	tls_first_minor=14
++	tls_section_flag=T
+ 	tls_as_opt=--fatal-warnings
+ 	;;
+   ia64-*-*)
+@@ -23846,6 +23853,7 @@ else
+   set_have_as_tls=no
+ fi
+ 
++    ld_tls_libs="$LIBS"
+     # Clear LIBS if we cannot support TLS.
+     if test $set_have_as_tls = no; then
+       LIBS=
+@@ -25020,11 +25028,73 @@ else
+ fi
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $gcc_cv_as_ix86_tlsldmplt" >&5
+ $as_echo "$gcc_cv_as_ix86_tlsldmplt" >&6; }
+-if test $gcc_cv_as_ix86_tlsldmplt = yes; then
+ 
+-$as_echo "#define HAVE_AS_IX86_TLSLDMPLT 1" >>confdefs.h
+ 
++cat >>confdefs.h <<_ACEOF
++#define HAVE_AS_IX86_TLSLDMPLT `if test $gcc_cv_as_ix86_tlsldmplt = yes; then echo 1; else echo 0; fi`
++_ACEOF
++
++
++    # Enforce 32-bit output with gas and gld.
++    if test x$gas = xyes; then
++      as_ix86_tls_ldm_opt="--32"
++    fi
++    if echo "$ld_ver" | grep GNU > /dev/null; then
++      if $gcc_cv_ld -V 2>/dev/null | grep elf_i386_sol2 > /dev/null; then
++        ld_ix86_tls_ldm_opt="-melf_i386_sol2"
++      else
++        ld_ix86_tls_ldm_opt="-melf_i386"
++      fi
++    fi
++    conftest_s='
++	.section .text,"ax",@progbits
++        .globl  _start
++        .type   _start, @function
++_start:
++	leal	value@tlsldm(%ebx), %eax
++	call	___tls_get_addr@plt
++
++        .section .tdata,"aw'$tls_section_flag'",@progbits
++        .type	value, @object
++value:'
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking assembler for R_386_TLS_LDM reloc" >&5
++$as_echo_n "checking assembler for R_386_TLS_LDM reloc... " >&6; }
++if test "${gcc_cv_as_ix86_tlsldm+set}" = set; then :
++  $as_echo_n "(cached) " >&6
++else
++  gcc_cv_as_ix86_tlsldm=no
++  if test x$gcc_cv_as != x; then
++    $as_echo "$conftest_s" > conftest.s
++    if { ac_try='$gcc_cv_as $gcc_cv_as_flags $as_ix86_tls_ldm_opt -o conftest.o conftest.s >&5'
++  { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$ac_try\""; } >&5
++  (eval $ac_try) 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }; }
++    then
++	if test x$gcc_cv_ld != x && test x$gcc_cv_objdump != x \
++	    && $gcc_cv_ld $ld_ix86_tls_ldm_opt -o conftest conftest.o $ld_tls_libs -lc > /dev/null 2>&1; then
++	   if $gcc_cv_objdump -d conftest 2>/dev/null | grep nop > /dev/null \
++	      || dis conftest 2>/dev/null | grep nop > /dev/null; then
++	     gcc_cv_as_ix86_tlsldm=yes
++	   fi
++	 fi
++	 rm -f conftest
++    else
++      echo "configure: failed program was" >&5
++      cat conftest.s >&5
++    fi
++    rm -f conftest.o conftest.s
++  fi
+ fi
++{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $gcc_cv_as_ix86_tlsldm" >&5
++$as_echo "$gcc_cv_as_ix86_tlsldm" >&6; }
++
++
++cat >>confdefs.h <<_ACEOF
++#define HAVE_AS_IX86_TLSLDM `if test $gcc_cv_as_ix86_tlsldm = yes; then echo 1; else echo 0; fi`
++_ACEOF
++
+ 
+     ;;
+ 
+diff --git a/gcc/configure.ac b/gcc/configure.ac
+index a78a1d76d2f..284102e4bd0 100644
+--- a/gcc/configure.ac
++++ b/gcc/configure.ac
+@@ -2916,6 +2916,7 @@ foo:	.long	25
+ 	.section .tdata,"awt",@progbits'
+       tls_first_major=0
+       tls_first_minor=0
++      tls_section_flag=t
+ changequote([,])dnl
+       AC_DEFINE(TLS_SECTION_ASM_FLAG, 't',
+ [Define to the flag used to mark TLS sections if the default (`T') doesn't work.])
+@@ -2925,6 +2926,7 @@ changequote(,)dnl
+ 	.section ".tdata","awT",@progbits'
+       tls_first_major=2
+       tls_first_minor=14
++      tls_section_flag=T
+       tls_as_opt="--fatal-warnings"
+     fi
+     conftest_s="$conftest_s
+@@ -2955,6 +2957,7 @@ foo:	.long	25
+ 	movq	$foo@TPOFF, %rax'
+ 	tls_first_major=2
+ 	tls_first_minor=14
++	tls_section_flag=T
+ 	tls_as_opt=--fatal-warnings
+ 	;;
+   ia64-*-*)
+@@ -3302,6 +3305,7 @@ case "$target" in
+     # (32-bit x86) only lived in libthread, so check for that.  Keep
+     # set_have_as_tls if found, disable if not.
+     AC_SEARCH_LIBS([$tga_func], [thread],, [set_have_as_tls=no])
++    ld_tls_libs="$LIBS"
+     # Clear LIBS if we cannot support TLS.
+     if test $set_have_as_tls = no; then
+       LIBS=
+@@ -3783,9 +3787,48 @@ foo:	nop
+ 	 && $gcc_cv_ld -o conftest conftest.o -G > /dev/null 2>&1; then
+ 	   gcc_cv_as_ix86_tlsldmplt=yes
+ 	 fi
+-	 rm -f conftest],
+-      [AC_DEFINE(HAVE_AS_IX86_TLSLDMPLT, 1,
+-        [Define if your assembler and linker support @tlsldmplt.])])
++	 rm -f conftest])
++    AC_DEFINE_UNQUOTED(HAVE_AS_IX86_TLSLDMPLT,
++      [`if test $gcc_cv_as_ix86_tlsldmplt = yes; then echo 1; else echo 0; fi`],
++      [Define to 1 if your assembler and linker support @tlsldmplt.])
++
++    # Enforce 32-bit output with gas and gld.
++    if test x$gas = xyes; then
++      as_ix86_tls_ldm_opt="--32"
++    fi
++    if echo "$ld_ver" | grep GNU > /dev/null; then
++      if $gcc_cv_ld -V 2>/dev/null | grep elf_i386_sol2 > /dev/null; then
++        ld_ix86_tls_ldm_opt="-melf_i386_sol2"
++      else
++        ld_ix86_tls_ldm_opt="-melf_i386"
++      fi
++    fi
++    conftest_s='
++	.section .text,"ax",@progbits
++        .globl  _start
++        .type   _start, @function
++_start:      
++	leal	value@tlsldm(%ebx), %eax
++	call	___tls_get_addr@plt
++
++        .section .tdata,"aw'$tls_section_flag'",@progbits
++        .type	value, @object
++value:'
++    gcc_GAS_CHECK_FEATURE([R_386_TLS_LDM reloc],
++        gcc_cv_as_ix86_tlsldm,,
++	[$as_ix86_tls_ldm_opt],
++	[$conftest_s],
++	[if test x$gcc_cv_ld != x && test x$gcc_cv_objdump != x \
++	    && $gcc_cv_ld $ld_ix86_tls_ldm_opt -o conftest conftest.o $ld_tls_libs -lc > /dev/null 2>&1; then
++	   if $gcc_cv_objdump -d conftest 2>/dev/null | grep nop > /dev/null \
++	      || dis conftest 2>/dev/null | grep nop > /dev/null; then
++	     gcc_cv_as_ix86_tlsldm=yes
++	   fi
++	 fi
++	 rm -f conftest])
++    AC_DEFINE_UNQUOTED(HAVE_AS_IX86_TLSLDM,
++      [`if test $gcc_cv_as_ix86_tlsldm = yes; then echo 1; else echo 0; fi`],
++      [Define to 1 if your assembler and linker support @tlsldm.])
+ 
+     ;;
+ 
+-- 
+2.24.3
+

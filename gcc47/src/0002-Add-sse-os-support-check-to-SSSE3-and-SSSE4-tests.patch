@@ -1,0 +1,145 @@
+From c4bae5aadc305e6e36267059a801865aefdf9611 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Thu, 19 Nov 2020 21:09:47 +0100
+Subject: [PATCH 2/3] Add sse os support check to SSSE3 and SSSE4 tests
+
+---
+ gcc/testsuite/gcc.target/i386/sse4_1-check.h | 3 ++-
+ gcc/testsuite/gcc.target/i386/sse4_2-check.h | 3 ++-
+ gcc/testsuite/gcc.target/i386/sse4a-check.h  | 3 ++-
+ gcc/testsuite/gcc.target/i386/ssse3-check.h  | 3 ++-
+ gcc/testsuite/gcc.target/i386/vperm-v4sf-2.c | 4 ++++
+ gcc/testsuite/gcc.target/i386/vperm-v4si-2.c | 4 ++++
+ 6 files changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/gcc/testsuite/gcc.target/i386/sse4_1-check.h b/gcc/testsuite/gcc.target/i386/sse4_1-check.h
+index 788f65d61cb..ab3b838bc16 100644
+--- a/gcc/testsuite/gcc.target/i386/sse4_1-check.h
++++ b/gcc/testsuite/gcc.target/i386/sse4_1-check.h
+@@ -2,6 +2,7 @@
+ 
+ #include "cpuid.h"
+ #include "m128-check.h"
++#include "sse-os-support.h"
+ 
+ static void sse4_1_test (void);
+ 
+@@ -23,7 +24,7 @@ main ()
+     return 0;
+ 
+   /* Run SSE4.1 test only if host has SSE4.1 support.  */
+-  if (ecx & bit_SSE4_1)
++  if ((ecx & bit_SSE4_1) && sse_os_support ())
+     do_test ();
+ 
+   return 0;
+diff --git a/gcc/testsuite/gcc.target/i386/sse4_2-check.h b/gcc/testsuite/gcc.target/i386/sse4_2-check.h
+index d10e6c7d7e2..b971d27ea96 100644
+--- a/gcc/testsuite/gcc.target/i386/sse4_2-check.h
++++ b/gcc/testsuite/gcc.target/i386/sse4_2-check.h
+@@ -2,6 +2,7 @@
+ #include <stdlib.h>
+ 
+ #include "cpuid.h"
++#include "sse-os-support.h"
+ 
+ static void sse4_2_test (void);
+ 
+@@ -21,7 +22,7 @@ main ()
+     return 0;
+ 
+   /* Run SSE4.2 test only if host has SSE4.2 support.  */
+-  if (ecx & bit_SSE4_2)
++  if ((ecx & bit_SSE4_2) && sse_os_support ())
+     do_test ();
+ 
+   return 0;
+diff --git a/gcc/testsuite/gcc.target/i386/sse4a-check.h b/gcc/testsuite/gcc.target/i386/sse4a-check.h
+index d43b4b222b1..b48c56059d8 100644
+--- a/gcc/testsuite/gcc.target/i386/sse4a-check.h
++++ b/gcc/testsuite/gcc.target/i386/sse4a-check.h
+@@ -2,6 +2,7 @@
+ #include <stdlib.h>
+ 
+ #include "cpuid.h"
++#include "sse-os-support.h"
+ 
+ static void sse4a_test (void);
+ 
+@@ -21,7 +22,7 @@ main ()
+     return 0;
+ 
+   /* Run SSE4a test only if host has SSE4a support.  */
+-  if (ecx & bit_SSE4a)
++  if ((ecx & bit_SSE4a) && sse_os_support ())
+     do_test ();
+ 
+   return 0;
+diff --git a/gcc/testsuite/gcc.target/i386/ssse3-check.h b/gcc/testsuite/gcc.target/i386/ssse3-check.h
+index 3ca79333c7f..f9c32710ecc 100644
+--- a/gcc/testsuite/gcc.target/i386/ssse3-check.h
++++ b/gcc/testsuite/gcc.target/i386/ssse3-check.h
+@@ -2,6 +2,7 @@
+ #include <stdlib.h>
+ 
+ #include "cpuid.h"
++#include "sse-os-support.h"
+ 
+ static void ssse3_test (void);
+ 
+@@ -21,7 +22,7 @@ main ()
+     return 0;
+ 
+   /* Run SSSE3 test only if host has SSSE3 support.  */
+-  if (ecx & bit_SSSE3)
++  if ((ecx & bit_SSSE3) && sse_os_support ())
+     do_test ();
+ 
+   return 0;
+diff --git a/gcc/testsuite/gcc.target/i386/vperm-v4sf-2.c b/gcc/testsuite/gcc.target/i386/vperm-v4sf-2.c
+index 12a4623700b..e0f9d03ac3f 100644
+--- a/gcc/testsuite/gcc.target/i386/vperm-v4sf-2.c
++++ b/gcc/testsuite/gcc.target/i386/vperm-v4sf-2.c
+@@ -3,6 +3,7 @@
+ /* { dg-options "-O -mssse3" } */
+ 
+ #include "isa-check.h"
++#include "sse-os-support.h"
+ 
+ typedef float S;
+ typedef float V __attribute__((vector_size(16)));
+@@ -29,6 +30,9 @@ int main()
+ {
+   check_isa ();
+ 
++  if (!sse_os_support ())
++    exit (0);
++
+   i[0].s[0] = 0;
+   i[0].s[1] = 1;
+   i[0].s[2] = 2;
+diff --git a/gcc/testsuite/gcc.target/i386/vperm-v4si-2.c b/gcc/testsuite/gcc.target/i386/vperm-v4si-2.c
+index 9304345559d..526d63cdafa 100644
+--- a/gcc/testsuite/gcc.target/i386/vperm-v4si-2.c
++++ b/gcc/testsuite/gcc.target/i386/vperm-v4si-2.c
+@@ -3,6 +3,7 @@
+ /* { dg-options "-O -mssse3" } */
+ 
+ #include "isa-check.h"
++#include "sse-os-support.h"
+ 
+ typedef int S;
+ typedef int V __attribute__((vector_size(16)));
+@@ -29,6 +30,9 @@ int main()
+ {
+   check_isa ();
+ 
++  if (!sse_os_support ())
++    exit (0);
++
+   i[0].s[0] = 0;
+   i[0].s[1] = 1;
+   i[0].s[2] = 2;
+-- 
+2.24.3
+
