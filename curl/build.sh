@@ -6,14 +6,14 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.73.0
+version=7.75.0
 pkgver=1
 source[0]=https://curl.haxx.se/download/$topdir-$version.tar.bz2
 # https://curl.haxx.se/docs/caextract.html
-certdate=2020-10-14
+certdate=2021-01-19
 source[1]=https://curl.haxx.se/ca/cacert-$certdate.pem
 # If there are no patches, simply comment this
-patch[0]=curl-7.73.0-no-ipv6.patch
+patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -30,10 +30,6 @@ prep()
 {
     generic_prep
     setdir source
-    # There are weak pthread_* symbols in libc but curl actually needs the real
-    # thing so we reverse the test that would normally make configure skip
-    # looking for the pthread symbols in libpthread.
-    ${__gsed} -i '/USE_THREADS_POSIX/ s/\!= "1"/\= "1"/' configure
     # Ensure testsuite can find sshd
     sed -i 's#/usr/freeware#/usr/tgcware#' tests/sshhelp.pm
 }
@@ -84,6 +80,7 @@ install()
     compat curl 7.64.0 1 1
     compat curl 7.64.1 1 1
     compat curl 7.69.1 1 1
+    compat curl 7.73.0 1 1
 }
 
 reg pack
