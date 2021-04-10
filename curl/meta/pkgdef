@@ -10,13 +10,11 @@ $_vdocdir/CHANGES
 $_vdocdir/README
 $_vdocdir/RELEASE-NOTES
 $_vdocdir/COPYING
-$_vdocdir/docs/BUGS
+$_vdocdir/docs/BUGS.md
 $_vdocdir/docs/FAQ
-$_vdocdir/docs/FEATURES
-$_vdocdir/docs/MANUAL
-$_vdocdir/docs/RESOURCES
+$_vdocdir/docs/FEATURES.md
 $_vdocdir/docs/TODO
-$_vdocdir/docs/TheArtOfHttpScripting
+$_vdocdir/docs/TheArtOfHttpScripting.md
 $_bindir/curl
 $_mandir/?a?1
 $_libdir/libcurl.so.*
