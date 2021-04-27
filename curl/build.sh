@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.76.0
+version=7.76.1
 pkgver=1
 source[0]=https://curl.haxx.se/download/$topdir-$version.tar.bz2
 # https://curl.haxx.se/docs/caextract.html
@@ -82,6 +82,7 @@ install()
     compat curl 7.69.1 1 1
     compat curl 7.73.0 1 1
     compat curl 7.75.0 1 1
+    compat curl 7.76.0 1 1
 }
 
 reg pack
