@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=curl
 version=7.76.1
-pkgver=1
+pkgver=2
 source[0]=https://curl.haxx.se/download/$topdir-$version.tar.bz2
 # https://curl.haxx.se/docs/caextract.html
 certdate=2021-01-19
@@ -24,6 +24,9 @@ export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 export PKG_CONFIG=pkgconf
 
 configure_args+=(--enable-static=no --enable-http --enable-ftp --enable-file --disable-ldap --enable-manual --enable-cookies --enable-crypto --with-libidn2 --with-libssh2 --with-nghttp2 --with-ca-bundle=${prefix}/${_sysconfdir}/curl-ca-bundle.pem)
+
+# The threaded resolver does not work on Solaris 7
+[ "$_os" = "sunos57" ] && configure_args+=( --disable-threaded-resolver)
 
 reg prep
 prep()
@@ -83,6 +86,7 @@ install()
     compat curl 7.73.0 1 1
     compat curl 7.75.0 1 1
     compat curl 7.76.0 1 1
+    compat curl 7.76.1 1 1
 }
 
 reg pack

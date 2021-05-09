@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sat May 08 2021 Tom G. Christensen <swpkg@jupiterrise.com> - 7.76.1-2
+- Rebuild without the threaded resolver on Solaris 7
+
 * Tue Apr 27 2021 Tom G. Christensen <swpkg@jupiterrise.com> - 7.76.1-1
 - Update to 7.76.1
 
