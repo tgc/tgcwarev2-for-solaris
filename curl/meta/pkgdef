@@ -2,7 +2,7 @@
 pkgname="${pkgprefix}${topdir}"
 name="$topdir - Utility to transfer files with URL syntax"
 pkgcat="application"
-pkgvendor="http://curl.haxx.se"
+pkgvendor="http://curl.se"
 pkgdesc="A command line tool for transferring files with URL syntax, supporting FTP, FTPS, HTTP, HTTPS, SCP, SFTP, TFTP, TELNET, DICT, LDAP, LDAPS and FILE."
 pkgver="$pkgver"
 files(-,root,bin)
@@ -23,7 +23,7 @@ $_libdir/libcurl.so.*
 pkgname="${pkgprefix}${topdir}d"
 name="${topdir}-devel - Development support for libcurl"
 pkgcat="application"
-pkgvendor="http://curl.haxx.se"
+pkgvendor="http://curl.se"
 pkgdesc="Files needed for developing with libcurl"
 pkgver="$pkgver"
 files(-,root,bin)
@@ -39,7 +39,7 @@ $_sharedir/aclocal/libcurl.m4
 pkgname="${pkgprefix}${topdir}ca"
 name="${topdir}-cacerts - Mozilla CA cert bundle $certdate"
 pkgcat="application"
-pkgvendor="http://curl.haxx.se"
+pkgvendor="http://curl.se"
 pkgdesc="The mozilla CA cert bundle as distributed by the curl project"
 pkgver="$pkgver"
 files(-,root,bin)

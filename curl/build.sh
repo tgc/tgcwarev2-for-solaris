@@ -6,12 +6,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.76.1
-pkgver=2
-source[0]=https://curl.haxx.se/download/$topdir-$version.tar.bz2
-# https://curl.haxx.se/docs/caextract.html
-certdate=2021-01-19
-source[1]=https://curl.haxx.se/ca/cacert-$certdate.pem
+version=7.79.1
+pkgver=1
+source[0]=https://curl.se/download/$topdir-$version.tar.bz2
+# https://curl.se/docs/caextract.html
+certdate=2021-09-30
+source[1]=https://curl.se/ca/cacert-$certdate.pem
 # If there are no patches, simply comment this
 patch[0]=
 
@@ -23,7 +23,8 @@ export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
 export PKG_CONFIG=pkgconf
 
-configure_args+=(--enable-static=no --enable-http --enable-ftp --enable-file --disable-ldap --enable-manual --enable-cookies --enable-crypto --with-libidn2 --with-libssh2 --with-nghttp2 --with-ca-bundle=${prefix}/${_sysconfdir}/curl-ca-bundle.pem)
+configure_args+=(--enable-static=no --with-openssl --enable-http --enable-ftp --enable-file --disable-ldap --enable-manual --enable-cookies --enable-crypto --with-libidn2 --with-libssh2 --with-nghttp2 --with-ca-bundle=${prefix}/${_sysconfdir}/curl-ca-bundle.pem)
+
 
 # The threaded resolver does not work on Solaris 7
 [ "$_os" = "sunos57" ] && configure_args+=( --disable-threaded-resolver)
