@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=links
-version=2.20.2
+version=2.24
 pkgver=1
 source[0]=https://links.twibright.com/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
