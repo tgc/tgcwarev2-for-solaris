@@ -1,0 +1,91 @@
+From 5880200867e440f8ab5fd893c93db86555990443 Mon Sep 17 00:00:00 2001
+From: Darren Tucker <dtucker@dtucker.net>
+Date: Fri, 11 Mar 2022 18:43:58 +1100
+Subject: [PATCH 6/7] Resync fmt_scaled. with OpenBSD.
+
+Fixes underflow reported in bz#3401.
+---
+ openbsd-compat/fmt_scaled.c | 32 +++++++++++++++++++-------------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
+
+diff --git a/openbsd-compat/fmt_scaled.c b/openbsd-compat/fmt_scaled.c
+index 2f76ef93..87d40d2d 100644
+--- a/openbsd-compat/fmt_scaled.c
++++ b/openbsd-compat/fmt_scaled.c
+@@ -1,4 +1,4 @@
+-/*	$OpenBSD: fmt_scaled.c,v 1.17 2018/05/14 04:39:04 djm Exp $	*/
++/*	$OpenBSD: fmt_scaled.c,v 1.21 2022/03/11 07:29:53 dtucker Exp $	*/
+ 
+ /*
+  * Copyright (c) 2001, 2002, 2003 Ian F. Darwin.  All rights reserved.
+@@ -54,9 +54,9 @@ typedef enum {
+ } unit_type;
+ 
+ /* These three arrays MUST be in sync!  XXX make a struct */
+-static unit_type units[] = { NONE, KILO, MEGA, GIGA, TERA, PETA, EXA };
+-static char scale_chars[] = "BKMGTPE";
+-static long long scale_factors[] = {
++static const unit_type units[] = { NONE, KILO, MEGA, GIGA, TERA, PETA, EXA };
++static const char scale_chars[] = "BKMGTPE";
++static const long long scale_factors[] = {
+ 	1LL,
+ 	1024LL,
+ 	1024LL*1024,
+@@ -153,10 +153,8 @@ scan_scaled(char *scaled, long long *result)
+ 		}
+ 	}
+ 
+-	if (sign) {
++	if (sign)
+ 		whole *= sign;
+-		fpart *= sign;
+-	}
+ 
+ 	/* If no scale factor given, we're done. fraction is discarded. */
+ 	if (!*p) {
+@@ -191,7 +189,8 @@ scan_scaled(char *scaled, long long *result)
+ 			/* truncate fpart so it doesn't overflow.
+ 			 * then scale fractional part.
+ 			 */
+-			while (fpart >= LLONG_MAX / scale_fact) {
++			while (fpart >= LLONG_MAX / scale_fact ||
++			    fpart <= LLONG_MIN / scale_fact) {
+ 				fpart /= 10;
+ 				fract_digits--;
+ 			}
+@@ -200,7 +199,10 @@ scan_scaled(char *scaled, long long *result)
+ 				for (i = 0; i < fract_digits -1; i++)
+ 					fpart /= 10;
+ 			}
+-			whole += fpart;
++			if (sign == -1)
++				whole -= fpart;
++			else
++				whole += fpart;
+ 			*result = whole;
+ 			return 0;
+ 		}
+@@ -222,12 +224,16 @@ fmt_scaled(long long number, char *result)
+ 	unsigned int i;
+ 	unit_type unit = NONE;
+ 
++	/* Not every negative long long has a positive representation. */
++	if (number == LLONG_MIN) {
++		errno = ERANGE;
++		return -1;
++	}
++
+ 	abval = llabs(number);
+ 
+-	/* Not every negative long long has a positive representation.
+-	 * Also check for numbers that are just too darned big to format
+-	 */
+-	if (abval < 0 || abval / 1024 >= scale_factors[SCALE_LENGTH-1]) {
++	/* Also check for numbers that are just too darned big to format. */
++	if (abval / 1024 >= scale_factors[SCALE_LENGTH-1]) {
+ 		errno = ERANGE;
+ 		return -1;
+ 	}
+-- 
+2.16.6
+

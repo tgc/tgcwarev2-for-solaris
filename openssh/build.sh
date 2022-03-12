@@ -7,10 +7,16 @@
 # Check the following 4 variables before running the script
 topdir=openssh
 version=8.9p1
-pkgver=1
+pkgver=2
 source[0]=https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=0001-upstream-free-3-wants-stdlib.h.patch
+patch[1]=0002-Improve-detection-of-fzero-call-used-regs-all-suppor.patch
+patch[2]=0003-Allow-ppoll_time64-in-seccomp-sandbox.patch
+patch[3]=0004-upstream-pack-pollfd-array-before-server_accept_loop.patch
+patch[4]=0005-Default-to-not-using-sandbox-when-cross-compiling.patch
+patch[5]=0006-Resync-fmt_scaled.-with-OpenBSD.patch
+patch[6]=0007-Fix-authopt-test-on-platforms-without-IPv6-support.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -27,6 +33,8 @@ reg prep
 prep()
 {
     generic_prep
+    setdir source
+    autoreconf
 }
 
 reg build
