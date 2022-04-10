@@ -1,1 +1,3 @@
+TGCossl TGCprngd auto
 TGCossld openssl auto
+TGCosslu openssl auto

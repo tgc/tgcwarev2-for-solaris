@@ -1,17 +1,26 @@
 [openssl]
 pkgname="${pkgprefix}ossl"
-name="openssl - Secure Sockets Layer"
+name="openssl - OpenSSL shared libraries"
 pkgcat="system"
 pkgvendor="https://www.openssl.org"
 pkgdesc="Cryptography and SSL/TLS Toolkit"
 pkgver="$pkgver"
 files(-,root,bin)
 default_docs
-$_bindir
 $_libdir/*.so.*
 $_libdir/engines/*.so
+$_sharedir/ssl${shortver}
+
+[openssl-utils]
+pkgname="${pkgprefix}osslu"
+name="openssl-utils - OpenSSL utilities and manpages"
+pkgcat="system"
+pkgvendor="https://www.openssl.org"
+pkgdesc="Cryptography and SSL/TLS Toolkit"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir
 $_mandir/man{1,5,7}
-$_sharedir/ssl
 
 [openssl-devel]
 pkgname="${pkgprefix}ossld"
@@ -21,8 +30,8 @@ pkgvendor="https://www.openssl.org"
 pkgdesc="Files needed for developing with OpenSSL"
 pkgver="$pkgver"
 files(-,root,bin)
-$_includedir
-$_libdir/*.so
+$_includedir/$pname
+$_libdir/$pname/*.so
 $_libdir/pkgconfig
 
 [openssl-devel-manpages]

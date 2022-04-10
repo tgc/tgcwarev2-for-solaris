@@ -1,5 +1,15 @@
 CHANGELOG
 ---------
+* Tue Mar 29 2022 Tom G. Christensen <swpkg@jupiterrise.com> - 1.0.2u-8
+- Relocate ssldir to avoid conflicts
+- Forward port CVE fixes from RHEL 7 (openssl 1.0.2k)
+ - Fixes CVE-2020-1971, CVE-2021-23840, CVE-2021-23841, CVE-2021-3712,
+   CVE-2022-0778
+
+* Fri Nov 12 2021 Tom G. Christensen <swpkg@jupiterrise.com> - 1.0.2u-7
+- Rebuild as parallel installable with OpenSSL 3.0
+- Move utils into their own package
+
 * Thu Mar 19 2020 Tom G. Christensen <swpkg@jupiterrise.com> - 1.0.2u-6
 - Update to 1.0.2u
 - Allow use of asm modules on x86
