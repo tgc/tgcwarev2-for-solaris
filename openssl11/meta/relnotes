@@ -25,8 +25,8 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-Note that all manpages has had 'ssl' added to their name.
+Note that all manpages has had 'ssl11' added to their name.
 This means that you might have to specify the whole name
 if there's another manpage by the same name.
-ie. man x509 vs man x509.1ssl
+ie. man x509 vs man x509.1ssl11
 
