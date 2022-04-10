@@ -1,0 +1,4 @@
+CHANGELOG
+---------
+* Sun Apr 10 2022 Tom G. Christensen <swpkg@jupiterrise.com> - 0.9.29-2
+- Adjust for Solaris 7 and up

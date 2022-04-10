@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=prngd
 version=0.9.29
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,8 +19,7 @@ source[0]=$topdir-$version.tar.gz
 no_configure=1
 CC=gcc
 syslibs="-lsocket -lnsl"
-cflags_os="-O2 -DSOLARIS"
-[ "$_os" = "sunos56" ] && cflags_os="-O2 -DSOLARIS26 -D__EXTENSIONS__"
+cflags_os="-O2 -DSOLARIS -D__EXTENSIONS__"
 
 __configure="make"
 configure_args="CC=$CC CFLAGS=\\\"$cflags_os\\\" SYSLIBS=\\\"$syslibs\\\" DEFS=\\\"-DRANDSAVENAME=\\\"${prefix}/${_sysconfdir}/prngd/prngd-seed\\\" -DCONFIGFILE=\\\"${prefix}/${_sysconfdir}/prngd/prngd.conf\\\"\\\""
