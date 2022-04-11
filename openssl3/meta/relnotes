@@ -1,0 +1,40 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+Note that all manpages has had 'ossl' added to their name.
+This means that you might have to specify the whole name
+if there's another manpage by the same name.
+ie. man x509 vs man x509.1ossl
+
+The dependency on the previous version of openssl is an artificial one added to
+ensure the parallel installable version of that package is used even if other
+packages only require the older revision.
+It is unfortunately not possible to use the 'I' type in depend(4) to handle
+this since those versions are also matched against the compver(4) entries for
+the package.
+If you have no software installed that require the earlier openssl package you
+can safely uninstall it.

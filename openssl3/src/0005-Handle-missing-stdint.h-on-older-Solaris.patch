@@ -1,0 +1,29 @@
+From 0d98913eefc39e7fed780a0c1affbb8356ce29b8 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Wed, 27 Oct 2021 21:33:59 +0200
+Subject: [PATCH 5/7] Handle missing <stdint.h> on older Solaris
+
+Basically we assume that if we are on a Solaris platform with gcc older
+than 4.5 then <stdint.h> is not available.
+If gcc >= 4.5 then either gcc or the platform will provide <stdint.h>.
+---
+ include/openssl/e_os2.h | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/include/openssl/e_os2.h b/include/openssl/e_os2.h
+index 6728909271..a0b68bb376 100644
+--- a/include/openssl/e_os2.h
++++ b/include/openssl/e_os2.h
+@@ -235,6 +235,9 @@ typedef UINT64 uint64_t;
+ #  undef OPENSSL_NO_INTTYPES_H
+ /* Because the specs say that inttypes.h includes stdint.h if present */
+ #  undef OPENSSL_NO_STDINT_H
++# elif (defined(sun) || defined(__sun)) && (defined(__GNUC__) && ((__GNUC__ < 4) || (__GNUC__ == 4 && __GNUC_MINOR__ < 5)))
++#  include <inttypes.h>
++#  undef OPENSSL_NO_INTTYPES_H
+ # elif defined(_MSC_VER) && _MSC_VER<1600
+ /*
+  * minimally required typdefs for systems not supporting inttypes.h or
+-- 
+2.27.0
+

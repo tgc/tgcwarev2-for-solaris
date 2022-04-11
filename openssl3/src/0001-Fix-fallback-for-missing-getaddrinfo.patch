@@ -1,0 +1,26 @@
+From 524f98565bcb90c0df8cbbd5dea215de945ff2b3 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Wed, 27 Oct 2021 20:15:30 +0200
+Subject: [PATCH 1/7] Fix fallback for missing getaddrinfo()
+
+Allow port 0 which is what the testsuite uses.
+---
+ crypto/bio/bio_addr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/crypto/bio/bio_addr.c b/crypto/bio/bio_addr.c
+index d18c849ade..16a3676492 100644
+--- a/crypto/bio/bio_addr.c
++++ b/crypto/bio/bio_addr.c
+@@ -867,7 +867,7 @@ int BIO_lookup_ex(const char *host, const char *service, int lookup_type,
+             }
+ 
+             if (endp != service && *endp == '\0'
+-                    && portnum > 0 && portnum < 65536) {
++                    && portnum >= 0 && portnum < 65536) {
+                 se_fallback.s_port = htons((unsigned short)portnum);
+                 se_fallback.s_proto = proto;
+                 se = &se_fallback;
+-- 
+2.27.0
+

@@ -1,0 +1,57 @@
+From cfefa89777a03a2fe8875cb761ffc0d2b9c2d650 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Sun, 2 Jan 2022 15:51:24 +0100
+Subject: [PATCH 7/7] Use target CPU choice on SPARC
+
+This code would take the capabilities of the buildhost cpu at buildtime
+and override the compiler target choice, e.g. a solaris-sparcv8-gcc
+build would have SPARC_DES_CAPABLE defined causing a missing symbol
+error later since the sparcv9 DES code is not included in this target.
+---
+ crypto/evp/e_des.c            | 2 +-
+ crypto/evp/e_des3.c           | 2 +-
+ include/crypto/des_platform.h | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/crypto/evp/e_des.c b/crypto/evp/e_des.c
+index cd6e5af8d0..8faaacea3f 100644
+--- a/crypto/evp/e_des.c
++++ b/crypto/evp/e_des.c
+@@ -34,7 +34,7 @@ typedef struct {
+     } stream;
+ } EVP_DES_KEY;
+ 
+-# if defined(AES_ASM) && (defined(__sparc) || defined(__sparc__))
++# if defined(AES_ASM) && ((defined(__sparc) || defined(__sparc__)) && defined(__sparc_v9__))
+ /* ----------^^^ this is not a typo, just a way to detect that
+  * assembler support was in general requested... */
+ #  include "crypto/sparc_arch.h"
+diff --git a/crypto/evp/e_des3.c b/crypto/evp/e_des3.c
+index 1e15918344..1528491882 100644
+--- a/crypto/evp/e_des3.c
++++ b/crypto/evp/e_des3.c
+@@ -37,7 +37,7 @@ typedef struct {
+ # define ks2 ks.ks[1]
+ # define ks3 ks.ks[2]
+ 
+-# if defined(AES_ASM) && (defined(__sparc) || defined(__sparc__))
++# if defined(AES_ASM) && ((defined(__sparc) || defined(__sparc__)) && defined(__sparc_v9__))
+ /* ---------^^^ this is not a typo, just a way to detect that
+  * assembler support was in general requested... */
+ #  include "crypto/sparc_arch.h"
+diff --git a/include/crypto/des_platform.h b/include/crypto/des_platform.h
+index 07ea1ddd0a..95015f3336 100644
+--- a/include/crypto/des_platform.h
++++ b/include/crypto/des_platform.h
+@@ -11,7 +11,7 @@
+ # define OSSL_DES_PLATFORM_H
+ # pragma once
+ 
+-# if defined(DES_ASM) && (defined(__sparc) || defined(__sparc__))
++# if defined(DES_ASM) && ((defined(__sparc) || defined(__sparc__)) && defined(__sparc_v9__))
+ 
+ /* Fujitsu SPARC64 X support */
+ #  include "crypto/sparc_arch.h"
+-- 
+2.27.0
+
