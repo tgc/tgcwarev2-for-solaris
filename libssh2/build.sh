@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=libssh2
 version=1.10.0
-pkgver=1
+pkgver=2
 source[0]=https://www.libssh2.org/download/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -49,6 +49,7 @@ install()
     compat libssh2 1.8.1 1 1
     compat libssh2 1.8.2 1 1
     compat libssh2 1.9.0 1 1
+    compat libssh2 1.10.0 1 1
 }
 
 reg pack
