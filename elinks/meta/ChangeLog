@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Tue Apr 12 2022 Tom G. Christensen <swpkg@jupiterrise.com> - 0.12pre6-4
+- Rebuild with OpenSSL 3.0
+
 * Sun Mar 22 2020 Tom G. Christensen <swpkg@jupiterrise.com> - 0.12pre6-3
 - Downgrade to 0.12pre6 + Fedora patchset
   Upstream is dead and the Fedora patches will not apply

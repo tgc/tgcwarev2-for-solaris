@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=elinks
 version=0.12pre6
-pkgver=3
+pkgver=4
 source[0]=http://elinks.or.cz/download/elinks-${version}.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=elinks-inet_aton.patch
