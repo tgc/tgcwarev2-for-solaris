@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Tue Apr 12 2022 Tom G. Christensen <swpkg@jupiterrise.com> - 2.16.6-2
+- Rebuild with OpenSSL 3.0
+
 * Sat Mar 14 2020 Tom G. Christensen <swpkg@jupiterrise.com> - 2.16.6-1
 - Update to 2.16.6 (fixes CVE-2019-1348, CVE-2019-1349,
   CVE-2019-1350, CVE-2019-1351, CVE-2019-1352, CVE-2019-1353,

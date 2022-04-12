@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=git
 version=2.16.6
-pkgver=1
+pkgver=2
 source[0]=https://www.kernel.org/pub/software/scm/git/$topdir-$version.tar.gz
 source[1]=https://www.kernel.org/pub/software/scm/git/$topdir-manpages-$version.tar.gz
 # If there are no patches, simply comment this
