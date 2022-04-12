@@ -1,0 +1,11 @@
+--- curl-7.79.1/tests/sshserver.pl.rsa	2021-09-17 09:45:57.000000000 +0000
++++ curl-7.79.1/tests/sshserver.pl	2022-04-09 14:01:28.060010000 +0000
+@@ -570,6 +570,8 @@
+ push @cfgarr, 'SyslogFacility AUTH';
+ push @cfgarr, 'UseLogin no';
+ push @cfgarr, 'X11Forwarding no';
++push @cfgarr, 'HostKeyAlgorithms +ssh-rsa';
++push @cfgarr, 'PubkeyAcceptedAlgorithms +ssh-rsa';
+ push @cfgarr, '#';
+ 
+ 
