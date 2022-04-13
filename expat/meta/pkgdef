@@ -22,4 +22,5 @@ $_includedir
 $_libdir/libexpat.so
 $_libdir/libexpat.a
 $_libdir/pkgconfig/expat.pc
+$_libdir/cmake/expat-${version}
 

@@ -6,11 +6,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=expat
-version=2.2.9
+version=2.4.8
 pkgver=1
-source[0]=https://downloads.sourceforge.net/project/expat/expat/${version}/$topdir-$version.tar.lz
+source[0]=https://github.com/libexpat/libexpat/releases/download/R_2_4_8/${topdir}-${version}.tar.lz
 # If there are no patches, simply comment this
-patch[0]=expat-2.2.9-no-stdint_h.patch
+patch[0]=expat-2.4.8-no-stdint_h.patch
+patch[1]=expat-2.4.8-no-strtof.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -53,6 +54,7 @@ install()
 
     compat expat 2.1.0 1 1
     compat expat 2.2.5 1 1
+    compat expat 2.2.9 1 1
 }
 
 reg pack

@@ -1,0 +1,27 @@
+--- expat-2.4.8/xmlwf/xmltchar.h.strtof	2022-03-28 16:51:41.000000000 +0000
++++ expat-2.4.8/xmlwf/xmltchar.h	2022-04-10 15:29:32.600005000 +0000
+@@ -74,6 +74,6 @@
+ #  define tmain main
+ #  define tremove remove
+ #  define tchar char
+-#  define tcstof strtof
++#  define tcstof strtod
+ #  define tcstoull strtoull
+ #endif /* not XML_UNICODE */
+--- expat-2.4.8/tests/runtests.c.strtof	2022-04-10 15:26:11.240002000 +0000
++++ expat-2.4.8/tests/runtests.c	2022-04-10 15:30:05.040002000 +0000
+@@ -11765,12 +11765,12 @@
+ 
+ static float
+ portableNAN() {
+-  return strtof("nan", NULL);
++  return strtod("nan", NULL);
+ }
+ 
+ static float
+ portableINFINITY() {
+-  return strtof("infinity", NULL);
++  return strtod("infinity", NULL);
+ }
+ 
+ START_TEST(test_billion_laughs_attack_protection_api) {

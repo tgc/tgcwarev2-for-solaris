@@ -1,0 +1,33 @@
+--- expat-2.4.8/tests/runtests.c.stdint	2022-03-28 23:11:43.000000000 +0000
++++ expat-2.4.8/tests/runtests.c	2022-04-10 15:25:45.480002000 +0000
+@@ -53,7 +53,7 @@
+ #include <stddef.h> /* ptrdiff_t */
+ #include <ctype.h>
+ #include <limits.h>
+-#include <stdint.h> /* intptr_t uint64_t */
++#include <inttypes.h> /* intptr_t uint64_t */
+ 
+ #if ! defined(__cplusplus)
+ #  include <stdbool.h>
+--- expat-2.4.8/lib/siphash.h.stdint	2022-04-10 15:24:46.740007000 +0000
++++ expat-2.4.8/lib/siphash.h	2022-04-10 15:25:09.120002000 +0000
+@@ -99,7 +99,7 @@
+ #define SIPHASH_H
+ 
+ #include <stddef.h> /* size_t */
+-#include <stdint.h> /* uint64_t uint32_t uint8_t */
++#include <inttypes.h> /* uint64_t uint32_t uint8_t */
+ 
+ /*
+  * Workaround to not require a C++11 compiler for using ULL suffix
+--- expat-2.4.8/lib/xmlparse.c.stdint	2022-03-28 23:11:43.000000000 +0000
++++ expat-2.4.8/lib/xmlparse.c	2022-04-10 15:25:17.180022000 +0000
+@@ -78,7 +78,7 @@
+ #include <limits.h> /* UINT_MAX */
+ #include <stdio.h>  /* fprintf */
+ #include <stdlib.h> /* getenv, rand_s */
+-#include <stdint.h> /* uintptr_t */
++#include <inttypes.h> /* uintptr_t */
+ #include <math.h>   /* isnan */
+ 
+ #ifdef _WIN32
