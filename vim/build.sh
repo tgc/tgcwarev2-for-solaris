@@ -4,15 +4,15 @@
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
-patchlevel=1733
+patchlevel=4804
 # repo_pl is always 4 digits
 repo_pl=$patchlevel
-basever=8.0
+basever=8.2
 # Check the following 4 variables before running the script
 topdir=vim
 version=${basever}.${patchlevel}
 pkgver=1
-source[0]=https://github.com/vim/vim/archive/v${basever}.${repo_pl}.tar.gz#/${topdir}-${version}.tar.gz
+source[0]="https://github.com/vim/vim/archive/v${basever}.${repo_pl}.tar.gz#/${topdir}-${version}.tar.gz"
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -22,7 +22,11 @@ source[0]=https://github.com/vim/vim/archive/v${basever}.${repo_pl}.tar.gz#/${to
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L$prefix/lib -R$prefix/lib"
-basic_args=(--prefix=$prefix --without-local-dir --with-features=huge --enable-multibyte --disable-perlinterp --disable-pythoninterp --disable-tclinterp --with-compiledby="<swpkg@jupiterrise.com>" --disable-netbeans)
+basic_args=(--prefix=$prefix --without-local-dir --with-features=huge)
+basic_args+=(--enable-multibyte --disable-perlinterp --disable-pythoninterp)
+basic_args+=(--disable-tclinterp --disable-netbeans)
+basic_args+=(--with-compiledby="<swpkg@jupiterrise.com>")
+basic_args+=(--with-modified-by="<swpkg@jupiterrise.com>")
 # Do not let scripts add a dependency on perl
 ignore_deps="TGCperl"
 # We need to override this
@@ -73,10 +77,7 @@ install()
     custom_install=1
     generic_install DESTDIR
     doc README.txt
-    #setdir ${stagedir}${prefix}/${_sharedir}/vim/vim71/lang/
-    #${__mv} "menu_chinese(gb)_gb.936.vim" "menu_chinese_gb__gb.936.vim"
-    #${__mv} "menu_chinese(taiwan)_taiwan.950.vim" "menu_chinese_taiwan__taiwan.950.vim"
-    ${__rm} -rf ${stagedir}${prefix}/${_mandir}/{fr,it,pl,ru,ja}*
+    ${__rm} -rf ${stagedir}${prefix}/${_mandir}/{fr,it,pl,ru,ja,da,de,tr}*
 }
 
 reg pack
