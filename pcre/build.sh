@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=pcre
-version=8.42
+version=8.45
 pkgver=1
-source[0]=ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$topdir-$version.tar.bz2
+source[0]=https://downloads.sourceforge.net/$topdir/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -46,6 +46,7 @@ install()
     compat pcre 8.33 1 1
     compat pcre 8.36 1 1
     compat pcre 8.38 1 1
+    compat pcre 8.42 1 1
 }
 
 reg pack
