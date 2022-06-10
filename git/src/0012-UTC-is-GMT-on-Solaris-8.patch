@@ -1,0 +1,25 @@
+From 4dbc0418a9c01afd13cdc3cddcb615d80806e865 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Sun, 5 Jun 2022 21:46:51 +0200
+Subject: [PATCH 12/12] UTC is GMT on Solaris < 8
+
+---
+ t/t0006-date.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/t/t0006-date.sh b/t/t0006-date.sh
+index 2490162071..776c7eb850 100755
+--- a/t/t0006-date.sh
++++ b/t/t0006-date.sh
+@@ -58,7 +58,7 @@ check_show unix-local "$TIME" '1466000000'
+ check_show 'format:%z' "$TIME" '+0200'
+ check_show 'format-local:%z' "$TIME" '+0000'
+ check_show 'format:%Z' "$TIME" ''
+-check_show 'format-local:%Z' "$TIME" 'UTC'
++check_show 'format-local:%Z' "$TIME" 'GMT'
+ check_show 'format:%%z' "$TIME" '%z'
+ check_show 'format-local:%%z' "$TIME" '%z'
+ 
+-- 
+2.36.1
+

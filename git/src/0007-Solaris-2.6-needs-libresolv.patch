@@ -1,0 +1,24 @@
+From a37e118bd4a5f2183998a26bd8a76f3ad4a49e26 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Mon, 6 Jun 2022 12:04:49 +0200
+Subject: [PATCH 07/12] Solaris 2.6 needs libresolv
+
+---
+ config.mak.uname | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/config.mak.uname b/config.mak.uname
+index c458f7425f..dc354578e8 100644
+--- a/config.mak.uname
++++ b/config.mak.uname
+@@ -185,6 +185,7 @@ ifeq ($(uname_S),SunOS)
+ 	CC_LD_DYNPATH = -R
+ 	ifeq ($(uname_R),5.6)
+ 		SOCKLEN_T = int
++		NEEDS_RESOLV = YesPlease
+ 		FREAD_READS_DIRECTORIES = UnfortunatelyYes
+ 		SNPRINTF_RETURNS_BOGUS = YesPlease
+ 		NO_HSTRERROR = YesPlease
+-- 
+2.36.1
+

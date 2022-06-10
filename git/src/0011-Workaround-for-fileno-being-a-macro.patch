@@ -1,0 +1,36 @@
+From 3bf6c2bad87502241090a74f1c9f6e0acde04360 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Fri, 3 Jun 2022 22:50:46 +0200
+Subject: [PATCH 11/12] Workaround for fileno() being a macro
+
+On Solaris 2.6 build dies with:
+http.c: In function 'http_request_reauth':
+http.c:1921: warning: dereferencing 'void *' pointer
+http.c:1921: error: request for member '_file' in something not a
+structure or union
+
+fileno() is defined as a macro and when expanded it tries to dereference
+the pointer argument which fails since you cannot dereference a 'void
+*' pointer.
+
+Reference: https://stackoverflow.com/a/47581684
+---
+ http.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/http.c b/http.c
+index 229da4d148..06359b21a8 100644
+--- a/http.c
++++ b/http.c
+@@ -1918,7 +1918,7 @@ static int http_request_reauth(const char *url,
+ 			return HTTP_START_FAILED;
+ 		}
+ 		rewind(result);
+-		if (ftruncate(fileno(result), 0) < 0) {
++		if (ftruncate(fileno((FILE*)result), 0) < 0) {
+ 			error_errno("unable to truncate a file");
+ 			return HTTP_START_FAILED;
+ 		}
+-- 
+2.36.1
+

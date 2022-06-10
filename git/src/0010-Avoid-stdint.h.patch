@@ -1,0 +1,83 @@
+From 03bf6cfe30481edc36269eb5ec4908186d40f9d8 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Fri, 3 Jun 2022 21:48:01 +0200
+Subject: [PATCH 10/12] Avoid <stdint.h>
+
+Solaris < 10 does not have <stdint.h> unless the compiler is gcc 4.5 or
+higher.
+---
+ compat/regex/regex.c            | 2 +-
+ reftable/record.h               | 2 +-
+ reftable/reftable-blocksource.h | 2 +-
+ reftable/reftable-record.h      | 2 +-
+ reftable/reftable-writer.h      | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/compat/regex/regex.c b/compat/regex/regex.c
+index e6f4a5d177..8c3489fbbb 100644
+--- a/compat/regex/regex.c
++++ b/compat/regex/regex.c
+@@ -59,7 +59,7 @@
+    GNU regex allows.  Include it before <regex.h>, which correctly
+    #undefs RE_DUP_MAX and sets it to the right value.  */
+ #include <limits.h>
+-#include <stdint.h>
++#include <inttypes.h>
+ #include <stdlib.h>
+ 
+ #ifdef GAWK
+diff --git a/reftable/record.h b/reftable/record.h
+index fd80cd451d..ccaee6bc1c 100644
+--- a/reftable/record.h
++++ b/reftable/record.h
+@@ -11,7 +11,7 @@ license that can be found in the LICENSE file or at
+ 
+ #include "system.h"
+ 
+-#include <stdint.h>
++#include <inttypes.h>
+ 
+ #include "reftable-record.h"
+ 
+diff --git a/reftable/reftable-blocksource.h b/reftable/reftable-blocksource.h
+index 5aa3990a57..93e7563568 100644
+--- a/reftable/reftable-blocksource.h
++++ b/reftable/reftable-blocksource.h
+@@ -9,7 +9,7 @@ license that can be found in the LICENSE file or at
+ #ifndef REFTABLE_BLOCKSOURCE_H
+ #define REFTABLE_BLOCKSOURCE_H
+ 
+-#include <stdint.h>
++#include <inttypes.h>
+ 
+ /* block_source is a generic wrapper for a seekable readable file.
+  */
+diff --git a/reftable/reftable-record.h b/reftable/reftable-record.h
+index 67104f8fbf..ea20decea8 100644
+--- a/reftable/reftable-record.h
++++ b/reftable/reftable-record.h
+@@ -9,7 +9,7 @@ license that can be found in the LICENSE file or at
+ #ifndef REFTABLE_RECORD_H
+ #define REFTABLE_RECORD_H
+ 
+-#include <stdint.h>
++#include <inttypes.h>
+ 
+ /*
+  * Basic data types
+diff --git a/reftable/reftable-writer.h b/reftable/reftable-writer.h
+index db8de197f6..420a9ce7e6 100644
+--- a/reftable/reftable-writer.h
++++ b/reftable/reftable-writer.h
+@@ -11,7 +11,7 @@ license that can be found in the LICENSE file or at
+ 
+ #include "reftable-record.h"
+ 
+-#include <stdint.h>
++#include <inttypes.h>
+ #include <unistd.h> /* ssize_t */
+ 
+ /* Writing single reftables */
+-- 
+2.36.1
+

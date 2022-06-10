@@ -1,0 +1,40 @@
+From 1019f9707006e87c308f01284fbf89183e4c3b0f Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Fri, 3 Jun 2022 21:50:15 +0200
+Subject: [PATCH 08/12] Use better shell in t5545
+
+---
+ t/t5545-push-options.sh | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/t/t5545-push-options.sh b/t/t5545-push-options.sh
+index 214228349a..deacfd910b 100755
+--- a/t/t5545-push-options.sh
++++ b/t/t5545-push-options.sh
+@@ -1,4 +1,4 @@
+-#!/bin/sh
++#!/bin/ksh
+ 
+ test_description='pushing to a repository using push options'
+ 
+@@ -19,7 +19,7 @@ mk_repo_pair () {
+ 		git config receive.denyCurrentBranch warn &&
+ 		mkdir -p .git/hooks &&
+ 		cat >.git/hooks/pre-receive <<-'EOF' &&
+-		#!/bin/sh
++		#!/bin/ksh
+ 		if test -n "$GIT_PUSH_OPTION_COUNT"; then
+ 			i=0
+ 			>hooks/pre-receive.push_options
+@@ -33,7 +33,7 @@ mk_repo_pair () {
+ 		chmod u+x .git/hooks/pre-receive
+ 
+ 		cat >.git/hooks/post-receive <<-'EOF' &&
+-		#!/bin/sh
++		#!/bin/ksh
+ 		if test -n "$GIT_PUSH_OPTION_COUNT"; then
+ 			i=0
+ 			>hooks/post-receive.push_options
+-- 
+2.36.1
+

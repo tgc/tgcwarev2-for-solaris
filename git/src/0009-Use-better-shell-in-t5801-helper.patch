@@ -1,0 +1,22 @@
+From 28e8c4bf91e57939b12021686fd57760bddd277f Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Sun, 5 Jun 2022 22:04:22 +0200
+Subject: [PATCH 09/12] Use better shell in t5801 helper
+
+---
+ t/t5801/git-remote-testgit | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/t/t5801/git-remote-testgit b/t/t5801/git-remote-testgit
+index 1544d6dc6b..0ed8050904 100755
+--- a/t/t5801/git-remote-testgit
++++ b/t/t5801/git-remote-testgit
+@@ -1,4 +1,4 @@
+-#!/bin/sh
++#!/bin/ksh
+ # Copyright (c) 2012 Felipe Contreras
+ 
+ # The first argument can be a url when the fetch/push command was a url
+-- 
+2.36.1
+

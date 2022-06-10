@@ -1,0 +1,31 @@
+From 22d5196f2dd513db37878d4e74efa05c398eb5ab Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Mon, 6 Jun 2022 10:57:29 +0200
+Subject: [PATCH 03/12] Update common Solaris settings
+
+---
+ config.mak.uname | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/config.mak.uname b/config.mak.uname
+index 259d1511ca..bf9810c6c3 100644
+--- a/config.mak.uname
++++ b/config.mak.uname
+@@ -175,12 +175,14 @@ ifeq ($(uname_S),SunOS)
+ 	SHELL_PATH = /bin/bash
+ 	SANE_TOOL_PATH = /usr/xpg6/bin:/usr/xpg4/bin
+ 	HAVE_ALLOCA_H = YesPlease
++	HAVE_STRINGS_H = YesPlease
+ 	NO_STRCASESTR = YesPlease
+ 	NO_MEMMEM = YesPlease
+ 	NO_MKDTEMP = YesPlease
+ 	NO_REGEX = YesPlease
+ 	NO_MSGFMT_EXTENDED_OPTIONS = YesPlease
+ 	HAVE_DEV_TTY = YesPlease
++	CC_LD_DYNPATH = -R
+ 	ifeq ($(uname_R),5.6)
+ 		SOCKLEN_T = int
+ 		NO_HSTRERROR = YesPlease
+-- 
+2.36.1
+

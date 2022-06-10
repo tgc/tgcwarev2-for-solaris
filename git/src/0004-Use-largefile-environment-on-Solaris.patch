@@ -1,0 +1,26 @@
+From 59d2b3562ef56097377b02f2a465fb2e211eef36 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Mon, 6 Jun 2022 10:48:27 +0200
+Subject: [PATCH 04/12] Use largefile environment on Solaris
+
+See lfcompile(5) on a Solaris host.
+---
+ config.mak.uname | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/config.mak.uname b/config.mak.uname
+index bf9810c6c3..7de4f7c214 100644
+--- a/config.mak.uname
++++ b/config.mak.uname
+@@ -218,7 +218,7 @@ ifeq ($(uname_S),SunOS)
+ 	endif
+ 	INSTALL = /usr/ucb/install
+ 	TAR = gtar
+-	BASIC_CFLAGS += -D__EXTENSIONS__ -D__sun__
++	BASIC_CFLAGS += -D__EXTENSIONS__ -D__sun__ -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+ endif
+ ifeq ($(uname_O),Cygwin)
+ 	ifeq ($(shell expr "$(uname_R)" : '1\.[1-6]\.'),4)
+-- 
+2.36.1
+

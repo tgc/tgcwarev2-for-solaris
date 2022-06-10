@@ -1,0 +1,53 @@
+From 9d7ce21df4e14d271eeb0712f78de7cb07c73229 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Mon, 6 Jun 2022 12:02:40 +0200
+Subject: [PATCH 05/12] Update settings for Solaris
+
+Solaris 2.6 through 9 (at least) has a "broken" vsnprintf() and an
+fopen() that will open directories.
+---
+ config.mak.uname | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/config.mak.uname b/config.mak.uname
+index 7de4f7c214..29af78fa33 100644
+--- a/config.mak.uname
++++ b/config.mak.uname
+@@ -185,6 +185,8 @@ ifeq ($(uname_S),SunOS)
+ 	CC_LD_DYNPATH = -R
+ 	ifeq ($(uname_R),5.6)
+ 		SOCKLEN_T = int
++		FREAD_READS_DIRECTORIES = UnfortunatelyYes
++		SNPRINTF_RETURNS_BOGUS = YesPlease
+ 		NO_HSTRERROR = YesPlease
+ 		NO_IPV6 = YesPlease
+ 		NO_SOCKADDR_STORAGE = YesPlease
+@@ -196,6 +198,8 @@ ifeq ($(uname_S),SunOS)
+ 	endif
+ 	ifeq ($(uname_R),5.7)
+ 		NEEDS_RESOLV = YesPlease
++		FREAD_READS_DIRECTORIES = UnfortunatelyYes
++		SNPRINTF_RETURNS_BOGUS = YesPlease
+ 		NO_IPV6 = YesPlease
+ 		NO_SOCKADDR_STORAGE = YesPlease
+ 		NO_UNSETENV = YesPlease
+@@ -205,12 +209,16 @@ ifeq ($(uname_S),SunOS)
+ 		GIT_TEST_CMP = cmp
+ 	endif
+ 	ifeq ($(uname_R),5.8)
++		FREAD_READS_DIRECTORIES = UnfortunatelyYes
++		SNPRINTF_RETURNS_BOGUS = YesPlease
+ 		NO_UNSETENV = YesPlease
+ 		NO_SETENV = YesPlease
+ 		NO_STRTOUMAX = YesPlease
+ 		GIT_TEST_CMP = cmp
+ 	endif
+ 	ifeq ($(uname_R),5.9)
++		FREAD_READS_DIRECTORIES = UnfortunatelyYes
++		SNPRINTF_RETURNS_BOGUS = YesPlease
+ 		NO_UNSETENV = YesPlease
+ 		NO_SETENV = YesPlease
+ 		NO_STRTOUMAX = YesPlease
+-- 
+2.36.1
+
