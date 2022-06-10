@@ -1,0 +1,41 @@
+[pcre2]
+pkgname="${pkgprefix}${topdir}"
+name="pcre - Perl Compatible Regular Expressions"
+pkgcat="system"
+pkgvendor="http://www.pcre.org"
+pkgdesc="A set of functions that implement regular expression pattern matching using the same syntax and semantics as Perl 5"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/pcre2grep
+$_bindir/pcre2test
+$_libdir/*.so.*
+$_mandir/man1/pcre2grep.1*
+$_mandir/man1/pcre2test.1*
+$_docdir/pcre2/pcre2.txt
+$_docdir/pcre2/pcre2grep.txt
+$_docdir/pcre2/pcre2test.txt
+$_docdir/pcre2/AUTHORS
+$_docdir/pcre2/ChangeLog
+$_docdir/pcre2/NEWS
+$_docdir/pcre2/COPYING
+$_docdir/pcre2/LICENCE
+$_docdir/pcre2/README
+
+[pcre2-devel]
+pkgname="${pkgprefix}${topdir}d"
+name="pcre-devel - Development support for pcre"
+pkgcat="system"
+pkgvendor="http://www.pcre.org"
+pkgdesc="A set of functions that implement regular expression pattern matching using the same syntax and semantics as Perl 5"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir/pcre2-config
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+$_libdir/pkgconfig/libpcre2*
+$_mandir/man1/pcre2-config.1*
+$_mandir/man3
+$_docdir/pcre2/pcre2-config.txt
+$_docdir/pcre2/html
+
