@@ -6,11 +6,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=9.0p1
+version=9.1p1
 pkgver=1
 source[0]=https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=0007-Fix-authopt-test-on-platforms-without-IPv6-support.patch
+patch[1]=0001-Workaround-missing-MAP_ANON.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -18,7 +19,7 @@ patch[0]=0007-Fix-authopt-test-on-platforms-without-IPv6-support.patch
 # Global settings
 export LDFLAGS="-R$prefix/lib -L$prefix/lib"
 export CPPFLAGS="-I$prefix/include"
-export CC=gcc
+export CC="gcc"
 make_check_target="tests"
 
 configure_args=(--prefix=$prefix --mandir=$prefix/$_mandir --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-default-path=/usr/bin:$prefix/${_bindir} --with-mantype=man --with-pam --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/bin:/usr/sbin:$prefix/$_bindir:$prefix/$_sbindir --with-lastlog=/var/adm/lastlog --without-zlib-version-check)
