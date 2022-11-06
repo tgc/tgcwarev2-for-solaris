@@ -1,0 +1,21 @@
+CONFDIR=/usr/tgcware/etc
+
+# We provide default config-files, check and see if they should be installed.
+for config in sudoers; do
+    if [ -f ${CONFDIR}/sudoers ]; then
+	echo "Keeping existing $config"
+	CHECKCONF=1
+    else
+	echo "Installing new $config"
+	cp -p ${CONFDIR}/${config}.dist ${CONFDIR}/$config
+    fi
+done
+
+# If original config-files where preserved, urge the operator
+# to check the new default files for hints on recommended configuration
+if [ "$CHECKCONF" = "1" ] ; then
+	echo "#######"
+	echo ""
+	echo "Please check the ${config}.dist file for configuration hints"
+	echo "and update your existing ${config} file accordingly."
+fi

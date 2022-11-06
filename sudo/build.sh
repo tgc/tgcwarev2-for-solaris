@@ -6,12 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=sudo
-version=1.8.12
-pkgver=2
-source[0]=http://www.sudo.ws/sudo/dist/$topdir-$version.tar.gz
+version=1.8.32
+pkgver=1
+source[0]=https://www.sudo.ws/sudo/dist/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=sudo-1.8.12-netlibs-link.patch
-patch[1]=sudo-1.8.12-ssp-link.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -28,6 +27,12 @@ prep()
     setdir source
     ${__gsed} -i "/^install_uid/ s/0/$(id -u)/" Makefile.in
     ${__gsed} -i "/^install_gid/ s/0/$(id -u)/" Makefile.in
+    # Configure adds closefrom_fallback into the linker export map as a global
+    # but that function is static void meaning it cannot possibly be a global
+    # symbol. Later gcc/linker combos on Solaris seems not to care but gcc with
+    # the Solaris 7 linker will fail with a symbol reference error when parsing
+    # the mapfile.
+    ${__gsed} -i 's/closefrom_fallback//' configure
 }
 
 reg build
@@ -47,8 +52,7 @@ install()
 {
     generic_install DESTDIR
     ${__mv} ${stagedir}${prefix}/share/doc/sudo ${stagedir}${prefix}/${_vdocdir}
-    ${__mv} ${stagedir}${prefix}/share/examples/sudo ${stagedir}${prefix}/${_vdocdir}/examples
-    ${__rmdir} ${stagedir}${prefix}/share/examples
+    ${__rm} -f ${stagedir}${prefix}/etc/sudoers
 }
 
 reg pack
