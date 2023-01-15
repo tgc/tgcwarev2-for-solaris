@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Sun Jan 15 2023 Tom G. Christensen <swpkg@jupiterrise.com> - 10.42-1
+- Update to 10.42
+
 * Tue Jun 07 2022 Tom G. Christensen <swpkg@jupiterrise.com> - 10.40-1
 - Initial package

@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=pcre2
-version=10.40
+version=10.42
 pkgver=1
 source[0]=https://github.com/PCRE2Project/$topdir/releases/download/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -41,6 +41,8 @@ reg install
 install()
 {
     generic_install DESTDIR
+    # ABI compatible
+    compat pcre2 10.40 1 1
 }
 
 reg pack
