@@ -1,4 +1,4 @@
-From 9a352568d247db4f471dc6e1ba3a62180a63e3ee Mon Sep 17 00:00:00 2001
+From 310b28a03bde6d9cfcd19bc84e83e6fd13639a3d Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Thu, 28 Oct 2021 21:33:49 +0200
 Subject: [PATCH 6/7] Handle missing strtoumax
@@ -8,12 +8,12 @@ Subject: [PATCH 6/7] Handle missing strtoumax
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/test/params_conversion_test.c b/test/params_conversion_test.c
-index 9422ef1473..300899f861 100644
+index 30477e8127..8e99da70f4 100644
 --- a/test/params_conversion_test.c
 +++ b/test/params_conversion_test.c
-@@ -19,7 +19,7 @@
- #  define strcasecmp _stricmp
- # endif
+@@ -15,7 +15,7 @@
+ /* On machines that dont support <inttypes.h> just disable the tests */
+ #if !defined(OPENSSL_NO_INTTYPES_H)
  
 -# ifdef OPENSSL_SYS_VMS
 +# if defined(OPENSSL_SYS_VMS) || !defined(strtoumax)
@@ -21,5 +21,5 @@ index 9422ef1473..300899f861 100644
  #  define strtoimax strtoll
  # endif
 -- 
-2.27.0
+2.31.1
 

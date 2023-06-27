@@ -1,4 +1,4 @@
-From 2c9c6a7cb7b9cbf8ee68bb55b29313a26d0d43bd Mon Sep 17 00:00:00 2001
+From a9fe9b331833dad69c252b102c6fd2f2f1a2bc92 Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Wed, 27 Oct 2021 20:52:24 +0200
 Subject: [PATCH 4/7] Fix build with posix95 pthreads
@@ -10,10 +10,10 @@ attribute support.
  1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/crypto/threads_pthread.c b/crypto/threads_pthread.c
-index 2792f82684..31005ad4c3 100644
+index 5e2cec6bb6..4350c8dbbf 100644
 --- a/crypto/threads_pthread.c
 +++ b/crypto/threads_pthread.c
-@@ -58,10 +58,14 @@ CRYPTO_RWLOCK *CRYPTO_THREAD_lock_new(void)
+@@ -70,10 +70,14 @@ CRYPTO_RWLOCK *CRYPTO_THREAD_lock_new(void)
       */
      pthread_mutexattr_init(&attr);
  #  if !defined (__TANDEM) && !defined (_SPT_MODEL_)
@@ -32,5 +32,5 @@ index 2792f82684..31005ad4c3 100644
  #  else
      /* The SPT Thread Library does not define MUTEX attributes. */
 -- 
-2.27.0
+2.31.1
 

@@ -1,4 +1,4 @@
-From bb038a4df281e1104f6748d8dcc2803ea9728dd5 Mon Sep 17 00:00:00 2001
+From 55ec94b9fa825a3fee1e95cbdbd4356e6a12ddee Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Wed, 27 Oct 2021 20:48:25 +0200
 Subject: [PATCH 3/7] Provide socklen_t on Solaris 2.6
@@ -23,5 +23,5 @@ index 749e8f810c..f1c9aa9473 100644
  
  int BIO_ADDR_make(BIO_ADDR *ap, const struct sockaddr *sa);
 -- 
-2.27.0
+2.31.1
 
