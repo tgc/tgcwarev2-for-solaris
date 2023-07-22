@@ -1,8 +1,12 @@
 CHANGELOG
 ---------
+* Sat Jul 22 2023 Tom G. Christensen <swpkg@jupiterrise.com> - 8.2.0-1
+- Update to 8.2.0
+- Update CA bundle to 2023-05-30
+
 * Sun Jan 15 2023 Tom G. Christensen <swpkg@jupiterrise.com> - 7.87.0-1
 - Update to 7.87.0
-- Update CA bundle to 2023-10-11
+- Update CA bundle to 2023-01-10
 
 * Thu Nov 03 2022 Tom G. Christensen <swpkg@jupiterrise.com> - 7.86.0-1
 - Update to 7.86.0
