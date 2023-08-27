@@ -1,0 +1,10 @@
+[cmake]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir - CMake build tool"
+pkgcat="application"
+pkgvendor="https://cmake.org"
+pkgdesc="Open-source, cross-platform family of tools designed to build, test and package software"
+pkgver="$pkgver"
+files(-,root,bin)
+$_bindir
+$_sharedir
