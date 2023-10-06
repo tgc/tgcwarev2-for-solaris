@@ -6,17 +6,16 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=3.0.10
+version=3.0.11
 pkgver=1
 source[0]=https://openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=0001-Fix-fallback-for-missing-getaddrinfo.patch
 patch[1]=0002-Include-sys-atomic.h-directly-on-Solaris.patch
 patch[2]=0003-Provide-socklen_t-on-Solaris-2.6.patch
-patch[3]=0004-Fix-build-with-posix95-pthreads.patch
-patch[4]=0005-Handle-missing-stdint.h-on-older-Solaris.patch
-patch[5]=0006-Handle-missing-strtoumax.patch
-patch[6]=0007-Use-target-CPU-choice-on-SPARC.patch
+patch[3]=0005-Handle-missing-stdint.h-on-older-Solaris.patch
+patch[4]=0006-Handle-missing-strtoumax.patch
+patch[5]=0007-Use-target-CPU-choice-on-SPARC.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -90,6 +89,7 @@ install()
     compat openssl 3.0.5 1 1
     compat openssl 3.0.7 1 1
     compat openssl 3.0.9 1 1
+    compat openssl 3.0.10 1 1
 }
 
 reg pack
