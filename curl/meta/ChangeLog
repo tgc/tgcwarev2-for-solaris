@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Wed Oct 11 2023 Tom G. Christensen <swpkg@jupiterrise.com> - 8.4.0-1
+- Update to 8.4.0 (fixes CVE-2023-38545, CVE-2023-38546)
+
 * Thu Sep 14 2023 Tom G. Christensen <swpkg@jupiterrise.com> - 8.3.0-1
 - Update to 8.3.0
 - Update CA bundle to 2023-08-22
