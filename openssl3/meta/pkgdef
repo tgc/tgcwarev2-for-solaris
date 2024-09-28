@@ -2,7 +2,7 @@
 pkgname="${pkgprefix}ssl3"
 name="openssl - OpenSSL shared libraries"
 pkgcat="system"
-pkgvendor="https://www.openssl.org"
+pkgvendor="https://www.openssl-library.org"
 pkgdesc="Cryptography and SSL/TLS Toolkit"
 pkgver="$pkgver"
 files(-,root,bin)
@@ -16,7 +16,7 @@ $_sharedir/ssl
 pkgname="${pkgprefix}ssl3u"
 name="openssl-utils - OpenSSL utilities and manpages"
 pkgcat="system"
-pkgvendor="https://www.openssl.org"
+pkgvendor="https://www.openssl-library.org"
 pkgdesc="Cryptography and SSL/TLS Toolkit"
 pkgver="$pkgver"
 files(-,root,bin)
@@ -27,7 +27,7 @@ $_mandir/man{1,5,7}
 pkgname="${pkgprefix}ssl3d"
 name="openssl-devel - Development support for OpenSSL"
 pkgcat="system"
-pkgvendor="https://www.openssl.org"
+pkgvendor="https://www.openssl-library.org"
 pkgdesc="Files needed for developing with OpenSSL"
 pkgver="$pkgver"
 files(-,root,bin)
@@ -39,7 +39,7 @@ $_libdir/pkgconfig
 pkgname="${pkgprefix}ssl3m"
 name="openssl-devel-manpages - Development documentation for OpenSSL"
 pkgcat="system"
-pkgvendor="https://www.openssl.org"
+pkgvendor="https://www.openssl-library.org"
 pkgdesc="Development manpages for OpenSSL"
 pkgver="$pkgver"
 files(-,root,bin)
@@ -49,7 +49,7 @@ $_mandir/man3
 pkgname="${pkgprefix}ssl3h"
 name="openssl-htmldocs - Documentation in HTML format"
 pkgcat="system"
-pkgvendor="http://www.openssl.org"
+pkgvendor="http://www.openssl-library.org"
 pkgdesc="OpenSSL documentation in HTML format"
 pkgver="$pkgver"
 files(-,root,bin)
