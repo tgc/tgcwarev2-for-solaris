@@ -6,14 +6,20 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=9.8p1
+version=9.9p1
 pkgver=1
 source[0]=https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=0007-Fix-authopt-test-on-platforms-without-IPv6-support.patch
+patch[1]=openssh-9.9-fixes.patch # stable branch post release fixes
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
+
+if [ "$_os" = "sunos57" ]; then
+    patch[2]=0001-regress-login-timeout.sh-increase-timeouts.patch
+    patch[3]=0001-Revert-simplify-sshkey_prekey_alloc-always-use-mmap.patch
+fi
 
 # Global settings
 export LDFLAGS="-R$prefix/lib -L$prefix/lib"

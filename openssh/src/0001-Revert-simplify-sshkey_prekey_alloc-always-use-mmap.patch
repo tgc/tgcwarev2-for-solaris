@@ -1,0 +1,68 @@
+From 7c71009d8d5954895a52aebfffd45803282775c2 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Sun, 22 Sep 2024 18:20:21 +0200
+Subject: [PATCH] Revert "simplify sshkey_prekey_alloc(); always use mmap"
+
+MAP_ANON is not available on Solaris < 8.
+---
+ sshkey.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
+
+diff --git a/sshkey.c b/sshkey.c
+index 1db83788d..f679113df 100644
+--- a/sshkey.c
++++ b/sshkey.c
+@@ -754,25 +754,28 @@ sshkey_sk_cleanup(struct sshkey *k)
+ 	k->sk_key_handle = k->sk_reserved = NULL;
+ }
+ 
+-#if defined(MAP_CONCEAL)
+-# define PREKEY_MMAP_FLAG	MAP_CONCEAL
+-#elif defined(MAP_NOCORE)
+-# define PREKEY_MMAP_FLAG	MAP_NOCORE
+-#else
+-# define PREKEY_MMAP_FLAG	0
+-#endif
+-
+ static int
+ sshkey_prekey_alloc(u_char **prekeyp, size_t len)
+ {
+ 	u_char *prekey;
+ 
+ 	*prekeyp = NULL;
++#if defined(MAP_CONCEAL)
+ 	if ((prekey = mmap(NULL, len, PROT_READ|PROT_WRITE,
+-	    MAP_ANON|MAP_PRIVATE|PREKEY_MMAP_FLAG, -1, 0)) == MAP_FAILED)
++	    MAP_ANON|MAP_PRIVATE|MAP_CONCEAL, -1, 0)) == MAP_FAILED)
++		return SSH_ERR_SYSTEM_ERROR;
++#elif defined(MAP_NOCORE)
++	if ((prekey = mmap(NULL, len, PROT_READ|PROT_WRITE,
++	    MAP_ANON|MAP_PRIVATE|MAP_NOCORE, -1, 0)) == MAP_FAILED)
++		return SSH_ERR_SYSTEM_ERROR;
++#elif defined(MADV_DONTDUMP)
++	if ((prekey = mmap(NULL, len, PROT_READ|PROT_WRITE,
++	    MAP_ANON|MAP_PRIVATE, -1, 0)) == MAP_FAILED)
+ 		return SSH_ERR_SYSTEM_ERROR;
+-#if defined(MADV_DONTDUMP) && !defined(MAP_CONCEAL) && !defined(MAP_NOCORE)
+ 	(void)madvise(prekey, len, MADV_DONTDUMP);
++#else
++	if ((prekey = calloc(1, len)) == NULL)
++		return SSH_ERR_ALLOC_FAIL;
+ #endif
+ 	*prekeyp = prekey;
+ 	return 0;
+@@ -783,7 +786,11 @@ sshkey_prekey_free(void *prekey, size_t len)
+ {
+ 	if (prekey == NULL)
+ 		return;
++#if defined(MAP_CONCEAL) || defined(MAP_NOCORE) || defined(MADV_DONTDUMP)
+ 	munmap(prekey, len);
++#else
++	freezero(prekey, len);
++#endif
+ }
+ 
+ static void
+-- 
+2.36.6
+

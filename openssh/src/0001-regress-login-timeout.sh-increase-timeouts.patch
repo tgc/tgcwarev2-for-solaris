@@ -1,0 +1,32 @@
+From b2395fb730e06767df9cc3785f3252d8b10bafb6 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Tue, 11 Jul 2023 20:34:30 +0200
+Subject: [PATCH] regress/login-timeout.sh: increase timeouts
+
+To allow slower hosts to run this test.
+---
+ regress/login-timeout.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/regress/login-timeout.sh b/regress/login-timeout.sh
+index 1577da159..33857e1d9 100644
+--- a/regress/login-timeout.sh
++++ b/regress/login-timeout.sh
+@@ -6,12 +6,12 @@ tid="connect after login grace timeout"
+ trace "test login grace time"
+ cp $OBJ/sshd_config $OBJ/sshd_config.orig
+ grep -vi LoginGraceTime $OBJ/sshd_config.orig > $OBJ/sshd_config
+-echo "LoginGraceTime 10s" >> $OBJ/sshd_config
++echo "LoginGraceTime 45s" >> $OBJ/sshd_config
+ echo "MaxStartups 1" >> $OBJ/sshd_config
+ start_sshd
+ 
+ (echo SSH-2.0-fake; sleep 60) | telnet 127.0.0.1 ${PORT} >/dev/null 2>&1 &
+-sleep 15
++sleep 50
+ ${SSH} -F $OBJ/ssh_config somehost true
+ if [ $? -ne 0 ]; then
+ 	fail "ssh connect after login grace timeout failed"
+-- 
+2.36.3
+
