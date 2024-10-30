@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Tue Oct 29 2024 Tom G. Christensen <swpkg@jupiterrise.com> - 9.9p1-2
+- Add big-endian fixes from 9.9 branch
+
 * Sun Sep 22 2024 Tom G. Christensen <swpkg@jupiterrise.com> - 9.9p1-1
 - Update to 9.9p1
 

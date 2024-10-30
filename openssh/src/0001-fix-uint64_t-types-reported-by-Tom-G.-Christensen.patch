@@ -1,0 +1,39 @@
+From 88b35cbdc1500efece65cd6a9a20a72cf7e46eaa Mon Sep 17 00:00:00 2001
+From: Damien Miller <djm@mindrot.org>
+Date: Wed, 30 Oct 2024 14:25:14 +1100
+Subject: [PATCH] fix uint64_t types; reported by Tom G. Christensen
+
+---
+ defines.h | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/defines.h b/defines.h
+index b02f2942a..c1c21aba6 100644
+--- a/defines.h
++++ b/defines.h
+@@ -653,14 +653,14 @@ struct winsize {
+ 	((uint32_t)(v) & 0xff0000) >> 8 |			\
+ 	((uint32_t)(v) & 0xff000000) >> 24)
+ # define openssh_swap64(v)					\
+-	(__uint64_t)((((__uint64_t)(v) & 0xff) << 56) |		\
+-	((__uint64_t)(v) & 0xff00ULL) << 40 |			\
+-	((__uint64_t)(v) & 0xff0000ULL) << 24 |			\
+-	((__uint64_t)(v) & 0xff000000ULL) << 8 |		\
+-	((__uint64_t)(v) & 0xff00000000ULL) >> 8 |		\
+-	((__uint64_t)(v) & 0xff0000000000ULL) >> 24 |		\
+-	((__uint64_t)(v) & 0xff000000000000ULL) >> 40 |		\
+-	((__uint64_t)(v) & 0xff00000000000000ULL) >> 56)
++	(uint64_t)((((uint64_t)(v) & 0xff) << 56) |		\
++	((uint64_t)(v) & 0xff00ULL) << 40 |			\
++	((uint64_t)(v) & 0xff0000ULL) << 24 |			\
++	((uint64_t)(v) & 0xff000000ULL) << 8 |		\
++	((uint64_t)(v) & 0xff00000000ULL) >> 8 |		\
++	((uint64_t)(v) & 0xff0000000000ULL) >> 24 |		\
++	((uint64_t)(v) & 0xff000000000000ULL) >> 40 |		\
++	((uint64_t)(v) & 0xff00000000000000ULL) >> 56)
+ # ifdef WORDS_BIGENDIAN
+ #  define le32toh(v) (openssh_swap32(v))
+ #  define le64toh(v) (openssh_swap64(v))
+-- 
+2.36.6
+

@@ -1,7 +1,7 @@
 From 8513f4d30ae85d17b3b08da6bc3be76f8c73123c Mon Sep 17 00:00:00 2001
 From: Darren Tucker <dtucker@dtucker.net>
 Date: Mon, 23 Sep 2024 20:52:31 +1000
-Subject: [PATCH 1/7] Add 9.9 branch to CI status console.
+Subject: [PATCH 01/10] Add 9.9 branch to CI status console.
 
 ---
  .github/ci-status.md | 4 ++++
@@ -29,7 +29,7 @@ index 4fa73894c..68275715d 100644
 From 7cf4dc414de689c467e58e49fb83f6609c3ed36b Mon Sep 17 00:00:00 2001
 From: Darren Tucker <dtucker@dtucker.net>
 Date: Mon, 23 Sep 2024 20:54:26 +1000
-Subject: [PATCH 2/7] Remove non-9.9 branch statuses.
+Subject: [PATCH 02/10] Remove non-9.9 branch statuses.
 
 ---
  .github/ci-status.md | 8 --------
@@ -58,7 +58,7 @@ index 68275715d..17fa97bdc 100644
 From c7fda601186ff28128cfe3eab9c9c0622de096e1 Mon Sep 17 00:00:00 2001
 From: Christoph Ostarek <christoph@zededa.com>
 Date: Wed, 3 Jul 2024 12:46:59 +0200
-Subject: [PATCH 3/7] fix utmpx ifdef
+Subject: [PATCH 03/10] fix utmpx ifdef
 
 02e16ad95fb1f56ab004b01a10aab89f7103c55d did a copy-paste for
 utmpx, but forgot to change the ifdef appropriately
@@ -95,7 +95,7 @@ index 7460bb2c0..45f13dee8 100644
 From 2c12ae8cf9b0b7549ae097c4123abeda0ee63e5b Mon Sep 17 00:00:00 2001
 From: Damien Miller <djm@mindrot.org>
 Date: Wed, 25 Sep 2024 11:13:05 +1000
-Subject: [PATCH 4/7] build construct_utmp() when USE_BTMP is set
+Subject: [PATCH 04/10] build construct_utmp() when USE_BTMP is set
 
 Fixes compile error on Void Linux/Musl
 ---
@@ -131,7 +131,7 @@ index 45f13dee8..7b1818b86 100644
 From ff2cd1dd5711ff88efdf26662d6189d980439a1f Mon Sep 17 00:00:00 2001
 From: Damien Miller <djm@mindrot.org>
 Date: Wed, 25 Sep 2024 11:15:45 +1000
-Subject: [PATCH 5/7] gss-serv.c needs sys/param.h
+Subject: [PATCH 05/10] gss-serv.c needs sys/param.h
 
 From Void Linux
 ---
@@ -157,7 +157,7 @@ index 00e3d118b..025a118f8 100644
 From 66878e12a207fa9746dee3e2bdcca29b704cf035 Mon Sep 17 00:00:00 2001
 From: "djm@openbsd.org" <djm@openbsd.org>
 Date: Wed, 25 Sep 2024 01:24:04 +0000
-Subject: [PATCH 6/7] upstream: fix regression introduced when I switched the
+Subject: [PATCH 06/10] upstream: fix regression introduced when I switched the
  "Match"
 
 criteria tokeniser to a more shell-like one. Apparently the old tokeniser
@@ -450,8 +450,8 @@ index 89b8413e8..dd774f468 100644
 From 19bcb2d90c6caf14abf386b644fb24eb7afab889 Mon Sep 17 00:00:00 2001
 From: "djm@openbsd.org" <djm@openbsd.org>
 Date: Thu, 26 Sep 2024 23:55:08 +0000
-Subject: [PATCH 7/7] upstream: fix previous change to ssh_config Match, which
- broken on
+Subject: [PATCH 07/10] upstream: fix previous change to ssh_config Match,
+ which broken on
 
 negated Matches; spotted by phessler@ ok deraadt@
 
@@ -510,6 +510,199 @@ index de42fb6ff..9f5592698 100644
  	free(host);
  	return result;
  }
+-- 
+2.36.6
+
+
+From 11f348196b3fb51c3d8d1f4f36db9d73f03149ed Mon Sep 17 00:00:00 2001
+From: "djm@openbsd.org" <djm@openbsd.org>
+Date: Sun, 27 Oct 2024 02:06:01 +0000
+Subject: [PATCH 08/10] upstream: fix ML-KEM768x25519 KEX on big-endian
+ systems; spotted by
+
+jsg@ feedback/ok deraadt@
+
+OpenBSD-Commit-ID: 26d81a430811672bc762687166986cad40d28cc0
+---
+ libcrux_mlkem768_sha3.h |  8 +++++---
+ mlkem768.sh             | 17 ++++++++++++-----
+ 2 files changed, 17 insertions(+), 8 deletions(-)
+
+diff --git a/libcrux_mlkem768_sha3.h b/libcrux_mlkem768_sha3.h
+index a82d60e83..b8ac1436f 100644
+--- a/libcrux_mlkem768_sha3.h
++++ b/libcrux_mlkem768_sha3.h
+@@ -1,4 +1,5 @@
+-/*  $OpenBSD: libcrux_mlkem768_sha3.h,v 1.1 2024/09/02 12:13:56 djm Exp $ */
++/*  $OpenBSD: libcrux_mlkem768_sha3.h,v 1.2 2024/10/27 02:06:01 djm Exp $ */
++
+ /* Extracted from libcrux revision 84c5d87b3092c59294345aa269ceefe0eb97cc35 */
+ 
+ /*
+@@ -160,18 +161,19 @@ static inline void Eurydice_slice_to_array3(uint8_t *dst_tag, char *dst_ok,
+ // CORE STUFF (conversions, endianness, ...)
+ 
+ static inline void core_num__u64_9__to_le_bytes(uint64_t v, uint8_t buf[8]) {
++  v = htole64(v);
+   memcpy(buf, &v, sizeof(v));
+ }
+ static inline uint64_t core_num__u64_9__from_le_bytes(uint8_t buf[8]) {
+   uint64_t v;
+   memcpy(&v, buf, sizeof(v));
+-  return v;
++  return le64toh(v);
+ }
+ 
+ static inline uint32_t core_num__u32_8__from_le_bytes(uint8_t buf[4]) {
+   uint32_t v;
+   memcpy(&v, buf, sizeof(v));
+-  return v;
++  return le32toh(v);
+ }
+ 
+ static inline uint32_t core_num__u8_6__count_ones(uint8_t x0) {
+diff --git a/mlkem768.sh b/mlkem768.sh
+index 2fdc28312..3d12b2ed8 100644
+--- a/mlkem768.sh
++++ b/mlkem768.sh
+@@ -1,9 +1,10 @@
+ #!/bin/sh
+-#       $OpenBSD: mlkem768.sh,v 1.2 2024/09/04 05:11:33 djm Exp $
++#       $OpenBSD: mlkem768.sh,v 1.3 2024/10/27 02:06:01 djm Exp $
+ #       Placed in the Public Domain.
+ #
+ 
+-WANT_LIBCRUX_REVISION="origin/main"
++#WANT_LIBCRUX_REVISION="origin/main"
++WANT_LIBCRUX_REVISION="84c5d87b3092c59294345aa269ceefe0eb97cc35"
+ 
+ FILES="
+ 	libcrux/libcrux-ml-kem/cg/eurydice_glue.h
+@@ -47,6 +48,7 @@ echo '#define KRML_NOINLINE __attribute__((noinline, unused))'
+ echo '#define KRML_HOST_EPRINTF(...)'
+ echo '#define KRML_HOST_EXIT(x) fatal_f("internal error")'
+ echo
++
+ for i in $FILES; do
+ 	echo "/* from $i */"
+ 	# Changes to all files:
+@@ -56,11 +58,16 @@ for i in $FILES; do
+ 	    -e 's/[	 ]*$//' \
+ 	    $i | \
+ 	case "$i" in
+-	# XXX per-file handling goes here.
++	*/libcrux-ml-kem/cg/eurydice_glue.h)
++		# Replace endian functions with versions that work.
++		perl -0777 -pe 's/(static inline void core_num__u64_9__to_le_bytes.*\n)([^}]*\n)/\1  v = htole64(v);\n\2/' |
++		perl -0777 -pe 's/(static inline uint64_t core_num__u64_9__from_le_bytes.*?)return v;/\1return le64toh(v);/s' |
++		perl -0777 -pe 's/(static inline uint32_t core_num__u32_8__from_le_bytes.*?)return v;/\1return le32toh(v);/s'
++		;;
+ 	# Default: pass through.
+ 	*)
+-	    cat
+-	    ;;
++		cat
++		;;
+ 	esac
+ 	echo
+ done
+-- 
+2.36.6
+
+
+From fe8d28a7ebbaa35cfc04a21263627f05c237e460 Mon Sep 17 00:00:00 2001
+From: "djm@openbsd.org" <djm@openbsd.org>
+Date: Sun, 27 Oct 2024 02:06:59 +0000
+Subject: [PATCH 09/10] upstream: explicitly include endian.h
+
+OpenBSD-Commit-ID: 13511fdef7535bdbc35b644c90090013da43a318
+---
+ kexmlkem768x25519.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/kexmlkem768x25519.c b/kexmlkem768x25519.c
+index 679446e97..2b5d39608 100644
+--- a/kexmlkem768x25519.c
++++ b/kexmlkem768x25519.c
+@@ -1,4 +1,4 @@
+-/* $OpenBSD: kexmlkem768x25519.c,v 1.1 2024/09/02 12:13:56 djm Exp $ */
++/* $OpenBSD: kexmlkem768x25519.c,v 1.2 2024/10/27 02:06:59 djm Exp $ */
+ /*
+  * Copyright (c) 2023 Markus Friedl.  All rights reserved.
+  *
+@@ -34,6 +34,9 @@
+ #include <stdbool.h>
+ #include <string.h>
+ #include <signal.h>
++#ifdef HAVE_ENDIAN_H
++# include <endian.h>
++#endif
+ 
+ #include "sshkey.h"
+ #include "kex.h"
+-- 
+2.36.6
+
+
+From 33c5f384ae03a5d1a0bd46ca0fac3c62e4eaf784 Mon Sep 17 00:00:00 2001
+From: Damien Miller <djm@mindrot.org>
+Date: Sun, 27 Oct 2024 13:28:11 +1100
+Subject: [PATCH 10/10] htole64() etc for systems without endian.h
+
+---
+ configure.ac |  1 -
+ defines.h    | 26 ++++++++++++++++++++++++++
+ 2 files changed, 26 insertions(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 591d5a388..9053a9a2b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -2013,7 +2013,6 @@ AC_CHECK_FUNCS([ \
+ 	strtoll \
+ 	strtoul \
+ 	strtoull \
+-	swap32 \
+ 	sysconf \
+ 	tcgetpgrp \
+ 	timegm \
+diff --git a/defines.h b/defines.h
+index ed860e78b..b02f2942a 100644
+--- a/defines.h
++++ b/defines.h
+@@ -646,6 +646,32 @@ struct winsize {
+ # endif /* WORDS_BIGENDIAN */
+ #endif /* BYTE_ORDER */
+ 
++#ifndef HAVE_ENDIAN_H
++# define openssh_swap32(v)					\
++	(uint32_t)(((uint32_t)(v) & 0xff) << 24 |		\
++	((uint32_t)(v) & 0xff00) << 8 |				\
++	((uint32_t)(v) & 0xff0000) >> 8 |			\
++	((uint32_t)(v) & 0xff000000) >> 24)
++# define openssh_swap64(v)					\
++	(__uint64_t)((((__uint64_t)(v) & 0xff) << 56) |		\
++	((__uint64_t)(v) & 0xff00ULL) << 40 |			\
++	((__uint64_t)(v) & 0xff0000ULL) << 24 |			\
++	((__uint64_t)(v) & 0xff000000ULL) << 8 |		\
++	((__uint64_t)(v) & 0xff00000000ULL) >> 8 |		\
++	((__uint64_t)(v) & 0xff0000000000ULL) >> 24 |		\
++	((__uint64_t)(v) & 0xff000000000000ULL) >> 40 |		\
++	((__uint64_t)(v) & 0xff00000000000000ULL) >> 56)
++# ifdef WORDS_BIGENDIAN
++#  define le32toh(v) (openssh_swap32(v))
++#  define le64toh(v) (openssh_swap64(v))
++#  define htole64(v) (openssh_swap64(v))
++# else
++#  define le32toh(v) ((uint32_t)v)
++#  define le64toh(v) ((uint64_t)v)
++#  define htole64(v) ((uint64_t)v)
++# endif
++#endif
++
+ /* Function replacement / compatibility hacks */
+ 
+ #if !defined(HAVE_GETADDRINFO) && (defined(HAVE_OGETADDRINFO) || defined(HAVE_NGETADDRINFO))
 -- 
 2.36.6
 
