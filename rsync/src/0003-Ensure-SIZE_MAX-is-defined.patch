@@ -1,0 +1,24 @@
+From e89c46bb50b64256abe47e3ac1934de186d415ef Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Wed, 12 Feb 2025 10:21:10 +0100
+Subject: [PATCH 3/4] Ensure SIZE_MAX is defined
+
+---
+ popt/poptconfig.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/popt/poptconfig.c b/popt/poptconfig.c
+index bf201e26..f0d52123 100644
+--- a/popt/poptconfig.c
++++ b/popt/poptconfig.c
+@@ -10,6 +10,7 @@
+ #include "poptint.h"
+ #include <sys/stat.h>
+ #include <unistd.h>
++#include <limits.h>
+ #include <fcntl.h>
+ #include <errno.h>
+ 
+-- 
+2.36.6
+

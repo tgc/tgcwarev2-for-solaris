@@ -1,0 +1,51 @@
+From a551f279b7b93c47d0be5fbd29ca90def0d013e8 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Wed, 12 Feb 2025 10:17:44 +0100
+Subject: [PATCH 2/4] Fix build with no stdint.h
+
+---
+ popt/lookup3.c | 8 +++++++-
+ popt/poptint.h | 8 +++++++-
+ 2 files changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/popt/lookup3.c b/popt/lookup3.c
+index e974cad8..792776cd 100644
+--- a/popt/lookup3.c
++++ b/popt/lookup3.c
+@@ -34,7 +34,13 @@
+ */
+ /* -------------------------------------------------------------------- */
+ 
+-#include <stdint.h>
++#include <config.h>
++
++#ifdef HAVE_STDINT_H
++  #include <stdint.h>
++#else
++  #include <inttypes.h>
++#endif
+ 
+ #if defined(_JLU3_SELFTEST)
+ # define _JLU3_jlu32w		1
+diff --git a/popt/poptint.h b/popt/poptint.h
+index 001c5c35..75575492 100644
+--- a/popt/poptint.h
++++ b/popt/poptint.h
+@@ -9,7 +9,13 @@
+ #ifndef H_POPTINT
+ #define H_POPTINT
+ 
+-#include <stdint.h>
++#include <config.h>
++
++#ifdef HAVE_STDINT_H
++  #include <stdint.h>
++#else
++  #include <inttypes.h>
++#endif
+ 
+ /**
+  * Wrapper to free(3), hides const compilation noise, permit NULL, return NULL.
+-- 
+2.36.6
+

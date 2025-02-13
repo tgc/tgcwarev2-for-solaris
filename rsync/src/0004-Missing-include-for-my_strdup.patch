@@ -1,0 +1,24 @@
+From 6a679eef0112fe073af8b068c1bc74cbeaed55c1 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Wed, 12 Feb 2025 10:48:11 +0100
+Subject: [PATCH 4/4] Missing include for my_strdup()
+
+---
+ lib/getaddrinfo.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/lib/getaddrinfo.c b/lib/getaddrinfo.c
+index 96d7a2ba..a1706096 100644
+--- a/lib/getaddrinfo.c
++++ b/lib/getaddrinfo.c
+@@ -44,6 +44,7 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+  */
+ 
+ #include "rsync.h"
++#include "ifuncs.h"
+ 
+ #ifndef SMB_MALLOC
+ #define SMB_MALLOC(s) malloc(s)
+-- 
+2.36.6
+

@@ -2,7 +2,7 @@
 pkgname="${pkgprefix}${topdir}"
 name="$topdir - File transfer utility"
 pkgcat="application"
-pkgvendor="http://rsync.samba.org/"
+pkgvendor="https://rsync.samba.org/"
 pkgdesc="Utility that provides fast incremental file transfer"
 pkgver="$pkgver"
 files(-,root,bin)

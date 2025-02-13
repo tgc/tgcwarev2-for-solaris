@@ -1,0 +1,155 @@
+From 1afc1f962841edeba221a5188d255e26cb0f5c74 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Wed, 12 Feb 2025 10:12:39 +0100
+Subject: [PATCH 1/4] Move pathjoin() to lib/
+
+To allow pathjoin() to be used from syscall.o when building the test
+programs.
+---
+ Makefile.in    |  9 +++++----
+ lib/pathjoin.c | 49 +++++++++++++++++++++++++++++++++++++++++++++++++
+ rsync.h        |  4 ++++
+ util1.c        | 22 ----------------------
+ 4 files changed, 58 insertions(+), 26 deletions(-)
+ create mode 100644 lib/pathjoin.c
+
+diff --git a/Makefile.in b/Makefile.in
+index 6340403b..a532a1f7 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -40,7 +40,8 @@ GENFILES=configure.sh aclocal.m4 config.h.in rsync.1 rsync.1.html \
+ HEADERS=byteorder.h config.h errcode.h proto.h rsync.h ifuncs.h itypes.h inums.h \
+ 	lib/pool_alloc.h lib/mdigest.h lib/md-defines.h
+ LIBOBJ=lib/wildmatch.o lib/compat.o lib/snprintf.o lib/mdfour.o lib/md5.o \
+-	lib/permstring.o lib/pool_alloc.o lib/sysacls.o lib/sysxattrs.o @LIBOBJS@
++	lib/permstring.o lib/pool_alloc.o lib/sysacls.o lib/sysxattrs.o \
++	lib/pathjoin.o @LIBOBJS@
+ zlib_OBJS=zlib/deflate.o zlib/inffast.o zlib/inflate.o zlib/inftrees.o \
+ 	zlib/trees.o zlib/zutil.o zlib/adler32.o zlib/compress.o zlib/crc32.o
+ OBJS1=flist.o rsync.o generator.o receiver.o cleanup.o sender.o exclude.o \
+@@ -53,7 +54,7 @@ popt_OBJS= popt/popt.o  popt/poptconfig.o \
+ 	popt/popthelp.o popt/poptparse.o popt/poptint.o
+ OBJS=$(OBJS1) $(OBJS2) $(OBJS3) $(DAEMON_OBJ) $(LIBOBJ) @BUILD_ZLIB@ @BUILD_POPT@
+ 
+-TLS_OBJ = tls.o syscall.o util2.o t_stub.o lib/compat.o lib/snprintf.o lib/permstring.o lib/sysxattrs.o @BUILD_POPT@
++TLS_OBJ = tls.o syscall.o util2.o t_stub.o lib/compat.o lib/snprintf.o lib/permstring.o lib/sysxattrs.o lib/pathjoin.o @BUILD_POPT@
+ 
+ # Programs we must have to run the test cases
+ CHECK_PROGS = rsync$(EXEEXT) tls$(EXEEXT) getgroups$(EXEEXT) getfsdev$(EXEEXT) \
+@@ -170,11 +171,11 @@ getgroups$(EXEEXT): getgroups.o
+ getfsdev$(EXEEXT): getfsdev.o
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ getfsdev.o $(LIBS)
+ 
+-TRIMSLASH_OBJ = trimslash.o syscall.o util2.o t_stub.o lib/compat.o lib/snprintf.o
++TRIMSLASH_OBJ = trimslash.o syscall.o util2.o t_stub.o lib/compat.o lib/snprintf.o lib/pathjoin.o
+ trimslash$(EXEEXT): $(TRIMSLASH_OBJ)
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(TRIMSLASH_OBJ) $(LIBS)
+ 
+-T_UNSAFE_OBJ = t_unsafe.o syscall.o util1.o util2.o t_stub.o lib/compat.o lib/snprintf.o lib/wildmatch.o
++T_UNSAFE_OBJ = t_unsafe.o syscall.o util1.o util2.o t_stub.o lib/compat.o lib/snprintf.o lib/wildmatch.o lib/pathjoin.o
+ t_unsafe$(EXEEXT): $(T_UNSAFE_OBJ)
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(T_UNSAFE_OBJ) $(LIBS)
+ 
+diff --git a/lib/pathjoin.c b/lib/pathjoin.c
+new file mode 100644
+index 00000000..f29834a0
+--- /dev/null
++++ b/lib/pathjoin.c
+@@ -0,0 +1,49 @@
++/*
++ * Utility routines used in rsync.
++ *
++ * Copyright (C) 1996-2000 Andrew Tridgell
++ * Copyright (C) 1996 Paul Mackerras
++ * Copyright (C) 2001, 2002 Martin Pool <mbp@samba.org>
++ * Copyright (C) 2003-2022 Wayne Davison
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License along
++ * with this program; if not, visit the http://fsf.org website.
++ */
++
++#include "rsync.h"
++#include "ifuncs.h"
++#include "itypes.h"
++#include "inums.h"
++
++/* Join strings p1 & p2 into "dest" with a guaranteed '/' between them.  (If
++ * p1 ends with a '/', no extra '/' is inserted.)  Returns the length of both
++ * strings + 1 (if '/' was inserted), regardless of whether the null-terminated
++ * string fits into destsize. */
++size_t pathjoin(char *dest, size_t destsize, const char *p1, const char *p2)
++{
++	size_t len = strlcpy(dest, p1, destsize);
++	if (len < destsize - 1) {
++		if (!len || dest[len-1] != '/')
++			dest[len++] = '/';
++		if (len < destsize - 1)
++			len += strlcpy(dest + len, p2, destsize - len);
++		else {
++			dest[len] = '\0';
++			len += strlen(p2);
++		}
++	}
++	else
++		len += strlen(p2) + 1; /* Assume we'd insert a '/'. */
++	return len;
++}
++
+diff --git a/rsync.h b/rsync.h
+index 479ac484..b477ad10 100644
+--- a/rsync.h
++++ b/rsync.h
+@@ -1487,3 +1487,7 @@ const char *get_panic_action(void);
+ #elif defined HAVE_MALLINFO
+ #define MEM_ALLOC_INFO mallinfo
+ #endif
++
++/* pathjoin() is in lib/pathjoin.c */
++size_t pathjoin(char *dest, size_t destsize, const char *p1, const char *p2);
++
+diff --git a/util1.c b/util1.c
+index d84bc414..0e6806b1 100644
+--- a/util1.c
++++ b/util1.c
+@@ -866,28 +866,6 @@ char *conf_strtok(char *str)
+ 	return strtok(str, " ,\t\r\n");
+ }
+ 
+-/* Join strings p1 & p2 into "dest" with a guaranteed '/' between them.  (If
+- * p1 ends with a '/', no extra '/' is inserted.)  Returns the length of both
+- * strings + 1 (if '/' was inserted), regardless of whether the null-terminated
+- * string fits into destsize. */
+-size_t pathjoin(char *dest, size_t destsize, const char *p1, const char *p2)
+-{
+-	size_t len = strlcpy(dest, p1, destsize);
+-	if (len < destsize - 1) {
+-		if (!len || dest[len-1] != '/')
+-			dest[len++] = '/';
+-		if (len < destsize - 1)
+-			len += strlcpy(dest + len, p2, destsize - len);
+-		else {
+-			dest[len] = '\0';
+-			len += strlen(p2);
+-		}
+-	}
+-	else
+-		len += strlen(p2) + 1; /* Assume we'd insert a '/'. */
+-	return len;
+-}
+-
+ /* Join any number of strings together, putting them in "dest".  The return
+  * value is the length of all the strings, regardless of whether the null-
+  * terminated whole fits in destsize.  Your list of string pointers must end
+-- 
+2.36.6
+
