@@ -28,6 +28,7 @@ $lprefix/$_sbindir
 $lprefix/$_mandir
 $lprefix/$_sysconfdir
 $lprefix/libexec/ssh-keysign
+$lprefix/libexec/sshd-auth
 $lprefix/libexec/sshd-session
 $lprefix/libexec/sftp-server
 $lprefix/libexec/ssh-pkcs11-helper

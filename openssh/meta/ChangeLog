@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Mon Apr 14 2025 Tom G. Christensen <swpkg@jupiterrise.com> - 10.0p1-1
+- Update to 10.0p1 (due to an upstream mistake it will identify as 10.0p2)
+
 * Wed Feb 19 2025 Tom G. Christensen <swpkg@jupiterrise.com> - 9.9p2-1
 - Update to 9.9p2 (fixes CVE-2025-26465, CVE-2025-26466)
 
