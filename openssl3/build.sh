@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=3.0.15
+version=3.0.17
 pkgver=1
 source[0]=https://github.com/openssl/openssl/releases/download/${topdir}-${version}/${topdir}-${version}.tar.gz
 # If there are no patches, simply comment this
@@ -94,6 +94,7 @@ install()
     compat openssl 3.0.12 1 1
     compat openssl 3.0.13 1 1
     compat openssl 3.0.14 1 1
+    compat openssl 3.0.15 1 1
 }
 
 reg pack
