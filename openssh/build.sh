@@ -6,18 +6,17 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=10.0p1
+version=10.2p1
 pkgver=1
 source[0]=https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=0007-Fix-authopt-test-on-platforms-without-IPv6-support.patch
+patch[0]=0001-Fix-authopt-test-on-platforms-without-IPv6-support.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 if [ "$_os" = "sunos57" ]; then
-    patch[1]=0001-regress-login-timeout.sh-increase-timeouts.patch
-    patch[2]=0001-Revert-simplify-sshkey_prekey_alloc-always-use-mmap.patch
+    patch[1]=0002-regress-login-timeout.sh-increase-timeouts.patch
 fi
 
 # Global settings
@@ -26,7 +25,19 @@ export CPPFLAGS="-I$prefix/include"
 export CC="gcc -std=gnu99"
 make_check_target="tests"
 
-configure_args=(--prefix=$prefix --mandir=$prefix/$_mandir --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-default-path=/usr/bin:$prefix/${_bindir} --with-mantype=man --with-pam --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/bin:/usr/sbin:$prefix/$_bindir:$prefix/$_sbindir --with-lastlog=/var/adm/lastlog --without-zlib-version-check)
+configure_args=(--prefix=$prefix \
+		--mandir=$prefix/$_mandir \
+		--sysconfdir=$prefix/${_sysconfdir}/ssh \
+		--datadir=$prefix/${_sharedir}/openssh \
+		--with-default-path=/usr/bin:$prefix/${_bindir} \
+		--with-mantype=man \
+		--with-pam \
+		--with-privsep-user=sshd \
+		--with-privsep-path=/var/empty/sshd \
+		--with-superuser-path=/usr/bin:/usr/sbin:$prefix/$_bindir:$prefix/$_sbindir \
+		--with-lastlog=/var/adm/lastlog \
+		--without-zlib-version-check\
+		)
 
 reg prep
 prep()

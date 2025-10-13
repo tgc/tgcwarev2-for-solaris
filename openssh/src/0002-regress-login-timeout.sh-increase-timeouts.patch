@@ -1,7 +1,7 @@
-From b2395fb730e06767df9cc3785f3252d8b10bafb6 Mon Sep 17 00:00:00 2001
+From 8aa2d84406569c9d2eabd066294ec36ec6e334ab Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Tue, 11 Jul 2023 20:34:30 +0200
-Subject: [PATCH] regress/login-timeout.sh: increase timeouts
+Subject: [PATCH 2/2] regress/login-timeout.sh: increase timeouts
 
 To allow slower hosts to run this test.
 ---
@@ -9,7 +9,7 @@ To allow slower hosts to run this test.
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/regress/login-timeout.sh b/regress/login-timeout.sh
-index 1577da159..33857e1d9 100644
+index 1577da159..ae45340fa 100644
 --- a/regress/login-timeout.sh
 +++ b/regress/login-timeout.sh
 @@ -6,12 +6,12 @@ tid="connect after login grace timeout"
@@ -28,5 +28,5 @@ index 1577da159..33857e1d9 100644
  if [ $? -ne 0 ]; then
  	fail "ssh connect after login grace timeout failed"
 -- 
-2.36.3
+2.36.6
 

@@ -1,17 +1,17 @@
-From 3908845fd109cc532e793473aa60a20bfa2e450f Mon Sep 17 00:00:00 2001
+From dbcaae0962862d3dad04bdc58d47b22ec3945c65 Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Fri, 11 Mar 2022 17:00:40 +0100
-Subject: [PATCH 7/7] Fix authopt test on platforms without IPv6 support
+Subject: [PATCH 1/2] Fix authopt test on platforms without IPv6 support
 
 ---
- regress/unittests/authopt/testdata/mktestdata.sh   |  1 +
- .../authopt/testdata/sourceaddr_ipv4only.cert      |  1 +
- regress/unittests/authopt/tests.c                  | 22 ++++++++++++++++------
+ .../unittests/authopt/testdata/mktestdata.sh  |  1 +
+ .../authopt/testdata/sourceaddr_ipv4only.cert |  1 +
+ regress/unittests/authopt/tests.c             | 22 ++++++++++++++-----
  3 files changed, 18 insertions(+), 6 deletions(-)
  create mode 100644 regress/unittests/authopt/testdata/sourceaddr_ipv4only.cert
 
 diff --git a/regress/unittests/authopt/testdata/mktestdata.sh b/regress/unittests/authopt/testdata/mktestdata.sh
-index 06a24e39..0510163c 100644
+index 06a24e390..0510163c7 100644
 --- a/regress/unittests/authopt/testdata/mktestdata.sh
 +++ b/regress/unittests/authopt/testdata/mktestdata.sh
 @@ -36,6 +36,7 @@ sign only_x11fwd.cert -Oclear -Opermit-X11-forwarding
@@ -24,16 +24,16 @@ index 06a24e39..0510163c 100644
  # values, so we do it as a custom extension.
 diff --git a/regress/unittests/authopt/testdata/sourceaddr_ipv4only.cert b/regress/unittests/authopt/testdata/sourceaddr_ipv4only.cert
 new file mode 100644
-index 00000000..ca756ca5
+index 000000000..ca756ca51
 --- /dev/null
 +++ b/regress/unittests/authopt/testdata/sourceaddr_ipv4only.cert
 @@ -0,0 +1 @@
 +ssh-ed25519-cert-v01@openssh.com AAAAIHNzaC1lZDI1NTE5LWNlcnQtdjAxQG9wZW5zc2guY29tAAAAIOjl/9se9GhdE8SARP9lHV9IVWeokGjUS1JVk+95JyztAAAAILsTBtFFO81VAwEYCCi+LGl5aa5b7UIrFIKD637xgvN9AAAAAAAAAAEAAAABAAAABHVzZXIAAAAIAAAABHVzZXIAAAAANowB8AAAAAA4a+PwAAAAJgAAAA5zb3VyY2UtYWRkcmVzcwAAABAAAAAMMTI3LjAuMC4xLzMyAAAAggAAABVwZXJtaXQtWDExLWZvcndhcmRpbmcAAAAAAAAAF3Blcm1pdC1hZ2VudC1mb3J3YXJkaW5nAAAAAAAAABZwZXJtaXQtcG9ydC1mb3J3YXJkaW5nAAAAAAAAAApwZXJtaXQtcHR5AAAAAAAAAA5wZXJtaXQtdXNlci1yYwAAAAAAAAAAAAAAMwAAAAtzc2gtZWQyNTUxOQAAACCzFxz+o7QkolOrc+Crw/t3wYPP82mX3vEYDRP+21UyCQAAAFMAAAALc3NoLWVkMjU1MTkAAABAlroivhFKt2b6GIX3IFjBOOD5kn6URV7HNbk4JRwZheujUIe0T7x/v3mN53dug0hbtl0M4jAxYhG+7Kq8RnMsDA== user key
 diff --git a/regress/unittests/authopt/tests.c b/regress/unittests/authopt/tests.c
-index d9e19030..25ba5f2d 100644
+index a81dffbf7..1b5ebabe4 100644
 --- a/regress/unittests/authopt/tests.c
 +++ b/regress/unittests/authopt/tests.c
-@@ -24,6 +24,16 @@
+@@ -22,6 +22,16 @@
  #include "misc.h"
  #include "log.h"
  
@@ -50,7 +50,7 @@ index d9e19030..25ba5f2d 100644
  static struct sshkey *
  load_key(const char *name)
  {
-@@ -349,9 +359,9 @@ test_cert_parse(void)
+@@ -347,9 +357,9 @@ test_cert_parse(void)
  	TEST_DONE();
  
  	TEST_START("sshauthopt_from_cert source-address");
@@ -62,7 +62,7 @@ index d9e19030..25ba5f2d 100644
  	ASSERT_PTR_NE(expected->required_from_host_cert, NULL);
  	opts = sshauthopt_from_cert(cert);
  	CHECK_SUCCESS_AND_CLEANUP();
-@@ -481,9 +491,9 @@ test_merge(void)
+@@ -479,9 +489,9 @@ test_merge(void)
  	FLAG_TEST("x11fwd", "x11-forwarding", permit_x11_forwarding_flag);
  #undef FLAG_TEST
  
@@ -74,7 +74,7 @@ index d9e19030..25ba5f2d 100644
  	ASSERT_PTR_NE(expected->required_from_host_cert, NULL);
  	expected->required_from_host_keys = strdup("127.0.0.1");
  	ASSERT_PTR_NE(expected->required_from_host_keys, NULL);
-@@ -502,9 +512,9 @@ test_merge(void)
+@@ -500,9 +510,9 @@ test_merge(void)
  	CHECK_SUCCESS_AND_CLEANUP();
  	TEST_DONE();
  
@@ -87,5 +87,5 @@ index d9e19030..25ba5f2d 100644
  	CHECK_SUCCESS_AND_CLEANUP();
  	TEST_DONE();
 -- 
-2.16.6
+2.36.6
 
