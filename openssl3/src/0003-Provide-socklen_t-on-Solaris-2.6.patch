@@ -1,19 +1,19 @@
-From 55ec94b9fa825a3fee1e95cbdbd4356e6a12ddee Mon Sep 17 00:00:00 2001
+From e8de3e94ae3716bfa11d83f5e74e66f810059eff Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Wed, 27 Oct 2021 20:48:25 +0200
-Subject: [PATCH 3/7] Provide socklen_t on Solaris 2.6
+Subject: [PATCH 3/6] Provide socklen_t on Solaris 2.6
 
 ---
  crypto/bio/bio_local.h | 4 ++++
  1 file changed, 4 insertions(+)
 
 diff --git a/crypto/bio/bio_local.h b/crypto/bio/bio_local.h
-index 749e8f810c..f1c9aa9473 100644
+index d608a17b7d..4b247710ed 100644
 --- a/crypto/bio/bio_local.h
 +++ b/crypto/bio/bio_local.h
 @@ -141,6 +141,10 @@ struct bio_st {
  typedef unsigned int socklen_t;
- # endif
+ #endif
  
 +# if !defined(socklen_t) && ((defined(sun) || defined(__sun)))
 +typedef size_t socklen_t;
@@ -23,5 +23,5 @@ index 749e8f810c..f1c9aa9473 100644
  
  int BIO_ADDR_make(BIO_ADDR *ap, const struct sockaddr *sa);
 -- 
-2.31.1
+2.43.7
 

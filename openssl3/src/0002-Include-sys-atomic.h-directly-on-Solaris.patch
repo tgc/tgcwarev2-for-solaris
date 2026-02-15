@@ -1,7 +1,7 @@
-From e7a6bcc4bdea5477896297103a6ce9d59b5a2c5d Mon Sep 17 00:00:00 2001
+From 82047282bf747702a7097a55536a98b542cd9f25 Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Wed, 27 Oct 2021 20:38:52 +0200
-Subject: [PATCH 2/7] Include <sys/atomic.h> directly on Solaris
+Subject: [PATCH 2/6] Include <sys/atomic.h> directly on Solaris
 
 Only Solaris 10 has <atomic.h> and it is only a wrapper around
 <sys/atomic.h>.
@@ -10,7 +10,7 @@ Only Solaris 10 has <atomic.h> and it is only a wrapper around
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/crypto/threads_pthread.c b/crypto/threads_pthread.c
-index bfc05a4e87..5e2cec6bb6 100644
+index e1f931a502..3026705d19 100644
 --- a/crypto/threads_pthread.c
 +++ b/crypto/threads_pthread.c
 @@ -13,8 +13,8 @@
@@ -18,12 +18,12 @@ index bfc05a4e87..5e2cec6bb6 100644
  #include "internal/cryptlib.h"
  
 -#if defined(__sun)
--# include <atomic.h>
+-#include <atomic.h>
 +#if defined(__sun) || defined (sun)
-+# include <sys/atomic.h>
++#include <sys/atomic.h>
  #endif
  
  #if defined(__apple_build_version__) && __apple_build_version__ < 6000000
 -- 
-2.31.1
+2.43.7
 
