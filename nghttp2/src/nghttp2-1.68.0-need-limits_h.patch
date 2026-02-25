@@ -1,0 +1,10 @@
+--- nghttp2-1.68.0/lib/nghttp2_hd.c.limits	2025-10-25 10:47:52.978444000 +0000
++++ nghttp2-1.68.0/lib/nghttp2_hd.c	2026-02-25 16:58:33.080008000 +0000
+@@ -27,6 +27,7 @@
+ #include <string.h>
+ #include <assert.h>
+ #include <stdio.h>
++#include <limits.h>
+ 
+ #include "nghttp2_helper.h"
+ #include "nghttp2_int.h"

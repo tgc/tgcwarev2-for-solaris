@@ -8,7 +8,6 @@ pkgver="$pkgver"
 files(-,root,bin)
 default_docs
 $_libdir/libnghttp2.so.*
-$_sharedir/$topdir/fetch-ocsp-response
 
 [nghttp2-devel]
 pkgname="${pkgprefix}ngh2d"
