@@ -6,9 +6,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=zlib
-version=1.3
+version=1.3.2
 pkgver=1
-source[0]=http://zlib.net/$topdir-$version.tar.gz
+source[0]=https://zlib.net/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -17,6 +17,7 @@ source[0]=http://zlib.net/$topdir-$version.tar.gz
 
 # Global settings
 configure_args=(--shared --prefix=$prefix)
+export CC="gcc -std=gnu99"
 export LDSHARED="gcc -shared -R ${prefix}/${_libdir} -Wl,-h,libz.so.1"
 shortroot=1
 
@@ -24,6 +25,8 @@ reg prep
 prep()
 {
     generic_prep
+    setdir source
+    ${__gsed} -i '1 s@.*@#!/usr/tgcware/bin/bash@' configure
 }
 
 reg build
@@ -52,6 +55,7 @@ install()
     compat zlib 1.2.11 1 1
     compat zlib 1.2.12 1 1
     compat zlib 1.2.13 1 1
+    compat zlib 1.3 1 1
 }
 
 reg pack

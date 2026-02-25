@@ -2,7 +2,7 @@
 pkgname="${pkgprefix}${topdir}"
 name="$topdir - The zlib compression and decompression library"
 pkgcat="system"
-pkgvendor="http//www.zlib.org"
+pkgvendor="https://www.zlib.org"
 pkgdesc="Data compression library"
 pkgver="$pkgver"
 files(-,root,bin)
@@ -13,7 +13,7 @@ $_libdir/*.so.*
 pkgname="${pkgprefix}${topdir}d"
 name="${topdir}-devel - Development support for zlib"
 pkgcat="system"
-pkgvendor="http//www.zlib.org"
+pkgvendor="https://www.zlib.org"
 pkgdesc="Data compression library"
 pkgver="$pkgver"
 files(-,root,bin)
