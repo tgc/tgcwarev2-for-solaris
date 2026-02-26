@@ -1,0 +1,11 @@
+diff -up curl-8.18.0/lib/vquic/vquic.c.orig curl-8.18.0/lib/vquic/vquic.c
+--- curl-8.18.0/lib/vquic/vquic.c.orig	2026-01-07 07:57:50.000000000 +0000
++++ curl-8.18.0/lib/vquic/vquic.c	2026-02-25 21:47:38.974378000 +0000
+@@ -24,6 +24,7 @@
+ #include "../curl_setup.h"
+ 
+ #ifdef HAVE_NETINET_UDP_H
++#include <netinet/in.h>
+ #include <netinet/udp.h>
+ #endif
+ #ifdef USE_NGHTTP3

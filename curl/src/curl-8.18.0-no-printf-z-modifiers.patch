@@ -1,0 +1,610 @@
+diff -up curl-8.18.0/tests/server/mqttd.c.no_z curl-8.18.0/tests/server/mqttd.c
+--- curl-8.18.0/tests/server/mqttd.c.no_z	2026-01-07 07:57:50.000000000 +0000
++++ curl-8.18.0/tests/server/mqttd.c	2026-02-24 20:42:21.643642000 +0000
+@@ -165,7 +165,7 @@ static int connack(FILE *dump, curl_sock
+ 
+   rc = swrite(fd, (char *)packet, sizeof(packet));
+   if(rc > 0) {
+-    logmsg("WROTE %zd bytes [CONNACK]", rc);
++    logmsg("WROTE %d bytes [CONNACK]", rc);
+     loghex(packet, rc);
+     logprotocol(FROM_SERVER, "CONNACK", 2, dump, packet, sizeof(packet));
+   }
+@@ -189,7 +189,7 @@ static int suback(FILE *dump, curl_socke
+ 
+   rc = swrite(fd, (char *)packet, sizeof(packet));
+   if(rc == sizeof(packet)) {
+-    logmsg("WROTE %zd bytes [SUBACK]", rc);
++    logmsg("WROTE %d bytes [SUBACK]", rc);
+     loghex(packet, rc);
+     logprotocol(FROM_SERVER, "SUBACK", 3, dump, packet, rc);
+     return 0;
+@@ -211,7 +211,7 @@ static int puback(FILE *dump, curl_socke
+ 
+   rc = swrite(fd, (char *)packet, sizeof(packet));
+   if(rc == sizeof(packet)) {
+-    logmsg("WROTE %zd bytes [PUBACK]", rc);
++    logmsg("WROTE %d bytes [PUBACK]", rc);
+     loghex(packet, rc);
+     logprotocol(FROM_SERVER, dump, packet, rc);
+     return 0;
+@@ -229,7 +229,7 @@ static int disconnect(FILE *dump, curl_s
+   };
+   ssize_t rc = swrite(fd, (char *)packet, sizeof(packet));
+   if(rc == sizeof(packet)) {
+-    logmsg("WROTE %zd bytes [DISCONNECT]", rc);
++    logmsg("WROTE %d bytes [DISCONNECT]", rc);
+     loghex(packet, rc);
+     logprotocol(FROM_SERVER, "DISCONNECT", 0, dump, packet, rc);
+     return 0;
+@@ -353,7 +353,7 @@ static int publish(FILE *dump,
+ 
+   rc = swrite(fd, (char *)packet, sendamount);
+   if(rc > 0) {
+-    logmsg("WROTE %zd bytes [PUBLISH]", rc);
++    logmsg("WROTE %d bytes [PUBLISH]", rc);
+     loghex(packet, rc);
+     logprotocol(FROM_SERVER, "PUBLISH", remaininglength, dump, packet, rc);
+   }
+@@ -380,10 +380,10 @@ static int fixedheader(curl_socket_t fd,
+   ssize_t rc = sread(fd, (char *)buffer, 2);
+   size_t i;
+   if(rc < 2) {
+-    logmsg("READ %zd bytes [SHORT!]", rc);
++    logmsg("READ %d bytes [SHORT!]", rc);
+     return 1; /* fail */
+   }
+-  logmsg("READ %zd bytes", rc);
++  logmsg("READ %d bytes", rc);
+   loghex(buffer, rc);
+   *bytep = buffer[0];
+ 
+@@ -398,7 +398,7 @@ static int fixedheader(curl_socket_t fd,
+     }
+   }
+   *remaining_lengthp = decode_length(&buffer[1], i, remaining_length_bytesp);
+-  logmsg("Remaining Length: %zu [%zu bytes]", *remaining_lengthp,
++  logmsg("Remaining Length: %u [%u bytes]", *remaining_lengthp,
+          *remaining_length_bytesp);
+   return 0;
+ }
+@@ -463,7 +463,7 @@ static curl_socket_t mqttit(curl_socket_
+       buff_size = remaining_length;
+       newbuffer = realloc(buffer, buff_size);
+       if(!newbuffer) {
+-        logmsg("Failed realloc of size %zu", buff_size);
++        logmsg("Failed realloc of size %u", buff_size);
+         goto end;
+       }
+       buffer = newbuffer;
+@@ -473,7 +473,7 @@ static curl_socket_t mqttit(curl_socket_
+       /* reading variable header and payload into buffer */
+       rc = sread(fd, (char *)buffer, remaining_length);
+       if(rc > 0) {
+-        logmsg("READ %zd bytes", rc);
++        logmsg("READ %d bytes", rc);
+         loghex(buffer, rc);
+       }
+     }
+@@ -511,7 +511,7 @@ static curl_socket_t mqttit(curl_socket_
+ 
+       /* check the length of the payload */
+       if((ssize_t)payload_len != (rc - 12)) {
+-        logmsg("Payload length mismatch, expected %zx got %zx",
++        logmsg("Payload length mismatch, expected %x got %x",
+                rc - 12, payload_len);
+         goto end;
+       }
+@@ -552,7 +552,7 @@ static curl_socket_t mqttit(curl_socket_
+       /* two bytes topic length */
+       topic_len = (size_t)(buffer[2] << 8) | buffer[3];
+       if(topic_len != (remaining_length - 5)) {
+-        logmsg("Wrong topic length, got %zu expected %zu",
++        logmsg("Wrong topic length, got %u expected %u",
+                topic_len, remaining_length - 5);
+         goto end;
+       }
+@@ -606,7 +606,7 @@ static curl_socket_t mqttit(curl_socket_
+       logprotocol(FROM_CLIENT, "PUBLISH", remaining_length, dump, buffer, rc);
+ 
+       topiclen = (size_t)(buffer[1 + bytes] << 8) | buffer[2 + bytes];
+-      logmsg("Got %zu bytes topic", topiclen);
++      logmsg("Got %u bytes topic", topiclen);
+ 
+ #ifdef QOS
+       /* Handle packetid if there is one. Send puback if QoS > 0 */
+@@ -616,7 +616,7 @@ static curl_socket_t mqttit(curl_socket_
+       /* get the request */
+       rc = sread(fd, (char *)&buffer[0], 2);
+ 
+-      logmsg("READ %zd bytes [DISCONNECT]", rc);
++      logmsg("READ %d bytes [DISCONNECT]", rc);
+       loghex(buffer, rc);
+       logprotocol(FROM_CLIENT, "DISCONNECT", 0, dump, buffer, rc);
+       goto end;
+diff -up curl-8.18.0/tests/server/rtspd.c.no_z curl-8.18.0/tests/server/rtspd.c
+--- curl-8.18.0/tests/server/rtspd.c.no_z	2026-01-07 07:57:50.000000000 +0000
++++ curl-8.18.0/tests/server/rtspd.c	2026-02-24 20:40:53.952112000 +0000
+@@ -333,7 +333,7 @@ static int rtspd_ProcessRequest(struct r
+                   req->rtp_buffersize += rtp_size + 4;
+                   free(rtp_scratch);
+                 }
+-                logmsg("rtp_buffersize is %zu, rtp_size is %d.",
++                logmsg("rtp_buffersize is %u, rtp_size is %d.",
+                        req->rtp_buffersize, rtp_size);
+               }
+             }
+@@ -430,9 +430,9 @@ static int rtspd_ProcessRequest(struct r
+       }
+       req->cl = (size_t)clen - req->skip;
+ 
+-      logmsg("Found Content-Length: %zu in the request", (size_t)clen);
++      logmsg("Found Content-Length: %u in the request", (size_t)clen);
+       if(req->skip)
+-        logmsg("... but will abort after %zu bytes", req->cl);
++        logmsg("... but will abort after %u bytes", req->cl);
+       break;
+     }
+     else if(!CURL_STRNICMP("Transfer-Encoding: chunked", line,
+@@ -476,7 +476,7 @@ static int rtspd_ProcessRequest(struct r
+     req->ntlm = TRUE; /* NTLM found */
+     logmsg("Received NTLM type-3, sending back data %ld", req->partno);
+     if(req->cl) {
+-      logmsg("  Expecting %zu POSTed bytes", req->cl);
++      logmsg("  Expecting %u POSTed bytes", req->cl);
+     }
+   }
+   else if(!req->ntlm &&
+@@ -579,11 +579,11 @@ static void rtspd_storerequest(char *req
+   } while((writeleft > 0) && (error == EINTR));
+ 
+   if(writeleft == 0)
+-    logmsg("Wrote request (%zu bytes) input to %s", totalsize, dumpfile);
++    logmsg("Wrote request (%u bytes) input to %s", totalsize, dumpfile);
+   else if(writeleft > 0) {
+     logmsg("Error writing file %s error (%d) %s", dumpfile,
+            error, curlx_strerror(error, errbuf, sizeof(errbuf)));
+-    logmsg("Wrote only (%zu bytes) of (%zu bytes) request input to %s",
++    logmsg("Wrote only (%u bytes) of (%u bytes) request input to %s",
+            totalsize - writeleft, totalsize, dumpfile);
+   }
+ 
+@@ -671,7 +671,7 @@ static int rtspd_get_request(curl_socket
+       return 1;
+     }
+ 
+-    logmsg("Read %zd bytes", got);
++    logmsg("Read %d bytes", got);
+ 
+     req->offset += (size_t)got;
+     reqbuf[req->offset] = '\0';
+@@ -896,7 +896,7 @@ static int rtspd_send_doc(curl_socket_t
+       break;
+     }
+     else {
+-      logmsg("Sent off %zd bytes", written);
++      logmsg("Sent off %d bytes", written);
+     }
+     /* write to file as well */
+     fwrite(buffer, 1, (size_t)written, dump);
+@@ -909,7 +909,7 @@ static int rtspd_send_doc(curl_socket_t
+ 
+   /* Send out any RTP data */
+   if(req->rtp_buffer) {
+-    logmsg("About to write %zu RTP bytes", req->rtp_buffersize);
++    logmsg("About to write %u RTP bytes", req->rtp_buffersize);
+     count = req->rtp_buffersize;
+     do {
+       size_t num = count;
+@@ -940,15 +940,15 @@ static int rtspd_send_doc(curl_socket_t
+   }
+ 
+   if(sendfailure) {
+-    logmsg("Sending response failed. Only (%zu bytes) of "
+-           "(%zu bytes) were sent",
++    logmsg("Sending response failed. Only (%u bytes) of "
++           "(%u bytes) were sent",
+            responsesize - count, responsesize);
+     free(ptr);
+     free(cmd);
+     return -1;
+   }
+ 
+-  logmsg("Response sent (%zu bytes) and written to %s",
++  logmsg("Response sent (%u bytes) and written to %s",
+          responsesize, responsedump);
+   free(ptr);
+ 
+diff -up curl-8.18.0/tests/server/sockfilt.c.no_z curl-8.18.0/tests/server/sockfilt.c
+--- curl-8.18.0/tests/server/sockfilt.c.no_z	2026-01-07 07:57:50.000000000 +0000
++++ curl-8.18.0/tests/server/sockfilt.c	2026-02-24 20:41:59.062354000 +0000
+@@ -224,7 +224,7 @@ static ssize_t fullread(int filedes, voi
+   } while((size_t)nread < nbytes);
+ 
+   if(verbose)
+-    logmsg("read %zd bytes", nread);
++    logmsg("read %d bytes", nread);
+ 
+   return nread;
+ }
+@@ -273,7 +273,7 @@ static ssize_t fullwrite(int filedes, co
+   } while((size_t)nwrite < nbytes);
+ 
+   if(verbose)
+-    logmsg("wrote %zd bytes", nwrite);
++    logmsg("wrote %d bytes", nwrite);
+ 
+   return nwrite;
+ }
+@@ -379,11 +379,11 @@ static bool read_data_block(unsigned cha
+   }
+   *buffer_len = (ssize_t)value;
+   if(*buffer_len > maxlen) {
+-    logmsg("Buffer size (%zd bytes) too small for data size error "
+-           "(%zd bytes)", maxlen, *buffer_len);
++    logmsg("Buffer size (%d bytes) too small for data size error "
++           "(%d bytes)", maxlen, *buffer_len);
+     return FALSE;
+   }
+-  logmsg("> %zd bytes data, server => client", *buffer_len);
++  logmsg("> %d bytes data, server => client", *buffer_len);
+ 
+   if(!read_stdin(buffer, *buffer_len))
+     return FALSE;
+@@ -1118,7 +1118,7 @@ static bool juggle(curl_socket_t *sockfd
+         /* send away on the socket */
+         ssize_t bytes_written = swrite(sockfd, buffer, buffer_len);
+         if(bytes_written != buffer_len) {
+-          logmsg("Not all data was sent. Bytes to send: %zd sent: %zd",
++          logmsg("Not all data was sent. Bytes to send: %d sent: %d",
+                  buffer_len, bytes_written);
+         }
+       }
+@@ -1173,7 +1173,7 @@ static bool juggle(curl_socket_t *sockfd
+       if(!write_stdout(buffer, nread_socket))
+         return FALSE;
+ 
+-      logmsg("< %zd bytes data, client => server", nread_socket);
++      logmsg("< %d bytes data, client => server", nread_socket);
+       lograw(buffer, nread_socket);
+     }
+ 
+diff -up curl-8.18.0/tests/server/socksd.c.no_z curl-8.18.0/tests/server/socksd.c
+--- curl-8.18.0/tests/server/socksd.c.no_z	2026-01-07 07:57:50.000000000 +0000
++++ curl-8.18.0/tests/server/socksd.c	2026-02-24 20:40:53.958159000 +0000
+@@ -253,7 +253,7 @@ static curl_socket_t socks4(curl_socket_
+     return CURL_SOCKET_BAD;
+   }
+   if(rc < 9) {
+-    logmsg("SOCKS4 connect message too short: %zd", rc);
++    logmsg("SOCKS4 connect message too short: %d", rc);
+     return CURL_SOCKET_BAD;
+   }
+   if(!s_config.port)
+@@ -280,7 +280,7 @@ static curl_socket_t socks4(curl_socket_
+     logmsg("Sending SOCKS4 response failed!");
+     return CURL_SOCKET_BAD;
+   }
+-  logmsg("Sent %zd bytes", rc);
++  logmsg("Sent %d bytes", rc);
+   loghex(response, rc);
+ 
+   if(cd == 90)
+@@ -310,18 +310,18 @@ static curl_socket_t sockit(curl_socket_
+ 
+   rc = recv(fd, (char *)buffer, sizeof(buffer), 0);
+   if(rc <= 0) {
+-    logmsg("SOCKS identifier message missing, recv returned %zd", rc);
++    logmsg("SOCKS identifier message missing, recv returned %d", rc);
+     return CURL_SOCKET_BAD;
+   }
+ 
+-  logmsg("READ %zd bytes", rc);
++  logmsg("READ %d bytes", rc);
+   loghex(buffer, rc);
+ 
+   if(buffer[SOCKS5_VERSION] == 4)
+     return socks4(fd, buffer, rc);
+ 
+   if(rc < 3) {
+-    logmsg("SOCKS5 identifier message too short: %zd", rc);
++    logmsg("SOCKS5 identifier message too short: %d", rc);
+     return CURL_SOCKET_BAD;
+   }
+ 
+@@ -338,7 +338,7 @@ static curl_socket_t sockit(curl_socket_
+   /* after NMETHODS follows that many bytes listing the methods the client
+      says it supports */
+   if(rc != (buffer[SOCKS5_NMETHODS] + 2)) {
+-    logmsg("Expected %d bytes, got %zd", buffer[SOCKS5_NMETHODS] + 2, rc);
++    logmsg("Expected %d bytes, got %d", buffer[SOCKS5_NMETHODS] + 2, rc);
+     return CURL_SOCKET_BAD;
+   }
+   logmsg("Incoming request deemed fine!");
+@@ -351,17 +351,17 @@ static curl_socket_t sockit(curl_socket_
+     logmsg("Sending response failed!");
+     return CURL_SOCKET_BAD;
+   }
+-  logmsg("Sent %zd bytes", rc);
++  logmsg("Sent %d bytes", rc);
+   loghex(response, rc);
+ 
+   /* expect the request or auth */
+   rc = recv(fd, (char *)buffer, sizeof(buffer), 0);
+   if(rc <= 0) {
+-    logmsg("SOCKS5 request or auth message missing, recv returned %zd", rc);
++    logmsg("SOCKS5 request or auth message missing, recv returned %d", rc);
+     return CURL_SOCKET_BAD;
+   }
+ 
+-  logmsg("READ %zd bytes", rc);
++  logmsg("READ %d bytes", rc);
+   loghex(buffer, rc);
+ 
+   if(s_config.responsemethod == 2) {
+@@ -376,7 +376,7 @@ static curl_socket_t sockit(curl_socket_
+     unsigned char plen;
+     bool login = TRUE;
+     if(rc < 5) {
+-      logmsg("Too short auth input: %zd", rc);
++      logmsg("Too short auth input: %d", rc);
+       return CURL_SOCKET_BAD;
+     }
+     if(buffer[SOCKS5_VERSION] != 1) {
+@@ -385,12 +385,12 @@ static curl_socket_t sockit(curl_socket_
+     }
+     ulen = buffer[SOCKS5_ULEN];
+     if(rc < 4 + ulen) {
+-      logmsg("Too short packet for username: %zd", rc);
++      logmsg("Too short packet for username: %d", rc);
+       return CURL_SOCKET_BAD;
+     }
+     plen = buffer[SOCKS5_ULEN + ulen + 1];
+     if(rc < 3 + ulen + plen) {
+-      logmsg("Too short packet for ulen %d plen %d: %zd", ulen, plen, rc);
++      logmsg("Too short packet for ulen %d plen %d: %d", ulen, plen, rc);
+       return CURL_SOCKET_BAD;
+     }
+     if((ulen != strlen(s_config.user)) ||
+@@ -408,7 +408,7 @@ static curl_socket_t sockit(curl_socket_
+       logmsg("Sending auth response failed!");
+       return CURL_SOCKET_BAD;
+     }
+-    logmsg("Sent %zd bytes", rc);
++    logmsg("Sent %d bytes", rc);
+     loghex(response, rc);
+     if(!login)
+       return CURL_SOCKET_BAD;
+@@ -416,15 +416,15 @@ static curl_socket_t sockit(curl_socket_
+     /* expect the request */
+     rc = recv(fd, (char *)buffer, sizeof(buffer), 0);
+     if(rc <= 0) {
+-      logmsg("SOCKS5 request message missing, recv returned %zd", rc);
++      logmsg("SOCKS5 request message missing, recv returned %d", rc);
+       return CURL_SOCKET_BAD;
+     }
+ 
+-    logmsg("READ %zd bytes", rc);
++    logmsg("READ %d bytes", rc);
+     loghex(buffer, rc);
+   }
+   if(rc < 6) {
+-    logmsg("Too short for request: %zd", rc);
++    logmsg("Too short for request: %d", rc);
+     return CURL_SOCKET_BAD;
+   }
+ 
+@@ -469,7 +469,7 @@ static curl_socket_t sockit(curl_socket_
+     return CURL_SOCKET_BAD;
+   }
+   if(rc < (4 + len + 2)) {
+-    logmsg("Request too short: %zd, expected %d", rc, 4 + len + 2);
++    logmsg("Request too short: %d, expected %d", rc, 4 + len + 2);
+     return CURL_SOCKET_BAD;
+   }
+   logmsg("Received ATYP %d", type);
+@@ -555,7 +555,7 @@ static curl_socket_t sockit(curl_socket_
+     logmsg("Sending connect response failed!");
+     return CURL_SOCKET_BAD;
+   }
+-  logmsg("Sent %zd bytes", rc);
++  logmsg("Sent %d bytes", rc);
+   loghex(response, rc);
+ 
+   if(!rep)
+@@ -735,7 +735,7 @@ static bool socksd_incoming(curl_socket_
+       struct perclient *cp = &c[i];
+       if(cp->used) {
+         if(tunnel(cp, &fds_read)) {
+-          logmsg("SOCKS transfer completed. Bytes: < %zu > %zu",
++          logmsg("SOCKS transfer completed. Bytes: < %u > %u",
+                  cp->fromremote, cp->fromclient);
+           sclose(cp->clientfd);
+           sclose(cp->remotefd);
+diff -up curl-8.18.0/tests/server/sws.c.no_z curl-8.18.0/tests/server/sws.c
+--- curl-8.18.0/tests/server/sws.c.no_z	2026-01-07 07:57:50.000000000 +0000
++++ curl-8.18.0/tests/server/sws.c	2026-02-24 20:40:53.964133000 +0000
+@@ -314,7 +314,7 @@ static int sws_ProcessRequest(struct sws
+ 
+   req->callcount++;
+ 
+-  logmsg("Process %zu bytes request%s", req->offset,
++  logmsg("Process %u bytes request%s", req->offset,
+          req->callcount > 1 ? " [CONTINUED]" : "");
+ 
+   /* try to figure out the request characteristics as soon as possible, but
+@@ -573,9 +573,9 @@ static int sws_ProcessRequest(struct sws
+       else
+         req->cl = (size_t)clen - req->skip;
+ 
+-      logmsg("Found Content-Length: %zu in the request", (size_t)clen);
++      logmsg("Found Content-Length: %u in the request", (size_t)clen);
+       if(req->skip)
+-        logmsg("... but will abort after %zu bytes", req->cl);
++        logmsg("... but will abort after %u bytes", req->cl);
+     }
+     else if(!CURL_STRNICMP("Transfer-Encoding: chunked", line,
+                            strlen("Transfer-Encoding: chunked"))) {
+@@ -654,7 +654,7 @@ static int sws_ProcessRequest(struct sws
+     req->ntlm = TRUE; /* NTLM found */
+     logmsg("Received NTLM type-3, sending back data %ld", req->partno);
+     if(req->cl) {
+-      logmsg("  Expecting %zu POSTed bytes", req->cl);
++      logmsg("  Expecting %u POSTed bytes", req->cl);
+     }
+   }
+   else if(!req->ntlm &&
+@@ -754,11 +754,11 @@ static void sws_storerequest(const char
+   } while((writeleft > 0) && (error == EINTR));
+ 
+   if(writeleft == 0)
+-    logmsg("Wrote request (%zu bytes) input to %s", totalsize, dumpfile);
++    logmsg("Wrote request (%u bytes) input to %s", totalsize, dumpfile);
+   else if(writeleft > 0) {
+     logmsg("Error writing file %s error (%d) %s", dumpfile,
+            error, curlx_strerror(error, errbuf, sizeof(errbuf)));
+-    logmsg("Wrote only (%zu bytes) of (%zu bytes) request input to %s",
++    logmsg("Wrote only (%u bytes) of (%u bytes) request input to %s",
+            totalsize - writeleft, totalsize, dumpfile);
+   }
+ 
+@@ -826,7 +826,7 @@ static int sws_get_request(curl_socket_t
+                     sizeof(req->reqbuf) - req->offset);
+         if(got > 0) {
+           req->offset += got;
+-          logmsg("Got %zu bytes from client", got);
++          logmsg("Got %u bytes from client", got);
+         }
+ 
+         if((got == -1) &&
+@@ -912,7 +912,7 @@ static int sws_get_request(curl_socket_t
+       return -1;
+     }
+ 
+-    logmsg("Read %zd bytes", got);
++    logmsg("Read %d bytes", got);
+ 
+     req->offset += (size_t)got;
+     reqbuf[req->offset] = '\0';
+@@ -1144,7 +1144,7 @@ retry:
+       int intervals = msecs_left / MAX_SLEEP_TIME_MS;
+       if(msecs_left % MAX_SLEEP_TIME_MS)
+         intervals++;
+-      logmsg("Pausing %d milliseconds after writing %zd bytes",
++      logmsg("Pausing %d milliseconds after writing %d bytes",
+              msecs_left, written);
+       while((intervals > 0) && !got_exit_signal) {
+         int sleep_time = msecs_left > MAX_SLEEP_TIME_MS ?
+@@ -1168,7 +1168,7 @@ retry:
+   }
+ 
+   if(sendfailure) {
+-    logmsg("Sending response failed. Only (%zu bytes) of (%zu bytes) "
++    logmsg("Sending response failed. Only (%u bytes) of (%u bytes) "
+            "were sent",
+            responsesize - count, responsesize);
+     sws_prevtestno = req->testno;
+@@ -1178,7 +1178,7 @@ retry:
+     return -1;
+   }
+ 
+-  logmsg("Response sent (%zu bytes) and written to %s",
++  logmsg("Response sent (%u bytes) and written to %s",
+          responsesize, responsedump);
+   free(ptr);
+ 
+@@ -1627,12 +1627,12 @@ static void http_connect(curl_socket_t *
+             /* read from client */
+             rc = sread(clientfd[i], &readclient[i][tos[i]], len);
+             if(rc <= 0) {
+-              logmsg("[%s] got %zd, STOP READING client", data_or_ctrl(i), rc);
++              logmsg("[%s] got %d, STOP READING client", data_or_ctrl(i), rc);
+               shutdown(clientfd[i], SHUT_RD);
+               poll_client_rd[i] = FALSE;
+             }
+             else {
+-              logmsg("[%s] READ %zd bytes from client", data_or_ctrl(i), rc);
++              logmsg("[%s] READ %d bytes from client", data_or_ctrl(i), rc);
+               logmsg("[%s] READ \"%s\"", data_or_ctrl(i),
+                      data_to_hex(&readclient[i][tos[i]], rc));
+               tos[i] += rc;
+@@ -1645,12 +1645,12 @@ static void http_connect(curl_socket_t *
+             /* read from server */
+             rc = sread(serverfd[i], &readserver[i][toc[i]], len);
+             if(rc <= 0) {
+-              logmsg("[%s] got %zd, STOP READING server", data_or_ctrl(i), rc);
++              logmsg("[%s] got %d, STOP READING server", data_or_ctrl(i), rc);
+               shutdown(serverfd[i], SHUT_RD);
+               poll_server_rd[i] = FALSE;
+             }
+             else {
+-              logmsg("[%s] READ %zd bytes from server", data_or_ctrl(i), rc);
++              logmsg("[%s] READ %d bytes from server", data_or_ctrl(i), rc);
+               logmsg("[%s] READ \"%s\"", data_or_ctrl(i),
+                      data_to_hex(&readserver[i][toc[i]], rc));
+               toc[i] += rc;
+@@ -1662,13 +1662,13 @@ static void http_connect(curl_socket_t *
+             /* write to client */
+             rc = swrite(clientfd[i], readserver[i], toc[i]);
+             if(rc <= 0) {
+-              logmsg("[%s] got %zd, STOP WRITING client", data_or_ctrl(i), rc);
++              logmsg("[%s] got %d, STOP WRITING client", data_or_ctrl(i), rc);
+               shutdown(clientfd[i], SHUT_WR);
+               poll_client_wr[i] = FALSE;
+               tcp_fin_wr = TRUE;
+             }
+             else {
+-              logmsg("[%s] SENT %zd bytes to client", data_or_ctrl(i), rc);
++              logmsg("[%s] SENT %d bytes to client", data_or_ctrl(i), rc);
+               logmsg("[%s] SENT \"%s\"", data_or_ctrl(i),
+                      data_to_hex(readserver[i], rc));
+               if(toc[i] - rc)
+@@ -1682,13 +1682,13 @@ static void http_connect(curl_socket_t *
+             /* write to server */
+             rc = swrite(serverfd[i], readclient[i], tos[i]);
+             if(rc <= 0) {
+-              logmsg("[%s] got %zd, STOP WRITING server", data_or_ctrl(i), rc);
++              logmsg("[%s] got %d, STOP WRITING server", data_or_ctrl(i), rc);
+               shutdown(serverfd[i], SHUT_WR);
+               poll_server_wr[i] = FALSE;
+               tcp_fin_wr = TRUE;
+             }
+             else {
+-              logmsg("[%s] SENT %zd bytes to server", data_or_ctrl(i), rc);
++              logmsg("[%s] SENT %d bytes to server", data_or_ctrl(i), rc);
+               logmsg("[%s] SENT \"%s\"", data_or_ctrl(i),
+                      data_to_hex(readclient[i], rc));
+               if(tos[i] - rc)
+diff -up curl-8.18.0/tests/server/tftpd.c.no_z curl-8.18.0/tests/server/tftpd.c
+--- curl-8.18.0/tests/server/tftpd.c.no_z	2026-01-07 07:57:50.000000000 +0000
++++ curl-8.18.0/tests/server/tftpd.c	2026-02-24 20:41:59.077063000 +0000
+@@ -1215,7 +1215,7 @@ send_data:
+ #endif
+       logmsg("read");
+       n = sread(peer, &ackbuf.storage[0], sizeof(ackbuf.storage));
+-      logmsg("read: %zd", n);
++      logmsg("read: %d", n);
+ #ifdef HAVE_ALARM
+       alarm(0);
+ #endif
+@@ -1286,7 +1286,7 @@ send_ack:
+ #endif
+       logmsg("read");
+       n = sread(peer, rdp, PKTSIZE);
+-      logmsg("read: %zd", n);
++      logmsg("read: %d", n);
+ #ifdef HAVE_ALARM
+       alarm(0);
+ #endif
+diff -up curl-8.18.0/tests/server/util.c.no_z curl-8.18.0/tests/server/util.c
+--- curl-8.18.0/tests/server/util.c.no_z	2026-01-07 07:57:50.000000000 +0000
++++ curl-8.18.0/tests/server/util.c	2026-02-24 20:41:59.082255000 +0000
+@@ -691,7 +691,7 @@ int bind_unix_socket(curl_socket_t sock,
+   memset(sau, 0, sizeof(struct sockaddr_un));
+   sau->sun_family = AF_UNIX;
+   if(len >= sizeof(sau->sun_path) - 1) {
+-    logmsg("Too long unix socket domain path (%zd)", len);
++    logmsg("Too long unix socket domain path (%d)", len);
+     return -1;
+   }
+   curlx_strcopy(sau->sun_path, sizeof(sau->sun_path), unix_socket, len);
