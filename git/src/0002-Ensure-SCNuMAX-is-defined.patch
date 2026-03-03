@@ -1,4 +1,4 @@
-From 348e8a06cc3b26369d2c094b60b9316eb4ef538f Mon Sep 17 00:00:00 2001
+From cfefeb95a678ad370299e7127b87fa854e4ccfea Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Sun, 5 Jun 2022 10:45:03 +0200
 Subject: [PATCH 02/12] Ensure SCNuMAX is defined
@@ -8,10 +8,10 @@ Subject: [PATCH 02/12] Ensure SCNuMAX is defined
  1 file changed, 4 insertions(+)
 
 diff --git a/git-compat-util.h b/git-compat-util.h
-index a3fad66633..668fbdbd0d 100644
+index debf09ae2d..c4a231e79d 100644
 --- a/git-compat-util.h
 +++ b/git-compat-util.h
-@@ -1496,3 +1496,7 @@ int csprng_bytes(void *buf, size_t len);
+@@ -1106,3 +1106,7 @@ extern int not_supposed_to_survive;
  #if !defined(INET6_ADDRSTRLEN) && !defined(NO_IPV6)
  #define INET6_ADDRSTRLEN 46
  #endif
@@ -20,5 +20,5 @@ index a3fad66633..668fbdbd0d 100644
 +#define SCNuMAX PRIuMAX
 +#endif
 -- 
-2.36.1
+2.43.7
 

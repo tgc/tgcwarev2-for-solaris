@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=2.36.6
+version=2.53.0
 pkgver=1
 source[0]=https://www.kernel.org/pub/software/scm/git/$topdir-$version.tar.gz
 source[1]=https://www.kernel.org/pub/software/scm/git/$topdir-manpages-$version.tar.gz
@@ -21,19 +21,11 @@ patch[6]=0007-Solaris-2.6-needs-libresolv.patch
 patch[7]=0008-Use-better-shell-in-t5545.patch
 patch[8]=0009-Use-better-shell-in-t5801-helper.patch
 patch[9]=0010-Avoid-stdint.h.patch
-patch[10]=0011-Workaround-for-fileno-being-a-macro.patch
-[ $(uname -r) = "5.7" ] && patch[11]=0012-UTC-is-GMT-on-Solaris-8.patch
+patch[10]=0012-Use-better-shell-in-templates-Makefile.patch
+[ $(uname -r) = "5.7" ] && patch[11]=0011-UTC-is-GMT-on-Solaris-8.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
-
-# Consistently failing tests
-# Solaris <= 9
-#t3701.53 - diffFilter filters diff
-# Solaris <= 8
-#t8010.9 - cat-file --textconv --batch works
-# cat-file --textconv is buggy. As soon as the textconv command is triggered on
-# an input line all subsequent input lines are dropped from the output.
 
 # Global settings
 no_configure=1
@@ -101,7 +93,7 @@ install()
     setdir ${stagedir}${prefix}/${_mandir}
     ${__tar} -xf $(get_source_absfilename "${source[1]}")
     chmod 755 ${stagedir}${prefix}/${_mandir}
-    doc COPYING Documentation/RelNotes/${version}.txt README.md
+    doc COPYING Documentation/RelNotes/${version}.adoc README.md
 
     # fix git symlink
     ${__rm} -f ${stagedir}${prefix}/libexec/git-core/git

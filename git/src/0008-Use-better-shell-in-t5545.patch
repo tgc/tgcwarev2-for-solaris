@@ -1,4 +1,4 @@
-From 1019f9707006e87c308f01284fbf89183e4c3b0f Mon Sep 17 00:00:00 2001
+From 36af16b3b06aad5781db3a84b0ad109fe79937d6 Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Fri, 3 Jun 2022 21:50:15 +0200
 Subject: [PATCH 08/12] Use better shell in t5545
@@ -8,7 +8,7 @@ Subject: [PATCH 08/12] Use better shell in t5545
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/t/t5545-push-options.sh b/t/t5545-push-options.sh
-index 214228349a..deacfd910b 100755
+index fb13549da7..416b660234 100755
 --- a/t/t5545-push-options.sh
 +++ b/t/t5545-push-options.sh
 @@ -1,4 +1,4 @@
@@ -36,5 +36,5 @@ index 214228349a..deacfd910b 100755
  			i=0
  			>hooks/post-receive.push_options
 -- 
-2.36.1
+2.43.7
 

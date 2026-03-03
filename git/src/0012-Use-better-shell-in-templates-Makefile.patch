@@ -1,0 +1,24 @@
+From 02a4dcac95106c7ca9a7fda299a44a27c1309097 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Mon, 2 Mar 2026 21:19:41 +0100
+Subject: [PATCH 12/12] Use better shell in templates/Makefile
+
+---
+ templates/Makefile | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/templates/Makefile b/templates/Makefile
+index 722755338d..5c23c41897 100644
+--- a/templates/Makefile
++++ b/templates/Makefile
+@@ -11,6 +11,7 @@ RM ?= rm -f
+ prefix ?= $(HOME)
+ template_instdir ?= $(prefix)/share/git-core/templates
+ # DESTDIR=
++SHELL = /bin/ksh
+ 
+ ifndef SHELL_PATH
+ 	SHELL_PATH = /bin/sh
+-- 
+2.43.7
+

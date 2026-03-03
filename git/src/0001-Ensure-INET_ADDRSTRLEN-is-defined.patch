@@ -1,4 +1,4 @@
-From 8f02890504e38cfc218cd424e2fe20c41798773f Mon Sep 17 00:00:00 2001
+From 55fb15c78cbb5b0a43181b3d6014eef8da69fef8 Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Fri, 3 Jun 2022 21:46:42 +0200
 Subject: [PATCH 01/12] Ensure INET_ADDRSTRLEN is defined
@@ -8,11 +8,11 @@ Subject: [PATCH 01/12] Ensure INET_ADDRSTRLEN is defined
  1 file changed, 7 insertions(+)
 
 diff --git a/git-compat-util.h b/git-compat-util.h
-index 58fd813bd0..a3fad66633 100644
+index bebcf9f698..debf09ae2d 100644
 --- a/git-compat-util.h
 +++ b/git-compat-util.h
-@@ -1489,3 +1489,10 @@ void sleep_millisec(int millisec);
- int csprng_bytes(void *buf, size_t len);
+@@ -1099,3 +1099,10 @@ extern int not_supposed_to_survive;
+ #endif /* CHECK_ASSERTION_SIDE_EFFECTS */
  
  #endif
 +
@@ -23,5 +23,5 @@ index 58fd813bd0..a3fad66633 100644
 +#define INET6_ADDRSTRLEN 46
 +#endif
 -- 
-2.36.1
+2.43.7
 
