@@ -1,4 +1,4 @@
-From 1c746fd4a773d9c90c6b7eae7dd248cbc361e7c8 Mon Sep 17 00:00:00 2001
+From 17f9ee93c98e798e21d5d9afa000de1fcb585087 Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Sun, 2 Jan 2022 15:51:24 +0100
 Subject: [PATCH 6/6] Use target CPU choice on SPARC
@@ -14,7 +14,7 @@ error later since the sparcv9 DES code is not included in this target.
  3 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/crypto/evp/e_des.c b/crypto/evp/e_des.c
-index 71c24353ed..a0c60c07d3 100644
+index 8c31b51154..9f21f955dc 100644
 --- a/crypto/evp/e_des.c
 +++ b/crypto/evp/e_des.c
 @@ -34,7 +34,7 @@ typedef struct {
@@ -27,7 +27,7 @@ index 71c24353ed..a0c60c07d3 100644
   * assembler support was in general requested... */
  #include "crypto/sparc_arch.h"
 diff --git a/crypto/evp/e_des3.c b/crypto/evp/e_des3.c
-index b30489d5e0..985af647bf 100644
+index 2df6eaf2c2..3bad6c45a2 100644
 --- a/crypto/evp/e_des3.c
 +++ b/crypto/evp/e_des3.c
 @@ -37,7 +37,7 @@ typedef struct {

@@ -1,4 +1,4 @@
-From 7ab40e71d2f46c2a7dd41a59b44773f2f12b6b5e Mon Sep 17 00:00:00 2001
+From 391e9aded8f0c61521736d62a34797ad9d5721f2 Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Wed, 27 Oct 2021 21:33:59 +0200
 Subject: [PATCH 4/6] Handle missing <stdint.h> on older Solaris

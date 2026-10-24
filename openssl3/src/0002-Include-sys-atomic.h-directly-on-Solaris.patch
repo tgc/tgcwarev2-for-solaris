@@ -1,4 +1,4 @@
-From 82047282bf747702a7097a55536a98b542cd9f25 Mon Sep 17 00:00:00 2001
+From b9b209bea38588112ad2c21d5d167702256eb5e6 Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Wed, 27 Oct 2021 20:38:52 +0200
 Subject: [PATCH 2/6] Include <sys/atomic.h> directly on Solaris

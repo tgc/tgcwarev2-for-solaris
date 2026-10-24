@@ -1,4 +1,4 @@
-From 381bf1673d18e5e8c8547b86cf7e0dfe86d2a3c7 Mon Sep 17 00:00:00 2001
+From a3e5907a19a1c1e40fe4f8b10e4e1a52fc83ddab Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
 Date: Wed, 27 Oct 2021 20:15:30 +0200
 Subject: [PATCH 1/6] Fix fallback for missing getaddrinfo()

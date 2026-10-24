@@ -1,23 +1,25 @@
-From e8de3e94ae3716bfa11d83f5e74e66f810059eff Mon Sep 17 00:00:00 2001
+From 24863c5a6124313f1fa91f9de98707ede6570eac Mon Sep 17 00:00:00 2001
 From: "Tom G. Christensen" <tgc@jupiterrise.com>
-Date: Wed, 27 Oct 2021 20:48:25 +0200
+Date: Thu, 22 Oct 2026 20:33:42 +0200
 Subject: [PATCH 3/6] Provide socklen_t on Solaris 2.6
 
 ---
- crypto/bio/bio_local.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ crypto/bio/bio_local.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/crypto/bio/bio_local.h b/crypto/bio/bio_local.h
-index d608a17b7d..4b247710ed 100644
+index d608a17b7d..2fa4628b17 100644
 --- a/crypto/bio/bio_local.h
 +++ b/crypto/bio/bio_local.h
-@@ -141,6 +141,10 @@ struct bio_st {
+@@ -141,6 +141,12 @@ struct bio_st {
  typedef unsigned int socklen_t;
  #endif
  
-+# if !defined(socklen_t) && ((defined(sun) || defined(__sun)))
++#if defined(__sun) && defined(__SVR4)
++#ifndef _SOCKLEN_T
 +typedef size_t socklen_t;
-+# endif
++#endif
++#endif
 +
  extern CRYPTO_RWLOCK *bio_lookup_lock;
  
